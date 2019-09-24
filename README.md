@@ -34,7 +34,7 @@ Backend:
 </details>
 
 ## TODO
-<details open>
+<details>
 <summary>Show pending Login</summary>
 
 ### User Story II: Login
@@ -49,7 +49,7 @@ Backend:
 
 </details>
 
-<details open>
+<details>
 <summary>Show pending Logout</summary>
 
 ### User Story III: Logout
@@ -63,7 +63,7 @@ Backend:
 
 </details>
 
-<details open>
+<details>
 <summary>Show pending Landing Page</summary>
 
 ### User Story IV: Landing Page
@@ -76,7 +76,7 @@ Backend:
 
 </details>
 
-<details open>
+<details>
 <summary>Show pending Publish and Sharing</summary>
 
 ### User Story V: Publish and Sharing
