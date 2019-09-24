@@ -1,9 +1,8 @@
 # Chainedout
 
-
 ## Sprint I
 <details open>
-<summary> Show Sprint</summary>
+<summary>Show Sprint</summary>
 
 ### Time: 46h
 Start Project: 8h
@@ -31,4 +30,61 @@ FrontEnd:
 Backend:
 - User Model.
 - Database (sqlite by default).
- </details>
+- Files: views, urls
+</details>
+
+## TODO
+<details open>
+<summary>Show pending Login</summary>
+
+### User Story II: Login
+### STUFF
+FrontEnd:
+- Home page : Add login button
+- Login Page: Form login (back to previous page)
+
+Backend:
+- Active session control
+- Files: urls, views
+
+</details>
+
+<details open>
+<summary>Show pending Logout</summary>
+
+### User Story III: Logout
+### STUFF
+FrontEnd:
+- Home page : Add logout button (back to previous page)
+
+Backend:
+- Kill active session, logout method
+- Files: urls, views
+
+</details>
+
+<details open>
+<summary>Show pending Landing Page</summary>
+
+### User Story IV: Landing Page
+### STUFF
+FrontEnd:
+- Home Page
+
+Backend:
+- Files: urls, views
+
+</details>
+
+<details open>
+<summary>Show pending Publish and Sharing</summary>
+
+### User Story V: Publish and Sharing
+### STUFF
+FrontEnd:
+- ?
+
+Backend:
+- Files: urls, views
+
+</details>
