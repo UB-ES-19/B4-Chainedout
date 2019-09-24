@@ -1,6 +1,9 @@
-# ES2019-LinkedIn: Chainedout
+# Chainedout
+
 
 ## Sprint I
+<details open>
+<summary> Show Sprint</summary>
 
 ### Time: 46h
 Start Project: 8h
@@ -13,7 +16,7 @@ Register:
 - Frontend: 10h
 - Backend: 12h
 
-### Uer Story I: Register
+### User Story I: Register
 - As a guest user, I want to registerso so that I can browse and find a job from the website list.
 - As a guest user, I want to register so that I can offer a job and list it on the website list.
 - As a guest user, I want to register so that I can meet people.
@@ -28,3 +31,4 @@ FrontEnd:
 Backend:
 - User Model.
 - Database (sqlite by default).
+ </details>
