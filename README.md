@@ -6,24 +6,36 @@
 <summary>Show Sprint</summary>
 
 ### Time: 46h
-Start Project: 8h
+Start Project: 4h
 
 Learning:
-- From scratch: 6h
-- Remember: 10h
+- From scratch: 3h
+- Remember: 5h
 
 Register:
+- Frontend: 4h
+- Backend: 10h
+
+Log in:
+- Frontend: 4h
+- Backend: 4h
+
+Log out:
+- Frontend: 2h
+- Backend: 2h
+
+Lading page:
 - Frontend: 10h
-- Backend: 12h
+- Backend: 2h
 
 ### User Story I: Register
-- As a guest user, I want to registerso so that I can browse and find a job from the website list.
+- As a guest user, I want to register so that I can browse and find a job from the website list.
 - As a guest user, I want to register so that I can offer a job and list it on the website list.
 - As a guest user, I want to register so that I can meet people.
 - As a guest user, I want to register so that I can find a course or formation.
 - As a guest user, I want to register so that I can take a look at user's profiles.
 
-### STUFF
+### Issues
 FrontEnd:
 - Home Page: Header, Register button, Footer.
 - Register Page: Form (back to Home Page).
@@ -34,12 +46,10 @@ Backend:
 - Files: views, urls
 </details>
 
-## TODO
-<details>
-<summary>Show pending Login</summary>
-
 ### User Story II: Login
-### STUFF
+As a registered user i want to be able to log into my account so that i can access all website functionalities
+As an admin user i want to be able to log into my account so that i can administrate website
+### Issues
 FrontEnd:
 - Home page : Add login button
 - Login Page: Form login (back to previous page)
@@ -54,7 +64,8 @@ Backend:
 <summary>Show pending Logout</summary>
 
 ### User Story III: Logout
-### STUFF
+As a logged user i want to be able to log off my account so that i can finish my session
+### Issues
 FrontEnd:
 - Home page : Add logout button (back to previous page)
 
@@ -68,6 +79,7 @@ Backend:
 <summary>Show pending Landing Page</summary>
 
 ### User Story IV: Landing Page
+As a user i want to be able to access a home page so that i can navigate through the website.
 ### STUFF
 FrontEnd:
 - Home Page
@@ -79,6 +91,10 @@ Backend:
 
 <details>
 <summary>Show pending Publish and Sharing</summary>
+
+## TODO
+<details>
+<summary>Show pending Login</summary>
 
 ### User Story V: Publish and Sharing
 ### STUFF
