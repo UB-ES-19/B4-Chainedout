@@ -44,7 +44,6 @@ Backend:
 - User Model.
 - Database (sqlite by default).
 - Files: views, urls
-</details>
 
 ### User Story II: Login
 As a registered user i want to be able to log into my account so that i can access all website functionalities
@@ -58,11 +57,6 @@ Backend:
 - Active session control
 - Files: urls, views
 
-</details>
-
-<details>
-<summary>Show pending Logout</summary>
-
 ### User Story III: Logout
 As a logged user i want to be able to log off my account so that i can finish my session
 ### Issues
@@ -72,11 +66,6 @@ FrontEnd:
 Backend:
 - Kill active session, logout method
 - Files: urls, views
-
-</details>
-
-<details>
-<summary>Show pending Landing Page</summary>
 
 ### User Story IV: Landing Page
 As a user i want to be able to access a home page so that i can navigate through the website.
@@ -89,12 +78,9 @@ Backend:
 
 </details>
 
-<details>
-<summary>Show pending Publish and Sharing</summary>
-
 ## TODO
 <details>
-<summary>Show pending Login</summary>
+<summary>Show pending Publish and Sharing</summary>
 
 ### User Story V: Publish and Sharing
 ### STUFF
