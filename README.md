@@ -85,7 +85,7 @@ Backend:
 ### User Story V: Publish and Sharing
 ### STUFF
 FrontEnd:
-- ?
+- N
 
 Backend:
 - Files: urls, views
