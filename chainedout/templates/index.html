@@ -11,7 +11,11 @@
 {% include "header.html" %}
 </nav>
 
+<div id="content">
 {% include "content.html" %}
+</div>
+
+<li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in" style="margin-right: 10px"></span>Login</a></li>
 
 <footer>
 {% include "footer.html" %}
