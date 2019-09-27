@@ -1,24 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="/static/style/stylesheet.css?{% now "U" %}">
-    <!-- FontAwesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <title>Chainedout</title>
-</head>
-<body>
-
-<nav>
 {% include "header.html" %}
-</nav>
+
+{% block content %}
 
 <div id="content">
 {% include "content.html" %}
 </div>
 
-<footer>
-{% include "footer.html" %}
-</footer>
-</body>
-</html>
+{% endblock %}
+
