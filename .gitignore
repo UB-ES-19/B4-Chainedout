@@ -279,3 +279,8 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.gitignore.io/api/linux,macos,django,pycharm,windows
+.idea/B4-Chainedout.iml
+.idea/inspectionProfiles/profiles_settings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
