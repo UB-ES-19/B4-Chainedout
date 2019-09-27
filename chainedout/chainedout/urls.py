@@ -14,10 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import include, path
+from django.urls import path, include
+
+from web_chainedout import views as coutviews
 
 urlpatterns = [
-    path('web_chainedout/', include('web_chainedout.urls')),
-    path('', include('web_chainedout.urls')),
+    path('', coutviews.index, name="index"),
+    path('chainedout/', include('web_chainedout.urls')),
     path('admin/', admin.site.urls),
 ]
