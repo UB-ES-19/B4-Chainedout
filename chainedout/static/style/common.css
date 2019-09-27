@@ -95,8 +95,12 @@ body {
 .modal-content {
   background-color: #fefefe;
   margin: 5px auto; /* 15% from the top and centered */
+  margin-top: 50px;
   border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
+  width: 40%; /* Could be more or less, depending on screen size */
+  height: 520px;
+  border: 2px solid #fff;
+  border-radius: 20px;
 }
 
 /* The Close Button */
@@ -140,32 +144,33 @@ input[type=text].login_modal_input, input[type=password].login_modal_input {
   margin: 8px 0;
   display: inline-block;
   border: 1px solid #ccc;
+  border-radius: 10px;
   box-sizing: border-box;
 }
 
+.login_modal_input{
+  font-size: 0.8em;
+}
 /* Set a style for all buttons */
 button.login_modal_btn {
-  background-color: #4CAF50;
-  width: 100%;
+  background-color: #00302f;
+  width: 15%;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  float: right;
 }
 
-button.login_modal_btn, button.login_modal_cancelbtn {
+button.login_modal_btn{
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
   border: none;
   cursor: pointer;
+  font-size: 1em;
 }
 
-button:hover.login_modal_btn, button:hover.login_modal_cancelbtn {
+button:hover.login_modal_btn{
   opacity: 0.8;
-}
-
-/* Extra styles for the cancel button */
-.login_modal_cancelbtn {
-  width: auto;
-  padding: 10px 18px;
-  background-color: #f44336;
 }
 
 /* Center the image and position the close button */
@@ -186,9 +191,10 @@ img.login_modal_avatar {
 }
 
 span.login_modal_psw {
-  float: right;
+  float: left;
   padding-top: 16px;
 }
+
 
 /* ------------------------------------- MODAL END ---------------------------------------- */
 
@@ -197,6 +203,7 @@ span.login_modal_psw {
 body .register{
   font-family: 'Poppins', Helvetica, Arial, Lucida, sans-serif;
 }
+/* ---- TEXT ----*/
 h1{
   font-weight: 600;
   text-transform: uppercase;
@@ -228,7 +235,8 @@ p{
   font-size: 22px;
   font-weight: 300;
 }
-
+/* ----- TEXT END ------ */
+/* ----- Register box ----*/
 .registerbox{
   width: 500px;
   margin: 20px auto;
@@ -273,6 +281,7 @@ input[type='checkbox']{
   top: -1px;
 }
 
+/* Register button */
 .registerbtn{
   background-color: #0F292F;
   color: white;
@@ -290,4 +299,5 @@ input[type='checkbox']{
 .registerbtn:hover{
   background-color: #14A098;;
 }
+/* ----- REGISTER BOX END ---------*/ 
 /* ----------------------------------- REGISTER END --------------------------------------- */
