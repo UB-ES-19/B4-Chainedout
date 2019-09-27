@@ -31,12 +31,8 @@ body {
 }
 
 .inner_main_menu ul li{
-    float: none;
-    display:inline-block;
-}
-
-.inner_main_menu ul li:nth-child(1), .inner_main_menu ul li:nth-child(2){
     float: right;
+    display:inline-block;
 }
 
 .inner_main_menu ul li a{
@@ -65,10 +61,10 @@ body {
     width: 100px;
     height: 60px;
     position: absolute;
-    left: 50%;
+    left: 0%;
     top: 0%;
     padding-top: 8px;
-    margin: 0 auto;
+    margin-left: 20px;
 }
 
 .logo a{
