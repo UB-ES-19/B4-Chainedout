@@ -30,13 +30,13 @@
 
 </div><!-- Main nav -->
 
-
 <!------------------------------ LOGIN MODAL START ---------------------------------->
 <!-- The Modal -->
 <div id="login_modal" class="modal">
 
   <!-- Modal Content -->
-  <form class="modal-content animate" action="#">
+  <form class="modal-content animate" method="post" action="">
+  {% csrf_token %}
 
     <div onclick="loginModal('login_modal', 'none')" class="close" title="Close Modal">&times;</div>
     <div class="login_modal_imgcontainer">
@@ -44,11 +44,11 @@
     </div>
 
     <div class="login_modal_container">
-      <label for="uname"><b>Username</b></label>
-      <input class="login_modal_input" type="text" placeholder="Enter Username" name="uname" required>
+      <label for="username"><b>Username</b></label>
+      <input class="login_modal_input" type="text" placeholder="Enter Username" id="username" name="username" required>
 
-      <label for="psw"><b>Password</b></label>
-      <input class="login_modal_input" type="password" placeholder="Enter Password" name="psw" required>
+      <label for="password"><b>Password</b></label>
+      <input class="login_modal_input" type="password" placeholder="Enter Password" id="password" name="password" required>
 
       <button class="login_modal_btn" type="submit">Login</button>
       <label>
