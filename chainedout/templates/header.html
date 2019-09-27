@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/static/style/stylesheet.css?{% now "U" %}">
+    <script src="/static/style/script.js"></script>
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <title>Chainedout</title>
@@ -23,64 +24,43 @@
     <div class="inner_main_menu">
         <ul>
             <li><a id = "register" class="register" href="#"><i class="fa fa-fw fa-user-plus"></i>Register</a></li>
-            <li><a id = "login" class="login" href="#" data-toggle="modal" data-target="#loginModal"><i class="fa fa-fw fa-user"></i>Login</a></li>
+            <li><a id = "login" onclick="loginModal('login_modal', 'block')"><i class="fa fa-fw fa-user"></i>Login</a></li>
         </ul>
     </div><!-- Links to sign-in, sign up, logout -->
 
 </div><!-- Main nav -->
 
+
 <!------------------------------ LOGIN MODAL START ---------------------------------->
+<!-- The Modal -->
+<div id="login_modal" class="modal">
 
-<div class="modal" id="loginModal">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
+  <!-- Modal Content -->
+  <form class="modal-content animate" action="#">
 
-            <!-- Modal header -->
-            <div class="modal-header text-center">
-                <h4 class="modal-title w-100"><b>Login</b></h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-
-            <!-- Modal body -->
-            <div class="modal-body">
-                <form action="#">
-                    <p class="font-weight-bold">I am registered</p>
-                    <!-- Email -->
-                    <div class="form-group">
-                        <label for="email">Email *:</label>
-                        <input type="email" class="form-control" id="email" placeholder="Type your email" name="email">
-                    </div>
-                    <!-- Password -->
-                    <div class="form-group">
-                        <label for="pwd">Password *:</label>
-                        <input type="password" class="form-control" id="pwd" placeholder="Type your password" name="pswd">
-                    </div>
-                    <!-- "Stay logged" checkbox -->
-                    <div class="form-group form-check">
-                        <label class="form-check-label">
-                            <input class="form-check-input" type="checkbox" name="remember">Stay signed in
-                        </label>
-                    </div>
-                    <div class="d-flex flex-column">
-                        <h2 style = "margin-top: -48px"></h2>
-                        <a href="#" style = "margin-left: 200px">* Required</a>
-                    </div>
-                </form>
-            </div>
-
-            <!-- Modal footer -->
-            <h2 style = "margin-top: -20px"></h2>
-            <div class="modal-footer justify-content-between">
-                <div class="d-flex flex-column">
-                    <a href="#">Sign up</a>
-                    <h2 style = "margin-top: -32px"></h2>
-                    <a href="#" style = "margin-left: 145px">Can't sign in?</a>
-                </div>
-                <button type="button" class="btn btn-danger_custom" data-dismiss="modal" id="loginbutton">Sign In</button>
-            </div>
-
-        </div>
+    <div onclick="loginModal('login_modal', 'none')" class="close" title="Close Modal">&times;</div>
+    <div class="login_modal_imgcontainer">
+      <img src="/static/images/img_avatar.png" alt="Avatar" class="login_modal_avatar">
     </div>
+
+    <div class="login_modal_container">
+      <label for="uname"><b>Username</b></label>
+      <input class="login_modal_input" type="text" placeholder="Enter Username" name="uname" required>
+
+      <label for="psw"><b>Password</b></label>
+      <input class="login_modal_input" type="password" placeholder="Enter Password" name="psw" required>
+
+      <button class="login_modal_btn" type="submit">Login</button>
+      <label>
+        <input class="login_modal_input" type="checkbox" checked="checked" name="remember"> Remember me
+      </label>
+    </div>
+
+    <div class="login_modal_container" style="background-color:#f1f1f1">
+      <button class="login_modal_cancelbtn" type="button" onclick="loginModal('login_modal', 'none')">Cancel</button>
+      <span class="login_modal_psw">Forgot <a href="#">password?</a></span>
+    </div>
+  </form>
 </div>
 <!------------------------------ LOGIN MODAL END ---------------------------------->
 

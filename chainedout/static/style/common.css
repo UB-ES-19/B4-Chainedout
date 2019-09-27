@@ -103,12 +103,12 @@ body {
 /* The Close Button */
 .close {
   /* Position it in the top right corner outside of the modal */
-  position: absolute;
-  right: 25px;
-  top: 0;
   color: #000;
   font-size: 35px;
   font-weight: bold;
+  float: right;
+  margin-right: 30px;
+  margin-top: 20px;
 }
 
 /* Close button on hover */
@@ -134,5 +134,61 @@ body {
   to {transform: scale(1)}
 }
 
-/* ------------------------------------- MODAL END ---------------------------------------- */
+/* Full-width input fields */
+input[type=text].login_modal_input, input[type=password].login_modal_input {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
 
+/* Set a style for all buttons */
+button.login_modal_btn {
+  background-color: #4CAF50;
+  width: 100%;
+}
+
+button.login_modal_btn, button.login_modal_cancelbtn {
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover.login_modal_btn, button:hover.login_modal_cancelbtn {
+  opacity: 0.8;
+}
+
+/* Extra styles for the cancel button */
+.login_modal_cancelbtn {
+  width: auto;
+  padding: 10px 18px;
+  background-color: #f44336;
+}
+
+/* Center the image and position the close button */
+.login_modal_imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+  position: relative;
+  clear: both;
+}
+
+img.login_modal_avatar {
+  width: 20%;
+  border-radius: 50%;
+}
+
+.login_modal_container {
+  padding: 16px;
+}
+
+span.login_modal_psw {
+  float: right;
+  padding-top: 16px;
+}
+
+/* ------------------------------------- MODAL END ---------------------------------------- */
