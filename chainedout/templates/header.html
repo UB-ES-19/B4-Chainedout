@@ -23,8 +23,8 @@
     <!-- Links to sign-in, sign up, logout -->
     <div class="inner_main_menu">
         <ul>
-            <li><a id = "register" class="register" href="{% url 'register' %}"><i class="fa fa-fw fa-user-plus"></i>Register</a></li>
-            <li><a id = "login" onclick="loginModal('login_modal', 'block')"><i class="fa fa-fw fa-user"></i>Login</a></li>
+            <li><a id = "register" class="register" href="{% url 'register' %}"><i class="fa fa-fw fa-user-plus"></i> Register</a></li>
+            <li><a id = "login" onclick="loginModal('login_modal', 'block')"><i class="fa fa-fw fa-user"></i> Login</a></li>
         </ul>
     </div><!-- Links to sign-in, sign up, logout -->
 
@@ -49,16 +49,19 @@
 
       <label for="password"><b>Password</b></label>
       <input class="login_modal_input" type="password" placeholder="Enter Password" id="password" name="password" required>
+      
+      
 
+      <input type="checkbox" id="chkAgreeTerms" name="chkAgreeTerms" style="margin-top: 20px;">
+        <a style="font-size: 0.8em;"><label for="chkAgreeTerms" id="agreeTermsLabel">
+          Remember me
+        </label></a>
+      
+
+      <hr style="margin-top: 20px;">
       <button class="login_modal_btn" type="submit">Login</button>
-      <label>
-        <input class="login_modal_input" type="checkbox" checked="checked" name="remember"> Remember me
-      </label>
-    </div>
+      <span class="login_modal_psw"> <a href="#" style="color: #006097">Forgot password?</a></span>
 
-    <div class="login_modal_container" style="background-color:#f1f1f1">
-      <button class="login_modal_cancelbtn" type="button" onclick="loginModal('login_modal', 'none')">Cancel</button>
-      <span class="login_modal_psw">Forgot <a href="#">password?</a></span>
     </div>
   </form>
 </div>
@@ -69,8 +72,5 @@
 {% block content %}
 {% endblock %}
 
-<footer>
-{% include "footer.html" %}
-</footer>
 </body>
 </html>
