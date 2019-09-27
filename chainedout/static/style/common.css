@@ -51,7 +51,6 @@ body {
 #main_menu{
     width:100%;
     position:relative;
-    margin-bottom: 20px;
     box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
 }
 
@@ -192,3 +191,103 @@ span.login_modal_psw {
 }
 
 /* ------------------------------------- MODAL END ---------------------------------------- */
+
+/* ------------------------------------- REGISTER ----------------------------------------- */
+
+body .register{
+  font-family: 'Poppins', Helvetica, Arial, Lucida, sans-serif;
+}
+h1{
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 24px;
+  letter-spacing: 8px;
+  overflow-wrap: normal;
+  color: #333333;
+  margin-left: 200px;
+  margin-top: 250px;
+  line-height: 1.2em;
+}
+
+h2{
+  font-weight: 700;
+  font-size: 48px;
+  color: #333333;
+  margin-left: 200px;
+  line-height: 1.2em;
+}
+
+p{
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  line-height: 1.8em;
+  padding-bottom: 0;
+  font-size: 22px;
+  font-weight: 300;
+}
+
+.registerbox{
+  width: 500px;
+  margin: 20px auto;
+  padding: 50px;
+  border-width: 10px;
+  background-color: white;
+  float: left;
+  margin-left: 180px;
+}
+
+.signin {
+  text-align: center;
+}
+
+input[type=text], input[type=password]{
+  width: 100%;
+  padding:15px;
+  margin:5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+  border:2px solid #555;
+  border-radius: 10px;
+}
+
+input[type=text]:focus, input[type=password]:focus{
+  background-color: #ddd;
+  outline: none;
+}
+
+input[type='checkbox']{
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 5px;
+  border:2px solid #555;
+  padding: 0;
+  margin: 0;
+  vertical-align: bottom;
+  position: relative;
+  top: -1px;
+}
+
+.registerbtn{
+  background-color: #0F292F;
+  color: white;
+  padding: 12px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 35%;
+  opacity: 0.9;
+  border-radius: 20px;
+  margin-top: 30px;
+  float: right;
+}
+
+.registerbtn:hover{
+  background-color: #14A098;;
+}
+/* ----------------------------------- REGISTER END --------------------------------------- */
