@@ -58,7 +58,7 @@ body {
 .logo{
     background: url(./images/chainedout_logo_nav.svg) no-repeat center center;
     background-size: contain;
-    width: 100px;
+    width: 150px;
     height: 60px;
     position: absolute;
     left: 0;
