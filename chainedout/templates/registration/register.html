@@ -16,47 +16,40 @@
 
   <img src="../static/style/images/pig.jpg"style="float: right; width: 740px; height: 625px;">
 
+  {% block content %}
     <h1> Become An Affilate </h1>
     <h2> Make the most of your professional life</h2>
     <p style="margin-left: 200px;"> 
       We want to create an economic opportunity for every member of the global workforce.
       <br>The mission of ChainedOut is simple: connect the world's professionals to make them more productive and successful </p>
 
-    <form action="action_page.php">
-    
       <div class="registerbox">
         <p style="margin-left:-30px;"> *Required fields </p>
 
-        <label for="firstname"><b>First Name *</b></label>
-        <input type="text" placeholder="Enter First Name" name="firstname" required>
+        <form action="" method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <label class="mylabel"><b>{{ field.label }}</b></label>
+                {% if field.errors %}
+                    <span class="error">{{ field.errors.as_text }}</span>
+                {% endif %}
+                {{ field }}
+            {% endfor %}
 
-        <label for="lastname"><b>Last Name *</b></label>
-        <input type="text" placeholder="Enter Last Name" name="lastname" required>
+            <input type="checkbox" id="chkAgreeTerms" name="chkAgreeTerms">
+            <a style="font-size: 0.8em;"><label for="chkAgreeTerms" id="agreeTermsLabel">
+                I have read and agree to the <a href="#"style="font-size: 0.8em;">ChainedOut User Agreement</a>
+            </label></a>
 
-        <label for="email"><b>Email Address *</b></label>
-        <input type="text" placeholder="Enter Email" name="email" required>
-
-        <label for="psw"><b>Password *</b></label>
-        <input type="password" placeholder="Enter Password" name="psw" required>
-
-        <label for="psw-repeat"><b>Repeat Password *</b></label>
-        <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
-
-        <input type="checkbox" id="chkAgreeTerms" name="chkAgreeTerms">
-        <a style="font-size: 0.8em;"><label for="chkAgreeTerms" id="agreeTermsLabel">
-          I have read and agree to the <a href="#"style="font-size: 0.8em;">ChainedOut User Agreement</a>
-        </label></a>
-
-        <button type="submit" class="registerbtn">Register</button>
+            <button type="submit" class="registerbtn">Register</button>
+        </form>
         
         <div class="signin">
 
           <p style="margin-top: 90px;">Already have an account? <a href="#">Sign in</a>.</p>
         </div>
       </div>
-      
 
-    {% block content %}
     {% endblock %}
 
 </body>
