@@ -1,0 +1,194 @@
+/*  Common StyleSheet
+    --------------------------------------------------------------
+    Style name: Chainedout-Green
+    Original author: Manuel Martínez, Carlos Shui
+    version: 1.0
+    --------------------------------------------------------------
+*/
+
+* {box-sizing: border-box;}
+
+body {
+    margin: 0;
+    font-family: "Droid Sans", sans-serif;
+    background-color: #f7faff;
+}
+
+/* ------------------------------------ MAIN NAVBAR START ------------------------------------ */
+
+.inner_main_menu{
+    margin:0;
+    width: 100%;
+}
+
+.inner_main_menu ul{
+    margin:0;
+    list-style: none;
+    text-align:right;
+    background-color: #00302f;
+    height: 60px;
+    padding: 10px 0 0;
+}
+
+.inner_main_menu ul li{
+    float:right;
+    display:inline-block;
+}
+
+.inner_main_menu ul li a{
+    color: #fff;
+    font-size:15px;
+    text-transform: uppercase;
+    text-decoration:none;
+    display:block;
+    padding: 10px 20px;
+}
+
+.inner_main_menu ul li a:hover{
+    color: #b5c0c0;
+}
+
+#main_menu{
+    width:100%;
+    position:relative;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+}
+
+.logo{
+    background: url(./images/chainedout_logo_nav.svg) no-repeat center center;
+    background-size: contain;
+    width: 100px;
+    height: 60px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding-top: 8px;
+    margin-left: 20px;
+}
+
+.logo a{
+    color: white;
+    text-decoration:none;
+}
+
+/* ----------------------------------- MAIN NAVBAR END ----------------------------------- */
+
+
+/* ------------------------------------- MODAL START ---------------------------------------- */
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5px auto; /* 15% from the top and centered */
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  /* Position it in the top right corner outside of the modal */
+  color: #000;
+  font-size: 35px;
+  font-weight: bold;
+  float: right;
+  margin-right: 30px;
+  margin-top: 20px;
+}
+
+/* Close button on hover */
+.close:hover,
+.close:focus {
+  color: red;
+  cursor: pointer;
+}
+
+/* Add Zoom Animation */
+.animate {
+  -webkit-animation: animatezoom 0.6s;
+  animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+  from {-webkit-transform: scale(0)}
+  to {-webkit-transform: scale(1)}
+}
+
+@keyframes animatezoom {
+  from {transform: scale(0)}
+  to {transform: scale(1)}
+}
+
+/* Full-width input fields */
+input[type=text].login_modal_input, input[type=password].login_modal_input {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+button.login_modal_btn {
+  background-color: #4CAF50;
+  width: 100%;
+}
+
+button.login_modal_btn, button.login_modal_cancelbtn {
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover.login_modal_btn, button:hover.login_modal_cancelbtn {
+  opacity: 0.8;
+}
+
+/* Extra styles for the cancel button */
+.login_modal_cancelbtn {
+  width: auto;
+  padding: 10px 18px;
+  background-color: #f44336;
+}
+
+/* Center the image and position the close button */
+.login_modal_imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+  position: relative;
+  clear: both;
+}
+
+img.login_modal_avatar {
+  width: 20%;
+  border-radius: 50%;
+}
+
+.login_modal_container {
+  padding: 16px;
+}
+
+span.login_modal_psw {
+  float: right;
+  padding-top: 16px;
+}
+
+/* ------------------------------------- MODAL END ---------------------------------------- */
