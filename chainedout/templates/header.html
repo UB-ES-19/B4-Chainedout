@@ -1,5 +1,17 @@
-<a href="{% url 'index' %}"><div id="ch_logo"></div></a>
-<div id="session_ctrl">
-    <span class="nav-button1"><a href="{% url 'index' %}"> Register</a></span>
-    <span class="nav-button2"><a href="{% url 'index' %}"> Login</a></span>
-</div>
+<div id="main_menu"><!-- Main nav -->
+
+    <a href="{% url 'index' %}">
+        <!-- Website logo -->
+        <div class="logo"></div>
+        <!-- Website logo -->
+    </a>
+
+    <!-- Links to other pages, sign-in, search and notifications buttons -->
+    <div class="inner_main_menu">
+        <ul>
+            <li><a id = "register" class="register" href="#" data-toggle="modal" data-target="#registerModal"><i class="fa fa-fw fa-user-plus"></i> Register</a></li>
+            <li><a id = "login" class="login" href="#" data-toggle="modal" data-target="#loginModal"><i class="fa fa-fw fa-user"></i> Login</a></li>
+        </ul>
+    </div><!-- Links to other pages, sign-in, search and notifications buttons -->
+
+</div><!-- Main nav -->

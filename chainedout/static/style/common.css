@@ -1,0 +1,79 @@
+/*  Common StyleSheet
+    --------------------------------------------------------------
+    Style name: Chainedout-Green
+    Original author: Manuel Martínez, Carlos Shui
+    version: 1.0
+    --------------------------------------------------------------
+*/
+
+* {box-sizing: border-box;}
+
+body {
+    margin: 0;
+    font-family: "Droid Sans", sans-serif;
+    background-color: #f7faff;
+}
+
+/* ------------------------------------ MAIN NAVBAR START ------------------------------------ */
+
+.inner_main_menu{
+    margin:0;
+    width: 100%;
+}
+
+.inner_main_menu ul{
+    margin:0;
+    list-style: none;
+    text-align:right;
+    background-color: #00302f;
+    height: 60px;
+    padding: 10px 0 0;
+}
+
+.inner_main_menu ul li{
+    float: none;
+    display:inline-block;
+}
+
+.inner_main_menu ul li:nth-child(1), .inner_main_menu ul li:nth-child(2){
+    float: right;
+}
+
+.inner_main_menu ul li a{
+    color: #fff;
+    font-size:15px;
+    text-transform: uppercase;
+    text-decoration:none;
+    display:block;
+    padding: 10px 20px;
+}
+
+.inner_main_menu ul li a:hover{
+    color: #b5c0c0;
+}
+
+#main_menu{
+    width:100%;
+    position:relative;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+}
+
+.logo{
+    background: url(./images/chainedout_logo_nav.svg) no-repeat center center;
+    background-size: contain;
+    width: 100px;
+    height: 60px;
+    position: absolute;
+    left: 50%;
+    top: 0%;
+    padding-top: 8px;
+    margin: 0 auto;
+}
+
+.logo a{
+    color: white;
+    text-decoration:none;
+}
+
+/* ----------------------------------- MAIN NAVBAR END ----------------------------------- */
