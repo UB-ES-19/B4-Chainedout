@@ -1,0 +1,134 @@
+* {
+	margin: 0;
+	padding: 0;
+
+	box-sizing:  border-box;
+	box-sizing: border-box;
+}
+
+.footer-container {
+	width: 100%
+	max-width: 1000px;
+	margin: auto;
+	padding: 50px 0;
+	background: #082808;
+	color: #fff;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.footer-main {
+	width: 100%;
+	max-width: 1000px;
+	margin: auto;
+	padding: 50px 0;
+	display: flex;
+	flex-wrap: wrap;
+
+}
+
+
+.footer-main .footer-column-1{
+	width: calc(100% / 4);
+	text-align: left;
+	text-align: justify;
+	color: #FFFFFF;
+}
+
+.footer-main .footer-column-2{
+	width: calc(100% / 4);
+	text-align: center;
+	text-align: justify;
+	padding: 0 20px;
+	color: #FFFFFF;
+	text-decoration:none;
+}
+
+.footer-main .footer-column-3{
+	width: calc(100% / 4);
+	text-align: right;
+	text-align: justify;
+	color: #FFFFFF;
+	margin-bottom: 20px;
+}
+
+.footer-main .footer-column-4{
+	width: calc(100% / 4);
+	text-align: right;
+	text-align: justify;
+	color: #FFFFFF;
+	margin-bottom: 20px;
+}
+
+/************************************************************/
+
+.Social ul {
+	padding-top: 1px;
+	width: 100%;
+	height: 10%;
+	text-align: center;
+
+}
+
+/*************************************************************/
+
+.Text-container {
+	width: 100%;
+	margin: auto;
+	padding: 10px 0;
+	background: white;
+	color: #fff;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.Text-main {
+	width: 100%;
+	max-width: 1000px;
+	margin: auto;
+	padding: 20px 0;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.Text-main .text{
+	width:  calc(100% / 3);
+	text-align: left;
+	text-anchor: 80px;
+	color: black;
+}
+
+.Text-main .search_bar{
+	width: calc(200% / 3);
+	text-align: right;
+	text-anchor: 80px;
+	color: black;
+}
+
+
+/*************************************************************/
+.copyright{
+	padding-top: 20px;
+	text-align: center;
+    margin-bottom: 40px;
+}
+
+/*************************************************************/
+
+.footer-main a{
+    color: white;
+    text-decoration:none;
+}
+
+.footer-main h3{
+	padding-bottom: 20px;
+	font-size: 15px;
+	text-align: left;
+}
+
+.footer-main li {
+    padding-top: 5px;
+    padding-left: 5px;
+    position: relative;
+    font-size: 14px;
+}

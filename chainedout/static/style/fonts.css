@@ -1,0 +1,24 @@
+/*  Fonts Sheet
+    --------------------------------------------------------------
+	version: 1.0
+    --------------------------------------------------------------
+*/
+
+@font-face {
+	font-family: 'Droid Sans';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Droid Sans'), local('DroidSans'), url('./fonts/droidsans.woff') format('woff');
+}
+@font-face {
+	font-family: 'Droid Sans';
+	font-style: normal;
+	font-weight: 700;
+	src: local('Droid Sans Bold'), local('DroidSans-Bold'), url('./fonts/droidsansbold.woff') format('woff');
+}
+@font-face {
+	font-family: 'Droid Sans Mono';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Droid Sans Mono'), local('DroidSansMono'), url('./fonts/droidsansmono.woff') format('woff');
+}

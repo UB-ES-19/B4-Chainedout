@@ -1,5 +1,76 @@
-<a href="{% url 'index' %}"><div id="ch_logo"></div></a>
-<div id="session_ctrl">
-    <span class="nav-button1"><a href="{% url 'register' %}"> Register</a></span>
-    <span class="nav-button2"><a href="{% url 'login' %}"> Login</a></span>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/static/style/stylesheet.css?{% now "U" %}">
+    <script src="/static/style/script.js"></script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <title>Chainedout</title>
+</head>
+<body>
+
+<nav>
+
+<div id="main_menu"><!-- Main nav -->
+
+    <a href="{% url 'index' %}">
+        <!-- Website logo -->
+        <div class="logo"></div>
+        <!-- Website logo -->
+    </a>
+
+    <!-- Links to sign-in, sign up, logout -->
+    <div class="inner_main_menu">
+        <ul>
+            <li><a id = "register" class="register" href="{% url 'register' %}"><i class="fa fa-fw fa-user-plus"></i> Register</a></li>
+            <li><a id = "login" onclick="loginModal('login_modal', 'block')"><i class="fa fa-fw fa-user"></i> Login</a></li>
+        </ul>
+    </div><!-- Links to sign-in, sign up, logout -->
+
+</div><!-- Main nav -->
+
+<!------------------------------ LOGIN MODAL START ---------------------------------->
+<!-- The Modal -->
+<div id="login_modal" class="modal">
+
+  <!-- Modal Content -->
+  <form class="modal-content animate" method="post" action="">
+  {% csrf_token %}
+
+    <div onclick="loginModal('login_modal', 'none')" class="close" title="Close Modal">&times;</div>
+    <div class="login_modal_imgcontainer">
+      <img src="/static/images/img_avatar.png" alt="Avatar" class="login_modal_avatar">
+    </div>
+
+    <div class="login_modal_container">
+      <label for="username"><b>Username</b></label>
+      <input class="login_modal_input" type="text" placeholder="Enter Username" id="username" name="username" required>
+
+      <label for="password"><b>Password</b></label>
+      <input class="login_modal_input" type="password" placeholder="Enter Password" id="password" name="password" required>
+      
+      
+
+      <input type="checkbox" id="chkAgreeTerms" name="chkAgreeTerms" style="margin-top: 20px;">
+        <a style="font-size: 0.8em;"><label for="chkAgreeTerms" id="agreeTermsLabel">
+          Remember me
+        </label></a>
+      
+
+      <hr style="margin-top: 20px;">
+      <button class="login_modal_btn" type="submit">Login</button>
+      <span class="login_modal_psw"> <a href="#" style="color: #006097">Forgot password?</a></span>
+
+    </div>
+  </form>
 </div>
+<!------------------------------ LOGIN MODAL END ---------------------------------->
+
+</nav>
+
+{% block content %}
+{% endblock %}
+
+</body>
+</html>
