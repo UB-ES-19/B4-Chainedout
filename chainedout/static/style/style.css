@@ -11,7 +11,7 @@
 body {
     margin: 0;
     font-family: "Droid Sans", sans-serif;
-    background-color: #f7faff;
+    background-color: #FFFFFF;
 }
 
 /* ------------------------------------ MAIN NAVBAR START ------------------------------------ */
@@ -95,10 +95,10 @@ body {
 .modal-content {
   background-color: #fefefe;
   margin: 5px auto; /* 15% from the top and centered */
-  margin-top: 50px;
-  border: 1px solid #888;
+  margin-top: 10px;
   width: 40%; /* Could be more or less, depending on screen size */
-  height: 520px;
+  min-width: 300px;
+  height: 500px;
   border: 2px solid #fff;
   border-radius: 20px;
 }
@@ -154,7 +154,6 @@ input[type=text].login_modal_input, input[type=password].login_modal_input {
 /* Set a style for all buttons */
 button.login_modal_btn {
   background-color: #00302f;
-  width: 15%;
   border: 1px solid #ccc;
   border-radius: 20px;
   float: right;
@@ -193,6 +192,7 @@ img.login_modal_avatar {
 span.login_modal_psw {
   float: left;
   padding-top: 16px;
+  color: #006097;
 }
 
 
@@ -211,8 +211,6 @@ h1{
   letter-spacing: 8px;
   overflow-wrap: normal;
   color: #333333;
-  margin-left: 200px;
-  margin-top: 250px;
   line-height: 1.2em;
 }
 
@@ -220,7 +218,6 @@ h2{
   font-weight: 700;
   font-size: 48px;
   color: #333333;
-  margin-left: 200px;
   line-height: 1.2em;
 }
 
@@ -228,8 +225,8 @@ p{
   display: block;
   margin-block-start: 1em;
   margin-block-end: 1em;
-  margin-inline-start: 0px;
-  margin-inline-end: 0px;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
   line-height: 1.8em;
   padding-bottom: 0;
   font-size: 22px;
@@ -237,6 +234,7 @@ p{
 }
 /* ----- TEXT END ------ */
 /* ----- Register box ----*/
+/* register box space */
 .registerbox{
   width: 500px;
   margin: 20px auto;
@@ -256,7 +254,6 @@ input[type=text], input[type=password], input[type=email]{
   padding:15px;
   margin:5px 0 22px 0;
   display: inline-block;
-  border: none;
   background: #f1f1f1;
   border:2px solid #555;
   border-radius: 10px;
@@ -306,13 +303,12 @@ input[type='checkbox']{
 * {
 	margin: 0;
 	padding: 0;
-
-	box-sizing:  border-box;
 	box-sizing: border-box;
 }
 
+/* Creates the footer container */
 .footer-container {
-	width: 100%
+	width: 100%;
 	max-width: 100%;
 	padding: 50px 0;
 	background: #00302f;
@@ -321,39 +317,31 @@ input[type='checkbox']{
 	flex-wrap: wrap;
 }
 
+/* Creates the space where the columns will stay */
 .footer-main {
-	width: 100%;
-	max-width: 70%;
 	margin: auto;
-	padding: 50px 0px;
-	display: flex;
-	flex-wrap: wrap;
 }
 
-
+/* Create 4 equal columns that floats next to each other */
 .footer-column{
 	float: left;
-	width: 25%;
 	color: #FFFFFF;
-	padding: 10px;
+	width: 25%;
+	padding: 30px 100px;
 	text-align: justify;
 }
 
+/* Clear floats after the columns */ 
 .footer-main:after{
 	content: "";
 	display: table;
 	clear: both;
 }
 
-@media screen and (max-width: 100%){
-	.footer-column{
-		widht: 100%;
-	}
-}
-
-.footer-column p{
+/* Text style for footer title */
+.footer-column h3{
 	font-family: 'Poppins', Helvetica, Arial, Lucida, sans-serif;
-	font-weight: 600;
+	font-weight: 800;
 	text-transform: uppercase;
 	font-size: 20px;
 	line-height: 2em;
@@ -363,7 +351,9 @@ input[type='checkbox']{
 	text-align: left;
 }
 
+/* Text style for footer content */
 .footer-column li a{
+	color: white;
 	font-family: 'Poppins', Helvetica, Arial, Lucida, sans-serif;
 	font-weight: 600;
 	font-size: 16px;
@@ -396,7 +386,6 @@ input[type='checkbox']{
 .Text-main .text p{
 	width: 100%;
 	text-align: center;
-	color: black;
 	font-weight: 700;
   	font-size: 48px;
   	color: #333333;
@@ -409,7 +398,6 @@ input[type='checkbox']{
 	white-space: nowrap;
 	display: inline;
 	vertical-align: baseline;
-	float: center;
 	text-align: center;
 }
 
@@ -423,27 +411,23 @@ input[type='checkbox']{
 	background-color: #00302f;
 	color: white;
 	cursor: pointer;
-	width: 15%;
 	border-radius: 40px;
 	border: none;
 	height: 50px;
 	font-size: 0.9em;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 15%;
 }
 
-
-/*************************************************************/
-.copyright{
-	padding-top: 20px;
-	text-align: center;
-    margin-bottom: 40px;
-    font-weight: 700;
-}
-
-/****************************************************/
+/* ----------------------- Social buttons  -------------------------- */
+/* Social icons space */ 
 .social{
 	width: 100%;
 	text-align: center;
 }
+
+/* Social icons background */ 
 .social .fa{
  	padding: 20px;
 	font-size: 30px;
@@ -454,6 +438,7 @@ input[type='checkbox']{
 	border-radius: 50%;
 }
 
+/* Social icons */ 
 .fa-facebook {
   background: #3B5998;
   color: white;
@@ -478,22 +463,10 @@ input[type='checkbox']{
     opacity: 0.7;
 }
 
-/*************************************************************/
-
-.footer-main a{
-    color: white;
-    text-decoration:none;
+.copyright{
+	padding-top: 20px;
+	text-align: center;
+    margin-bottom: 40px;
+    font-weight: 700;
 }
 
-.footer-main h3{
-	padding-bottom: 20px;
-	font-size: 15px;
-	text-align: left;
-}
-
-.footer-main li {
-    padding-top: 5px;
-    padding-left: 5px;
-    position: relative;
-    font-size: 14px;
-}

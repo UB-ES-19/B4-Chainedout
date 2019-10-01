@@ -1,24 +1,10 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>ChainedOut</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{% static 'style/stylesheet.css' %}">
-</head>
-
-<body style="background: #ffffff" class="register">
-
-  <nav>
-    {% include "header.html" %}
-  </nav>
+{% include "header.html" %}
 
   <img src="../static/style/images/pig.jpg"style="float: right; width: 740px; height: 625px;">
 
   {% block content %}
-    <h1> Become An Affilate </h1>
-    <h2> Make the most of your professional life</h2>
+    <h1 style="margin-left: 200px;margin-top: 250px;"> Become An Affilate </h1>
+    <h2 style="margin-left: 200px;"> Make the most of your professional life</h2>
     <p style="margin-left: 200px;"> 
       We want to create an economic opportunity for every member of the global workforce.
       <br>The mission of ChainedOut is simple: connect the world's professionals to make them more productive and successful </p>
@@ -36,20 +22,19 @@
                 {{ field }}
             {% endfor %}
 
-            <input type="checkbox" id="chkAgreeTerms" name="chkAgreeTerms">
-            <a style="font-size: 0.8em;"><label for="chkAgreeTerms" id="agreeTermsLabel">
-                I have read and agree to the <a href="#"style="font-size: 0.8em;">ChainedOut User Agreement</a>
-            </label></a>
+            <a style="font-size: 0.8em;">
+                By clicking Agree & Join, you agree to the <a href="#"style="font-size: 0.8em;">ChainedOut User Agreement</a>.
+            </a>
 
             <button type="submit" class="registerbtn">Register</button>
         </form>
         
         <div class="signin">
 
-          <p style="margin-top: 90px;">Already have an account? <a href="#">Sign in</a>.</p>
+          <p style="margin-top: 90px;">Already have an account? <a href="{% url 'login' %}">Sign in</a>.</p>
         </div>
       </div>
 
     {% endblock %}
 
-</body>
+  {% include "footer.html" %}
