@@ -1,3 +1,10 @@
-nav {
-    font-size: 30px;
-}
+/*  Main StyleSheet
+    --------------------------------------------------------------
+    Style name: Chainedout-Green
+    Original author: Manuel Martínez, Carlos Shui
+    version: 1.0
+    --------------------------------------------------------------
+*/
+
+@import url("fonts.css");
+@import url("style.css");

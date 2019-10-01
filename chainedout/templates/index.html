@@ -1,20 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="/static/style/stylesheet.css">
-    <title>Chainedout</title>
-</head>
-<body>
-
-<nav>
 {% include "header.html" %}
-</nav>
 
+{% block content %}
+
+<div id="content">
 {% include "content.html" %}
+</div>
 
-<footer>
+{% endblock %}
+
 {% include "footer.html" %}
-</footer>
-</body>
-</html>

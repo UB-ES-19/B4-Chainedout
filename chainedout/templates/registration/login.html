@@ -1,0 +1,25 @@
+{% include "../header.html" %}
+
+{% block content %}
+
+   <h2 style="margin-left: 40px;margin-top: 40px;">Login</h2>
+
+  {% if form.errors %}
+    <h1 style="margin-left: 40px;margin-top: 40px;">Sorry, that's not a valid username or password</h1>
+  {% endif %}
+
+      <div class="registerbox">
+
+        <form action="" method="post">
+            {% csrf_token %}
+            <label for="username">User name:</label>
+            <input type="text" name="username" value="" id="username">
+            <label for="password">Password:</label>
+            <input type="password" name="password" value="" id="password"><input type="hidden" name="next" value="{{ next|escape }}" />
+            <input type="submit" value="login" class="registerbtn" />
+        </form>
+      </div>
+
+{% endblock %}
+
+{% include "../footer.html" %}
