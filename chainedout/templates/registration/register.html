@@ -22,18 +22,19 @@
                 {{ field }}
             {% endfor %}
 
-            <input type="checkbox" id="chkAgreeTerms" name="chkAgreeTerms">
-            <a style="font-size: 0.8em;"><label for="chkAgreeTerms" id="agreeTermsLabel">
-                I have read and agree to the <a href="#"style="font-size: 0.8em;">ChainedOut User Agreement</a>
-            </label></a>
+            <a style="font-size: 0.8em;">
+                By clicking Agree & Join, you agree to the <a href="#"style="font-size: 0.8em;">ChainedOut User Agreement</a>.
+            </a>
 
             <button type="submit" class="registerbtn">Register</button>
         </form>
         
         <div class="signin">
 
-          <p style="margin-top: 90px;">Already have an account? <a href="#">Sign in</a>.</p>
+          <p style="margin-top: 90px;">Already have an account? <a href="{% url 'login' %}">Sign in</a>.</p>
         </div>
       </div>
 
     {% endblock %}
+
+  {% include "footer.html" %}
