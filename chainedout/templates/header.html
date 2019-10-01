@@ -24,7 +24,7 @@
     <div class="inner_main_menu">
         <ul>
             {% if request.user.is_authenticated %}
-                <li><a href="{% url 'logout' %}"></i>Logout</a></li>
+                <li><a id = "logout" class="logout" href="{% url 'logout' %}?next=/"></i> Log out</a></li>
             {% else %}
                 <li><a id = "register" class="register" href="{% url 'register' %}"><i class="fa fa-fw fa-user-plus"></i> Register</a></li>
                 <li><a id = "login" onclick="loginModal('login_modal', 'block')"><i class="fa fa-fw fa-user"></i> Login</a></li>
@@ -39,7 +39,7 @@
 <div id="login_modal" class="modal">
 
   <!-- Modal Content -->
-  <form class="modal-content animate" method="post" action="">
+  <form class="modal-content animate" method="post" action="{%  url 'login' %}">
   {% csrf_token %}
 
     <div onclick="loginModal('login_modal', 'none')" class="close" title="Close Modal">&times;</div>
