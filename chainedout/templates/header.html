@@ -23,8 +23,12 @@
     <!-- Links to sign-in, sign up, logout -->
     <div class="inner_main_menu">
         <ul>
-            <li><a id = "register" class="register" href="{% url 'register' %}"><i class="fa fa-fw fa-user-plus"></i> Register</a></li>
-            <li><a id = "login" onclick="loginModal('login_modal', 'block')"><i class="fa fa-fw fa-user"></i> Login</a></li>
+            {% if request.user.is_authenticated %}
+                <li><a id = "logout" class="logout" href="{% url 'logout' %}?next=/"></i> Log out</a></li>
+            {% else %}
+                <li><a id = "register" class="register" href="{% url 'register' %}"><i class="fa fa-fw fa-user-plus"></i> Register</a></li>
+                <li><a id = "login" onclick="loginModal('login_modal', 'block')"><i class="fa fa-fw fa-user"></i> Login</a></li>
+            {%  endif %}
         </ul>
     </div><!-- Links to sign-in, sign up, logout -->
 
@@ -35,7 +39,7 @@
 <div id="login_modal" class="modal">
 
   <!-- Modal Content -->
-  <form class="modal-content animate" method="post" action="">
+  <form class="modal-content animate" method="post" action="{%  url 'login' %}">
   {% csrf_token %}
 
     <div onclick="loginModal('login_modal', 'none')" class="close" title="Close Modal">&times;</div>
@@ -50,17 +54,10 @@
       <label for="password"><b>Password</b></label>
       <input class="login_modal_input" type="password" placeholder="Enter Password" id="password" name="password" required>
       
-      
-
-      <input type="checkbox" id="chkAgreeTerms" name="chkAgreeTerms" style="margin-top: 20px;">
-        <a style="font-size: 0.8em;"><label for="chkAgreeTerms" id="agreeTermsLabel">
-          Remember me
-        </label></a>
-      
 
       <hr style="margin-top: 20px;">
-      <button class="login_modal_btn" type="submit">Login</button>
-      <span class="login_modal_psw"> <a href="#" style="color: #006097">Forgot password?</a></span>
+      <button class="login_modal_btn" type="submit" value="LOGIN">Login</button>
+      <span class="login_modal_psw"> <a href="#">Forgot password?</a></span>
 
     </div>
   </form>

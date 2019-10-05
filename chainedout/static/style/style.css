@@ -1,73 +1,365 @@
+/*  Common StyleSheet
+    --------------------------------------------------------------
+    Style name: Chainedout-Green
+    Original author: Manuel Martínez, Carlos Shui
+    version: 1.0
+    --------------------------------------------------------------
+*/
+
+* {box-sizing: border-box;}
+
+body {
+    margin: 0;
+    font-family: "Droid Sans", sans-serif;
+    background-color: #FFFFFF;
+}
+
+/* ------------------------------------ MAIN NAVBAR START ------------------------------------ */
+
+.inner_main_menu{
+    margin:0;
+    width: 100%;
+}
+
+.inner_main_menu ul{
+    margin:0;
+    list-style: none;
+    text-align:right;
+    background-color: #00302f;
+    height: 60px;
+    padding: 10px 0 0;
+}
+
+.inner_main_menu ul li{
+    float:right;
+    display:inline-block;
+}
+
+.inner_main_menu ul li a{
+    color: #fff;
+    font-size:15px;
+    text-transform: uppercase;
+    text-decoration:none;
+    display:block;
+    padding: 10px 20px;
+}
+
+.inner_main_menu ul li a:hover{
+    color: #b5c0c0;
+}
+
+#main_menu{
+    width:100%;
+    position:relative;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+}
+
+.logo{
+    background: url(./images/chainedout_logo_nav.svg) no-repeat center center;
+    background-size: contain;
+    width: 150px;
+    height: 60px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding-top: 8px;
+    margin-left: 20px;
+}
+
+.logo a{
+    color: white;
+    text-decoration:none;
+}
+
+/* ----------------------------------- MAIN NAVBAR END ----------------------------------- */
+
+
+/* ------------------------------------- MODAL START ---------------------------------------- */
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5px auto; /* 15% from the top and centered */
+  margin-top: 10px;
+  width: 40%; /* Could be more or less, depending on screen size */
+  min-width: 300px;
+  height: 500px;
+  border: 2px solid #fff;
+  border-radius: 20px;
+}
+
+/* The Close Button */
+.close {
+  /* Position it in the top right corner outside of the modal */
+  color: #000;
+  font-size: 35px;
+  font-weight: bold;
+  float: right;
+  margin-right: 30px;
+  margin-top: 20px;
+}
+
+/* Close button on hover */
+.close:hover,
+.close:focus {
+  color: red;
+  cursor: pointer;
+}
+
+/* Add Zoom Animation */
+.animate {
+  -webkit-animation: animatezoom 0.6s;
+  animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+  from {-webkit-transform: scale(0)}
+  to {-webkit-transform: scale(1)}
+}
+
+@keyframes animatezoom {
+  from {transform: scale(0)}
+  to {transform: scale(1)}
+}
+
+/* Full-width input fields */
+input[type=text].login_modal_input, input[type=password].login_modal_input {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.login_modal_input{
+  font-size: 0.8em;
+}
+/* Set a style for all buttons */
+button.login_modal_btn {
+  background-color: #00302f;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  float: right;
+}
+
+button.login_modal_btn{
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+button:hover.login_modal_btn{
+  opacity: 0.8;
+}
+
+/* Center the image and position the close button */
+.login_modal_imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+  position: relative;
+  clear: both;
+}
+
+img.login_modal_avatar {
+  width: 20%;
+  border-radius: 50%;
+}
+
+.login_modal_container {
+  padding: 16px;
+}
+
+span.login_modal_psw {
+  float: left;
+  padding-top: 16px;
+  color: #006097;
+}
+
+
+/* ------------------------------------- MODAL END ---------------------------------------- */
+
+/* ------------------------------------- REGISTER ----------------------------------------- */
+
+body .register{
+  font-family: 'Poppins', Helvetica, Arial, Lucida, sans-serif;
+}
+/* ---- TEXT ----*/
+h1{
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 24px;
+  letter-spacing: 8px;
+  overflow-wrap: normal;
+  color: #333333;
+  line-height: 1.2em;
+}
+
+h2{
+  font-weight: 700;
+  font-size: 48px;
+  color: #333333;
+  line-height: 1.2em;
+}
+
+p{
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+  line-height: 1.8em;
+  padding-bottom: 0;
+  font-size: 22px;
+  font-weight: 300;
+}
+/* ----- TEXT END ------ */
+/* ----- Register box ----*/
+/* register box space */
+.registerbox{
+  width: 500px;
+  margin: 20px auto;
+  padding: 50px;
+  border-width: 10px;
+  background-color: white;
+  float: left;
+  margin-left: 180px;
+}
+
+.signin {
+  text-align: center;
+}
+
+input[type=text], input[type=password], input[type=email]{
+  width: 100%;
+  padding:15px;
+  margin:5px 0 22px 0;
+  display: inline-block;
+  background: #f1f1f1;
+  border:2px solid #555;
+  border-radius: 10px;
+}
+
+input[type=text]:focus, input[type=password]:focus{
+  background-color: #ddd;
+  outline: none;
+}
+
+input[type='checkbox']{
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 5px;
+  border:2px solid #555;
+  padding: 0;
+  margin: 0;
+  vertical-align: bottom;
+  position: relative;
+  top: -1px;
+}
+
+/* Register button */
+.registerbtn{
+  background-color: #0F292F;
+  color: white;
+  padding: 12px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 35%;
+  opacity: 0.9;
+  border-radius: 20px;
+  margin-top: 30px;
+  float: right;
+}
+
+.registerbtn:hover{
+  background-color: #14A098;;
+}
+/* ----- REGISTER BOX END ---------*/ 
+/* ----------------------------------- REGISTER END --------------------------------------- */
+
+/* ------------------------------------ FOOTER -------------------------------------------- */
 * {
 	margin: 0;
 	padding: 0;
-
-	box-sizing:  border-box;
 	box-sizing: border-box;
 }
 
+/* Creates the footer container */
 .footer-container {
-	width: 100%
-	max-width: 1000px;
-	margin: auto;
+	width: 100%;
+	max-width: 100%;
 	padding: 50px 0;
-	background: #082808;
+	background: #00302f;
 	color: #fff;
 	display: flex;
 	flex-wrap: wrap;
 }
 
+/* Creates the space where the columns will stay */
 .footer-main {
-	width: 100%;
-	max-width: 1000px;
 	margin: auto;
-	padding: 50px 0;
-	display: flex;
-	flex-wrap: wrap;
-
 }
 
+/* Create 4 equal columns that floats next to each other */
+.footer-column{
+	float: left;
+	color: #FFFFFF;
+	width: 25%;
+	padding: 30px 100px;
+	text-align: justify;
+}
 
-.footer-main .footer-column-1{
-	width: calc(100% / 4);
+/* Clear floats after the columns */ 
+.footer-main:after{
+	content: "";
+	display: table;
+	clear: both;
+}
+
+/* Text style for footer title */
+.footer-column h3{
+	font-family: 'Poppins', Helvetica, Arial, Lucida, sans-serif;
+	font-weight: 800;
+	text-transform: uppercase;
+	font-size: 20px;
+	line-height: 2em;
+	text-decoration: none;
+	padding-bottom: 10px;
+	display: block;
 	text-align: left;
-	text-align: justify;
-	color: #FFFFFF;
 }
 
-.footer-main .footer-column-2{
-	width: calc(100% / 4);
-	text-align: center;
-	text-align: justify;
-	padding: 0 20px;
-	color: #FFFFFF;
-	text-decoration:none;
-}
-
-.footer-main .footer-column-3{
-	width: calc(100% / 4);
-	text-align: right;
-	text-align: justify;
-	color: #FFFFFF;
-	margin-bottom: 20px;
-}
-
-.footer-main .footer-column-4{
-	width: calc(100% / 4);
-	text-align: right;
-	text-align: justify;
-	color: #FFFFFF;
-	margin-bottom: 20px;
-}
-
-/************************************************************/
-
-.Social ul {
-	padding-top: 1px;
-	width: 100%;
-	height: 10%;
-	text-align: center;
-
+/* Text style for footer content */
+.footer-column li a{
+	color: white;
+	font-family: 'Poppins', Helvetica, Arial, Lucida, sans-serif;
+	font-weight: 600;
+	font-size: 16px;
+	line-height: 2em;
+	text-decoration: none;
+	text-align: left;
 }
 
 /*************************************************************/
@@ -91,44 +383,90 @@
 	flex-wrap: wrap;
 }
 
-.Text-main .text{
-	width:  calc(100% / 3);
-	text-align: left;
-	text-anchor: 80px;
-	color: black;
+.Text-main .text p{
+	width: 100%;
+	text-align: center;
+	font-weight: 700;
+  	font-size: 48px;
+  	color: #333333;
+  	line-height: 1.2em;
 }
 
 .Text-main .search_bar{
-	width: calc(200% / 3);
-	text-align: right;
-	text-anchor: 80px;
+	width: 100%;
 	color: black;
+	white-space: nowrap;
+	display: inline;
+	vertical-align: baseline;
+	text-align: center;
 }
 
+.Text-main .search_bar input[type=text]{
+	border-radius: 40px;
+	width: calc(200%/4);
+	font-size: 0.9em;
+}
 
-/*************************************************************/
+.Text-main .search_bar .subscribebtn{
+	background-color: #00302f;
+	color: white;
+	cursor: pointer;
+	border-radius: 40px;
+	border: none;
+	height: 50px;
+	font-size: 0.9em;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 15%;
+}
+
+/* ----------------------- Social buttons  -------------------------- */
+/* Social icons space */ 
+.social{
+	width: 100%;
+	text-align: center;
+}
+
+/* Social icons background */ 
+.social .fa{
+ 	padding: 20px;
+	font-size: 30px;
+	width: 80px;
+	text-align: center;
+	text-decoration: none;
+	margin: 5px 15px;
+	border-radius: 50%;
+}
+
+/* Social icons */ 
+.fa-facebook {
+  background: #3B5998;
+  color: white;
+}
+
+.fa-twitter {
+  background: #55ACEE;
+  color: white;
+}
+
+.fa-google {
+  background: #dd4b39;
+  color: white;
+}
+
+.fa-linkedin {
+  background: #007bb5;
+  color: white;
+}
+
+.fa:hover {
+    opacity: 0.7;
+}
+
 .copyright{
 	padding-top: 20px;
 	text-align: center;
     margin-bottom: 40px;
+    font-weight: 700;
 }
 
-/*************************************************************/
-
-.footer-main a{
-    color: white;
-    text-decoration:none;
-}
-
-.footer-main h3{
-	padding-bottom: 20px;
-	font-size: 15px;
-	text-align: left;
-}
-
-.footer-main li {
-    padding-top: 5px;
-    padding-left: 5px;
-    position: relative;
-    font-size: 14px;
-}
