@@ -24,10 +24,10 @@
     <div class="inner_main_menu">
         <ul>
             {% if request.user.is_authenticated %}
-                <li><a id = "logout" class="logout" href="{% url 'logout' %}?next=/"></i> Log out</a></li>
+                <li><a id = "logout" class="logout" href="{% url 'logout' %}?next=/"> Logout</a></li>
             {% else %}
                 <li><a id = "register" class="register" href="{% url 'register' %}"><i class="fa fa-fw fa-user-plus"></i> Register</a></li>
-                <li><a id = "login" onclick="loginModal('login_modal', 'block')"><i class="fa fa-fw fa-user"></i> Login</a></li>
+                <li><a id = "login" onclick="modal('login_modal', 'block')"><i class="fa fa-fw fa-user"></i> Login</a></li>
             {%  endif %}
         </ul>
     </div><!-- Links to sign-in, sign up, logout -->
@@ -42,7 +42,7 @@
   <form class="modal-content animate" method="post" action="{%  url 'login' %}">
   {% csrf_token %}
 
-    <div onclick="loginModal('login_modal', 'none')" class="close" title="Close Modal">&times;</div>
+    <div onclick="modal('login_modal', 'none')" class="close" title="Close Modal">&times;</div>
     <div class="login_modal_imgcontainer">
       <img src="/static/images/img_avatar.png" alt="Avatar" class="login_modal_avatar">
     </div>
