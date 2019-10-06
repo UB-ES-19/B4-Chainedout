@@ -1,7 +1,11 @@
 from django.contrib.auth import login, authenticate
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect, JsonResponse
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
+from django.views.decorators.http import require_POST
+from .models import Follow
 
 from .forms import RegisterForm
 
@@ -21,3 +25,30 @@ def register(request):
     else:
         form = RegisterForm()
     return render(request, 'registration/register.html', {'form': form})
+
+@login_required
+def user_list(request):
+    users = User.objects.filter(is_active=True)
+    return render(request, 'user/list.html', {'section': 'people', 'users': users})
+
+@login_required
+def user_info(request, username):
+    user = get_object_or_404(User, username=username, is_active=True)
+    return render(request, 'user/info.html', {'section': 'people', 'user': user})
+
+@require_POST
+@login_required
+def user_follow(request):
+    user_id = request.POST.get('id')
+    action = request.POST.get('action')
+    if user_id and action:
+        try:
+            user = User.objects.get(id=user_id)
+            if action == 'follow':
+                Follow.objects.get_or_create(user_following=request.user, user_followed=user)
+            else:
+                Follow.objects.filter(user_following=request.user, user_followed=user).delete()
+            return JsonResponse({'status':'ok'})
+        except User.DoesNotExist:
+            return JsonResponse({'status':'error'})
+    return JsonResponse({'status':'error'})

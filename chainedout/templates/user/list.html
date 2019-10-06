@@ -1,0 +1,14 @@
+{% extends "header.html" %}
+
+{% block content %}
+    <h3>User list</h3>>
+    <div id="user-list">
+        {% for user in users %}
+            <div class="user-info">
+                <a href="{{ user.get_absolute_url }}" class="title">
+                    {{ user.get_full_name }}
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
