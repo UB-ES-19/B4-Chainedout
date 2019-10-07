@@ -6,7 +6,11 @@
     --------------------------------------------------------------
 */
 
-* {box-sizing: border-box;}
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
 
 body {
     margin: 0;
@@ -77,7 +81,7 @@ body {
 /* ------------------------------------- MODAL START ---------------------------------------- */
 
 /* The Modal (background) */
-.modal {
+.lmodal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
@@ -92,7 +96,7 @@ body {
 }
 
 /* Modal Content/Box */
-.modal-content {
+.lmodal-content {
   background-color: #fefefe;
   margin: 5px auto; /* 15% from the top and centered */
   margin-top: 10px;
@@ -104,7 +108,7 @@ body {
 }
 
 /* The Close Button */
-.close {
+.lclose {
   /* Position it in the top right corner outside of the modal */
   color: #000;
   font-size: 35px;
@@ -115,8 +119,8 @@ body {
 }
 
 /* Close button on hover */
-.close:hover,
-.close:focus {
+.lclose:hover,
+.lclose:focus {
   color: red;
   cursor: pointer;
 }
@@ -300,11 +304,6 @@ input[type='checkbox']{
 /* ----------------------------------- REGISTER END --------------------------------------- */
 
 /* ------------------------------------ FOOTER -------------------------------------------- */
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-}
 
 /* Creates the footer container */
 .footer-container {
@@ -469,4 +468,76 @@ input[type='checkbox']{
     margin-bottom: 40px;
     font-weight: 700;
 }
+
+/* ------------------------------------- PROFILE START ----------------------------------------- */
+#profilebox {
+    border: 1px solid #BFBFBF;
+    background-color: #FFFFFF;
+    margin: 20px auto;
+    padding: 20px;
+    width: 90%;
+    box-shadow: 2px 2px 5px #aaaaaa;
+}
+
+#profile .left_profile {
+    float: left;
+}
+
+#profile .right_profile {
+    float: right;
+}
+
+#profile .right_profile a {
+    color: #0F292F;
+}
+
+#profile .right_profile .elemprofile {
+    margin-bottom: 10px;
+    font-weight: bolder;
+}
+
+#profile img.profile_avatar {
+  width: 25%;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+#profile .fabsep {
+    font-size: 5px;
+    vertical-align: middle;
+}
+
+#profile h1 {
+    font-size: 22px;
+    text-transform: none;
+    letter-spacing: 2px;
+    margin-bottom: 5px;
+}
+
+#profile h2 {
+    font-size: 17px;
+    font-weight: 200;
+    margin-bottom: 5px;
+}
+
+#profile h3 {
+    font-size: 15px;
+    font-weight: 200;
+    margin-bottom: 5px;
+}
+
+#profile a .infolink, #profile a:link .infolink {
+    font-size: 14px;
+    font-weight: bold;
+    color: #0b4d5d;
+}
+
+#profile a:hover .infolink {
+    text-decoration: underline;
+}
+
+#profile a, #profile a:link, #profile a:hover {
+    text-decoration: none;
+}
+/* ------------------------------------- PROFILE END ----------------------------------------- */
 

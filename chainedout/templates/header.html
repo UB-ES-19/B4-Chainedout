@@ -37,13 +37,13 @@
 
 <!------------------------------ LOGIN MODAL START ---------------------------------->
 <!-- The Modal -->
-<div id="login_modal" class="modal">
+<div id="login_modal" class="lmodal">
 
   <!-- Modal Content -->
-  <form class="modal-content animate" method="post" action="{%  url 'login' %}">
+  <form class="lmodal-content animate" method="post" action="{%  url 'login' %}">
   {% csrf_token %}
 
-    <div onclick="modal('login_modal', 'none')" class="close" title="Close Modal">&times;</div>
+    <div onclick="modal('login_modal', 'none')" class="lclose" title="Close Modal">&times;</div>
     <div class="login_modal_imgcontainer">
       <img src="/static/images/img_avatar.png" alt="Avatar" class="login_modal_avatar">
     </div>

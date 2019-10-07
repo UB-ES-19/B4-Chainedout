@@ -4,6 +4,8 @@ window.onclick = function(event) {
 	var modals = [
 	document.getElementById('login_modal'), 
 	document.getElementById('profile_user_edit_modal'),
+	document.getElementById('profile_user_cinfo_modal'),
+	document.getElementById('profile_user_edit_cinfo_modal'),
 	document.getElementById('profile_about_modal'),
 	document.getElementById('profile_edu_add_modal'),
 	document.getElementById('profile_edu_edit_modal'),
@@ -22,7 +24,7 @@ window.onclick = function(event) {
 	];
 	
 	for (i = 0; i < modals.length; i++) {
-		if (event.target == modals[i]) {
+		if (event.target === modals[i]) {
 			modals[i].style.display = "none";
 		}
 	}
