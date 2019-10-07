@@ -539,5 +539,44 @@ input[type='checkbox']{
 #profile a, #profile a:link, #profile a:hover {
     text-decoration: none;
 }
+
+#profile .left_box {
+    float: left;
+}
+
+#profile .right_box {
+    float: right;
+}
+
+#profile .right_box a {
+    color: #0F292F;
+}
+
+#profile .right_box .elemprofile {
+    margin-bottom: 10px;
+    font-weight: bolder;
+}
+
+#profile h1.title {
+    font-size: 22px;
+    font-weight: 200;
+}
+
+#profile hr.title_sep {
+    clear: both;
+    border: 0;
+    height: 1px;
+    background: #333;
+    background-image: -webkit-linear-gradient(left, #ccc, #333, #ccc);
+    background-image: -moz-linear-gradient(left, #ccc, #333, #ccc);
+    background-image: -ms-linear-gradient(left, #ccc, #333, #ccc);
+    background-image: -o-linear-gradient(left, #ccc, #333, #ccc);
+    margin-bottom: 10px;
+}
+
+#profile p.profile {
+  font-size: 15px;
+  font-weight: 200;
+}
 /* ------------------------------------- PROFILE END ----------------------------------------- */
 
