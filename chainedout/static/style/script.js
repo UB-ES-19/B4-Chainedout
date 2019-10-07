@@ -13,14 +13,7 @@ window.onclick = function(event) {
 	document.getElementById('profile_xp_edit_modal'),
 	document.getElementById('profile_skills_add_modal'),
 	document.getElementById('profile_skills_edit_modal'), 
-	document.getElementById('profile_publication_modal'),
-	document.getElementById('profile_patent_modal'),
-	document.getElementById('profile_course_modal'),
-	document.getElementById('profile_project_modal'),
-	document.getElementById('profile_awards_modal'),
-	document.getElementById('profile_test_q_modal'),
-	document.getElementById('profile_lang_modal'),
-	document.getElementById('profile_company_modal')
+	document.getElementById('profile_achievement_modal')
 	];
 	
 	for (i = 0; i < modals.length; i++) {
