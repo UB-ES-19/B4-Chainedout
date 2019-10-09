@@ -719,26 +719,11 @@ input[type='checkbox']{
     font-weight: bolder;
 }
 
-#profile .current{
-    width: 100%;
-}
-
-#profile .current_avatar{
-    display: inline-block;
-    margin-right: 20px;
-    vertical-align: top;
-}
-
 #profile img.profile_avatar {
   width: 100px;
   height: 100px;
   border-radius: 50%;
   margin-bottom: 10px;
-}
-
-#profile .current_work_education{
-    display: inline-block;
-    vertical-align: top;
 }
 
 #profile .fabsep {
@@ -767,13 +752,18 @@ input[type='checkbox']{
     margin-bottom: 5px;
 }
 
-#profile a .infolink, #profile a:link .infolink {
+#profile .data {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+#profile a .flink, #profile a:link .flink {
     font-size: 14px;
     font-weight: bold;
     color: #0b4d5d;
 }
 
-#profile a:hover .infolink {
+#profile a:hover .flink {
     text-decoration: underline;
 }
 
@@ -831,6 +821,15 @@ input[type='checkbox']{
     background-image: -o-linear-gradient(left, #BFBFBF, #BFBFBF, #BFBFBF);
     margin: 20px -20px;
 }
+
+/* ----- EDUCATION START ----- */
+#profile .edubox {
+  float: left;
+}
+#profile .edit_edubox {
+  float: right;
+}
+/* ----- EDUCATION END ----- */
 
 /* ------------------------------------- PROFILE END ----------------------------------------- */
 
