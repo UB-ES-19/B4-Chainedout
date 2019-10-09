@@ -14,9 +14,9 @@
         <h3>Barcelona, Cataluña, España</h3>
 
         <div class="data">
-            <i class="fas fa-briefcase"></i> www.tupelonuevo.es
-        <i class="fas fa-briefcase"></i> calvo@ub.edu
-        <i class="fas fa-briefcase"></i> +34 666 XXXXXX
+            <span class="info_data"><i class="fas fa-link"></i> <a href="www.tupelonuevo.es">www.tupelonuevo.es</a></span>
+            <span class="info_data"><i class="fas fa-paper-plane"></i> <a href="mailto:calvo@ub.edu">calvo@ub.edu</a></span>
+            <span class="info_data"><i class="fas fa-phone-square"></i> +34 666 XXXXXX</span>
         </div>
 
         <div id="friends">
@@ -40,26 +40,55 @@
 
 <!----- MODAL EDIT PROFILE START ----->
 <!-- The Modal -->
-<div id="profile_user_edit_modal" class="lmodal">
+<div id="profile_user_edit_modal" class="profile_modal">
 
   <!-- Modal Content -->
-  <form class="lmodal-content animate" method="post" action="{%  url 'login' %}">
+  <form class="profile-modal-content animate" method="post" action="{%  url 'login' %}">
   {% csrf_token %}
 
-    <div onclick="modal('profile_user_edit_modal', 'none')" class="lclose" title="Close Modal">&times;</div>
+    <div class="profile_modal_title">Edit Profile</div>
+    <div onclick="modal('profile_user_edit_modal', 'none')" class="mclose" title="Close Modal">&times;</div>
+    <div style="clear: both"></div>
 
-    <div class="login_modal_container">
-      <label for="username"><b>Username</b></label>
-      <input class="login_modal_input" type="text" placeholder="Enter Username" id="username" name="username" required>
+    <div class="profile_modal_container">
+        <div class="scrollable_modal_container">
 
-      <label for="password"><b>Password</b></label>
-      <input class="login_modal_input" type="password" placeholder="Enter Password" id="password" name="password" required>
+            <div class="profile_avatar_change">
+                <label for="avatarUpload" class="avatar-upload">
+                    <i class="fa fa-cloud-upload"></i> Change avatar
+                </label>
+                <input type="file" name="avatar" id="avatarUpload"/>
+            </div>
 
+            <label for="first_name"><b>First Name*</b></label>
+            <input class="profile_modal_input" type="text" placeholder="Enter your first name" id="first_name" name="first_name" required>
 
-      <hr style="margin-top: 20px;">
-      <button class="login_modal_btn" type="submit" value="LOGIN">Login</button>
-      <span class="login_modal_psw"> <a href="#">Forgot password?</a></span>
+            <label for="last_name"><b>Last Name*</b></label>
+            <input class="profile_modal_input" type="text" placeholder="Enter your last name" id="last_name" name="last_name" required>
 
+            <label for="email"><b>Email*</b></label>
+            <input class="profile_modal_input" type="text" placeholder="Enter your email" id="email" name="email" required>
+
+            <label for="phone"><b>Phone</b></label>
+            <input class="profile_modal_input" type="text" placeholder="Enter your phone" id="phone" name="phone">
+
+            <label for="web"><b>Web</b></label>
+            <input class="profile_modal_input" type="text" placeholder="Enter your web" id="web" name="web">
+
+            <label for="web"><b>Location</b></label>
+            <input class="profile_modal_input" type="text" placeholder="Enter your location" id="location" name="location">
+
+            <label for="headline"><b>Headline</b></label>
+            <textarea id="headlinestyle" name="headline", rows="5", cols="40"></textarea>
+
+            <label for="password1"><b>Change Password</b></label>
+            <input type="password" name="password1" value="" id="password1"><input type="hidden" name="password" />
+
+            <label for="password2"><b>Password confirmation</b></label>
+            <input type="password" name="password2" value="" id="password2"><input type="hidden" name="password" />
+        </div>
+        <hr style="margin-top: 10px; margin-bottom: 10px;">
+        <button class="profile_modal_btn" type="submit" value="CONFIRM">Confirm</button>
     </div>
   </form>
 </div>

@@ -1,6 +1,6 @@
 
 // When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
+window.addEventListener("click", function(event) {
 	var modals = [
 	document.getElementById('login_modal'), 
 	document.getElementById('profile_user_edit_modal'),
@@ -19,7 +19,7 @@ window.onclick = function(event) {
 			modals[i].style.display = "none";
 		}
 	}
-}
+});
 
 // shows/hides modal
 function modal(id, type) {
