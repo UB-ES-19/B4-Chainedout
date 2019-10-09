@@ -1,0 +1,169 @@
+{% include "../header.html" %}
+
+{% block content %}
+<div id="profile">
+<!------------------------------ PROFILE BOX START ---------------------------------->
+<div id="profilebox">
+    <div class="left_profile">
+        <div class="current">
+            <div class="current_avatar"><img src="/static/images/img_avatar.png" alt="Avatar" class="profile_avatar"></div>
+            <div class="current_work_education">
+                <div class="current_education"><i class="fas fa-university"></i> Universidad de Barcelona</div>
+                <div class="current_work"><i class="fas fa-briefcase"></i> El corte Inglés</div>
+            </div>
+        </div>
+        <div style="clear: both"></div>
+        <h1>Cepeda Calvo</h1>
+        <h2>Ingeniero capilar</h2>
+        <h3>Barcelona, Cataluña, España</h3>
+        <div id="info">
+            <a href="{% url 'index' %}"><span class="infolink">Show Contact Info</span></a> <i class="fas fabsep fa-circle"></i>
+            <a href="{% url 'index' %}"><span class="infolink">25 contacts</span></a> <i class="fas fabsep fa-circle"></i>
+            <a href="{% url 'index' %}"><span class="infolink">90 followers</span></a>
+
+            <a href="{% url 'register' %}"><span class="infolink">Register</span></a>
+        </div>
+    </div>
+    <div class="right_profile">
+        <div class="elemprofile"><a href="#"><i class="fas fa-plus"></i> Add section</a></div>
+        <div class="elemprofile"><a href="#"><i class="fas fa-edit"></i> Edit</a></div>
+
+        <div class="elemprofile"><a href="#"><i class="fas fa-eye"></i> Follow</a></div>
+        <div class="elemprofile"><a href="#"><i class="fas fa-eye-slash"></i> Unfollow</a></div>
+
+        <div class="elemprofile"><a href="#"><i class="fas fa-user-plus"></i> Add contact</a></div>
+        <div class="elemprofile"><a href="#"><i class="fas fa-user-minus"></i> Remove contact</a></div>
+    </div>
+    <div style="clear: both"></div>
+</div>
+<!----- MODAL CONTACT INFO (EMAIL, PHONE) PROFILE START ----->
+<!-- TODO -->
+<!----- MODAL CONTACT INFO (EMAIL, PHONE) PROFILE END ----->
+
+<!----- MODAL EDIT CONTACT INFO PROFILE START ----->
+<!-- TODO -->
+<!----- MODAL EDIT CONTACT INFO PROFILE END ----->
+
+<!----- MODAL EDIT PROFILE START ----->
+<!-- TODO -->
+<!----- MODAL EDIT PROFILE END ----->
+<!------------------------------ PROFILE BOX END ---------------------------------->
+
+
+
+<!------------------------------ ABOUT BOX START ---------------------------------->
+<div id="profilebox">
+    <div class="left_box">
+        <h1 class="title">About</h1>
+    </div>
+    <div class="right_box">
+        <div class="elemprofile"><a href="#"><i class="fas fa-edit"></i> Edit</a></div>
+    </div>
+    <hr class="title_sep" />
+    <div id="info">
+        <p>Ingeniero capilar de chema</p>
+    </div>
+</div>
+<!----- MODAL EDIT ABOUT START ----->
+<!-- TODO -->
+<!----- MODAL EDIT ABOUT END ----->
+<!------------------------------ ABOUT BOX END ---------------------------------->
+
+
+
+<!------------------------------ EDUCATION BOX START ---------------------------------->
+<div id="profilebox">
+    <div class="left_box">
+        <h1 class="title">Education</h1>
+    </div>
+    <div class="right_box">
+        <div class="elemprofile"><a href="#"><i class="fas fa-plus"></i> Add</a></div>
+    </div>
+    <hr class="title_sep" />
+    <div id="info">
+        A DETERMINAR
+    </div>
+
+<!----- MODAL ADD EDUCATION START ----->
+<!-- TODO -->
+<!----- MODAL ADD EDUCATION END ----->
+
+<!----- MODAL EDIT EDUCATION START ----->
+<!-- TODO -->
+<!----- MODAL EDIT EDUCATION END ----->
+
+    <hr class="section_sep" />
+
+    <div class="left_box">
+        <h1 class="title">Experience</h1>
+    </div>
+    <div class="right_box">
+        <div class="elemprofile"><a href="#"><i class="fas fa-plus"></i> Add</a></div>
+    </div>
+    <hr class="title_sep" />
+    <div id="info">
+        A DETERMINAR
+    </div>
+</div>
+<!----- MODAL ADD EXPERIENCE START ----->
+<!-- TODO -->
+<!----- MODAL ADD EXPERIENCE END ----->
+
+<!----- MODAL EDIT EXPERIENCE START ----->
+<!-- TODO -->
+<!----- MODAL EDIT EXPERIENCE END ----->
+<!------------------------------ EDUCATION BOX END ---------------------------------->
+
+
+
+<!------------------------------ SKILLS BOX START ---------------------------------->
+<div id="profilebox">
+    <div class="left_box">
+        <h1 class="title">Skills</h1>
+    </div>
+    <div class="right_box">
+        <div class="elemprofile"><a href="#"><i class="fas fa-plus"></i> Add</a></div>
+    </div>
+    <hr class="title_sep" />
+    <div id="info">
+        A DETERMINAR
+    </div>
+</div>
+<!----- MODAL ADD SKILLS START ----->
+<!-- TODO -->
+<!----- MODAL ADD SKILLS END ----->
+
+<!----- MODAL EDIT SKILLS START ----->
+<!-- TODO -->
+<!----- MODAL EDIT SKILLS END ----->
+<!------------------------------ SKILLS BOX END ---------------------------------->
+
+
+
+<!------------------------------ ACHIEVEMENTS BOX START ---------------------------------->
+<div id="profilebox">
+    <div class="left_box">
+        <h1 class="title">Achievements</h1>
+    </div>
+    <div class="right_box">
+        <div class="elemprofile"><a href="#"><i class="fas fa-plus"></i> Add</a></div>
+    </div>
+    <hr class="title_sep" />
+    <div id="info">
+        A DETERMINAR
+    </div>
+</div>
+
+<!----- MODAL ADD ACHIVEMENT START ----->
+<!-- TODO -->
+<!----- MODAL ADD ACHIVEMENT END ----->
+
+<!----- MODAL EDIT ACHIVEMENT START ----->
+<!-- TODO -->
+<!----- MODAL EDIT ACHIVEMENT END ----->
+<!------------------------------ ACHIEVEMENTS BOX END ---------------------------------->
+</div>
+
+{% endblock %}
+
+{% include "../footer.html" %}

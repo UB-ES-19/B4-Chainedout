@@ -12,6 +12,9 @@ from .forms import RegisterForm
 def index(request):
     return render(request, "index.html")
 
+def testprofile(request):
+    return render(request, "user/profile.html")
+
 def register(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
