@@ -103,7 +103,7 @@
         <h1 class="title">About</h1>
     </div>
     <div class="right_box">
-        <div class="elemprofile"><a href="#"><i class="fas fa-edit"></i> Edit</a></div>
+        <div class="elemprofile"><a onclick="modal('profile_about_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
     </div>
     <hr class="title_sep" />
     <div id="info">
@@ -111,7 +111,31 @@
     </div>
 </div>
 <!----- MODAL EDIT ABOUT START ----->
-<!-- TODO -->
+
+
+<div id="profile_about_modal" class="about_modal">
+
+  <!-- Modal Content -->
+  <form class="about-modal-content animate" method="post" action="{%  url 'login' %}">
+  {% csrf_token %}
+
+    <div class="profile_modal_title">About</div>
+    <div onclick="modal('profile_about_modal', 'none')" class="mclose" title="Close Modal">&times;</div>
+    <div style="clear: both"></div>
+
+    <div class="profile_modal_container">
+        <div class="scrollable_modal_container">
+
+            <label for="headline"><b>About</b></label>
+            <textarea id="headlinestyle" name="headline", rows="5", cols="40"></textarea>
+
+        </div>
+        <hr style="margin-top: 10px; margin-bottom: 10px;">
+        <button class="about_modal_btn" type="submit" value="CONFIRM">Confirm</button>
+    </div>
+  </form>
+</div>
+
 <!----- MODAL EDIT ABOUT END ----->
 <!------------------------------ ABOUT BOX END ---------------------------------->
 
@@ -123,7 +147,7 @@
         <h1 class="title">Education</h1>
     </div>
     <div class="right_box">
-        <div class="elemprofile"><a href="#"><i class="fas fa-plus"></i> Add</a></div>
+        <div class="elemprofile"><a onclick="modal('profile_edu_add_modal', 'block')"><i class="fas fa-plus"></i> Add</a></div>
     </div>
     <hr class="title_sep" />
     <div id="info">
@@ -132,18 +156,78 @@
             YYY
         </div>
         <div class="edit_edubox">
-            <div class="elemprofile"><a href="#"><i class="fas fa-edit"></i> Edit</a></div>
+            <div class="elemprofile"><a onclick="modal('profile_edu_edit_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
         </div>
         <div style="clear: both"></div>
     </div>
 
 <!----- MODAL ADD EDUCATION START ----->
-<!-- TODO -->
+<div id="profile_edu_add_modal" class="education_modal">
+
+  <!-- Modal Content -->
+  <form class="education_modal-content animate" method="post" action="{%  url 'login' %}">
+  {% csrf_token %}
+
+    <div class="profile_modal_title">Education</div>
+    <div onclick="modal('profile_edu_add_modal', 'none')" class="mclose" title="Close Modal">&times;</div>
+    <div style="clear: both"></div>
+
+    <div class="profile_modal_container">
+        <div class="scrollable_modal_container">
+
+            <label for="Center"><b>Center*</b></label>
+            <input class="education_modal_input" type="text" id="center" name="center" required>
+
+            <label for="Degree"><b>Degree*</b></label>
+            <input class="education_modal_input" type="text" id="degree" name="degree" required>
+
+            <label for="Start"><b>Start*</b></label>
+            <input class="education_modal_input" type="number" id="start" name="start" required>
+
+            <label for="End"><b>End*</b></label>
+            <input class="education_modal_input" type="number" id="end" name="end">
+
+            <label for="CheckBox"><b></b></label>
+            <input class="a"  type="checkbox" name="checkbox" value="Bike" checked> ... <br>
+
+        </div>
+        <hr style="margin-top: 10px; margin-bottom: 10px;">
+        <button class="education_modal_btn" type="submit" value="CONFIRM">Confirm</button>
+    </div>
+  </form>
+</div>
 <!----- MODAL ADD EDUCATION END ----->
 
 <!----- MODAL EDIT EDUCATION START ----->
-<!-- TODO -->
+<div id="profile_edu_edit_modal" class="education_edit_modal">
+
+  <!-- Modal Content -->
+  <form class="education_edit_modal-content animate" method="post" action="{%  url 'login' %}">
+  {% csrf_token %}
+
+    <div class="profile_modal_title">Education</div>
+    <div onclick="modal('profile_edu_edit_modal', 'none')" class="mclose" title="Close Modal">&times;</div>
+    <div style="clear: both"></div>
+
+    <div class="profile_modal_container">
+        <div class="scrollable_modal_container">
+
+            <label for="Element_text"><b> Element to edit </b></label>
+            <input class="education_edit_modal_input" type="text" id="Element_text" name="Element_text" required>
+
+            <label for="Element_numeric"><b> Element to edit </b></label>
+            <input class="education_edit_modal_input" type="number" id="Element_numeric" name="Element_numeric" required>
+
+
+        </div>
+        <hr style="margin-top: 10px; margin-bottom: 10px;">
+        <button class="education_edit_modal_btn" type="submit" value="CONFIRM">Confirm</button>
+    </div>
+  </form>
+</div>
 <!----- MODAL EDIT EDUCATION END ----->
+
+
 
     <hr class="section_sep" />
 
@@ -151,7 +235,7 @@
         <h1 class="title">Experience</h1>
     </div>
     <div class="right_box">
-        <div class="elemprofile"><a href="#"><i class="fas fa-plus"></i> Add</a></div>
+        <div class="elemprofile"><a onclick="modal('profile_xp_add_modal', 'block')"><i class="fas fa-plus"></i> Add</a></div>
     </div>
     <hr class="title_sep" />
     <div id="info">
@@ -159,11 +243,69 @@
     </div>
 </div>
 <!----- MODAL ADD EXPERIENCE START ----->
-<!-- TODO -->
+<div id="profile_xp_add_modal" class="experience_add_modal">
+
+  <!-- Modal Content -->
+  <form class="experience_add_modal-content animate" method="post" action="{%  url 'login' %}">
+  {% csrf_token %}
+
+    <div class="profile_modal_title">Work Experience </div>
+    <div onclick="modal('profile_xp_add_modal', 'none')" class="mclose" title="Close Modal">&times;</div>
+    <div style="clear: both"></div>
+
+    <div class="profile_modal_container">
+        <div class="scrollable_modal_container">
+
+            <label for="Laboral_Experience"><b>Work Experience*</b></label>
+            <input class="experience_add_modal_input" type="text" id="laboral_experience" name="center" required>
+
+            <label for="Place"><b>Place*</b></label>
+            <input class="experience_add_modal_input" type="text" id="Place" name="degree" required>
+
+            <label for="Start"><b>Start*</b></label>
+            <input class="education_modal_input" type="number" id="start_" name="start" required>
+
+            <label for="End"><b>End*</b></label>
+            <input class="education_modal_input" type="number" id="end_" name="end">
+
+            <label for="CheckBox"><b></b></label>
+            <input class="a"  type="checkbox" name="checkbox" value="Bike" checked> ... <br>
+
+        </div>
+        <hr style="margin-top: 10px; margin-bottom: 10px;">
+        <button class="experience_add_modal_btn" type="submit" value="CONFIRM">Confirm</button>
+    </div>
+  </form>
+</div>
 <!----- MODAL ADD EXPERIENCE END ----->
 
 <!----- MODAL EDIT EXPERIENCE START ----->
-<!-- TODO -->
+<div id="profile_xp_edit_modal" class="experience_edit_modal">
+
+  <!-- Modal Content -->
+  <form class="experience_edit_modal-content animate" method="post" action="{%  url 'login' %}">
+  {% csrf_token %}
+
+    <div class="profile_modal_title">Work Experience</div>
+    <div onclick="modal('profile_xp_edit_modal', 'none')" class="mclose" title="Close Modal">&times;</div>
+    <div style="clear: both"></div>
+
+    <div class="profile_modal_container">
+        <div class="scrollable_modal_container">
+
+            <label for="Element_text"><b> Element to edit </b></label>
+            <input class="experience_edit_modal_input" type="text" id="Element_edit_text" name="Element_text" required>
+
+            <label for="Element_numeric"><b> Element to edit </b></label>
+            <input class="experience_edit_modal_input" type="number" id="Element_edit_numeric" name="Element_numeric" required>
+
+
+        </div>
+        <hr style="margin-top: 10px; margin-bottom: 10px;">
+        <button class="experience_edit_modal_btn" type="submit" value="CONFIRM">Confirm</button>
+    </div>
+  </form>
+</div>
 <!----- MODAL EDIT EXPERIENCE END ----->
 <!------------------------------ EDUCATION BOX END ---------------------------------->
 
