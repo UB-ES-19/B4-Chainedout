@@ -5,12 +5,9 @@ window.addEventListener("click", function(event) {
 	document.getElementById('login_modal'), 
 	document.getElementById('profile_user_edit_modal'),
 	document.getElementById('profile_about_modal'),
-	document.getElementById('profile_edu_add_modal'),
-	document.getElementById('profile_edu_edit_modal'),
-	document.getElementById('profile_xp_add_modal'),
-	document.getElementById('profile_xp_edit_modal'),
-	document.getElementById('profile_skills_add_modal'),
-	document.getElementById('profile_skills_edit_modal'), 
+	document.getElementById('profile_edu_modal'),
+	document.getElementById('profile_xp_modal'),
+	document.getElementById('profile_skills_modal'),
 	document.getElementById('profile_achievement_modal')
 	];
 	
