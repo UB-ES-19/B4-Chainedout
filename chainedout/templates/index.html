@@ -6,9 +6,14 @@
 	<div class="landing-parallax-text">
 		<h1>Welcome to your <br>professional community</h1>
 	</div>
-	<div class="landing-parallax-button">
-		<button class="landing-parallaxbtn">Join us</button>
-	</div>
+    {% if not request.user.is_authenticated %}
+        <a href="{% url 'register' %} ">
+            <div class="landing-parallax-button">
+                <button class="landing-parallaxbtn">Join us</button>
+
+            </div>
+        </a>
+    {% endif %}
 	<div class="landing-parallax-scroll-indicator">
 		<p>Scroll</p>
 		<div class="landing-parallax-scroll-indicator-arrow"><a href="#landing-presentation"><i class="fas fa-chevron-down"></i></a></div>
