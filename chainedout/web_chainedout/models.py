@@ -1,8 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-
 
 # Create your models here.
 
@@ -22,9 +19,8 @@ User.add_to_class('following',
                   models.ManyToManyField('self', through=Follow, related_name='followers', symmetrical=False))
 
 
-class ProfileForm(models.Model):
+class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    #image = models.ImageField(default='default.jpg', upload_to='profile_pics')
     bio = models.TextField(max_length=500, blank=True)
     location = models.TextField(max_length=200, blank=True)
     birth_date = models.DateField(null=True, blank=True)
@@ -32,7 +28,7 @@ class ProfileForm(models.Model):
     phone = models.IntegerField(blank=True)
 
     def __str__(self):
-        return f'{self.user.username}Profile'
+        return self.user.username
 
 
 """
@@ -46,11 +42,3 @@ class ProfileForm(models.Model):
 """
 
 
-def create_profile(sender, **kwargs):
-    user = kwargs["instance"]
-    if kwargs["created"]:
-        user_profile = ProfileForm(user=user)
-        user_profile.save()
-
-
-post_save.connect(create_profile, sender=User)

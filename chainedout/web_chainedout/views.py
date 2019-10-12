@@ -7,7 +7,7 @@ from django.core.exceptions import PermissionDenied
 from django.urls import reverse
 from django.forms.models import inlineformset_factory
 from django.views.decorators.http import require_POST
-from .models import Follow, ProfileForm
+from .models import Follow
 
 from .forms import RegisterForm
 
@@ -57,32 +57,3 @@ def user_follow(request):
         except User.DoesNotExist:
             return JsonResponse({'status':'error'})
     return JsonResponse({'status':'error'})
-
-@login_required
-def edit_profile(request, pk):
-    user = User.objects.get(pk=pk)
-    user_form = ProfileForm(instance=User)
-    ProfileInLineFormset = inlineformset_factory(User, ProfileForm, fields=('bio','location','birth_date','jobsIds','phone'))
-    formset = ProfileInLineFormset(instance=user)
-
-    if request.user.is_authenticated() and request.user.id == user.id:
-        if request.method == "POST":
-            user_form = ProfileForm(request.POST, request.FILES, instance=user)
-            formset = ProfileInLineFormset(request.POST, request.FILES, instance=user)
-
-            if user_form.is_valid():
-                created_user = user_form.save(commit = False)
-                formset = ProfileInLineFormset(request.POST, request.FILES, instance=created_user)
-
-                if formset.is_valid():
-                    created_user.save()
-                    formset.save()
-                    return HttpResponseRedirect('profile')
-
-        return render(request, 'profile'), {
-            "noodle": pk,
-            "noodle_form": user_form,
-            "formset": formset
-        }
-    else:
-        raise PermissionDenied
