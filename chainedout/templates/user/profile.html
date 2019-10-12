@@ -88,7 +88,7 @@
             <input type="password" name="password2" value="" id="password2"><input type="hidden" name="password" />
         </div>
         <hr style="margin-top: 10px; margin-bottom: 10px;">
-        <button class="profile_modal_btn" type="submit" value="CONFIRM">Confirm</button>
+        <button class="profile_modal_btn" type="submit" value="confirm">Confirm</button>
     </div>
   </form>
 </div>
@@ -111,8 +111,6 @@
     </div>
 </div>
 <!----- MODAL EDIT ABOUT START ----->
-
-
 <div id="profile_about_modal" class="about_modal">
 
   <!-- Modal Content -->
@@ -131,7 +129,8 @@
 
         </div>
         <hr style="margin-top: 10px; margin-bottom: 10px;">
-        <button class="profile_modal_btn" type="submit" value="CONFIRM">Confirm</button>
+        <button class="profile_modal_btn_rem btnMargin" type="submit" value="remove">Remove</button>
+        <button class="profile_modal_btn btnMargin" type="submit" value="confirm">Confirm</button>
     </div>
   </form>
 </div>
@@ -152,13 +151,30 @@
     <hr class="title_sep" />
     <div id="info">
 
-        <div class="edubox">
-            YYY
+        <div class="element">
+            <div class="edubox">
+                <p>Universidad 1 <i class="fas fabsep fa-circle"></i> Carrera 1</p>
+                <p><small>2012 - 2018</small></p>
+            </div>
+            <div class="edit_edubox">
+                <div class="elemprofile edit"><a onclick="modal('profile_xp_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
+            </div>
+            <div style="clear: both"></div>
         </div>
-        <div class="edit_edubox">
-            <div class="elemprofile"><a onclick="modal('profile_edu_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
+
+        <hr class="sepelement"/>
+
+        <div class="element">
+            <div class="edubox">
+                <p>Universidad 2 <i class="fas fabsep fa-circle"></i> Carrera 2</p>
+                <p><small>2019 - Current</small></p>
+            </div>
+            <div class="edit_edubox">
+                <div class="elemprofile edit"><a onclick="modal('profile_xp_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
+            </div>
+            <div style="clear: both"></div>
         </div>
-        <div style="clear: both"></div>
+
     </div>
 
 <!----- MODAL EDUCATION START ----->
@@ -183,18 +199,19 @@
 
             <div class="startedDate">
                 <label for="started"><b>Started *</b></label><br/>
-                <input class="profile_modal_input" type="date" id="started" name="started">
+                <input class="profile_modal_input" type="number" min="0" id="started" name="started">
             </div>
 
             <div class="finishedDate">
                 <label for="finished"><b>Finished</b></label><br/>
-                <input class="profile_modal_input" type="date" id="finished" name="finished">
+                <input class="profile_modal_input" type="number" min="0" id="finished" name="finished">
             </div>
             <div style="clear: left"></div>
 
         </div>
         <hr style="margin-top: 10px; margin-bottom: 10px;">
-        <button class="profile_modal_btn" type="submit" value="CONFIRM">Confirm</button>
+        <button class="profile_modal_btn_rem btnMargin" type="submit" value="remove">Remove</button>
+        <button class="profile_modal_btn btnMargin" type="submit" value="confirm">Confirm</button>
     </div>
   </form>
 </div>
@@ -210,7 +227,33 @@
     </div>
     <hr class="title_sep" />
     <div id="info">
-        A DETERMINAR
+
+        <div class="element">
+            <div class="edubox">
+                <p>Trabajo 1 <i class="fas fabsep fa-circle"></i> Empresa 1</p>
+                <p><i><small>Lo que hace 1.</small></i></p>
+                <p><small>2019 - 2020</small></p>
+            </div>
+            <div class="edit_edubox">
+                <div class="elemprofile edit"><a onclick="modal('profile_xp_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
+            </div>
+            <div style="clear: both"></div>
+        </div>
+
+        <hr class="sepelement"/>
+
+        <div class="element">
+            <div class="edubox">
+                <p>Trabajo 2 <i class="fas fabsep fa-circle"></i> Empresa 2</p>
+                <p><i><small>Lo que hace 2.</small></i></p>
+                <p><small>2019 - Current</small></p>
+            </div>
+            <div class="edit_edubox">
+                <div class="elemprofile edit"><a onclick="modal('profile_xp_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
+            </div>
+            <div style="clear: both"></div>
+        </div>
+
     </div>
 </div>
 <!----- MODAL EXPERIENCE START ----->
@@ -230,17 +273,17 @@
             <label for="laboral_experience"><b>Work Experience *</b></label>
             <input class="profile_modal_input" type="text" id="laboral_experience" name="laboral_experience" required>
 
-            <label for="place"><b>Place *</b></label>
-            <input class="profile_modal_input" type="text" id="place" name="place" required>
+            <label for="company"><b>Company *</b></label>
+            <input class="profile_modal_input" type="text" id="company" name="company" required>
 
             <div class="startedDate">
                 <label for="started"><b>Started *</b></label><br/>
-                <input class="profile_modal_input" type="date" id="started" name="started">
+                <input class="profile_modal_input" type="number" min="0" id="started" name="started">
             </div>
 
             <div class="finishedDate">
                 <label for="finished"><b>Finished</b></label><br/>
-                <input class="profile_modal_input" type="date" id="finished" name="finished">
+                <input class="profile_modal_input" type="number" min="0" id="finished" name="finished">
             </div>
             <div style="clear: left"></div>
 
@@ -249,7 +292,8 @@
 
         </div>
         <hr style="margin-top: 10px; margin-bottom: 10px;">
-        <button class="profile_modal_btn" type="submit" value="CONFIRM">Confirm</button>
+        <button class="profile_modal_btn_rem btnMargin" type="submit" value="remove">Remove</button>
+        <button class="profile_modal_btn btnMargin" type="submit" value="confirm">Confirm</button>
     </div>
   </form>
 </div>
@@ -265,15 +309,59 @@
         <h1 class="title">Skills</h1>
     </div>
     <div class="right_box">
-        <div class="elemprofile"><a href="#"><i class="fas fa-plus"></i> Add</a></div>
+        <div class="elemprofile"><a onclick="modal('profile_skills_modal', 'block')"><i class="fas fa-plus"></i> Add</a></div>
     </div>
     <hr class="title_sep" />
     <div id="info">
-        A DETERMINAR
+
+        <div class="element">
+            <div class="edubox">
+                <p>C++</p>
+            </div>
+            <div class="edit_edubox">
+                <div class="elemprofile edit"><a onclick="modal('profile_skills_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
+            </div>
+            <div style="clear: both"></div>
+        </div>
+
+        <hr class="sepelement"/>
+
+        <div class="element">
+            <div class="edubox">
+                <p>JAVA</p>
+            </div>
+            <div class="edit_edubox">
+                <div class="elemprofile edit"><a onclick="modal('profile_skills_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
+            </div>
+            <div style="clear: both"></div>
+        </div>
+
     </div>
 </div>
 <!----- MODAL SKILLS START ----->
-<!-- TODO -->
+<div id="profile_skills_modal" class="skills_modal">
+
+  <!-- Modal Content -->
+  <form class="profile-modal-content animate" method="post" action="{%  url 'login' %}">
+  {% csrf_token %}
+
+    <div class="profile_modal_title">Skills</div>
+    <div onclick="modal('profile_skills_modal', 'none')" class="mclose" title="Close Modal">&times;</div>
+    <div style="clear: both"></div>
+
+    <div class="profile_modal_container">
+        <div class="scrollable_modal_container">
+
+            <label for="skill"><b>Your Skill *</b></label>
+            <input class="profile_modal_input" type="text" id="skill" name="skill" required>
+
+        </div>
+        <hr style="margin-top: 10px; margin-bottom: 10px;">
+        <button class="profile_modal_btn_rem btnMargin" type="submit" value="remove">Remove</button>
+        <button class="profile_modal_btn btnMargin" type="submit" value="confirm">Confirm</button>
+    </div>
+  </form>
+</div>
 <!----- MODAL SKILLS END ----->
 
 <!------------------------------ SKILLS BOX END ---------------------------------->

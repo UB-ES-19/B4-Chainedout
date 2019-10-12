@@ -769,6 +769,11 @@ input[type='checkbox']{
   margin-right: 10px;
 }
 
+#profile .data .info_data:last-child {
+  margin-right: 0;
+}
+
+
 #profile a .flink, #profile a:link .flink {
     font-size: 14px;
     font-weight: bold;
@@ -798,6 +803,15 @@ input[type='checkbox']{
 #profile .elemprofile {
     margin-bottom: 10px;
     font-weight: bolder;
+}
+
+#profile .edit {
+  opacity: 0.3;
+}
+
+#profile .elemprofile:hover {
+  cursor: pointer;
+  opacity: 1;
 }
 
 #profile h1.title {
@@ -861,9 +875,35 @@ input[type='checkbox']{
   float: right;
 }
 
+#profile .element {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#profile hr.sepelement{
+    border-top: 1px dashed #00302f;
+    color: transparent;
+    background-color: transparent;
+    opacity: 0.5;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+#profile hr.sepelement:last-child {
+    display: none;
+}
+
+#profile .edubox p {
+  margin-bottom: 5px;
+}
+
+#profile .edubox p:last-child {
+  margin-bottom: 0;
+}
+
 /* ----- MODAL PROFILE START ----- */
 /* The Modal (background) */
-.profile_modal, .about_modal, .education_modal, .education_modal, .experience_modal {
+.profile_modal, .about_modal, .education_modal, .education_modal, .experience_modal, .skills_modal, .achievements_modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
@@ -898,12 +938,43 @@ input[type=text].profile_modal_input, input[type=password].profile_modal_input {
   box-sizing: border-box;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
+}
+
+input[type=number].profile_modal_input {
+  padding: 12px 20px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
 .profile_modal_input{
   font-size: 0.8em;
 }
 /* Set a style for all buttons */
 button.profile_modal_btn {
   background-color: #00302f;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  cursor: pointer;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  float: right;
+}
+
+button.profile_modal_btn_rem {
+  background-color: #301700;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -967,6 +1038,14 @@ button:hover.profile_modal_btn{
 
 #profile .finishedDate {
   margin-bottom: 10px;
+}
+
+#profile .btnMargin {
+  margin-left: 10px;
+}
+
+#profile .btnMargin:first-child {
+  margin-left: 0;
 }
 
 /* ----- MODAL END ----- */
