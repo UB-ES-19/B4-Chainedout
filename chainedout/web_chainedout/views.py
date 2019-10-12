@@ -37,7 +37,7 @@ def user_list(request):
 @login_required
 def user_info(request, username):
     user = get_object_or_404(User, username=username, is_active=True)
-    return render(request, 'user/info.html', {'section': 'people', 'user': user})
+    return render(request, 'user/profile.html', {'section': 'people', 'user': user})
 
 @require_POST
 @login_required
