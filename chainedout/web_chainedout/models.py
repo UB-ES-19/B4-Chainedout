@@ -15,8 +15,7 @@ class Follow(models.Model):
         return '{} follows {}'.format(self.user_following, self.user_followed)
 
 
-User.add_to_class('following',
-                  models.ManyToManyField('self', through=Follow, related_name='followers', symmetrical=False))
+User.add_to_class('following', models.ManyToManyField('self', through=Follow, related_name='followers', symmetrical=False))
 
 
 class Profile(models.Model):
