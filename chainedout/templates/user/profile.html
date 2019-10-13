@@ -374,7 +374,7 @@
         <h1 class="title">Achievements</h1>
     </div>
     <div class="right_box">
-        <div class="elemprofile"><a href="#"><i class="fas fa-plus"></i> Add</a></div>
+        <div class="elemprofile"><a onclick="modal('profile_achievement_modal', 'block')"><i class="fas fa-plus"></i> Add</a></div>
     </div>
     <hr class="title_sep" />
     <div id="info">
@@ -383,12 +383,31 @@
 </div>
 
 <!----- MODAL ADD ACHIVEMENT START ----->
-<!-- TODO -->
+<div id="profile_achievement_modal" class="achievements_modal">
+
+  <!-- Modal Content -->
+  <form class="profile-modal-content animate" method="post" action="{%  url 'login' %}">
+  {% csrf_token %}
+
+    <div class="profile_modal_title">Achievements</div>
+    <div onclick="modal('profile_achievement_modal', 'none')" class="mclose" title="Close Modal">&times;</div>
+    <div style="clear: both"></div>
+
+    <div class="profile_modal_container">
+        <div class="scrollable_modal_container">
+
+            <label for="achievement"><b>Your Achievement *</b></label>
+            <input class="profile_modal_input" type="text" id="achievement" name="achievement" required>
+
+        </div>
+        <hr style="margin-top: 10px; margin-bottom: 10px;">
+        <button class="profile_modal_btn_rem btnMargin" type="submit" value="remove">Remove</button>
+        <button class="profile_modal_btn btnMargin" type="submit" value="confirm">Confirm</button>
+    </div>
+  </form>
+</div>
 <!----- MODAL ADD ACHIVEMENT END ----->
 
-<!----- MODAL EDIT ACHIVEMENT START ----->
-<!-- TODO -->
-<!----- MODAL EDIT ACHIVEMENT END ----->
 <!------------------------------ ACHIEVEMENTS BOX END ---------------------------------->
 </div>
 
