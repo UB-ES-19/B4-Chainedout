@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/static/style/stylesheet.css?{% now "U" %}">
+    <link rel="shortcut icon" href="/static/style/images/favicon.ico" type="image/vnd.microsoft.icon">
     <script src="/static/style/script.js"></script>
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Chainedout</title>
 </head>
 <body>
@@ -25,10 +26,10 @@
     <div class="inner_main_menu">
         <ul>
             {% if request.user.is_authenticated %}
-                <li><a id = "logout" class="logout" href="{% url 'logout' %}?next=/"></i> Log out</a></li>
+                <li><a id = "logout" class="logout" href="{% url 'logout' %}?next=/"> Logout</a></li>
             {% else %}
-                <li><a id = "register" class="register" href="{% url 'register' %}"><i class="fa fa-fw fa-user-plus"></i> Register</a></li>
-                <li><a id = "login" onclick="loginModal('login_modal', 'block')"><i class="fa fa-fw fa-user"></i> Login</a></li>
+                <li><a id = "register" class="register" href="{% url 'register' %}"><i class="fa fa-fw fa-users"></i> Register</a></li>
+                <li><a id = "login" onclick="modal('login_modal', 'block')"><i class="fa fa-fw fa-user"></i> Login</a></li>
             {%  endif %}
         </ul>
     </div><!-- Links to sign-in, sign up, logout -->
@@ -37,13 +38,13 @@
 
 <!------------------------------ LOGIN MODAL START ---------------------------------->
 <!-- The Modal -->
-<div id="login_modal" class="modal">
+<div id="login_modal" class="lmodal">
 
   <!-- Modal Content -->
-  <form class="modal-content animate" method="post" action="{%  url 'login' %}">
+  <form class="lmodal-content animate" method="post" action="{%  url 'login' %}">
   {% csrf_token %}
 
-    <div onclick="loginModal('login_modal', 'none')" class="close" title="Close Modal">&times;</div>
+    <div onclick="modal('login_modal', 'none')" class="mclose" title="Close Modal">&times;</div>
     <div class="login_modal_imgcontainer">
       <img src="/static/images/img_avatar.png" alt="Avatar" class="login_modal_avatar">
     </div>
