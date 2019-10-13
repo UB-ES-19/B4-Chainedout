@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 # Create your models here.
 
 class Follow(models.Model):
@@ -15,11 +16,12 @@ class Follow(models.Model):
         return '{} follows {}'.format(self.user_following, self.user_followed)
 
 
-User.add_to_class('following', models.ManyToManyField('self', through=Follow, related_name='followers', symmetrical=False))
+User.add_to_class('following',
+                  models.ManyToManyField('self', through=Follow, related_name='followers', symmetrical=False))
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     bio = models.TextField(max_length=500, blank=True)
     location = models.TextField(max_length=200, blank=True)
     birth_date = models.DateField(null=True, blank=True)
@@ -38,6 +40,5 @@ class Profile(models.Model):
     class Skills(models.Model):
 
     class Achievements(models.Model):
+
 """
-
-
