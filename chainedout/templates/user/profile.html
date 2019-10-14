@@ -13,15 +13,16 @@
             </div>
         </div>
         <div style="clear: both"></div>
-        <h1>Cepeda Calvo</h1>
-        <h2>Ingeniero capilar</h2>
-        <h3>Barcelona, Cataluña, España</h3>
+        <h1>{{ user.first_name }} {{ user.last_name }}</h1>
+        <h2>{{ Profile.profession }}</h2>
+        <h3>{{ Profile.location }}</h3>
         <div id="info">
             <a href="{% url 'index' %}"><span class="infolink">Show Contact Info</span></a> <i class="fas fabsep fa-circle"></i>
             <a href="{% url 'index' %}"><span class="infolink">25 contacts</span></a> <i class="fas fabsep fa-circle"></i>
-            <a href="{% url 'index' %}"><span class="infolink">90 followers</span></a>
-
-            <a href="{% url 'register' %}"><span class="infolink">Register</span></a>
+            <a href="{% url 'index' %}"><span class="infolink">{{ Follow.followers }}</span></a>
+            {% if not request.user.is_authenticated %}
+                <a href="{% url 'register' %}"><span class="infolink">Register</span></a>
+            {% endif %}
         </div>
     </div>
     <div class="right_profile">
@@ -61,7 +62,7 @@
     </div>
     <hr class="title_sep" />
     <div id="info">
-        <p>Ingeniero capilar de chema</p>
+        <p>{{ Profile.bio }}</p>
     </div>
 </div>
 <!----- MODAL EDIT ABOUT START ----->
@@ -81,7 +82,7 @@
     </div>
     <hr class="title_sep" />
     <div id="info">
-        A DETERMINAR
+        {{ Profile.education }}
     </div>
 
 <!----- MODAL ADD EDUCATION START ----->
@@ -102,7 +103,7 @@
     </div>
     <hr class="title_sep" />
     <div id="info">
-        A DETERMINAR
+        {{ Profile.experience }}
     </div>
 </div>
 <!----- MODAL ADD EXPERIENCE START ----->
@@ -126,7 +127,7 @@
     </div>
     <hr class="title_sep" />
     <div id="info">
-        A DETERMINAR
+       {{ Profile.skills }}
     </div>
 </div>
 <!----- MODAL ADD SKILLS START ----->
@@ -150,7 +151,7 @@
     </div>
     <hr class="title_sep" />
     <div id="info">
-        A DETERMINAR
+        {{ Profile.achivements }}
     </div>
 </div>
 
@@ -166,8 +167,8 @@
 
 <form method="post">
   {% csrf_token %}
-  {{ user_form.as_p }}
-  {{ profile_form.as_p }}
+  {{ RegisterForm.as_p }}
+  {{ ProfileForm.as_p }}
   <button type="submit">Save changes</button>
 </form>
 
