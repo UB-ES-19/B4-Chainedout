@@ -6,27 +6,28 @@
 <div id="profilebox">
     <div class="left_profile">
         <div class="current">
-            <div class="current_avatar"><img src="/static/images/img_avatar.png" alt="Avatar" class="profile_avatar"></div>
-            <div class="current_work_education">
-                <div class="current_education"><i class="fas fa-university"></i> Universidad de Barcelona</div>
-                <div class="current_work"><i class="fas fa-briefcase"></i> El corte Inglés</div>
-            </div>
+            <img src="/static/images/img_avatar.png" alt="Avatar" class="profile_avatar">
         </div>
         <div style="clear: both"></div>
         <h1>Cepeda Calvo</h1>
         <h2>Ingeniero capilar</h2>
         <h3>Barcelona, Cataluña, España</h3>
-        <div id="info">
-            <a href="{% url 'index' %}"><span class="infolink">Show Contact Info</span></a> <i class="fas fabsep fa-circle"></i>
-            <a href="{% url 'index' %}"><span class="infolink">25 contacts</span></a> <i class="fas fabsep fa-circle"></i>
-            <a href="{% url 'index' %}"><span class="infolink">90 followers</span></a>
 
-            <a href="{% url 'register' %}"><span class="infolink">Register</span></a>
+        <div class="data">
+            <span class="info_data"><i class="fas fa-link"></i> <a href="www.tupelonuevo.es">www.tupelonuevo.es</a></span>
+            <span class="info_data"><i class="fas fa-paper-plane"></i> <a href="mailto:calvo@ub.edu">calvo@ub.edu</a></span>
+            <span class="info_data"><i class="fas fa-phone-square"></i> +34 666 XXXXXX</span>
+        </div>
+
+        <div id="friends">
+            <a href="{% url 'index' %}"><span class="flink">25 contacts</span></a> <i class="fas fabsep fa-circle"></i>
+            <a href="{% url 'index' %}"><span class="flink">90 followers</span></a>
+
+            <a href="{% url 'register' %}"><span class="flink">Register</span></a>
         </div>
     </div>
     <div class="right_profile">
-        <div class="elemprofile"><a href="#"><i class="fas fa-plus"></i> Add section</a></div>
-        <div class="elemprofile"><a href="#"><i class="fas fa-edit"></i> Edit</a></div>
+        <div class="elemprofile"><a onclick="modal('profile_user_edit_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
 
         <div class="elemprofile"><a href="#"><i class="fas fa-eye"></i> Follow</a></div>
         <div class="elemprofile"><a href="#"><i class="fas fa-eye-slash"></i> Unfollow</a></div>
@@ -36,16 +37,61 @@
     </div>
     <div style="clear: both"></div>
 </div>
-<!----- MODAL CONTACT INFO (EMAIL, PHONE) PROFILE START ----->
-<!-- TODO -->
-<!----- MODAL CONTACT INFO (EMAIL, PHONE) PROFILE END ----->
-
-<!----- MODAL EDIT CONTACT INFO PROFILE START ----->
-<!-- TODO -->
-<!----- MODAL EDIT CONTACT INFO PROFILE END ----->
 
 <!----- MODAL EDIT PROFILE START ----->
-<!-- TODO -->
+<!-- The Modal -->
+<div id="profile_user_edit_modal" class="profile_modal">
+
+  <!-- Modal Content -->
+  <form class="profile-modal-content animate" method="post" action="{%  url 'login' %}">
+  {% csrf_token %}
+
+    <div class="profile_modal_title">Edit Profile</div>
+    <div onclick="modal('profile_user_edit_modal', 'none')" class="mclose" title="Close Modal">&times;</div>
+    <div style="clear: both"></div>
+
+    <div class="profile_modal_container">
+        <div class="scrollable_modal_container">
+
+            <div class="profile_avatar_change">
+                <label for="avatarUpload" class="avatar-upload">
+                    <i class="fa fa-cloud-upload"></i> Change avatar
+                </label>
+                <input type="file" name="avatar" id="avatarUpload"/>
+            </div>
+
+            <label for="first_name"><b>First Name*</b></label>
+            <input class="profile_modal_input" type="text" placeholder="Enter your first name" id="first_name" name="first_name" required>
+
+            <label for="last_name"><b>Last Name*</b></label>
+            <input class="profile_modal_input" type="text" placeholder="Enter your last name" id="last_name" name="last_name" required>
+
+            <label for="email"><b>Email*</b></label>
+            <input class="profile_modal_input" type="text" placeholder="Enter your email" id="email" name="email" required>
+
+            <label for="phone"><b>Phone</b></label>
+            <input class="profile_modal_input" type="text" placeholder="Enter your phone" id="phone" name="phone">
+
+            <label for="web"><b>Web</b></label>
+            <input class="profile_modal_input" type="text" placeholder="Enter your web" id="web" name="web">
+
+            <label for="web"><b>Location</b></label>
+            <input class="profile_modal_input" type="text" placeholder="Enter your location" id="location" name="location">
+
+            <label for="headline"><b>Headline</b></label>
+            <textarea id="textarea_style" name="headline", rows="5", cols="40"></textarea>
+
+            <label for="password1"><b>Change Password</b></label>
+            <input type="password" name="password1" value="" id="password1"><input type="hidden" name="password" />
+
+            <label for="password2"><b>Password confirmation</b></label>
+            <input type="password" name="password2" value="" id="password2"><input type="hidden" name="password" />
+        </div>
+        <hr style="margin-top: 10px; margin-bottom: 10px;">
+        <button class="profile_modal_btn" type="submit" value="confirm">Confirm</button>
+    </div>
+  </form>
+</div>
 <!----- MODAL EDIT PROFILE END ----->
 <!------------------------------ PROFILE BOX END ---------------------------------->
 
@@ -57,7 +103,7 @@
         <h1 class="title">About</h1>
     </div>
     <div class="right_box">
-        <div class="elemprofile"><a href="#"><i class="fas fa-edit"></i> Edit</a></div>
+        <div class="elemprofile"><a onclick="modal('profile_about_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
     </div>
     <hr class="title_sep" />
     <div id="info">
@@ -65,7 +111,30 @@
     </div>
 </div>
 <!----- MODAL EDIT ABOUT START ----->
-<!-- TODO -->
+<div id="profile_about_modal" class="about_modal">
+
+  <!-- Modal Content -->
+  <form class="profile-modal-content animate" method="post" action="{%  url 'login' %}">
+  {% csrf_token %}
+
+    <div class="profile_modal_title">About</div>
+    <div onclick="modal('profile_about_modal', 'none')" class="mclose" title="Close Modal">&times;</div>
+    <div style="clear: both"></div>
+
+    <div class="profile_modal_container">
+        <div class="scrollable_modal_container">
+
+            <label for="headline"><b>About</b></label>
+            <textarea id="textarea_style" name="headline", rows="7", cols="40"></textarea>
+
+        </div>
+        <hr style="margin-top: 10px; margin-bottom: 10px;">
+        <button class="profile_modal_btn_rem btnMargin" type="submit" value="remove">Remove</button>
+        <button class="profile_modal_btn btnMargin" type="submit" value="confirm">Confirm</button>
+    </div>
+  </form>
+</div>
+
 <!----- MODAL EDIT ABOUT END ----->
 <!------------------------------ ABOUT BOX END ---------------------------------->
 
@@ -77,20 +146,76 @@
         <h1 class="title">Education</h1>
     </div>
     <div class="right_box">
-        <div class="elemprofile"><a href="#"><i class="fas fa-plus"></i> Add</a></div>
+        <div class="elemprofile"><a onclick="modal('profile_edu_modal', 'block')"><i class="fas fa-plus"></i> Add</a></div>
     </div>
     <hr class="title_sep" />
     <div id="info">
-        A DETERMINAR
+
+        <div class="element">
+            <div class="edubox">
+                <p>Universidad 1 <i class="fas fabsep fa-circle"></i> Carrera 1</p>
+                <p><small>2012 - 2018</small></p>
+            </div>
+            <div class="edit_edubox">
+                <div class="elemprofile edit"><a onclick="modal('profile_xp_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
+            </div>
+            <div style="clear: both"></div>
+        </div>
+
+        <hr class="sepelement"/>
+
+        <div class="element">
+            <div class="edubox">
+                <p>Universidad 2 <i class="fas fabsep fa-circle"></i> Carrera 2</p>
+                <p><small>2019 - Current</small></p>
+            </div>
+            <div class="edit_edubox">
+                <div class="elemprofile edit"><a onclick="modal('profile_xp_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
+            </div>
+            <div style="clear: both"></div>
+        </div>
+
     </div>
 
-<!----- MODAL ADD EDUCATION START ----->
-<!-- TODO -->
-<!----- MODAL ADD EDUCATION END ----->
+<!----- MODAL EDUCATION START ----->
+<div id="profile_edu_modal" class="education_modal">
 
-<!----- MODAL EDIT EDUCATION START ----->
-<!-- TODO -->
-<!----- MODAL EDIT EDUCATION END ----->
+  <!-- Modal Content -->
+  <form class="profile-modal-content animate" method="post" action="{%  url 'login' %}">
+  {% csrf_token %}
+
+    <div class="profile_modal_title">Education</div>
+    <div onclick="modal('profile_edu_modal', 'none')" class="mclose" title="Close Modal">&times;</div>
+    <div style="clear: both"></div>
+
+    <div class="profile_modal_container">
+        <div class="scrollable_modal_container">
+
+            <label for="entity"><b>Entity *</b></label>
+            <input class="profile_modal_input" type="text" id="entity" name="entity" required>
+
+            <label for="title"><b>Title *</b></label>
+            <input class="profile_modal_input" type="text" id="title" name="title" required>
+
+            <div class="startedDate">
+                <label for="started"><b>Started *</b></label><br/>
+                <input class="profile_modal_input" type="number" min="0" id="started" name="started">
+            </div>
+
+            <div class="finishedDate">
+                <label for="finished"><b>Finished</b></label><br/>
+                <input class="profile_modal_input" type="number" min="0" id="finished" name="finished">
+            </div>
+            <div style="clear: left"></div>
+
+        </div>
+        <hr style="margin-top: 10px; margin-bottom: 10px;">
+        <button class="profile_modal_btn_rem btnMargin" type="submit" value="remove">Remove</button>
+        <button class="profile_modal_btn btnMargin" type="submit" value="confirm">Confirm</button>
+    </div>
+  </form>
+</div>
+<!----- MODAL EDUCATION END ----->
 
     <hr class="section_sep" />
 
@@ -98,20 +223,82 @@
         <h1 class="title">Experience</h1>
     </div>
     <div class="right_box">
-        <div class="elemprofile"><a href="#"><i class="fas fa-plus"></i> Add</a></div>
+        <div class="elemprofile"><a onclick="modal('profile_xp_modal', 'block')"><i class="fas fa-plus"></i> Add</a></div>
     </div>
     <hr class="title_sep" />
     <div id="info">
-        A DETERMINAR
+
+        <div class="element">
+            <div class="edubox">
+                <p>Trabajo 1 <i class="fas fabsep fa-circle"></i> Empresa 1</p>
+                <p><i><small>Lo que hace 1.</small></i></p>
+                <p><small>2019 - 2020</small></p>
+            </div>
+            <div class="edit_edubox">
+                <div class="elemprofile edit"><a onclick="modal('profile_xp_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
+            </div>
+            <div style="clear: both"></div>
+        </div>
+
+        <hr class="sepelement"/>
+
+        <div class="element">
+            <div class="edubox">
+                <p>Trabajo 2 <i class="fas fabsep fa-circle"></i> Empresa 2</p>
+                <p><i><small>Lo que hace 2.</small></i></p>
+                <p><small>2019 - Current</small></p>
+            </div>
+            <div class="edit_edubox">
+                <div class="elemprofile edit"><a onclick="modal('profile_xp_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
+            </div>
+            <div style="clear: both"></div>
+        </div>
+
     </div>
 </div>
-<!----- MODAL ADD EXPERIENCE START ----->
-<!-- TODO -->
-<!----- MODAL ADD EXPERIENCE END ----->
+<!----- MODAL EXPERIENCE START ----->
+<div id="profile_xp_modal" class="experience_modal">
 
-<!----- MODAL EDIT EXPERIENCE START ----->
-<!-- TODO -->
-<!----- MODAL EDIT EXPERIENCE END ----->
+  <!-- Modal Content -->
+  <form class="profile-modal-content animate" method="post" action="{%  url 'login' %}">
+  {% csrf_token %}
+
+    <div class="profile_modal_title">Work Experience </div>
+    <div onclick="modal('profile_xp_modal', 'none')" class="mclose" title="Close Modal">&times;</div>
+    <div style="clear: both"></div>
+
+    <div class="profile_modal_container">
+        <div class="scrollable_modal_container">
+
+            <label for="laboral_experience"><b>Work Experience *</b></label>
+            <input class="profile_modal_input" type="text" id="laboral_experience" name="laboral_experience" required>
+
+            <label for="company"><b>Company *</b></label>
+            <input class="profile_modal_input" type="text" id="company" name="company" required>
+
+            <div class="startedDate">
+                <label for="started"><b>Started *</b></label><br/>
+                <input class="profile_modal_input" type="number" min="0" id="started" name="started">
+            </div>
+
+            <div class="finishedDate">
+                <label for="finished"><b>Finished</b></label><br/>
+                <input class="profile_modal_input" type="number" min="0" id="finished" name="finished">
+            </div>
+            <div style="clear: left"></div>
+
+            <label for="job"><b>Job</b></label>
+            <textarea id="textarea_style" name="job", rows="5", cols="40"></textarea>
+
+        </div>
+        <hr style="margin-top: 10px; margin-bottom: 10px;">
+        <button class="profile_modal_btn_rem btnMargin" type="submit" value="remove">Remove</button>
+        <button class="profile_modal_btn btnMargin" type="submit" value="confirm">Confirm</button>
+    </div>
+  </form>
+</div>
+<!----- MODAL EXPERIENCE END ----->
+
 <!------------------------------ EDUCATION BOX END ---------------------------------->
 
 
@@ -122,20 +309,61 @@
         <h1 class="title">Skills</h1>
     </div>
     <div class="right_box">
-        <div class="elemprofile"><a href="#"><i class="fas fa-plus"></i> Add</a></div>
+        <div class="elemprofile"><a onclick="modal('profile_skills_modal', 'block')"><i class="fas fa-plus"></i> Add</a></div>
     </div>
     <hr class="title_sep" />
     <div id="info">
-        A DETERMINAR
+
+        <div class="element">
+            <div class="edubox">
+                <p>C++</p>
+            </div>
+            <div class="edit_edubox">
+                <div class="elemprofile edit"><a onclick="modal('profile_skills_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
+            </div>
+            <div style="clear: both"></div>
+        </div>
+
+        <hr class="sepelement"/>
+
+        <div class="element">
+            <div class="edubox">
+                <p>JAVA</p>
+            </div>
+            <div class="edit_edubox">
+                <div class="elemprofile edit"><a onclick="modal('profile_skills_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
+            </div>
+            <div style="clear: both"></div>
+        </div>
+
     </div>
 </div>
-<!----- MODAL ADD SKILLS START ----->
-<!-- TODO -->
-<!----- MODAL ADD SKILLS END ----->
+<!----- MODAL SKILLS START ----->
+<div id="profile_skills_modal" class="skills_modal">
 
-<!----- MODAL EDIT SKILLS START ----->
-<!-- TODO -->
-<!----- MODAL EDIT SKILLS END ----->
+  <!-- Modal Content -->
+  <form class="profile-modal-content animate" method="post" action="{%  url 'login' %}">
+  {% csrf_token %}
+
+    <div class="profile_modal_title">Skills</div>
+    <div onclick="modal('profile_skills_modal', 'none')" class="mclose" title="Close Modal">&times;</div>
+    <div style="clear: both"></div>
+
+    <div class="profile_modal_container">
+        <div class="scrollable_modal_container">
+
+            <label for="skill"><b>Your Skill *</b></label>
+            <input class="profile_modal_input" type="text" id="skill" name="skill" required>
+
+        </div>
+        <hr style="margin-top: 10px; margin-bottom: 10px;">
+        <button class="profile_modal_btn_rem btnMargin" type="submit" value="remove">Remove</button>
+        <button class="profile_modal_btn btnMargin" type="submit" value="confirm">Confirm</button>
+    </div>
+  </form>
+</div>
+<!----- MODAL SKILLS END ----->
+
 <!------------------------------ SKILLS BOX END ---------------------------------->
 
 
@@ -146,7 +374,7 @@
         <h1 class="title">Achievements</h1>
     </div>
     <div class="right_box">
-        <div class="elemprofile"><a href="#"><i class="fas fa-plus"></i> Add</a></div>
+        <div class="elemprofile"><a onclick="modal('profile_achievement_modal', 'block')"><i class="fas fa-plus"></i> Add</a></div>
     </div>
     <hr class="title_sep" />
     <div id="info">
@@ -155,12 +383,31 @@
 </div>
 
 <!----- MODAL ADD ACHIVEMENT START ----->
-<!-- TODO -->
+<div id="profile_achievement_modal" class="achievements_modal">
+
+  <!-- Modal Content -->
+  <form class="profile-modal-content animate" method="post" action="{%  url 'login' %}">
+  {% csrf_token %}
+
+    <div class="profile_modal_title">Achievements</div>
+    <div onclick="modal('profile_achievement_modal', 'none')" class="mclose" title="Close Modal">&times;</div>
+    <div style="clear: both"></div>
+
+    <div class="profile_modal_container">
+        <div class="scrollable_modal_container">
+
+            <label for="achievement"><b>Your Achievement *</b></label>
+            <input class="profile_modal_input" type="text" id="achievement" name="achievement" required>
+
+        </div>
+        <hr style="margin-top: 10px; margin-bottom: 10px;">
+        <button class="profile_modal_btn_rem btnMargin" type="submit" value="remove">Remove</button>
+        <button class="profile_modal_btn btnMargin" type="submit" value="confirm">Confirm</button>
+    </div>
+  </form>
+</div>
 <!----- MODAL ADD ACHIVEMENT END ----->
 
-<!----- MODAL EDIT ACHIVEMENT START ----->
-<!-- TODO -->
-<!----- MODAL EDIT ACHIVEMENT END ----->
 <!------------------------------ ACHIEVEMENTS BOX END ---------------------------------->
 </div>
 

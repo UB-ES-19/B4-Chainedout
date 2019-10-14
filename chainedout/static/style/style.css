@@ -111,7 +111,7 @@ body {
 }
 
 /* The Close Button */
-.lclose {
+.mclose {
   /* Position it in the top right corner outside of the modal */
   color: #000;
   font-size: 35px;
@@ -122,8 +122,8 @@ body {
 }
 
 /* Close button on hover */
-.lclose:hover,
-.lclose:focus {
+.mclose:hover,
+.mclose:focus {
   color: red;
   cursor: pointer;
 }
@@ -202,6 +202,14 @@ span.login_modal_psw {
   color: #006097;
 }
 
+span.login_modal_psw a {
+  text-decoration: none;
+  color: #006097;
+}
+
+span.login_modal_psw a:hover {
+  text-decoration: underline;
+}
 
 /* ------------------------------------- MODAL END ---------------------------------------- */
 
@@ -719,26 +727,11 @@ input[type='checkbox']{
     font-weight: bolder;
 }
 
-#profile .current{
-    width: 100%;
-}
-
-#profile .current_avatar{
-    display: inline-block;
-    margin-right: 20px;
-    vertical-align: top;
-}
-
 #profile img.profile_avatar {
   width: 100px;
   height: 100px;
   border-radius: 50%;
   margin-bottom: 10px;
-}
-
-#profile .current_work_education{
-    display: inline-block;
-    vertical-align: top;
 }
 
 #profile .fabsep {
@@ -767,13 +760,27 @@ input[type='checkbox']{
     margin-bottom: 5px;
 }
 
-#profile a .infolink, #profile a:link .infolink {
+#profile .data {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+#profile .data .info_data {
+  margin-right: 10px;
+}
+
+#profile .data .info_data:last-child {
+  margin-right: 0;
+}
+
+
+#profile a .flink, #profile a:link .flink {
     font-size: 14px;
     font-weight: bold;
     color: #0b4d5d;
 }
 
-#profile a:hover .infolink {
+#profile a:hover .flink {
     text-decoration: underline;
 }
 
@@ -789,13 +796,22 @@ input[type='checkbox']{
     float: right;
 }
 
-#profile .right_box a {
+#profile .elemprofile a {
     color: #0F292F;
 }
 
-#profile .right_box .elemprofile {
+#profile .elemprofile {
     margin-bottom: 10px;
     font-weight: bolder;
+}
+
+#profile .edit {
+  opacity: 0.3;
+}
+
+#profile .elemprofile:hover {
+  cursor: pointer;
+  opacity: 1;
 }
 
 #profile h1.title {
@@ -820,7 +836,7 @@ input[type='checkbox']{
   font-weight: 200;
 }
 
-#profile hr.section_sep {
+#profile hr.section_sep, .login_modal_container hr, .profile_modal_container hr {
     clear: both;
     border: 0;
     height: 1px;
@@ -829,8 +845,211 @@ input[type='checkbox']{
     background-image: -moz-linear-gradient(left, #BFBFBF, #BFBFBF, #BFBFBF);
     background-image: -ms-linear-gradient(left, #BFBFBF, #BFBFBF, #BFBFBF);
     background-image: -o-linear-gradient(left, #BFBFBF, #BFBFBF, #BFBFBF);
-    margin: 20px -20px;
 }
 
+#profile hr.section_sep {
+  margin: 20px -20px;
+}
+
+#profile .data a {
+  color: #0F292F;
+  text-decoration: none;
+}
+
+#profile .data a:hover {
+  text-decoration: underline;
+}
+
+/* SCROLL MODAL */
+.scrollable_modal_container {
+  max-height: 500px;
+  overflow-y: auto;
+  padding: 10px;
+}
+
+#profile .edubox {
+  float: left;
+}
+
+#profile .edit_edubox {
+  float: right;
+}
+
+#profile .element {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#profile hr.sepelement{
+    border-top: 1px dashed #00302f;
+    color: transparent;
+    background-color: transparent;
+    opacity: 0.5;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+#profile hr.sepelement:last-child {
+    display: none;
+}
+
+#profile .edubox p {
+  margin-bottom: 5px;
+}
+
+#profile .edubox p:last-child {
+  margin-bottom: 0;
+}
+
+/* ----- MODAL PROFILE START ----- */
+/* The Modal (background) */
+.profile_modal, .about_modal, .education_modal, .education_modal, .experience_modal, .skills_modal, .achievements_modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.profile-modal-content {
+  background-color: #fefefe;
+    /* 15% from the top and centered */
+  margin: 10px auto 5px;
+  width: 70%; /* Could be more or less, depending on screen size */
+  border: 2px solid #fff;
+  border-radius: 20px;
+}
+
+/* Full-width input fields */
+input[type=text].profile_modal_input, input[type=password].profile_modal_input {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
+}
+
+input[type=number].profile_modal_input {
+  padding: 12px 20px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.profile_modal_input{
+  font-size: 0.8em;
+}
+/* Set a style for all buttons */
+button.profile_modal_btn {
+  background-color: #00302f;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  cursor: pointer;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  float: right;
+}
+
+button.profile_modal_btn_rem {
+  background-color: #301700;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  cursor: pointer;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  float: right;
+}
+
+button:hover.profile_modal_btn{
+  opacity: 0.8;
+}
+
+/* Center the image and position the close button */
+.profile_modal_imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+  position: relative;
+  clear: both;
+}
+
+.profile_modal_title {
+  padding-left: 16px;
+  margin-top: 20px;
+  font-weight: bold;
+  font-size: 35px;;
+  float:left;
+}
+
+.profile_modal_container {
+  padding: 16px 16px 80px;
+}
+
+#textarea_style {
+  width: 100%;
+  resize: none;
+  font-size: 12px;
+    padding: 5px;
+}
+
+.profile_avatar_change {
+  margin-bottom: 10px;
+}
+
+#profile input[type="file"] {
+    display: none;
+}
+
+#profile .avatar-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+#profile .startedDate {
+  float: left;
+  margin-right: 20px;
+}
+
+#profile .finishedDate {
+  margin-bottom: 10px;
+}
+
+#profile .btnMargin {
+  margin-left: 10px;
+}
+
+#profile .btnMargin:first-child {
+  margin-left: 0;
+}
+
+/* ----- MODAL END ----- */
+
 /* ------------------------------------- PROFILE END ----------------------------------------- */
+
 
