@@ -10,6 +10,15 @@ from .forms import RegisterForm, ProfileForm
 
 
 def index(request):
+    user = request.user
+    user.profile.profession = 'Profession Test'
+    user.profile.bio = 'Bio Test'
+    user.profile.location = 'Location Test'
+    user.profile.education = 'Education Test'
+    user.profile.skills = 'Skills Test'
+    user.profile.achievements = 'Achievements Test'
+    user.profile.experience = 'Experience Test'
+    user.save()
     return render(request, "index.html")
 
 
@@ -20,12 +29,8 @@ def testprofile(request):
 def register(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
-        profile_form = ProfileForm(request.POST)
-        if form.is_valid() and profile_form.is_valid():
-            user = form.save()
-            #profile = profile_form.save(commit=False)
-            #profile.user = user
-            #profile.save()
+        if form.is_valid():
+            form.save()
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
@@ -33,9 +38,7 @@ def register(request):
             return HttpResponseRedirect(reverse("index"))
     else:
         form = RegisterForm()
-        profile_form = ProfileForm()
-    context = {'form': form, 'profile': profile_form}
-    return render(request, 'registration/register.html', context)
+    return render(request, 'registration/register.html', {'form': form})
 
 
 @login_required

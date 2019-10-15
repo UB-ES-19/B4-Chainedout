@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 # Create your models here.
 
@@ -21,21 +22,29 @@ User.add_to_class('following',
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
-    profession = models.TextField(max_length=50, blank=True)
-    bio = models.TextField(max_length=500, blank=True)
-    location = models.TextField(max_length=200, blank=True)
-    education = models.TextField(max_length=300, blank=True)
-    skills = models.TextField(max_length=400, blank=True)
-    birth_date = models.DateField(null=True, blank=True)
-    jobIds = models.IntegerField(blank=True)
-    achievements = models.TextField(max_length=500, blank=True)
-    experience = models.TextField(max_length=500, blank=True)
-    phone = models.IntegerField(blank=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    profession = models.TextField(max_length=50)
+    bio = models.TextField(max_length=500)
+    location = models.TextField(max_length=200)
+    education = models.TextField(max_length=300)
+    skills = models.TextField(max_length=400)
+    birth_date = models.DateField()
+    jobIds = models.IntegerField(default=0)
+    achievements = models.TextField(max_length=500)
+    experience = models.TextField(max_length=500)
+    phone = models.IntegerField(default=0)
 
     def __str__(self):
         return self.user.username
 
+    @receiver(post_save, sender=User)
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Profile.objects.create(user=instance)
+
+    @receiver(post_save, sender=User)
+    def save_user_profile(sender, instance, **kwargs):
+        instance.profile.save()
 
 """
     class Job(models.Model):
