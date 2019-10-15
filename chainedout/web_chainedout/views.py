@@ -6,15 +6,34 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.views.decorators.http import require_POST
 from .models import Follow, Profile
-from .forms import RegisterForm, ProfileForm
+from .forms import RegisterForm, ModifyProfileForm, ModifyUserForm
 
 
 def index(request):
+    """
+    user = request.user
+    user.profile.profession = 'Profession Test'
+    user.profile.bio = 'Bio Test'
+    user.profile.location = 'Location Test'
+    user.profile.education = 'Education Test'
+    user.profile.skills = 'Skills Test'
+    user.profile.achievements = 'Achievements Test'
+    user.profile.experience = 'Experience Test'
+    user.save()"""
     return render(request, "index.html")
 
-
+@login_required
 def testprofile(request):
-    return render(request, "user/profile.html")
+    if request.method == 'POST':
+        user_form = ModifyUserForm(request.POST, instance=request.user)
+        profile_form = ModifyProfileForm(request.POST, instance=request.user.profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+    else:
+        user_form = ModifyUserForm()
+        profile_form = ModifyProfileForm()
+    return render(request, "user/profile.html", {'user_form': user_form, 'profile_form': profile_form})
 
 
 def register(request):
@@ -60,16 +79,6 @@ def user_follow(request):
         except User.DoesNotExist:
             return JsonResponse({'status': 'error'})
     return JsonResponse({'status': 'error'})
-
-
-@login_required
-def update_profile(request):
-    if request.method == 'POST':
-        user_form = RegisterForm(request.POST, instance=request.user)
-        profile_form = ProfileForm(request.POST, instance=request.user.profile)
-        if user_form.is_valid() and profile_form.is_valid():
-            user_form.save()
-            profile_form.save()
 
 
 

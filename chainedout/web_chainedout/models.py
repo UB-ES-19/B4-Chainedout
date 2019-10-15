@@ -28,10 +28,12 @@ class Profile(models.Model):
     location = models.TextField(max_length=200)
     education = models.TextField(max_length=300)
     skills = models.TextField(max_length=400)
+    birth_date = models.DateField(null=True)
     jobIds = models.IntegerField(default=0)
     achievements = models.TextField(max_length=500)
     experience = models.TextField(max_length=500)
     phone = models.IntegerField(default=0)
+    website = models.TextField(max_length=50, null=True)
 
     def __str__(self):
         return self.user.username

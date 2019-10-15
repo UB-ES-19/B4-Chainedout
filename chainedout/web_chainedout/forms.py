@@ -14,9 +14,17 @@ class RegisterForm(UserCreationForm):
         fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', )
 
 
-class ProfileForm(forms.ModelForm):
+class ModifyProfileForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = {'bio', 'location', 'jobIds', 'phone','experience','achievements','profession','skills','education'}
+        fields = ['phone', 'website', 'location', ]
+        labels = ['Telephone Number', 'Website', 'Location', ]
 
+
+class ModifyUserForm(forms.ModelForm):
+
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'email', ]
+        labels = ['First Name', 'Last Name', 'E-mail', ]
