@@ -29,7 +29,7 @@ class Profile(models.Model):
     skills = models.TextField(max_length=400, blank=True)
     birth_date = models.DateField(null=True, blank=True)
     jobIds = models.IntegerField(blank=True)
-    achivements = models.TextField(max_length=500, blank=True)
+    achievements = models.TextField(max_length=500, blank=True)
     experience = models.TextField(max_length=500, blank=True)
     phone = models.IntegerField(blank=True)
 
