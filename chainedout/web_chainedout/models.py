@@ -28,7 +28,6 @@ class Profile(models.Model):
     location = models.TextField(max_length=200)
     education = models.TextField(max_length=300)
     skills = models.TextField(max_length=400)
-    birth_date = models.DateField()
     jobIds = models.IntegerField(default=0)
     achievements = models.TextField(max_length=500)
     experience = models.TextField(max_length=500)

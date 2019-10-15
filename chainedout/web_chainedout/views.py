@@ -10,15 +10,6 @@ from .forms import RegisterForm, ProfileForm
 
 
 def index(request):
-    user = request.user
-    user.profile.profession = 'Profession Test'
-    user.profile.bio = 'Bio Test'
-    user.profile.location = 'Location Test'
-    user.profile.education = 'Education Test'
-    user.profile.skills = 'Skills Test'
-    user.profile.achievements = 'Achievements Test'
-    user.profile.experience = 'Experience Test'
-    user.save()
     return render(request, "index.html")
 
 
@@ -69,4 +60,17 @@ def user_follow(request):
         except User.DoesNotExist:
             return JsonResponse({'status': 'error'})
     return JsonResponse({'status': 'error'})
+
+
+@login_required
+def update_profile(request):
+    if request.method == 'POST':
+        user_form = RegisterForm(request.POST, instance=request.user)
+        profile_form = ProfileForm(request.POST, instance=request.user.profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+
+
+
 

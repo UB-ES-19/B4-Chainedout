@@ -14,13 +14,12 @@
         </div>
         <div style="clear: ; margin-bottom: 10px"></div>
         <h1>{{ user.first_name }} {{ user.last_name }}</h1>
-        <h2>{{ Profile.profession }}</h2>
-        <h3>{{ Profile.location }}</h3>
+        <h3>{{ user.profile.location }}</h3>
         <div id="info"
             <a href="{{ user.get_absolute_url }}"><span class="infolink">Show Contact Info</span></a> <i class="fas fabsep fa-circle"></i>
-            <span class="info_data"><i class="fas fa-link"></i> <a href="www.tupelonuevo.es">www.tupelonuevo.es</a></span>
-            <span class="info_data"><i class="fas fa-paper-plane"></i> <a href="mailto:calvo@ub.edu">calvo@ub.edu</a></span>
-            <span class="info_data"><i class="fas fa-phone-square"></i> +34 666 XXXXXX</span>
+            <span class="info_data"><i class="fas fa-link"></i>{{ user.profile.web }}</span>
+            <span class="info_data"><i class="fas fa-paper-plane"></i>{{ user.email }}</span>
+            <span class="info_data"><i class="fas fa-phone-square"></i> {{ user.profile.phone }}</span>
             <a href="{% url 'user_list' %}"><span class="infolink">25 contacts</span></a> <i class="fas fabsep fa-circle"></i>
             <a href="{% url 'user_list' %}"><span class="infolink">{{ user.followers.count }} follower{{ user.followers.count|pluralize }}</span></a>
             {% if not request.user.is_authenticated %}
@@ -127,7 +126,6 @@
     <div id="info">
         <span class="info_data"> {{ user.profile.bio }}</span>
         <span class="info_data"> {{ user.profile.location }}</span>
-        <span class="info_data"> {{ user.profile.birth_date }}</span>
     </div>
 </div>
 <!----- MODAL EDIT ABOUT START ----->
@@ -345,17 +343,6 @@
         </div>
 
         <hr class="sepelement"/>
-
-        <div class="element">
-            <div class="edubox">
-                <p>JAVA</p>
-            </div>
-            <div class="edit_edubox">
-                <div class="elemprofile edit"><a onclick="modal('profile_skills_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
-            </div>
-            <div style="clear: both"></div>
-        </div>
-
     </div>
 </div>
 <!----- MODAL SKILLS START ----->
