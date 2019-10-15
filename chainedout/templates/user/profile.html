@@ -1,4 +1,4 @@
-{% include "../header.html" %}
+{% extends "header.html" %}
 
 {% block content %}
 <div id="profile">
@@ -17,23 +17,32 @@
         <h2>{{ Profile.profession }}</h2>
         <h3>{{ Profile.location }}</h3>
         <div id="info">
-            <a href="{% url 'index' %}"><span class="infolink">Show Contact Info</span></a> <i class="fas fabsep fa-circle"></i>
-            <a href="{% url 'index' %}"><span class="infolink">25 contacts</span></a> <i class="fas fabsep fa-circle"></i>
-            <a href="{% url 'index' %}"><span class="infolink">{{ Follow.followers }}</span></a>
+            <a href="{{ user.get_absolute_url }}"><span class="infolink">Show Contact Info</span></a> <i class="fas fabsep fa-circle"></i>
+            <a href="{% url 'user_list' %}"><span class="infolink">25 contacts</span></a> <i class="fas fabsep fa-circle"></i>
+            <a href="{% url 'user_list' %}"><span class="infolink">{{ user.followers.count }} follower{{ user.followers.count|pluralize }}</span></a>
             {% if not request.user.is_authenticated %}
                 <a href="{% url 'register' %}"><span class="infolink">Register</span></a>
             {% endif %}
         </div>
     </div>
     <div class="right_profile">
-        <div class="elemprofile"><a href="#"><i class="fas fa-plus"></i> Add section</a></div>
-        <div class="elemprofile"><a href="#"><i class="fas fa-edit"></i> Edit</a></div>
+        {% ifequal request.user user %}
+            <div class="elemprofile"><a href="#"><i class="fas fa-plus"></i> Add section</a></div>
+            <div class="elemprofile"><a href="#"><i class="fas fa-edit"></i> Edit</a></div>
+        {% endifequal %}
 
-        <div class="elemprofile"><a href="#"><i class="fas fa-eye"></i> Follow</a></div>
-        <div class="elemprofile"><a href="#"><i class="fas fa-eye-slash"></i> Unfollow</a></div>
+        {% ifnotequal request.user user %}
+            {% if request.user not in user.followers.all %}
+                <div class="elemprofile"><a href="#" data-id="{{ user.id }}" data-action="follow" class="follow button"><i class="fas fa-eye"></i> Follow</a></div>
+            {% else %}
+                <div class="elemprofile"><a href="#" data-id="{{ user.id }}" data-action="unfollow" class="follow button"><i class="fas fa-eye-slash"></i> Unfollow</a></div>
+            {% endif %}
+        {% endifnotequal %}
 
-        <div class="elemprofile"><a href="#"><i class="fas fa-user-plus"></i> Add contact</a></div>
-        <div class="elemprofile"><a href="#"><i class="fas fa-user-minus"></i> Remove contact</a></div>
+        {% ifnotequal request.user user %}
+            <div class="elemprofile"><a href="#"><i class="fas fa-user-plus"></i> Add contact</a></div>
+            <div class="elemprofile"><a href="#"><i class="fas fa-user-minus"></i> Remove contact</a></div>
+        {% endifnotequal %}
     </div>
     <div style="clear: both"></div>
 </div>
@@ -172,6 +181,23 @@
   <button type="submit">Save changes</button>
 </form>
 
+{% endblock %}
+
+{% block domready %}
+    $('a.follow').click(function(e){
+        e.preventDefault();
+        $.post('{% url "user_follow" %}',
+            {
+                id: $(this).data('id'),
+                action: $(this).data('action')
+            },
+            function(data){
+                if (data['status'] == 'ok') {
+                    window.location.replace("{{ user.get_absolute_url }}");
+                }
+            }
+        );
+    });
 {% endblock %}
 
 {% include "../footer.html" %}
