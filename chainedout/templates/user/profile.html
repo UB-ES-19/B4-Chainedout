@@ -162,7 +162,7 @@
 
     {% ifequal request.user user %}
         <div class="right_box">
-            <div class="elemprofile"><a onclick="modal('profile_edu_modal', 'block')"><i class="fas fa-plus"></i> Add</a></div>
+            <div class="elemprofile edit"><a onclick="modal('profile_edu_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
         </div>
     {% endifequal %}
 
@@ -175,31 +175,10 @@
                 <p><small>{{ user.education.started }} - {{ user.education.finished }}</small></p>
             </div>
 
-            {% ifequal request.user user %}
-                <div class="edit_edubox">
-                    <div class="elemprofile edit"><a onclick="modal('profile_edu_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
-                </div>
-            {% endifequal %}
-
             <div style="clear: both"></div>
         </div>
 
         <hr class="sepelement"/>
-
-        <div class="element">
-            <div class="edubox">
-                <p>Universidad 2 <i class="fas fabsep fa-circle"></i> Carrera 2</p>
-                <p><small>2019 - Current</small></p>
-            </div>
-
-            {% ifequal request.user user %}
-                <div class="edit_edubox">
-                    <div class="elemprofile edit"><a onclick="modal('profile_xp_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
-                </div>
-            {% endifequal %}
-
-            <div style="clear: both"></div>
-        </div>
 
     </div>
 
@@ -240,7 +219,7 @@
 
     {% ifequal request.user user %}
         <div class="right_box">
-            <div class="elemprofile"><a onclick="modal('profile_xp_modal', 'block')"><i class="fas fa-plus"></i> Add</a></div>
+            <div class="elemprofile edit"><a onclick="modal('profile_xp_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
         </div>
     {% endifequal %}
 
@@ -254,32 +233,10 @@
                 <p><small>{{ user.experience.started }} - {{ user.experience.finished }}</small></p>
             </div>
 
-            {% ifequal request.user user %}
-                <div class="edit_edubox">
-                    <div class="elemprofile edit"><a onclick="modal('profile_xp_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
-                </div>
-            {% endifequal %}
-
             <div style="clear: both"></div>
         </div>
 
         <hr class="sepelement"/>
-
-        <div class="element">
-            <div class="edubox">
-                <p>Trabajo 2 <i class="fas fabsep fa-circle"></i> Empresa 2</p>
-                <p><i><small>Lo que hace 2.</small></i></p>
-                <p><small>2019 - Current</small></p>
-            </div>
-
-            {% ifequal request.user user %}
-                <div class="edit_edubox">
-                    <div class="elemprofile edit"><a onclick="modal('profile_xp_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
-                </div>
-            {% endifequal %}
-
-            <div style="clear: both"></div>
-        </div>
 
     </div>
 </div>
@@ -324,7 +281,7 @@
 
     {% ifequal request.user user %}
         <div class="right_box">
-            <div class="elemprofile"><a onclick="modal('profile_skills_modal', 'block')"><i class="fas fa-plus"></i> Add</a></div>
+            <div class="elemprofile edit"><a onclick="modal('profile_skills_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
         </div>
     {% endifequal %}
 
@@ -335,12 +292,6 @@
             <div class="edubox">
                 <p>{{ user.profile.skills }}</p>
             </div>
-
-            {% ifequal request.user user %}
-                <div class="edit_edubox">
-                    <div class="elemprofile edit"><a onclick="modal('profile_skills_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
-                </div>
-            {% endifequal %}
 
             <div style="clear: both"></div>
         </div>
@@ -389,7 +340,7 @@
 
     {% ifequal request.user user %}
         <div class="right_box">
-            <div class="elemprofile"><a onclick="modal('profile_achievement_modal', 'block')"><i class="fas fa-plus"></i> Add</a></div>
+            <div class="elemprofile"><a onclick="modal('profile_achievement_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
         </div>
     {% endifequal %}
 

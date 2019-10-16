@@ -14,13 +14,19 @@
                         </div>
                     </div>
                     <div style="clear: both"></div>
-                    <a href="{{ user.get_absolute_url }}" class="title">
-                        <h1>{{ user.get_full_name }}</h1>
-                    </a>
+                    {% ifequal request.user user %}
+                        <a href="{% url 'saveprofile' %}" class="title"><h1>{{ user.get_full_name }}</h1></a>
+                    {% else %}
+                        <a href="{{ user.get_absolute_url }}" class="title"><h1>{{ user.get_full_name }}</h1></a>
+                    {% endifequal %}
                     <h2>{{ user.experience.job }}</h2>
                     <h3>{{ user.profile.location }}</h3>
                     <div id="info">
-                        <a href="{{ user.get_absolute_url }}"><span class="infolink">Show Contact Info</span></a> <i class="fas fabsep fa-circle"></i>
+                        {% ifequal request.user user %}
+                            <a href="{% url 'saveprofile' %}"><span class="infolink">Show Contact Info</span></a> <i class="fas fabsep fa-circle"></i>
+                        {% else %}
+                            <a href="{{ user.get_absolute_url }}"><span class="infolink">Show Contact Info</span></a> <i class="fas fabsep fa-circle"></i>
+                        {% endifequal %}
                         <a href="{% url 'user_list' %}"><span class="infolink">25 contacts</span></a> <i class="fas fabsep fa-circle"></i>
                         <a href="{% url 'user_list' %}"><span class="infolink">{{ user.followers.count }} follower{{ user.followers.count|pluralize }}</span></a>
                     </div>
@@ -28,7 +34,7 @@
                 <div class="right_profile">
 
                     {% ifequal request.user user %}
-                        <div class="elemprofile"><a href="{{ user.get_absolute_url }}"><i class="fas fa-edit"></i> Edit</a></div>
+                        <div class="elemprofile"><a href="{% url 'saveprofile' %}"><i class="fas fa-edit"></i> Edit</a></div>
                     {% endifequal %}
 
                     {% ifnotequal request.user user %}

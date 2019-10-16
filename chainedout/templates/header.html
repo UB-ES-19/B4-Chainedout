@@ -47,6 +47,7 @@
         <ul>
             {% if request.user.is_authenticated %}
                 <li><a id = "logout" class="logout" href="{% url 'logout' %}?next=/"> Logout</a></li>
+                <li><a id = "users" class="users" href="{% url 'user_list' %}"> Users</a></li>
             {% else %}
                 <li><a id = "register" class="register" href="{% url 'register' %}"><i class="fa fa-fw fa-users"></i> Register</a></li>
                 <li><a id = "login" onclick="modal('login_modal', 'block')"><i class="fa fa-fw fa-user"></i> Login</a></li>
