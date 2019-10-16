@@ -17,75 +17,36 @@ def index(request):
 @login_required
 def save_profile(request):
     if request.method == 'POST':
-        user_form = ModifyUserForm(request.POST, instance=request.user)
-        profile_form = ModifyProfileForm(request.POST, instance=request.user.profile)
+        user_form = ModifyUserForm(request.POST or None, instance=request.user)
+        profile_form = ModifyProfileForm(request.POST or None, instance=request.user.profile)
+        bio_form = ModifyBioForm(request.POST or None, instance=request.user.profile)
+        skill_form = ModifySkillsForm(request.POST, instance=request.user.profile)
+        education_form = ModifyEducationForm(request.POST, instance=request.user.education)
+        experience_form = ModifyExperienceForm(request.POST, instance=request.user.experience)
+        achievements_form = ModifyAchievementForm(request.POST, instance=request.user.profile)
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
+        elif bio_form.is_valid():
+            bio_form.save()
+        elif skill_form.is_valid():
+            skill_form.save()
+        elif education_form.is_valid():
+            education_form.save()
+        elif experience_form.is_valid():
+            experience_form.save()
+        elif achievements_form.is_valid():
+            achievements_form.save()
     else:
         user_form = ModifyUserForm(instance=request.user)
         profile_form = ModifyProfileForm(instance=request.user.profile)
-    context = {'user_form': user_form, 'profile_form': profile_form}
-    return render(request, "user/profile.html", context)
-
-
-@login_required()
-def save_bio(request):
-    if request.method == 'POST':
-        bio_form = ModifyBioForm(request.POST, instance=request.user.profile)
-        if bio_form.is_valid():
-            bio_form.save()
-    else:
         bio_form = ModifyBioForm(instance=request.user.profile)
-    context = {'bio_form': bio_form}
-    return render(request, "user/profile.html", context)
-
-
-@login_required()
-def save_skills(request):
-    if request.method == 'POST':
-        skill_form = ModifySkillsForm(request.POST, instance=request.user.profile)
-        if skill_form.is_valid():
-            skill_form.save()
-    else:
         skill_form = ModifySkillsForm(instance=request.user.profile)
-    context = {'skill_form': skill_form}
-    return render(request, "user/profile.html", context)
-
-
-@login_required()
-def save_education(request):
-    if request.method == 'POST':
-        education_form = ModifyEducationForm(request.POST, instance=request.user.education)
-        if education_form.is_valid():
-            education_form.save()
-    else:
         education_form = ModifyEducationForm(instance=request.user.education)
-    context = {'education_form': education_form}
-    return render(request, "user/profile.html", context)
-
-
-@login_required()
-def save_experience(request):
-    if request.method == 'POST':
-        experience_form = ModifyExperienceForm(request.POST, instance=request.user.experience)
-        if experience_form.is_valid():
-            experience_form.save()
-    else:
         experience_form = ModifyExperienceForm(instance=request.user.education)
-    context = {'experience_form': experience_form}
-    return render(request, "user/profile.html", context)
-
-
-@login_required()
-def save_achievements(request):
-    if request.method == 'POST':
-        achievements_form = ModifyAchievementForm(request.POST, instance=request.user.profile)
-        if achievements_form.is_valid():
-            achievements_form.save()
-    else:
         achievements_form = ModifyAchievementForm(instance=request.user.profile)
-    context = {'achievements_form': achievements_form}
+    context = {'user_form': user_form, 'profile_form': profile_form, 'bio_form': bio_form, 'skill_form': skill_form,
+               'education_form': education_form, 'experience_form': experience_form, 'achievements_form': achievements_form}
     return render(request, "user/profile.html", context)
 
 

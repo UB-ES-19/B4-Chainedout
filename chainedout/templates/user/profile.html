@@ -8,8 +8,8 @@
         <div class="current">
             <div class="current_avatar"><img src="/static/images/img_avatar.png" alt="Avatar" class="profile_avatar"></div>
             <div class="current_work_education">
-                <div class="current_education"><i class="fas fa-university"></i> {{ user.profile.education.entity }}</div>
-                <div class="current_work"><i class="fas fa-briefcase"></i> {{ user.profile.profession }}</div>
+                <div class="current_education"><i class="fas fa-university"></i> {{ user.education.entity }}</div>
+                <div class="current_work"><i class="fas fa-briefcase"></i> {{ user.experience.company }}</div>
             </div>
         </div>
         <div style="clear: ; margin-bottom: 10px"></div>
@@ -17,9 +17,9 @@
         <h3>{{ user.profile.location }}</h3>
         <div id="info">
             <a href="{{ user.get_absolute_url }}"><span class="infolink">Show Contact Info</span></a> <i class="fas fabsep fa-circle"></i>
-            <span class="info_data"><i class="fas fa-link"></i>{{ user.profile.website }}</span>
-            <span class="info_data"><i class="fas fa-paper-plane"></i> <a href="mailto:{{ user.email }}">{{ user.email }}</a></span>
-            <span class="info_data"><i class="fas fa-phone-square"></i>{{ user.profile.phone }}</span>
+            <span class="info_data"><i class="fas fa-link"></i>{{ user.profile.website }}</span><i class="fas fabsep fa-circle"></i>
+            <span class="info_data"><i class="fas fa-paper-plane"></i> <a href="mailto:{{ user.email }}">{{ user.email }}</a></span><i class="fas fabsep fa-circle"></i>
+            <span class="info_data"><i class="fas fa-phone-square"></i>{{ user.profile.phone }}</span><i class="fas fabsep fa-circle"></i>
             <a href="{% url 'user_list' %}"><span class="infolink">25 contacts</span></a><i class="fas fabsep fa-circle"></i>
             <a href="{% url 'user_list' %}"><span class="infolink">{{ user.followers.count }} follower{{ user.followers.count|pluralize }}</span></a>
             {% if not request.user.is_authenticated %}
@@ -115,8 +115,6 @@
     <hr class="title_sep" />
     <div id="info">
         <span class="info_data"> {{ user.profile.bio }}</span>
-        <span class="info_data"> {{ user.profile.location }}</span>
-        <span class="info_data"> {{ user.education.started }}</span>
     </div>
 </div>
 <!----- MODAL EDIT ABOUT START ----->
@@ -165,8 +163,8 @@
 
         <div class="element">
             <div class="edubox">
-                <p>{{ user.profile.education }} <i class="fas fabsep fa-circle"></i> Carrera 1</p>
-                <p><small>2012 - 2018</small></p>
+                <p>{{ user.education.entity }} <i class="fas fabsep fa-circle"></i> {{ user.education.title }}</p>
+                <p><small>{{ user.education.started }} - {{ user.education.finished }}</small></p>
             </div>
             <div class="edit_edubox">
                 <div class="elemprofile edit"><a onclick="modal('profile_edu_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
@@ -202,24 +200,13 @@
 
     <div class="profile_modal_container">
         <div class="scrollable_modal_container">
-
-            <label for="entity"><b>Entity *</b></label>
-            <input class="profile_modal_input" type="text" id="entity" name="entity" required>
-
-            <label for="title"><b>Title *</b></label>
-            <input class="profile_modal_input" type="text" id="title" name="title" required>
-
-            <div class="startedDate">
-                <label for="started"><b>Started *</b></label><br/>
-                <input class="profile_modal_input" type="number" min="0" id="started" name="started">
-            </div>
-
-            <div class="finishedDate">
-                <label for="finished"><b>Finished</b></label><br/>
-                <input class="profile_modal_input" type="number" min="0" id="finished" name="finished">
-            </div>
-            <div style="clear: left"></div>
-
+            {% for field in education_form %}
+                <label class="mylabel"><b>{{ field.label }}</b></label>
+                {% if field.errors %}
+                    <span class="error">{{ field.errors.as_text }}</span>
+                {% endif %}
+                {{ field }}
+            {% endfor %}
         </div>
         <hr style="margin-top: 10px; margin-bottom: 10px;">
         <button class="profile_modal_btn_rem btnMargin" type="submit" value="remove">Remove</button>
@@ -242,9 +229,9 @@
 
         <div class="element">
             <div class="edubox">
-                <p>Trabajo 1 <i class="fas fabsep fa-circle"></i> {{ user.profile.experience }}</p>
-                <p><i><small>Lo que hace 1.</small></i></p>
-                <p><small>2019 - 2020</small></p>
+                <p>{{ user.experience.job }} <i class="fas fabsep fa-circle"></i> {{ user.experience.company }}</p>
+                <p><i><small>{{ user.experience.work_experience }}</small></i></p>
+                <p><small>{{ user.experience.started }} - {{ user.experience.finished }}</small></p>
             </div>
             <div class="edit_edubox">
                 <div class="elemprofile edit"><a onclick="modal('profile_xp_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
@@ -281,27 +268,13 @@
 
     <div class="profile_modal_container">
         <div class="scrollable_modal_container">
-
-            <label for="laboral_experience"><b>Work Experience *</b></label>
-            <input class="profile_modal_input" type="text" id="laboral_experience" name="laboral_experience" required>
-
-            <label for="company"><b>Company *</b></label>
-            <input class="profile_modal_input" type="text" id="company" name="company" required>
-
-            <div class="startedDate">
-                <label for="started"><b>Started *</b></label><br/>
-                <input class="profile_modal_input" type="number" min="0" id="started" name="started">
-            </div>
-
-            <div class="finishedDate">
-                <label for="finished"><b>Finished</b></label><br/>
-                <input class="profile_modal_input" type="number" min="0" id="finished" name="finished">
-            </div>
-            <div style="clear: left"></div>
-
-            <label for="job"><b>Job</b></label>
-            <textarea id="textarea_style" name="job", rows="5", cols="40"></textarea>
-
+            {% for field in experience_form %}
+                <label class="mylabel"><b>{{ field.label }}</b></label>
+                {% if field.errors %}
+                    <span class="error">{{ field.errors.as_text }}</span>
+                {% endif %}
+                {{ field }}
+            {% endfor %}
         </div>
         <hr style="margin-top: 10px; margin-bottom: 10px;">
         <button class="profile_modal_btn_rem btnMargin" type="submit" value="remove">Remove</button>
@@ -352,10 +325,13 @@
 
     <div class="profile_modal_container">
         <div class="scrollable_modal_container">
-
-            <label for="skill"><b>Your Skill *</b></label>
-            <input class="profile_modal_input" type="text" id="skill" name="skill" required>
-
+            {% for field in skill_form %}
+                <label class="mylabel"><b>{{ field.label }}</b></label>
+                {% if field.errors %}
+                    <span class="error">{{ field.errors.as_text }}</span>
+                {% endif %}
+                {{ field }}
+            {% endfor %}
         </div>
         <hr style="margin-top: 10px; margin-bottom: 10px;">
         <button class="profile_modal_btn_rem btnMargin" type="submit" value="remove">Remove</button>
@@ -396,10 +372,13 @@
 
     <div class="profile_modal_container">
         <div class="scrollable_modal_container">
-
-            <label for="achievement"><b>Your Achievement *</b></label>
-            <input class="profile_modal_input" type="text" id="achievement" name="achievement" required>
-
+            {% for field in achievements_form %}
+                <label class="mylabel"><b>{{ field.label }}</b></label>
+                {% if field.errors %}
+                    <span class="error">{{ field.errors.as_text }}</span>
+                {% endif %}
+                {{ field }}
+            {% endfor %}
         </div>
         <hr style="margin-top: 10px; margin-bottom: 10px;">
         <button class="profile_modal_btn_rem btnMargin" type="submit" value="remove">Remove</button>

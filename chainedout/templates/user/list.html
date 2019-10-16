@@ -9,16 +9,16 @@
                     <div class="current">
                         <div class="current_avatar"><img src="/static/images/img_avatar.png" alt="Avatar" class="profile_avatar"></div>
                         <div class="current_work_education">
-                            <div class="current_education"><i class="fas fa-university"></i> Universidad de Barcelona</div>
-                            <div class="current_work"><i class="fas fa-briefcase"></i> El corte Inglés</div>
+                            <div class="current_education"><i class="fas fa-university"></i> {{ user.education.entity }} </div>
+                            <div class="current_work"><i class="fas fa-briefcase"></i> {{ user.experience.company }} </div>
                         </div>
                     </div>
                     <div style="clear: both"></div>
                     <a href="{{ user.get_absolute_url }}" class="title">
                         <h1>{{ user.get_full_name }}</h1>
                     </a>
-                    <h2>{{ Profile.profession }}</h2>
-                    <h3>{{ Profile.location }}</h3>
+                    <h2>{{ user.experience.job }}</h2>
+                    <h3>{{ user.profile.location }}</h3>
                     <div id="info">
                         <a href="{{ user.get_absolute_url }}"><span class="infolink">Show Contact Info</span></a> <i class="fas fabsep fa-circle"></i>
                         <a href="{% url 'user_list' %}"><span class="infolink">25 contacts</span></a> <i class="fas fabsep fa-circle"></i>
@@ -28,8 +28,7 @@
                 <div class="right_profile">
 
                     {% ifequal request.user user %}
-                        <div class="elemprofile"><a href="#"><i class="fas fa-plus"></i> Add section</a></div>
-                        <div class="elemprofile"><a href="#"><i class="fas fa-edit"></i> Edit</a></div>
+                        <div class="elemprofile"><a href="{{ user.get_absolute_url }}"><i class="fas fa-edit"></i> Edit</a></div>
                     {% endifequal %}
 
                     {% ifnotequal request.user user %}
