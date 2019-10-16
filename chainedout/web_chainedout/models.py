@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+
 # Create your models here.
 
 class Follow(models.Model):
@@ -26,12 +27,10 @@ class Profile(models.Model):
     profession = models.TextField(max_length=50)
     bio = models.TextField(max_length=500)
     location = models.TextField(max_length=200)
-    education = models.TextField(max_length=300)
     skills = models.TextField(max_length=400)
     birth_date = models.DateField(null=True)
     jobIds = models.IntegerField(default=0)
     achievements = models.TextField(max_length=500)
-    experience = models.TextField(max_length=500)
     phone = models.IntegerField(default=0)
     website = models.TextField(max_length=50, null=True)
 
@@ -47,13 +46,20 @@ class Profile(models.Model):
     def save_user_profile(sender, instance, **kwargs):
         instance.profile.save()
 
-"""
-    class Job(models.Model):
 
-    class Education(models.Model):
+class Education(models.Model):
+    profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    entity = models.TextField(max_length=15)
+    title = models.TextField(max_length=15)
+    started = models.IntegerField(default=2019)
+    finished = models.IntegerField(default=2020)
 
-    class Skills(models.Model):
 
-    class Achievements(models.Model):
+class Experience(models.Model):
+    profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    work_experience = models.TextField(max_length=15)
+    company = models.TextField(max_length=15)
+    started = models.IntegerField(default=2019)
+    finished = models.IntegerField(default=2020)
+    job = models.TextField(max_length=100)
 
-"""

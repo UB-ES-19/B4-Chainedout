@@ -8,7 +8,7 @@
         <div class="current">
             <div class="current_avatar"><img src="/static/images/img_avatar.png" alt="Avatar" class="profile_avatar"></div>
             <div class="current_work_education">
-                <div class="current_education"><i class="fas fa-university"></i> Universidad de Barcelona</div>
+                <div class="current_education"><i class="fas fa-university"></i> {{ user.profile.education.entity }}</div>
                 <div class="current_work"><i class="fas fa-briefcase"></i> {{ user.profile.profession }}</div>
             </div>
         </div>
@@ -17,9 +17,9 @@
         <h3>{{ user.profile.location }}</h3>
         <div id="info"
             <a href="{{ user.get_absolute_url }}"><span class="infolink">Show Contact Info</span></a> <i class="fas fabsep fa-circle"></i>
-            <span class="info_data"><i class="fas fa-link"></i> <a href="www.tupelonuevo.es">{{ Profile.website }}</a></span>
+            <span class="info_data"><i class="fas fa-link"></i>{{ user.profile.website }}</span>
             <span class="info_data"><i class="fas fa-paper-plane"></i> <a href="mailto:{{ user.email }}">{{ user.email }}</a></span>
-            <span class="info_data"><i class="fas fa-phone-square"></i>{{ Profile.phone }}</span>
+            <span class="info_data"><i class="fas fa-phone-square"></i>{{ user.profile.phone }}</span>
             <a href="{% url 'user_list' %}"><span class="infolink">25 contacts</span></a><i class="fas fabsep fa-circle"></i>
             <a href="{% url 'user_list' %}"><span class="infolink">{{ user.followers.count }} follower{{ user.followers.count|pluralize }}</span></a>
             {% if not request.user.is_authenticated %}
@@ -130,7 +130,6 @@
 
     <div class="profile_modal_container">
         <div class="scrollable_modal_container">
-
             <label for="headline"><b>About</b></label>
             <textarea id="textarea_style" name="headline", rows="7", cols="40"></textarea>
 

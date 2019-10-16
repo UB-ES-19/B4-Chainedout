@@ -6,24 +6,16 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.views.decorators.http import require_POST
 from .models import Follow, Profile
-from .forms import RegisterForm, ModifyProfileForm, ModifyUserForm
+from .forms import RegisterForm, ModifyProfileForm, ModifyUserForm, ModifyBioForm, ModifySkillsForm, \
+    ModifyAchievementForm, ModifyExperienceForm, ModifyEducationForm
 
 
 def index(request):
-    """
-    user = request.user
-    user.profile.profession = 'Profession Test'
-    user.profile.bio = 'Bio Test'
-    user.profile.location = 'Location Test'
-    user.profile.education = 'Education Test'
-    user.profile.skills = 'Skills Test'
-    user.profile.achievements = 'Achievements Test'
-    user.profile.experience = 'Experience Test'
-    user.save()"""
     return render(request, "index.html")
 
+
 @login_required
-def testprofile(request):
+def save_profile(request):
     if request.method == 'POST':
         user_form = ModifyUserForm(request.POST, instance=request.user)
         profile_form = ModifyProfileForm(request.POST, instance=request.user.profile)
@@ -33,7 +25,65 @@ def testprofile(request):
     else:
         user_form = ModifyUserForm()
         profile_form = ModifyProfileForm()
-    return render(request, "user/profile.html", {'user_form': user_form, 'profile_form': profile_form})
+    context = {'user_form': user_form, 'profile_form': profile_form}
+    return render(request, "user/profile.html", context)
+
+
+@login_required()
+def save_bio(request):
+    if request.method == 'POST':
+        bio_form = ModifyBioForm(request.POST, instance=request.user.profile)
+        if bio_form.is_valid():
+            bio_form.save()
+    else:
+        bio_form = ModifyBioForm()
+    context = {'bio_form': bio_form}
+    return render(request, "user/profile.html", context)
+
+
+@login_required()
+def save_skills(request):
+    if request.method == 'POST':
+        skill_form = ModifySkillsForm(request.POST, instance=request.user.profile)
+        if skill_form.is_valid():
+            skill_form.save()
+    else:
+        skill_form = ModifySkillsForm()
+    context = {'skill_form': skill_form}
+    return render(request, "user/profile.html", context)
+
+@login_required()
+def save_education(request):
+    if request.method == 'POST':
+        education_form = ModifyEducationForm(request.POST, instance=request.user.profile.education)
+        if education_form.is_valid():
+            education_form.save()
+    else:
+        education_form = ModifyEducationForm()
+    context = {'education_form': education_form}
+    return render(request, "user/profile.html", context)
+
+@login_required()
+def save_experience(request):
+    if request.method == 'POST':
+        experience_form = ModifyExperienceForm(request.POST, instance=request.user.profile.experience)
+        if experience_form.is_valid():
+            experience_form.save()
+    else:
+        experience_form = ModifyExperienceForm()
+    context = {'experience_form': experience_form}
+    return render(request, "user/profile.html", context)
+
+@login_required()
+def save_achievements(request):
+    if request.method == 'POST':
+        achievements_form = ModifyAchievementForm(request.POST, instance=request.user.profile)
+        if achievements_form.is_valid():
+            achievements_form.save()
+    else:
+        achievements_form = ModifyAchievementForm()
+    context = {'achievements_form': achievements_form}
+    return render(request, "user/profile.html", context)
 
 
 def register(request):
@@ -79,7 +129,3 @@ def user_follow(request):
         except User.DoesNotExist:
             return JsonResponse({'status': 'error'})
     return JsonResponse({'status': 'error'})
-
-
-
-
