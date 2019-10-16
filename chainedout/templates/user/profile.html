@@ -15,7 +15,7 @@
         <div style="clear: ; margin-bottom: 10px"></div>
         <h1>{{ user.first_name }} {{ user.last_name }}</h1>
         <h3>{{ user.profile.location }}</h3>
-        <div id="info"
+        <div id="info">
             <a href="{{ user.get_absolute_url }}"><span class="infolink">Show Contact Info</span></a> <i class="fas fabsep fa-circle"></i>
             <span class="info_data"><i class="fas fa-link"></i>{{ user.profile.website }}</span>
             <span class="info_data"><i class="fas fa-paper-plane"></i> <a href="mailto:{{ user.email }}">{{ user.email }}</a></span>
@@ -92,6 +92,7 @@
                 {% endif %}
                 {{ field }}
             {% endfor %}
+
         </div>
         <hr style="margin-top: 10px; margin-bottom: 10px;">
         <button class="profile_modal_btn" type="submit" value="confirm">Confirm</button>
@@ -115,13 +116,14 @@
     <div id="info">
         <span class="info_data"> {{ user.profile.bio }}</span>
         <span class="info_data"> {{ user.profile.location }}</span>
+        <span class="info_data"> {{ user.education.started }}</span>
     </div>
 </div>
 <!----- MODAL EDIT ABOUT START ----->
 <div id="profile_about_modal" class="about_modal">
 
   <!-- Modal Content -->
-  <form class="profile-modal-content animate" method="post" action="{%  url 'login' %}">
+  <form class="profile-modal-content animate" method="post">
   {% csrf_token %}
 
     <div class="profile_modal_title">About</div>
@@ -130,9 +132,13 @@
 
     <div class="profile_modal_container">
         <div class="scrollable_modal_container">
-            <label for="headline"><b>About</b></label>
-            <textarea id="textarea_style" name="headline", rows="7", cols="40"></textarea>
-
+            {% for field in bio_form %}
+                <label class="mylabel"><b>{{ field.label }}</b></label>
+                {% if field.errors %}
+                    <span class="error">{{ field.errors.as_text }}</span>
+                {% endif %}
+                {{ field }}
+            {% endfor %}
         </div>
         <hr style="margin-top: 10px; margin-bottom: 10px;">
         <button class="profile_modal_btn_rem btnMargin" type="submit" value="remove">Remove</button>
@@ -187,7 +193,7 @@
 <div id="profile_edu_modal" class="education_modal">
 
   <!-- Modal Content -->
-  <form class="profile-modal-content animate" method="post" action="{%  url 'login' %}">
+  <form class="profile-modal-content animate" method="post">
   {% csrf_token %}
 
     <div class="profile_modal_title">Education</div>
@@ -266,7 +272,7 @@
 <div id="profile_xp_modal" class="experience_modal">
 
   <!-- Modal Content -->
-  <form class="profile-modal-content animate" method="post" action="{%  url 'login' %}">
+  <form class="profile-modal-content animate" method="post">
   {% csrf_token %}
 
     <div class="profile_modal_title">Work Experience </div>
@@ -337,7 +343,7 @@
 <div id="profile_skills_modal" class="skills_modal">
 
   <!-- Modal Content -->
-  <form class="profile-modal-content animate" method="post" action="{%  url 'login' %}">
+  <form class="profile-modal-content animate" method="post">
   {% csrf_token %}
 
     <div class="profile_modal_title">Skills</div>
@@ -381,7 +387,7 @@
 <div id="profile_achievement_modal" class="achievements_modal">
 
   <!-- Modal Content -->
-  <form class="profile-modal-content animate" method="post" action="{%  url 'login' %}">
+  <form class="profile-modal-content animate" method="post">
   {% csrf_token %}
 
     <div class="profile_modal_title">Achievements</div>

@@ -48,18 +48,35 @@ class Profile(models.Model):
 
 
 class Education(models.Model):
-    profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     entity = models.TextField(max_length=15)
     title = models.TextField(max_length=15)
     started = models.IntegerField(default=2019)
     finished = models.IntegerField(default=2020)
 
+    @receiver(post_save, sender=User)
+    def create_user_education(sender, instance, created, **kwargs):
+        if created:
+            Education.objects.create(user=instance)
+
+    @receiver(post_save, sender=User)
+    def save_user_education(sender, instance, **kwargs):
+        instance.education.save()
+
 
 class Experience(models.Model):
-    profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     work_experience = models.TextField(max_length=15)
     company = models.TextField(max_length=15)
     started = models.IntegerField(default=2019)
     finished = models.IntegerField(default=2020)
     job = models.TextField(max_length=100)
 
+    @receiver(post_save, sender=User)
+    def create_user_experience(sender, instance, created, **kwargs):
+        if created:
+            Experience.objects.create(user=instance)
+
+    @receiver(post_save, sender=User)
+    def save_user_experience(sender, instance, **kwargs):
+        instance.experience.save()

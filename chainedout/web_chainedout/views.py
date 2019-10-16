@@ -23,8 +23,8 @@ def save_profile(request):
             user_form.save()
             profile_form.save()
     else:
-        user_form = ModifyUserForm()
-        profile_form = ModifyProfileForm()
+        user_form = ModifyUserForm(instance=request.user)
+        profile_form = ModifyProfileForm(instance=request.user.profile)
     context = {'user_form': user_form, 'profile_form': profile_form}
     return render(request, "user/profile.html", context)
 
@@ -36,7 +36,7 @@ def save_bio(request):
         if bio_form.is_valid():
             bio_form.save()
     else:
-        bio_form = ModifyBioForm()
+        bio_form = ModifyBioForm(instance=request.user.profile)
     context = {'bio_form': bio_form}
     return render(request, "user/profile.html", context)
 
@@ -48,31 +48,34 @@ def save_skills(request):
         if skill_form.is_valid():
             skill_form.save()
     else:
-        skill_form = ModifySkillsForm()
+        skill_form = ModifySkillsForm(instance=request.user.profile)
     context = {'skill_form': skill_form}
     return render(request, "user/profile.html", context)
+
 
 @login_required()
 def save_education(request):
     if request.method == 'POST':
-        education_form = ModifyEducationForm(request.POST, instance=request.user.profile.education)
+        education_form = ModifyEducationForm(request.POST, instance=request.user.education)
         if education_form.is_valid():
             education_form.save()
     else:
-        education_form = ModifyEducationForm()
+        education_form = ModifyEducationForm(instance=request.user.education)
     context = {'education_form': education_form}
     return render(request, "user/profile.html", context)
+
 
 @login_required()
 def save_experience(request):
     if request.method == 'POST':
-        experience_form = ModifyExperienceForm(request.POST, instance=request.user.profile.experience)
+        experience_form = ModifyExperienceForm(request.POST, instance=request.user.experience)
         if experience_form.is_valid():
             experience_form.save()
     else:
-        experience_form = ModifyExperienceForm()
+        experience_form = ModifyExperienceForm(instance=request.user.education)
     context = {'experience_form': experience_form}
     return render(request, "user/profile.html", context)
+
 
 @login_required()
 def save_achievements(request):
@@ -81,7 +84,7 @@ def save_achievements(request):
         if achievements_form.is_valid():
             achievements_form.save()
     else:
-        achievements_form = ModifyAchievementForm()
+        achievements_form = ModifyAchievementForm(instance=request.user.profile)
     context = {'achievements_form': achievements_form}
     return render(request, "user/profile.html", context)
 
