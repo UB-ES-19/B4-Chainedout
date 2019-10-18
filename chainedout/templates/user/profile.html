@@ -16,26 +16,30 @@
                 {% endif %}
             </div>
         </div>
-        <div style="clear: ; margin-bottom: 10px"></div>
+        <div style="clear:both; margin-bottom: 10px;"></div>
         <h1>{{ user.first_name }} {{ user.last_name }}</h1>
+
         {% if user.profile.location %}
-            <h3>{{ user.profile.location }}</h3>
+          <h3>{{ user.profile.location }}</h3>
         {% endif %}
-        <div id="info">
-            <a href="{{ user.get_absolute_url }}"><span class="infolink">Show Contact Info</span></a> <i class="fas fabsep fa-circle"></i>
+        <div class="data">
             {% if user.profile.website %}
-                <span class="info_data"><i class="fas fa-link"></i>{{ user.profile.website }}</span><i class="fas fabsep fa-circle"></i>
+              <span class="info_data"><i class="fas fa-link"></i> <a href="{{ user.profile.website }}">{{ user.profile.website }}</a></span><i class="fas fabsep fa-circle"></i>
             {% endif %}
             {% if user.email %}
-                <span class="info_data"><i class="fas fa-paper-plane"></i> <a href="mailto:{{ user.email }}">{{ user.email }}</a></span><i class="fas fabsep fa-circle"></i>
+              <span class="info_data"><i class="fas fa-paper-plane"></i> <a href="mailto:{{ user.email }}">{{ user.email }}</a></span><i class="fas fabsep fa-circle"></i>
             {% endif %}
             {% ifnotequal user.profile.phone 0 %}
-                <span class="info_data"><i class="fas fa-phone-square"></i>{{ user.profile.phone }}</span><i class="fas fabsep fa-circle"></i>
-            {% endifnotequal %}
-            <a href="{% url 'user_list' %}"><span class="infolink">25 contacts</span></a><i class="fas fabsep fa-circle"></i>
-            <a href="{% url 'user_list' %}"><span class="infolink">{{ user.followers.count }} follower{{ user.followers.count|pluralize }}</span></a>
+              <span class="info_data"><i class="fas fa-phone-square"></i> {{ user.profile.phone }}</span>
+            {% endif %}
+        </div>
+    <div class="friends">
+            <a href="{{ user.get_absolute_url }}"><span class="flink">Show Contact Info</span></a> <i class="fas fabsep fa-circle"></i>
+            <a href="{% url 'user_list' %}"><span class="flink">25 contacts</span></a><i class="fas fabsep fa-circle"></i>
+            <a href="{% url 'user_list' %}"><span class="flink">{{ user.followers.count }} follower{{ user.followers.count|pluralize }}</span></a>
+
             {% if not request.user.is_authenticated %}
-                <a href="{% url 'register' %}"><span class="infolink">Register</span></a>
+                <a href="{% url 'register' %}"><span class="flink">Register</span></a>
             {% endif %}
         </div>
     </div>
@@ -59,13 +63,6 @@
     </div>
     <div style="clear: both"></div>
 </div>
-<!----- MODAL CONTACT INFO (EMAIL, PHONE) PROFILE START ----->
-<!-- TODO -->
-<!----- MODAL CONTACT INFO (EMAIL, PHONE) PROFILE END ----->
-
-<!----- MODAL EDIT CONTACT INFO PROFILE START ----->
-<!-- TODO -->
-<!----- MODAL EDIT CONTACT INFO PROFILE END ----->
 
 <!----- MODAL EDIT PROFILE START ----->
 <!-- The Modal -->
@@ -174,7 +171,7 @@
 
     {% ifequal request.user user %}
         <div class="right_box">
-            <div class="elemprofile edit"><a onclick="modal('profile_edu_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
+            <div class="elemprofile"><a onclick="modal('profile_edu_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
         </div>
     {% endifequal %}
 
@@ -235,7 +232,7 @@
 
     {% ifequal request.user user %}
         <div class="right_box">
-            <div class="elemprofile edit"><a onclick="modal('profile_xp_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
+            <div class="elemprofile"><a onclick="modal('profile_xp_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
         </div>
     {% endifequal %}
 
@@ -301,7 +298,7 @@
 
     {% ifequal request.user user %}
         <div class="right_box">
-            <div class="elemprofile edit"><a onclick="modal('profile_skills_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
+            <div class="elemprofile"><a onclick="modal('profile_skills_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
         </div>
     {% endifequal %}
 

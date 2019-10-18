@@ -805,10 +805,6 @@ input[type='checkbox']{
     font-weight: bolder;
 }
 
-#profile .edit {
-  opacity: 0.3;
-}
-
 #profile .elemprofile:hover {
   cursor: pointer;
   opacity: 1;
@@ -817,6 +813,14 @@ input[type='checkbox']{
 #profile h1.title {
     font-size: 22px;
     font-weight: 200;
+}
+
+#profile a h1 {
+    color: #0F292F;
+}
+
+#profile a:hover h1 {
+    text-decoration: underline;
 }
 
 #profile hr.title_sep {
@@ -831,7 +835,7 @@ input[type='checkbox']{
     margin-bottom: 10px;
 }
 
-#profile p.profile {
+#profile p {
   font-size: 15px;
   font-weight: 200;
 }
@@ -967,9 +971,6 @@ input[type=number].profile_modal_input {
   box-sizing: border-box;
 }
 
-.profile_modal_input{
-  font-size: 0.8em;
-}
 /* Set a style for all buttons */
 button.profile_modal_btn {
   background-color: #00302f;
