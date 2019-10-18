@@ -9,24 +9,20 @@
                     <div class="current">
                         <div class="current_avatar"><img src="/static/images/img_avatar.png" alt="Avatar" class="profile_avatar"></div>
                         <div class="current_work_education">
-                            <div class="current_education"><i class="fas fa-university"></i> {{ user.education.entity }} </div>
-                            <div class="current_work"><i class="fas fa-briefcase"></i> {{ user.experience.company }} </div>
+                            {% if user.education.entity %}
+                                <div class="current_education"><i class="fas fa-university"></i> {{ user.education.entity }} </div>
+                            {% endif %}
+                            {% if user.experience.company %}
+                                <div class="current_work"><i class="fas fa-briefcase"></i> {{ user.experience.company }} </div>
+                            {% endif %}
                         </div>
                     </div>
                     <div style="clear: both"></div>
-                    {% ifequal request.user user %}
-                        <a href="{% url 'saveprofile' %}" class="title"><h1>{{ user.get_full_name }}</h1></a>
-                    {% else %}
-                        <a href="{{ user.get_absolute_url }}" class="title"><h1>{{ user.get_full_name }}</h1></a>
-                    {% endifequal %}
+                    <a href="{{ user.get_absolute_url }}" class="title"><h1>{{ user.get_full_name }}</h1></a>
                     <h2>{{ user.experience.job }}</h2>
                     <h3>{{ user.profile.location }}</h3>
                     <div id="info">
-                        {% ifequal request.user user %}
-                            <a href="{% url 'saveprofile' %}"><span class="infolink">Show Contact Info</span></a> <i class="fas fabsep fa-circle"></i>
-                        {% else %}
-                            <a href="{{ user.get_absolute_url }}"><span class="infolink">Show Contact Info</span></a> <i class="fas fabsep fa-circle"></i>
-                        {% endifequal %}
+                        <a href="{{ user.get_absolute_url }}"><span class="infolink">Show Contact Info</span></a> <i class="fas fabsep fa-circle"></i>
                         <a href="{% url 'user_list' %}"><span class="infolink">25 contacts</span></a> <i class="fas fabsep fa-circle"></i>
                         <a href="{% url 'user_list' %}"><span class="infolink">{{ user.followers.count }} follower{{ user.followers.count|pluralize }}</span></a>
                     </div>
