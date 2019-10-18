@@ -3,6 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/static/style/stylesheet.css?{% now "U" %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    <script>
+        var csrftoken = Cookies.get('csrftoken');
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+             }
+        });
+        $(document).ready(function(){
+            {% block domready %}
+            {% endblock %}
+        });
+    </script>
     <link rel="shortcut icon" href="/static/style/images/favicon.ico" type="image/vnd.microsoft.icon">
     <script src="/static/style/script.js"></script>
     <!-- FontAwesome -->
@@ -27,6 +47,7 @@
         <ul>
             {% if request.user.is_authenticated %}
                 <li><a id = "logout" class="logout" href="{% url 'logout' %}?next=/"> Logout</a></li>
+                <li><a id = "users" class="users" href="{% url 'user_list' %}"> Users</a></li>
             {% else %}
                 <li><a id = "register" class="register" href="{% url 'register' %}"><i class="fa fa-fw fa-users"></i> Register</a></li>
                 <li><a id = "login" onclick="modal('login_modal', 'block')"><i class="fa fa-fw fa-user"></i> Login</a></li>

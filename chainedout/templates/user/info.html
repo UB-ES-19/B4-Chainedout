@@ -1,0 +1,35 @@
+{% extends "header.html" %}
+
+{% block content %}
+    <h3>{{ user.get_full_name }}</h3>>
+    {% with total_followers=user.followers.count %}
+        <span class="count">
+            <span class="total">{{ total_followers }}</span>
+            follower{{ total_followers|pluralize }}
+        </span>
+        <a href="#" data-id="{{ user.id }}" data-action="{% if request.user in user.followers.all %}un{% endif %}follow" class="follow button">
+            {% if request.user in user.followers.all %}
+                Unfollow
+            {% else %}
+                Follow
+            {% endif %}
+        </a>
+    {% endwith %}
+{% endblock %}
+
+{% block domready %}
+    $('a.follow').click(function(e){
+        e.preventDefault();
+        $.post('{% url "user_follow" %}',
+            {
+                id: $(this).data('id'),
+                action: $(this).data('action')
+            },
+            function(data){
+                if (data['status'] == 'ok') {
+                    window.location.replace("{{ user.get_absolute_url }}");
+                }
+            }
+        );
+    });
+{% endblock %}

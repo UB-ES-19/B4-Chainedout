@@ -867,6 +867,16 @@ input[type='checkbox']{
   padding: 10px;
 }
 
+.scrollable_modal_container input[type=text], input[type=number], textarea {
+  width: 100%;
+  padding:15px;
+  margin:5px 0 22px 0;
+  display: inline-block;
+  background: #f1f1f1;
+  border:2px solid #555;
+  border-radius: 10px;
+}
+
 #profile .edubox {
   float: left;
 }

@@ -1,4 +1,4 @@
-{% include "../header.html" %}
+{% extends "header.html" %}
 
 {% block content %}
 <div id="profile">
@@ -6,44 +6,61 @@
 <div id="profilebox">
     <div class="left_profile">
         <div class="current">
-            <img src="/static/images/img_avatar.png" alt="Avatar" class="profile_avatar">
+            <div class="current_avatar"><img src="/static/images/img_avatar.png" alt="Avatar" class="profile_avatar"></div>
+            <div class="current_work_education">
+                <div class="current_education"><i class="fas fa-university"></i> {{ user.education.entity }}</div>
+                <div class="current_work"><i class="fas fa-briefcase"></i> {{ user.experience.company }}</div>
+            </div>
         </div>
-        <div style="clear: both"></div>
-        <h1>Cepeda Calvo</h1>
-        <h2>Ingeniero capilar</h2>
-        <h3>Barcelona, Cataluña, España</h3>
-
-        <div class="data">
-            <span class="info_data"><i class="fas fa-link"></i> <a href="www.tupelonuevo.es">www.tupelonuevo.es</a></span>
-            <span class="info_data"><i class="fas fa-paper-plane"></i> <a href="mailto:calvo@ub.edu">calvo@ub.edu</a></span>
-            <span class="info_data"><i class="fas fa-phone-square"></i> +34 666 XXXXXX</span>
-        </div>
-
-        <div id="friends">
-            <a href="{% url 'index' %}"><span class="flink">25 contacts</span></a> <i class="fas fabsep fa-circle"></i>
-            <a href="{% url 'index' %}"><span class="flink">90 followers</span></a>
-
-            <a href="{% url 'register' %}"><span class="flink">Register</span></a>
+        <div style="clear: ; margin-bottom: 10px"></div>
+        <h1>{{ user.first_name }} {{ user.last_name }}</h1>
+        <h3>{{ user.profile.location }}</h3>
+        <div id="info">
+            <a href="{{ user.get_absolute_url }}"><span class="infolink">Show Contact Info</span></a> <i class="fas fabsep fa-circle"></i>
+            <span class="info_data"><i class="fas fa-link"></i>{{ user.profile.website }}</span><i class="fas fabsep fa-circle"></i>
+            <span class="info_data"><i class="fas fa-paper-plane"></i> <a href="mailto:{{ user.email }}">{{ user.email }}</a></span><i class="fas fabsep fa-circle"></i>
+            <span class="info_data"><i class="fas fa-phone-square"></i>{{ user.profile.phone }}</span><i class="fas fabsep fa-circle"></i>
+            <a href="{% url 'user_list' %}"><span class="infolink">25 contacts</span></a><i class="fas fabsep fa-circle"></i>
+            <a href="{% url 'user_list' %}"><span class="infolink">{{ user.followers.count }} follower{{ user.followers.count|pluralize }}</span></a>
+            {% if not request.user.is_authenticated %}
+                <a href="{% url 'register' %}"><span class="infolink">Register</span></a>
+            {% endif %}
         </div>
     </div>
     <div class="right_profile">
-        <div class="elemprofile"><a onclick="modal('profile_user_edit_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
+        {% ifequal request.user user %}
+ <div class="elemprofile"><a onclick="modal('profile_user_edit_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
+        {% endifequal %}
 
-        <div class="elemprofile"><a href="#"><i class="fas fa-eye"></i> Follow</a></div>
-        <div class="elemprofile"><a href="#"><i class="fas fa-eye-slash"></i> Unfollow</a></div>
+        {% ifnotequal request.user user %}
+            {% if request.user not in user.followers.all %}
+                <div class="elemprofile"><a href="#" data-id="{{ user.id }}" data-action="follow" class="follow button"><i class="fas fa-eye"></i> Follow</a></div>
+            {% else %}
+                <div class="elemprofile"><a href="#" data-id="{{ user.id }}" data-action="unfollow" class="follow button"><i class="fas fa-eye-slash"></i> Unfollow</a></div>
+            {% endif %}
+        {% endifnotequal %}
 
-        <div class="elemprofile"><a href="#"><i class="fas fa-user-plus"></i> Add contact</a></div>
-        <div class="elemprofile"><a href="#"><i class="fas fa-user-minus"></i> Remove contact</a></div>
+        {% ifnotequal request.user user %}
+            <div class="elemprofile"><a href="#"><i class="fas fa-user-plus"></i> Add contact</a></div>
+            <div class="elemprofile"><a href="#"><i class="fas fa-user-minus"></i> Remove contact</a></div>
+        {% endifnotequal %}
     </div>
     <div style="clear: both"></div>
 </div>
+<!----- MODAL CONTACT INFO (EMAIL, PHONE) PROFILE START ----->
+<!-- TODO -->
+<!----- MODAL CONTACT INFO (EMAIL, PHONE) PROFILE END ----->
+
+<!----- MODAL EDIT CONTACT INFO PROFILE START ----->
+<!-- TODO -->
+<!----- MODAL EDIT CONTACT INFO PROFILE END ----->
 
 <!----- MODAL EDIT PROFILE START ----->
 <!-- The Modal -->
 <div id="profile_user_edit_modal" class="profile_modal">
 
   <!-- Modal Content -->
-  <form class="profile-modal-content animate" method="post" action="{%  url 'login' %}">
+  <form class="profile-modal-content animate" method="post">
   {% csrf_token %}
 
     <div class="profile_modal_title">Edit Profile</div>
@@ -60,32 +77,22 @@
                 <input type="file" name="avatar" id="avatarUpload"/>
             </div>
 
-            <label for="first_name"><b>First Name*</b></label>
-            <input class="profile_modal_input" type="text" placeholder="Enter your first name" id="first_name" name="first_name" required>
+            {% for field in user_form %}
+                <label class="mylabel"><b>{{ field.label }}</b></label>
+                {% if field.errors %}
+                    <span class="error">{{ field.errors.as_text }}</span>
+                {% endif %}
+                {{ field }}
+            {% endfor %}
 
-            <label for="last_name"><b>Last Name*</b></label>
-            <input class="profile_modal_input" type="text" placeholder="Enter your last name" id="last_name" name="last_name" required>
+            {% for field in profile_form %}
+                <label class="mylabel"><b>{{ field.label }}</b></label>
+                {% if field.errors %}
+                    <span class="error">{{ field.errors.as_text }}</span>
+                {% endif %}
+                {{ field }}
+            {% endfor %}
 
-            <label for="email"><b>Email*</b></label>
-            <input class="profile_modal_input" type="text" placeholder="Enter your email" id="email" name="email" required>
-
-            <label for="phone"><b>Phone</b></label>
-            <input class="profile_modal_input" type="text" placeholder="Enter your phone" id="phone" name="phone">
-
-            <label for="web"><b>Web</b></label>
-            <input class="profile_modal_input" type="text" placeholder="Enter your web" id="web" name="web">
-
-            <label for="web"><b>Location</b></label>
-            <input class="profile_modal_input" type="text" placeholder="Enter your location" id="location" name="location">
-
-            <label for="headline"><b>Headline</b></label>
-            <textarea id="textarea_style" name="headline", rows="5", cols="40"></textarea>
-
-            <label for="password1"><b>Change Password</b></label>
-            <input type="password" name="password1" value="" id="password1"><input type="hidden" name="password" />
-
-            <label for="password2"><b>Password confirmation</b></label>
-            <input type="password" name="password2" value="" id="password2"><input type="hidden" name="password" />
         </div>
         <hr style="margin-top: 10px; margin-bottom: 10px;">
         <button class="profile_modal_btn" type="submit" value="confirm">Confirm</button>
@@ -102,19 +109,23 @@
     <div class="left_box">
         <h1 class="title">About</h1>
     </div>
-    <div class="right_box">
-        <div class="elemprofile"><a onclick="modal('profile_about_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
-    </div>
+
+    {% ifequal request.user user %}
+        <div class="right_box">
+            <div class="elemprofile"><a onclick="modal('profile_about_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
+        </div>
+    {% endifequal %}
+
     <hr class="title_sep" />
     <div id="info">
-        <p>Ingeniero capilar de chema</p>
+        <span class="info_data"> {{ user.profile.bio }}</span>
     </div>
 </div>
 <!----- MODAL EDIT ABOUT START ----->
 <div id="profile_about_modal" class="about_modal">
 
   <!-- Modal Content -->
-  <form class="profile-modal-content animate" method="post" action="{%  url 'login' %}">
+  <form class="profile-modal-content animate" method="post">
   {% csrf_token %}
 
     <div class="profile_modal_title">About</div>
@@ -123,10 +134,13 @@
 
     <div class="profile_modal_container">
         <div class="scrollable_modal_container">
-
-            <label for="headline"><b>About</b></label>
-            <textarea id="textarea_style" name="headline", rows="7", cols="40"></textarea>
-
+            {% for field in bio_form %}
+                <label class="mylabel"><b>{{ field.label }}</b></label>
+                {% if field.errors %}
+                    <span class="error">{{ field.errors.as_text }}</span>
+                {% endif %}
+                {{ field }}
+            {% endfor %}
         </div>
         <hr style="margin-top: 10px; margin-bottom: 10px;">
         <button class="profile_modal_btn_rem btnMargin" type="submit" value="remove">Remove</button>
@@ -145,35 +159,26 @@
     <div class="left_box">
         <h1 class="title">Education</h1>
     </div>
-    <div class="right_box">
-        <div class="elemprofile"><a onclick="modal('profile_edu_modal', 'block')"><i class="fas fa-plus"></i> Add</a></div>
-    </div>
+
+    {% ifequal request.user user %}
+        <div class="right_box">
+            <div class="elemprofile edit"><a onclick="modal('profile_edu_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
+        </div>
+    {% endifequal %}
+
     <hr class="title_sep" />
     <div id="info">
 
         <div class="element">
             <div class="edubox">
-                <p>Universidad 1 <i class="fas fabsep fa-circle"></i> Carrera 1</p>
-                <p><small>2012 - 2018</small></p>
+                <p>{{ user.education.entity }} <i class="fas fabsep fa-circle"></i> {{ user.education.title }}</p>
+                <p><small>{{ user.education.started }} - {{ user.education.finished }}</small></p>
             </div>
-            <div class="edit_edubox">
-                <div class="elemprofile edit"><a onclick="modal('profile_xp_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
-            </div>
+
             <div style="clear: both"></div>
         </div>
 
         <hr class="sepelement"/>
-
-        <div class="element">
-            <div class="edubox">
-                <p>Universidad 2 <i class="fas fabsep fa-circle"></i> Carrera 2</p>
-                <p><small>2019 - Current</small></p>
-            </div>
-            <div class="edit_edubox">
-                <div class="elemprofile edit"><a onclick="modal('profile_xp_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
-            </div>
-            <div style="clear: both"></div>
-        </div>
 
     </div>
 
@@ -181,7 +186,7 @@
 <div id="profile_edu_modal" class="education_modal">
 
   <!-- Modal Content -->
-  <form class="profile-modal-content animate" method="post" action="{%  url 'login' %}">
+  <form class="profile-modal-content animate" method="post">
   {% csrf_token %}
 
     <div class="profile_modal_title">Education</div>
@@ -190,24 +195,13 @@
 
     <div class="profile_modal_container">
         <div class="scrollable_modal_container">
-
-            <label for="entity"><b>Entity *</b></label>
-            <input class="profile_modal_input" type="text" id="entity" name="entity" required>
-
-            <label for="title"><b>Title *</b></label>
-            <input class="profile_modal_input" type="text" id="title" name="title" required>
-
-            <div class="startedDate">
-                <label for="started"><b>Started *</b></label><br/>
-                <input class="profile_modal_input" type="number" min="0" id="started" name="started">
-            </div>
-
-            <div class="finishedDate">
-                <label for="finished"><b>Finished</b></label><br/>
-                <input class="profile_modal_input" type="number" min="0" id="finished" name="finished">
-            </div>
-            <div style="clear: left"></div>
-
+            {% for field in education_form %}
+                <label class="mylabel"><b>{{ field.label }}</b></label>
+                {% if field.errors %}
+                    <span class="error">{{ field.errors.as_text }}</span>
+                {% endif %}
+                {{ field }}
+            {% endfor %}
         </div>
         <hr style="margin-top: 10px; margin-bottom: 10px;">
         <button class="profile_modal_btn_rem btnMargin" type="submit" value="remove">Remove</button>
@@ -222,37 +216,27 @@
     <div class="left_box">
         <h1 class="title">Experience</h1>
     </div>
-    <div class="right_box">
-        <div class="elemprofile"><a onclick="modal('profile_xp_modal', 'block')"><i class="fas fa-plus"></i> Add</a></div>
-    </div>
+
+    {% ifequal request.user user %}
+        <div class="right_box">
+            <div class="elemprofile edit"><a onclick="modal('profile_xp_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
+        </div>
+    {% endifequal %}
+
     <hr class="title_sep" />
     <div id="info">
 
         <div class="element">
             <div class="edubox">
-                <p>Trabajo 1 <i class="fas fabsep fa-circle"></i> Empresa 1</p>
-                <p><i><small>Lo que hace 1.</small></i></p>
-                <p><small>2019 - 2020</small></p>
+                <p>{{ user.experience.job }} <i class="fas fabsep fa-circle"></i> {{ user.experience.company }}</p>
+                <p><i><small>{{ user.experience.work_experience }}</small></i></p>
+                <p><small>{{ user.experience.started }} - {{ user.experience.finished }}</small></p>
             </div>
-            <div class="edit_edubox">
-                <div class="elemprofile edit"><a onclick="modal('profile_xp_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
-            </div>
+
             <div style="clear: both"></div>
         </div>
 
         <hr class="sepelement"/>
-
-        <div class="element">
-            <div class="edubox">
-                <p>Trabajo 2 <i class="fas fabsep fa-circle"></i> Empresa 2</p>
-                <p><i><small>Lo que hace 2.</small></i></p>
-                <p><small>2019 - Current</small></p>
-            </div>
-            <div class="edit_edubox">
-                <div class="elemprofile edit"><a onclick="modal('profile_xp_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
-            </div>
-            <div style="clear: both"></div>
-        </div>
 
     </div>
 </div>
@@ -260,7 +244,7 @@
 <div id="profile_xp_modal" class="experience_modal">
 
   <!-- Modal Content -->
-  <form class="profile-modal-content animate" method="post" action="{%  url 'login' %}">
+  <form class="profile-modal-content animate" method="post">
   {% csrf_token %}
 
     <div class="profile_modal_title">Work Experience </div>
@@ -269,27 +253,13 @@
 
     <div class="profile_modal_container">
         <div class="scrollable_modal_container">
-
-            <label for="laboral_experience"><b>Work Experience *</b></label>
-            <input class="profile_modal_input" type="text" id="laboral_experience" name="laboral_experience" required>
-
-            <label for="company"><b>Company *</b></label>
-            <input class="profile_modal_input" type="text" id="company" name="company" required>
-
-            <div class="startedDate">
-                <label for="started"><b>Started *</b></label><br/>
-                <input class="profile_modal_input" type="number" min="0" id="started" name="started">
-            </div>
-
-            <div class="finishedDate">
-                <label for="finished"><b>Finished</b></label><br/>
-                <input class="profile_modal_input" type="number" min="0" id="finished" name="finished">
-            </div>
-            <div style="clear: left"></div>
-
-            <label for="job"><b>Job</b></label>
-            <textarea id="textarea_style" name="job", rows="5", cols="40"></textarea>
-
+            {% for field in experience_form %}
+                <label class="mylabel"><b>{{ field.label }}</b></label>
+                {% if field.errors %}
+                    <span class="error">{{ field.errors.as_text }}</span>
+                {% endif %}
+                {{ field }}
+            {% endfor %}
         </div>
         <hr style="margin-top: 10px; margin-bottom: 10px;">
         <button class="profile_modal_btn_rem btnMargin" type="submit" value="remove">Remove</button>
@@ -308,41 +278,32 @@
     <div class="left_box">
         <h1 class="title">Skills</h1>
     </div>
-    <div class="right_box">
-        <div class="elemprofile"><a onclick="modal('profile_skills_modal', 'block')"><i class="fas fa-plus"></i> Add</a></div>
-    </div>
+
+    {% ifequal request.user user %}
+        <div class="right_box">
+            <div class="elemprofile edit"><a onclick="modal('profile_skills_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
+        </div>
+    {% endifequal %}
+
     <hr class="title_sep" />
     <div id="info">
 
         <div class="element">
             <div class="edubox">
-                <p>C++</p>
+                <p>{{ user.profile.skills }}</p>
             </div>
-            <div class="edit_edubox">
-                <div class="elemprofile edit"><a onclick="modal('profile_skills_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
-            </div>
+
             <div style="clear: both"></div>
         </div>
 
         <hr class="sepelement"/>
-
-        <div class="element">
-            <div class="edubox">
-                <p>JAVA</p>
-            </div>
-            <div class="edit_edubox">
-                <div class="elemprofile edit"><a onclick="modal('profile_skills_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
-            </div>
-            <div style="clear: both"></div>
-        </div>
-
     </div>
 </div>
 <!----- MODAL SKILLS START ----->
 <div id="profile_skills_modal" class="skills_modal">
 
   <!-- Modal Content -->
-  <form class="profile-modal-content animate" method="post" action="{%  url 'login' %}">
+  <form class="profile-modal-content animate" method="post">
   {% csrf_token %}
 
     <div class="profile_modal_title">Skills</div>
@@ -351,10 +312,13 @@
 
     <div class="profile_modal_container">
         <div class="scrollable_modal_container">
-
-            <label for="skill"><b>Your Skill *</b></label>
-            <input class="profile_modal_input" type="text" id="skill" name="skill" required>
-
+            {% for field in skill_form %}
+                <label class="mylabel"><b>{{ field.label }}</b></label>
+                {% if field.errors %}
+                    <span class="error">{{ field.errors.as_text }}</span>
+                {% endif %}
+                {{ field }}
+            {% endfor %}
         </div>
         <hr style="margin-top: 10px; margin-bottom: 10px;">
         <button class="profile_modal_btn_rem btnMargin" type="submit" value="remove">Remove</button>
@@ -373,12 +337,16 @@
     <div class="left_box">
         <h1 class="title">Achievements</h1>
     </div>
-    <div class="right_box">
-        <div class="elemprofile"><a onclick="modal('profile_achievement_modal', 'block')"><i class="fas fa-plus"></i> Add</a></div>
-    </div>
+
+    {% ifequal request.user user %}
+        <div class="right_box">
+            <div class="elemprofile"><a onclick="modal('profile_achievement_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
+        </div>
+    {% endifequal %}
+
     <hr class="title_sep" />
     <div id="info">
-        A DETERMINAR
+        {{ user.profile.achievements }}
     </div>
 </div>
 
@@ -386,7 +354,7 @@
 <div id="profile_achievement_modal" class="achievements_modal">
 
   <!-- Modal Content -->
-  <form class="profile-modal-content animate" method="post" action="{%  url 'login' %}">
+  <form class="profile-modal-content animate" method="post">
   {% csrf_token %}
 
     <div class="profile_modal_title">Achievements</div>
@@ -395,10 +363,13 @@
 
     <div class="profile_modal_container">
         <div class="scrollable_modal_container">
-
-            <label for="achievement"><b>Your Achievement *</b></label>
-            <input class="profile_modal_input" type="text" id="achievement" name="achievement" required>
-
+            {% for field in achievements_form %}
+                <label class="mylabel"><b>{{ field.label }}</b></label>
+                {% if field.errors %}
+                    <span class="error">{{ field.errors.as_text }}</span>
+                {% endif %}
+                {{ field }}
+            {% endfor %}
         </div>
         <hr style="margin-top: 10px; margin-bottom: 10px;">
         <button class="profile_modal_btn_rem btnMargin" type="submit" value="remove">Remove</button>
@@ -411,6 +382,23 @@
 <!------------------------------ ACHIEVEMENTS BOX END ---------------------------------->
 </div>
 
+{% endblock %}
+
+{% block domready %}
+    $('a.follow').click(function(e){
+        e.preventDefault();
+        $.post('{% url "user_follow" %}',
+            {
+                id: $(this).data('id'),
+                action: $(this).data('action')
+            },
+            function(data){
+                if (data['status'] == 'ok') {
+                    window.location.replace("{{ user.get_absolute_url }}");
+                }
+            }
+        );
+    });
 {% endblock %}
 
 {% include "../footer.html" %}
