@@ -58,7 +58,10 @@
 
         {% ifnotequal request.user user %}
             <div class="elemprofile"><a href="#"><i class="fas fa-user-plus"></i> Add contact</a></div>
-            <div class="elemprofile"><a href="#"><i class="fas fa-user-minus"></i> Remove contact</a></div>
+            <!-- Temporary hidden because not implemented yet-->
+            {% if False %}
+                <div class="elemprofile"><a href="#"><i class="fas fa-user-minus"></i> Remove contact</a></div>
+            {% endif %}
         {% endifnotequal %}
     </div>
     <div style="clear: both"></div>
@@ -152,7 +155,10 @@
             {% endfor %}
         </div>
         <hr style="margin-top: 10px; margin-bottom: 10px;">
-        <button class="profile_modal_btn_rem btnMargin" type="submit" value="remove">Remove</button>
+        <!-- Temporary hidden because not implemented yet-->
+        {% if False %}
+            <button class="profile_modal_btn_rem btnMargin" type="submit" value="remove">Remove</button>
+        {% endif %}
         <button class="profile_modal_btn btnMargin" type="submit" value="submit_bio" name="submit_bio">Confirm</button>
     </div>
   </form>
@@ -217,7 +223,10 @@
             {% endfor %}
         </div>
         <hr style="margin-top: 10px; margin-bottom: 10px;">
-        <button class="profile_modal_btn_rem btnMargin" type="submit" value="remove">Remove</button>
+        <!-- Temporary hidden because not implemented yet-->
+        {% if False %}
+            <button class="profile_modal_btn_rem btnMargin" type="submit" value="remove">Remove</button>
+        {% endif %}
         <button class="profile_modal_btn btnMargin" type="submit" value="submit_education" name="submit_education">Confirm</button>
     </div>
   </form>
@@ -279,7 +288,10 @@
             {% endfor %}
         </div>
         <hr style="margin-top: 10px; margin-bottom: 10px;">
-        <button class="profile_modal_btn_rem btnMargin" type="submit" value="remove">Remove</button>
+        <!-- Temporary hidden because not implemented yet-->
+        {% if False %}
+            <button class="profile_modal_btn_rem btnMargin" type="submit" value="remove">Remove</button>
+        {% endif %}
         <button class="profile_modal_btn btnMargin" type="submit" value="submit_experience" name="submit_experience">Confirm</button>
     </div>
   </form>
@@ -338,7 +350,10 @@
             {% endfor %}
         </div>
         <hr style="margin-top: 10px; margin-bottom: 10px;">
-        <button class="profile_modal_btn_rem btnMargin" type="submit" value="remove">Remove</button>
+        <!-- Temporary hidden because not implemented yet-->
+        {% if False %}
+            <button class="profile_modal_btn_rem btnMargin" type="submit" value="remove">Remove</button>
+        {% endif %}
         <button class="profile_modal_btn btnMargin" type="submit" value="submit_skill" name="submit_skill">Confirm</button>
     </div>
   </form>
@@ -389,7 +404,10 @@
             {% endfor %}
         </div>
         <hr style="margin-top: 10px; margin-bottom: 10px;">
-        <button class="profile_modal_btn_rem btnMargin" type="submit" value="remove">Remove</button>
+        <!-- Temporary hidden because not implemented yet-->
+        {% if False %}
+            <button class="profile_modal_btn_rem btnMargin" type="submit" value="remove">Remove</button>
+        {% endif %}
         <button class="profile_modal_btn btnMargin" type="submit" value="submit_achievements" name="submit_achievements">Confirm</button>
     </div>
   </form>

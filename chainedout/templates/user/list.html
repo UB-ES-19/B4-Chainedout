@@ -42,10 +42,13 @@
                         {% endif %}
                     {% endifnotequal %}
 
-                    {% ifnotequal request.user user %}
-                        <div class="elemprofile"><a href="#"><i class="fas fa-user-plus"></i> Add contact</a></div>
-                        <div class="elemprofile"><a href="#"><i class="fas fa-user-minus"></i> Remove contact</a></div>
-                    {% endifnotequal %}
+                    <!-- Temporary hidden because not implemented yet-->
+                    {% if False %}
+                        {% ifnotequal request.user user %}
+                            <div class="elemprofile"><a href="#"><i class="fas fa-user-plus"></i> Add contact</a></div>
+                            <div class="elemprofile"><a href="#"><i class="fas fa-user-minus"></i> Remove contact</a></div>
+                        {% endifnotequal %}
+                    {% endif %}
                 </div>
                 <div style="clear: both"></div>
             </div>
