@@ -53,12 +53,12 @@ class ModifyAchievementForm(forms.ModelForm):
 class ModifyEducationForm(forms.ModelForm):
     class Meta:
         model = Education
-        fields = ['entity', 'title', 'started', 'finished']
+        fields = ['entity', 'title', 'edu_started', 'edu_finished']
         labels = ['Entity', 'Title', 'Started', 'Finished']
 
 
 class ModifyExperienceForm(forms.ModelForm):
     class Meta:
         model = Experience
-        fields = ['work_experience', 'company', 'started', 'finished', 'job']
+        fields = ['work_experience', 'company', 'exp_started', 'exp_finished', 'job']
         labels = ['Work_experience', 'Company', 'Started', 'Finished', 'Job']

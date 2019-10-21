@@ -26,13 +26,13 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     profession = models.TextField(max_length=50)
     bio = models.TextField(max_length=500)
-    location = models.TextField(max_length=200)
+    location = models.CharField(max_length=200)
     skills = models.TextField(max_length=400)
     birth_date = models.DateField(null=True)
     jobIds = models.IntegerField(default=0)
     achievements = models.TextField(max_length=500)
     phone = models.IntegerField(default=0)
-    website = models.TextField(max_length=50, null=True)
+    website = models.CharField(max_length=50, null=True)
 
     def __str__(self):
         return self.user.username
@@ -51,8 +51,8 @@ class Education(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     entity = models.TextField(max_length=15)
     title = models.TextField(max_length=15)
-    started = models.IntegerField(default=2019)
-    finished = models.IntegerField(default=2020)
+    edu_started = models.IntegerField(default=2019)
+    edu_finished = models.IntegerField(default=2020)
 
     @receiver(post_save, sender=User)
     def create_user_education(sender, instance, created, **kwargs):
@@ -68,8 +68,8 @@ class Experience(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     work_experience = models.TextField(max_length=15)
     company = models.TextField(max_length=15)
-    started = models.IntegerField(default=2019)
-    finished = models.IntegerField(default=2020)
+    exp_started = models.IntegerField(default=2019)
+    exp_finished = models.IntegerField(default=2020)
     job = models.TextField(max_length=100)
 
     @receiver(post_save, sender=User)
