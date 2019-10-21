@@ -31,7 +31,7 @@
             {% endif %}
             {% ifnotequal user.profile.phone 0 %}
               <span class="info_data"><i class="fas fa-phone-square"></i> {{ user.profile.phone }}</span>
-            {% endif %}
+            {% endifnotequal %}
         </div>
     <div class="friends">
             <a href="{{ user.get_absolute_url }}"><span class="flink">Show Contact Info</span></a> <i class="fas fabsep fa-circle"></i>
