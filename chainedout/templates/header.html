@@ -46,8 +46,9 @@
     <div class="inner_main_menu">
         <ul>
             {% if request.user.is_authenticated %}
-                <li><a id = "logout" class="logout" href="{% url 'logout' %}?next=/"> Logout</a></li>
-                <li><a id = "users" class="users" href="{% url 'user_list' %}"> Users</a></li>
+                <li><a id = "logout" class="logout" href="{% url 'logout' %}?next=/"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                <li><a id = "userprofile" class="userprofile" href="{% url 'saveprofile' %}?next=/"> <i class="fa fa-fw fa-user"></i>Profile</a></li>
+                <li><a id = "users" class="users" href="{% url 'user_list' %}"><i class="fa fa-fw fa-users"></i> Users</a></li>
             {% else %}
                 <li><a id = "register" class="register" href="{% url 'register' %}"><i class="fa fa-fw fa-users"></i> Register</a></li>
                 <li><a id = "login" onclick="modal('login_modal', 'block')"><i class="fa fa-fw fa-user"></i> Login</a></li>
