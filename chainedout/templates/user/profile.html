@@ -1,0 +1,439 @@
+{% extends "header.html" %}
+
+{% block content %}
+<div id="profile">
+<!------------------------------ PROFILE BOX START ---------------------------------->
+<div id="profilebox">
+    <div class="left_profile">
+        <div class="current">
+            <div class="current_avatar"><img src="/static/images/img_avatar.png" alt="Avatar" class="profile_avatar"></div>
+            <div class="current_work_education">
+                {% if user.education.entity %}
+                    <div class="current_education"><i class="fas fa-university"></i> {{ user.education.entity }}</div>
+                {% endif %}
+                {% if user.experience.company %}
+                    <div class="current_work"><i class="fas fa-briefcase"></i> {{ user.experience.company }}</div>
+                {% endif %}
+            </div>
+        </div>
+        <div style="clear:both; margin-bottom: 10px;"></div>
+        <h1>{{ user.first_name }} {{ user.last_name }}</h1>
+
+        {% if user.profile.location %}
+          <h3>{{ user.profile.location }}</h3>
+        {% endif %}
+        <div class="data">
+            {% if user.profile.website %}
+              <span class="info_data"><i class="fas fa-link"></i> <a href="{{ user.profile.website }}">{{ user.profile.website }}</a></span><i class="fas fabsep fa-circle"></i>
+            {% endif %}
+            {% if user.email %}
+              <span class="info_data"><i class="fas fa-paper-plane"></i> <a href="mailto:{{ user.email }}">{{ user.email }}</a></span><i class="fas fabsep fa-circle"></i>
+            {% endif %}
+            {% ifnotequal user.profile.phone 0 %}
+              <span class="info_data"><i class="fas fa-phone-square"></i> {{ user.profile.phone }}</span>
+            {% endifnotequal %}
+        </div>
+    <div class="friends">
+            <a href="{{ user.get_absolute_url }}"><span class="flink">Show Contact Info</span></a> <i class="fas fabsep fa-circle"></i>
+            <a href="{% url 'user_list' %}"><span class="flink">25 contacts</span></a><i class="fas fabsep fa-circle"></i>
+            <a href="{% url 'user_list' %}"><span class="flink">{{ user.followers.count }} follower{{ user.followers.count|pluralize }}</span></a>
+
+            {% if not request.user.is_authenticated %}
+                <a href="{% url 'register' %}"><span class="flink">Register</span></a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="right_profile">
+        {% ifequal request.user user %}
+            <div class="elemprofile"><a onclick="modal('profile_user_edit_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
+        {% endifequal %}
+
+        {% ifnotequal request.user user %}
+            {% if request.user not in user.followers.all %}
+                <div class="elemprofile"><a href="#" data-id="{{ user.id }}" data-action="follow" class="follow button"><i class="fas fa-eye"></i> Follow</a></div>
+            {% else %}
+                <div class="elemprofile"><a href="#" data-id="{{ user.id }}" data-action="unfollow" class="follow button"><i class="fas fa-eye-slash"></i> Unfollow</a></div>
+            {% endif %}
+        {% endifnotequal %}
+
+        {% ifnotequal request.user user %}
+            <div class="elemprofile"><a href="#"><i class="fas fa-user-plus"></i> Add contact</a></div>
+            <!-- Temporary hidden because not implemented yet-->
+            {% if False %}
+                <div class="elemprofile"><a href="#"><i class="fas fa-user-minus"></i> Remove contact</a></div>
+            {% endif %}
+        {% endifnotequal %}
+    </div>
+    <div style="clear: both"></div>
+</div>
+
+<!----- MODAL EDIT PROFILE START ----->
+<!-- The Modal -->
+<div id="profile_user_edit_modal" class="profile_modal">
+
+  <!-- Modal Content -->
+  <form class="profile-modal-content animate" method="post">
+  {% csrf_token %}
+
+    <div class="profile_modal_title">Edit Profile</div>
+    <div onclick="modal('profile_user_edit_modal', 'none')" class="mclose" title="Close Modal">&times;</div>
+    <div style="clear: both"></div>
+
+    <div class="profile_modal_container">
+        <div class="scrollable_modal_container">
+
+            <div class="profile_avatar_change">
+                <label for="avatarUpload" class="avatar-upload">
+                    <i class="fa fa-cloud-upload"></i> Change avatar
+                </label>
+                <input type="file" name="avatar" id="avatarUpload"/>
+            </div>
+
+            {% for field in user_form %}
+                <label class="mylabel"><b>{{ field.label }}</b></label>
+                {% if field.errors %}
+                    <span class="error">{{ field.errors.as_text }}</span>
+                {% endif %}
+                {{ field }}
+            {% endfor %}
+
+            {% for field in profile_form %}
+                <label class="mylabel"><b>{{ field.label }}</b></label>
+                {% if field.errors %}
+                    <span class="error">{{ field.errors.as_text }}</span>
+                {% endif %}
+                {{ field }}
+            {% endfor %}
+
+        </div>
+        <hr style="margin-top: 10px; margin-bottom: 10px;">
+        <button class="profile_modal_btn" type="submit" value="submit_user" name="submit_user">Confirm</button>
+    </div>
+  </form>
+</div>
+<!----- MODAL EDIT PROFILE END ----->
+<!------------------------------ PROFILE BOX END ---------------------------------->
+
+
+
+<!------------------------------ ABOUT BOX START ---------------------------------->
+<div id="profilebox">
+    <div class="left_box">
+        <h1 class="title">About</h1>
+    </div>
+
+    {% ifequal request.user user %}
+        <div class="right_box">
+            <div class="elemprofile"><a onclick="modal('profile_about_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
+        </div>
+    {% endifequal %}
+
+    <hr class="title_sep" />
+    <div id="info">
+        <span class="info_data"> {{ user.profile.bio }}</span>
+    </div>
+</div>
+<!----- MODAL EDIT ABOUT START ----->
+<div id="profile_about_modal" class="about_modal">
+
+  <!-- Modal Content -->
+  <form class="profile-modal-content animate" method="post">
+  {% csrf_token %}
+
+    <div class="profile_modal_title">About</div>
+    <div onclick="modal('profile_about_modal', 'none')" class="mclose" title="Close Modal">&times;</div>
+    <div style="clear: both"></div>
+
+    <div class="profile_modal_container">
+        <div class="scrollable_modal_container">
+            {% for field in bio_form %}
+                <label class="mylabel"><b>{{ field.label }}</b></label>
+                {% if field.errors %}
+                    <span class="error">{{ field.errors.as_text }}</span>
+                {% endif %}
+                {{ field }}
+            {% endfor %}
+        </div>
+        <hr style="margin-top: 10px; margin-bottom: 10px;">
+        <!-- Temporary hidden because not implemented yet-->
+        {% if False %}
+            <button class="profile_modal_btn_rem btnMargin" type="submit" value="remove">Remove</button>
+        {% endif %}
+        <button class="profile_modal_btn btnMargin" type="submit" value="submit_bio" name="submit_bio">Confirm</button>
+    </div>
+  </form>
+</div>
+
+<!----- MODAL EDIT ABOUT END ----->
+<!------------------------------ ABOUT BOX END ---------------------------------->
+
+
+
+<!------------------------------ EDUCATION BOX START ---------------------------------->
+<div id="profilebox">
+    <div class="left_box">
+        <h1 class="title">Education</h1>
+    </div>
+
+    {% ifequal request.user user %}
+        <div class="right_box">
+            <div class="elemprofile"><a onclick="modal('profile_edu_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
+        </div>
+    {% endifequal %}
+
+    <hr class="title_sep" />
+    <div id="info">
+
+        <div class="element">
+            <div class="edubox">
+                {% if user.education.entity and user.education.title %}
+                    <p>{{ user.education.entity }} <i class="fas fabsep fa-circle"></i> {{ user.education.title }}</p>
+                {% endif %}
+                {% if user.education.edu_started and user.education.edu_finished %}
+                    <p><small>{{ user.education.edu_started }} - {{ user.education.edu_finished }}</small></p>
+                {% endif %}
+            </div>
+
+            <div style="clear: both"></div>
+        </div>
+
+        <hr class="sepelement"/>
+
+    </div>
+
+<!----- MODAL EDUCATION START ----->
+<div id="profile_edu_modal" class="education_modal">
+
+  <!-- Modal Content -->
+  <form class="profile-modal-content animate" method="post">
+  {% csrf_token %}
+
+    <div class="profile_modal_title">Education</div>
+    <div onclick="modal('profile_edu_modal', 'none')" class="mclose" title="Close Modal">&times;</div>
+    <div style="clear: both"></div>
+
+    <div class="profile_modal_container">
+        <div class="scrollable_modal_container">
+            {% for field in education_form %}
+                <label class="mylabel"><b>{{ field.label }}</b></label>
+                {% if field.errors %}
+                    <span class="error">{{ field.errors.as_text }}</span>
+                {% endif %}
+                {{ field }}
+            {% endfor %}
+        </div>
+        <hr style="margin-top: 10px; margin-bottom: 10px;">
+        <!-- Temporary hidden because not implemented yet-->
+        {% if False %}
+            <button class="profile_modal_btn_rem btnMargin" type="submit" value="remove">Remove</button>
+        {% endif %}
+        <button class="profile_modal_btn btnMargin" type="submit" value="submit_education" name="submit_education">Confirm</button>
+    </div>
+  </form>
+</div>
+<!----- MODAL EDUCATION END ----->
+
+    <hr class="section_sep" />
+
+    <div class="left_box">
+        <h1 class="title">Experience</h1>
+    </div>
+
+    {% ifequal request.user user %}
+        <div class="right_box">
+            <div class="elemprofile"><a onclick="modal('profile_xp_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
+        </div>
+    {% endifequal %}
+
+    <hr class="title_sep" />
+    <div id="info">
+
+        <div class="element">
+            <div class="edubox">
+                {% if user.experience.job and user.experience.company %}
+                    <p>{{ user.experience.job }} <i class="fas fabsep fa-circle"></i> {{ user.experience.company }}</p>
+                {% endif %}
+                {% if user.experience.work_experience and user.experience.exp_started and user.experience.exp_finished %}
+                    <p><i><small>{{ user.experience.work_experience }}</small></i></p>
+                    <p><small>{{ user.experience.exp_started }} - {{ user.experience.exp_finished }}</small></p>
+                {% endif %}
+            </div>
+
+            <div style="clear: both"></div>
+        </div>
+
+        <hr class="sepelement"/>
+
+    </div>
+</div>
+<!----- MODAL EXPERIENCE START ----->
+<div id="profile_xp_modal" class="experience_modal">
+
+  <!-- Modal Content -->
+  <form class="profile-modal-content animate" method="post">
+  {% csrf_token %}
+
+    <div class="profile_modal_title">Work Experience </div>
+    <div onclick="modal('profile_xp_modal', 'none')" class="mclose" title="Close Modal">&times;</div>
+    <div style="clear: both"></div>
+
+    <div class="profile_modal_container">
+        <div class="scrollable_modal_container">
+            {% for field in experience_form %}
+                <label class="mylabel"><b>{{ field.label }}</b></label>
+                {% if field.errors %}
+                    <span class="error">{{ field.errors.as_text }}</span>
+                {% endif %}
+                {{ field }}
+            {% endfor %}
+        </div>
+        <hr style="margin-top: 10px; margin-bottom: 10px;">
+        <!-- Temporary hidden because not implemented yet-->
+        {% if False %}
+            <button class="profile_modal_btn_rem btnMargin" type="submit" value="remove">Remove</button>
+        {% endif %}
+        <button class="profile_modal_btn btnMargin" type="submit" value="submit_experience" name="submit_experience">Confirm</button>
+    </div>
+  </form>
+</div>
+<!----- MODAL EXPERIENCE END ----->
+
+<!------------------------------ EDUCATION BOX END ---------------------------------->
+
+
+
+<!------------------------------ SKILLS BOX START ---------------------------------->
+<div id="profilebox">
+    <div class="left_box">
+        <h1 class="title">Skills</h1>
+    </div>
+
+    {% ifequal request.user user %}
+        <div class="right_box">
+            <div class="elemprofile"><a onclick="modal('profile_skills_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
+        </div>
+    {% endifequal %}
+
+    <hr class="title_sep" />
+    <div id="info">
+
+        <div class="element">
+            <div class="edubox">
+                <p>{{ user.profile.skills }}</p>
+            </div>
+
+            <div style="clear: both"></div>
+        </div>
+
+        <hr class="sepelement"/>
+    </div>
+</div>
+<!----- MODAL SKILLS START ----->
+<div id="profile_skills_modal" class="skills_modal">
+
+  <!-- Modal Content -->
+  <form class="profile-modal-content animate" method="post">
+  {% csrf_token %}
+
+    <div class="profile_modal_title">Skills</div>
+    <div onclick="modal('profile_skills_modal', 'none')" class="mclose" title="Close Modal">&times;</div>
+    <div style="clear: both"></div>
+
+    <div class="profile_modal_container">
+        <div class="scrollable_modal_container">
+            {% for field in skill_form %}
+                <label class="mylabel"><b>{{ field.label }}</b></label>
+                {% if field.errors %}
+                    <span class="error">{{ field.errors.as_text }}</span>
+                {% endif %}
+                {{ field }}
+            {% endfor %}
+        </div>
+        <hr style="margin-top: 10px; margin-bottom: 10px;">
+        <!-- Temporary hidden because not implemented yet-->
+        {% if False %}
+            <button class="profile_modal_btn_rem btnMargin" type="submit" value="remove">Remove</button>
+        {% endif %}
+        <button class="profile_modal_btn btnMargin" type="submit" value="submit_skill" name="submit_skill">Confirm</button>
+    </div>
+  </form>
+</div>
+<!----- MODAL SKILLS END ----->
+
+<!------------------------------ SKILLS BOX END ---------------------------------->
+
+
+
+<!------------------------------ ACHIEVEMENTS BOX START ---------------------------------->
+<div id="profilebox">
+    <div class="left_box">
+        <h1 class="title">Achievements</h1>
+    </div>
+
+    {% ifequal request.user user %}
+        <div class="right_box">
+            <div class="elemprofile"><a onclick="modal('profile_achievement_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
+        </div>
+    {% endifequal %}
+
+    <hr class="title_sep" />
+    <div id="info">
+        {{ user.profile.achievements }}
+    </div>
+</div>
+
+<!----- MODAL ADD ACHIVEMENT START ----->
+<div id="profile_achievement_modal" class="achievements_modal">
+
+  <!-- Modal Content -->
+  <form class="profile-modal-content animate" method="post">
+  {% csrf_token %}
+
+    <div class="profile_modal_title">Achievements</div>
+    <div onclick="modal('profile_achievement_modal', 'none')" class="mclose" title="Close Modal">&times;</div>
+    <div style="clear: both"></div>
+
+    <div class="profile_modal_container">
+        <div class="scrollable_modal_container">
+            {% for field in achievements_form %}
+                <label class="mylabel"><b>{{ field.label }}</b></label>
+                {% if field.errors %}
+                    <span class="error">{{ field.errors.as_text }}</span>
+                {% endif %}
+                {{ field }}
+            {% endfor %}
+        </div>
+        <hr style="margin-top: 10px; margin-bottom: 10px;">
+        <!-- Temporary hidden because not implemented yet-->
+        {% if False %}
+            <button class="profile_modal_btn_rem btnMargin" type="submit" value="remove">Remove</button>
+        {% endif %}
+        <button class="profile_modal_btn btnMargin" type="submit" value="submit_achievements" name="submit_achievements">Confirm</button>
+    </div>
+  </form>
+</div>
+<!----- MODAL ADD ACHIVEMENT END ----->
+
+<!------------------------------ ACHIEVEMENTS BOX END ---------------------------------->
+</div>
+
+{% endblock %}
+
+{% block domready %}
+    $('a.follow').click(function(e){
+        e.preventDefault();
+        $.post('{% url "user_follow" %}',
+            {
+                id: $(this).data('id'),
+                action: $(this).data('action')
+            },
+            function(data){
+                if (data['status'] == 'ok') {
+                    window.location.replace("{{ user.get_absolute_url }}");
+                }
+            }
+        );
+    });
+{% endblock %}
+
+{% include "../footer.html" %}

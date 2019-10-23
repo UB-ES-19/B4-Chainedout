@@ -1,39 +1,38 @@
 {% include "header.html" %}
 
-  <img src="../static/style/images/pig.jpg"style="float: right; width: 740px; height: 625px;">
+  <img src="../static/style/images/pig.jpg" style="float: right; width: 740px; height: 625px;">
 
   {% block content %}
+  <div class="register-main-text">
     <h1 style="margin-left: 200px;margin-top: 250px;"> Become An Affilate </h1>
     <h2 style="margin-left: 200px;"> Make the most of your professional life</h2>
-    <p style="margin-left: 200px;"> 
-      We want to create an economic opportunity for every member of the global workforce.
+    <p style="margin-left: 200px;"> We want to create an economic opportunity for every member of the global workforce.
       <br>The mission of ChainedOut is simple: connect the world's professionals to make them more productive and successful </p>
+  </div>
 
-      <div class="registerbox">
-        <p style="margin-left:-30px;"> *Required fields </p>
+  <div class="register-box">
 
-        <form action="" method="post">
-            {% csrf_token %}
-            {% for field in form %}
-                <label class="mylabel"><b>{{ field.label }}</b></label>
-                {% if field.errors %}
-                    <span class="error">{{ field.errors.as_text }}</span>
-                {% endif %}
-                {{ field }}
-            {% endfor %}
+    <form action="" method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            <label class="mylabel"><b>{{ field.label }}</b></label>
+            {% if field.errors %}
+                <span class="error">{{ field.errors.as_text }}</span>
+            {% endif %}
+            {{ field }}
+        {% endfor %}
 
-            <a style="font-size: 0.8em;">
-                By clicking Agree & Join, you agree to the <a href="#"style="font-size: 0.8em;">ChainedOut User Agreement</a>.
-            </a>
+        <a style="font-size: 0.8em;">
+            By clicking Register, you agree to the <a href="#"style="font-size: 0.8em;">ChainedOut User Agreement</a>.
+        </a>
 
-            <button type="submit" class="registerbtn">Register</button>
-        </form>
-        
-        <div class="signin">
-
-          <p style="margin-top: 90px;">Already have an account? <a href="{% url 'login' %}">Sign in</a>.</p>
-        </div>
-      </div>
+        <button type="submit" class="registerbtn">Register</button>
+    </form>
+    
+    <div class="signin">
+      <p style="margin-top: 90px;">Already have an account? <a href="{% url 'login' %}">Sign in</a>.</p>
+    </div>
+  </div>
 
     {% endblock %}
 
