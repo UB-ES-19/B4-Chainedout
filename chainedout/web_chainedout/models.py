@@ -23,18 +23,18 @@ User.add_to_class('following',
 
 
 class Education(models.Model):
-    entity = models.TextField(max_length=15)
-    title = models.TextField(max_length=15)
+    entity = models.CharField(max_length=50)
+    title = models.CharField(max_length=50)
     edu_started = models.IntegerField(default=2019)
     edu_finished = models.IntegerField(default=2020)
 
 
 class Experience(models.Model):
-    work_experience = models.TextField(max_length=15)
-    company = models.TextField(max_length=15)
+    work_experience = models.TextField(max_length=50)
+    company = models.CharField(max_length=50)
     exp_started = models.IntegerField(default=2019)
     exp_finished = models.IntegerField(default=2020)
-    job = models.TextField(max_length=100)
+    job = models.CharField(max_length=50)
 
 
 class Profile(models.Model):
@@ -42,7 +42,7 @@ class Profile(models.Model):
     profession = models.TextField(max_length=50)
     bio = models.TextField(max_length=500)
     location = models.CharField(max_length=200)
-    skills = models.TextField(max_length=400)
+    skills = models.TextField(max_length=500)
     birth_date = models.DateField(null=True)
     jobIds = models.IntegerField(default=0)
     achievements = models.TextField(max_length=500)
