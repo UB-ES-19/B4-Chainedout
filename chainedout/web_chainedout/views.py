@@ -1,11 +1,15 @@
+from django.contrib import messages
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.views.decorators.http import require_POST
-from .models import Follow, Profile
+from django.views.generic import DeleteView
+
+from .models import Follow, Profile, Education, Experience
 from .forms import RegisterForm, ModifyProfileForm, ModifyUserForm, ModifyBioForm, ModifySkillsForm, \
     ModifyAchievementForm, ModifyExperienceForm, ModifyEducationForm
 
@@ -25,8 +29,8 @@ def save_profile(request):
                 profile_form.save()
             bio_form = ModifyBioForm(instance=request.user.profile)
             skill_form = ModifySkillsForm(instance=request.user.profile)
-            education_form = ModifyEducationForm(instance=request.user.education)
-            experience_form = ModifyExperienceForm(instance=request.user.experience)
+            education_form = ModifyEducationForm(request.GET or None)
+            experience_form = ModifyExperienceForm(request.GET or None)
             achievements_form = ModifyAchievementForm(instance=request.user.profile)
         elif 'submit_bio' in request.POST:
             bio_form = ModifyBioForm(request.POST, instance=request.user.profile)
@@ -35,8 +39,8 @@ def save_profile(request):
             user_form = ModifyUserForm(instance=request.user)
             profile_form = ModifyProfileForm(instance=request.user.profile)
             skill_form = ModifySkillsForm(instance=request.user.profile)
-            education_form = ModifyEducationForm(instance=request.user.education)
-            experience_form = ModifyExperienceForm(instance=request.user.experience)
+            education_form = ModifyEducationForm(request.GET or None)
+            experience_form = ModifyExperienceForm(request.GET or None)
             achievements_form = ModifyAchievementForm(instance=request.user.profile)
         elif 'submit_skill' in request.POST:
             skill_form = ModifySkillsForm(request.POST, instance=request.user.profile)
@@ -45,28 +49,42 @@ def save_profile(request):
             user_form = ModifyUserForm(instance=request.user)
             profile_form = ModifyProfileForm(instance=request.user.profile)
             bio_form = ModifyBioForm(instance=request.user.profile)
-            education_form = ModifyEducationForm(instance=request.user.education)
-            experience_form = ModifyExperienceForm(instance=request.user.experience)
+            education_form = ModifyEducationForm(request.GET or None)
+            experience_form = ModifyExperienceForm(request.GET or None)
             achievements_form = ModifyAchievementForm(instance=request.user.profile)
         elif 'submit_education' in request.POST:
-            education_form = ModifyEducationForm(request.POST, instance=request.user.education)
+            education_form = ModifyEducationForm(request.POST)
             if education_form.is_valid():
-                education_form.save()
+                entity = education_form.cleaned_data.get('entity')
+                title = education_form.cleaned_data.get('title')
+                edu_started = education_form.cleaned_data.get('edu_started')
+                edu_finished = education_form.cleaned_data.get('edu_finished')
+                education = Education(entity=entity, title=title, edu_started=edu_started, edu_finished=edu_finished)
+                education.save()
+                request.user.profile.educations.add(education)
             user_form = ModifyUserForm(instance=request.user)
             profile_form = ModifyProfileForm(instance=request.user.profile)
             bio_form = ModifyBioForm(instance=request.user.profile)
             skill_form = ModifySkillsForm(instance=request.user.profile)
-            experience_form = ModifyExperienceForm(instance=request.user.experience)
+            experience_form = ModifyExperienceForm(request.GET or None)
             achievements_form = ModifyAchievementForm(instance=request.user.profile)
         elif 'submit_experience' in request.POST:
-            experience_form = ModifyExperienceForm(request.POST, instance=request.user.experience)
+            experience_form = ModifyExperienceForm(request.POST)
             if experience_form.is_valid():
-                experience_form.save()
+                work_experience = experience_form.cleaned_data.get('work_experience')
+                company = experience_form.cleaned_data.get('company')
+                job = experience_form.cleaned_data.get('job')
+                exp_started = experience_form.cleaned_data.get('exp_started')
+                exp_finished = experience_form.cleaned_data.get('exp_finished')
+                experience = Experience(work_experience=work_experience, company=company, job=job,
+                                        exp_started=exp_started, exp_finished=exp_finished)
+                experience.save()
+                request.user.profile.experiences.add(experience)
             user_form = ModifyUserForm(instance=request.user)
             profile_form = ModifyProfileForm(instance=request.user.profile)
             bio_form = ModifyBioForm(instance=request.user.profile)
             skill_form = ModifySkillsForm(instance=request.user.profile)
-            education_form = ModifyEducationForm(instance=request.user.education)
+            education_form = ModifyEducationForm(request.GET or None)
             achievements_form = ModifyAchievementForm(instance=request.user.profile)
         elif 'submit_achievements' in request.POST:
             achievements_form = ModifyAchievementForm(request.POST, instance=request.user.profile)
@@ -76,15 +94,15 @@ def save_profile(request):
             profile_form = ModifyProfileForm(instance=request.user.profile)
             bio_form = ModifyBioForm(instance=request.user.profile)
             skill_form = ModifySkillsForm(instance=request.user.profile)
-            education_form = ModifyEducationForm(instance=request.user.education)
-            experience_form = ModifyExperienceForm(instance=request.user.experience)
+            education_form = ModifyEducationForm(request.GET or None)
+            experience_form = ModifyExperienceForm(request.GET or None)
     else:
         user_form = ModifyUserForm(instance=request.user)
         profile_form = ModifyProfileForm(instance=request.user.profile)
         bio_form = ModifyBioForm(instance=request.user.profile)
         skill_form = ModifySkillsForm(instance=request.user.profile)
-        education_form = ModifyEducationForm(instance=request.user.education)
-        experience_form = ModifyExperienceForm(instance=request.user.experience)
+        education_form = ModifyEducationForm(request.GET or None)
+        experience_form = ModifyExperienceForm(request.GET or None)
         achievements_form = ModifyAchievementForm(instance=request.user.profile)
     context = {'user_form': user_form, 'profile_form': profile_form, 'bio_form': bio_form, 'skill_form': skill_form,
                'education_form': education_form, 'experience_form': experience_form, 'achievements_form': achievements_form}
@@ -136,3 +154,30 @@ def user_follow(request):
         except User.DoesNotExist:
             return JsonResponse({'status': 'error'})
     return JsonResponse({'status': 'error'})
+
+
+class DeleteEducation(SuccessMessageMixin, DeleteView):
+    model = Education
+    success_url = '/profile'
+    success_message = "Removed Education"
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        entity = self.object.entity
+        request.session['entity'] = entity
+        message = request.session['entity'] + ' deleted successfully'
+        messages.success(self.request, message)
+        return super(DeleteView, self).delete(request, *args, **kwargs)
+
+class DeleteExperience(SuccessMessageMixin, DeleteView):
+    model = Experience
+    success_url = '/profile'
+    success_message = "Removed Experience"
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        job = self.object.job
+        request.session['job'] = job
+        message = request.session['job'] + ' deleted successfully'
+        messages.success(self.request, message)
+        return super(DeleteView, self).delete(request, *args, **kwargs)

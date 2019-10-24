@@ -1,3 +1,4 @@
+from django.conf.urls import url
 from django.urls import path
 from django.contrib.auth import views as auth_views
 
@@ -12,4 +13,6 @@ urlpatterns = [
     path('users/follow/', views.user_follow, name='user_follow'),
     path('users/', views.user_list, name='user_list'),
     path('users/<username>/', views.user_info, name="user_info"),
+    url(r'^delete-education/(?P<pk>\d+)/$', views.DeleteEducation.as_view(), name='delete_education'),
+    url(r'^delete-experience/(?P<pk>\d+)/$', views.DeleteExperience.as_view(), name='delete_experience'),
 ]

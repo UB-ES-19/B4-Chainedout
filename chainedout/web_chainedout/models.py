@@ -22,6 +22,21 @@ User.add_to_class('following',
                   models.ManyToManyField('self', through=Follow, related_name='followers', symmetrical=False))
 
 
+class Education(models.Model):
+    entity = models.TextField(max_length=15)
+    title = models.TextField(max_length=15)
+    edu_started = models.IntegerField(default=2019)
+    edu_finished = models.IntegerField(default=2020)
+
+
+class Experience(models.Model):
+    work_experience = models.TextField(max_length=15)
+    company = models.TextField(max_length=15)
+    exp_started = models.IntegerField(default=2019)
+    exp_finished = models.IntegerField(default=2020)
+    job = models.TextField(max_length=100)
+
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     profession = models.TextField(max_length=50)
@@ -33,6 +48,8 @@ class Profile(models.Model):
     achievements = models.TextField(max_length=500)
     phone = models.IntegerField(default=0)
     website = models.CharField(max_length=50, null=True)
+    educations = models.ManyToManyField(Education)
+    experiences = models.ManyToManyField(Experience)
 
     def __str__(self):
         return self.user.username
@@ -46,37 +63,3 @@ class Profile(models.Model):
     def save_user_profile(sender, instance, **kwargs):
         instance.profile.save()
 
-
-class Education(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    entity = models.TextField(max_length=15)
-    title = models.TextField(max_length=15)
-    edu_started = models.IntegerField(default=2019)
-    edu_finished = models.IntegerField(default=2020)
-
-    @receiver(post_save, sender=User)
-    def create_user_education(sender, instance, created, **kwargs):
-        if created:
-            Education.objects.create(user=instance)
-
-    @receiver(post_save, sender=User)
-    def save_user_education(sender, instance, **kwargs):
-        instance.education.save()
-
-
-class Experience(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    work_experience = models.TextField(max_length=15)
-    company = models.TextField(max_length=15)
-    exp_started = models.IntegerField(default=2019)
-    exp_finished = models.IntegerField(default=2020)
-    job = models.TextField(max_length=100)
-
-    @receiver(post_save, sender=User)
-    def create_user_experience(sender, instance, created, **kwargs):
-        if created:
-            Experience.objects.create(user=instance)
-
-    @receiver(post_save, sender=User)
-    def save_user_experience(sender, instance, **kwargs):
-        instance.experience.save()
