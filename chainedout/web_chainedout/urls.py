@@ -13,6 +13,8 @@ urlpatterns = [
     path('users/follow/', views.user_follow, name='user_follow'),
     path('users/', views.user_list, name='user_list'),
     path('users/<username>/', views.user_info, name="user_info"),
-    url(r'^delete-education/(?P<pk>\d+)/$', views.DeleteEducation.as_view(), name='delete_education'),
-    url(r'^delete-experience/(?P<pk>\d+)/$', views.DeleteExperience.as_view(), name='delete_experience'),
+    path('profile/delete-education/<int:pk>', views.DeleteEducation.as_view(), name='delete_education'),
+    path('profile/update-education/<int:pk>', views.UpdateEducation.as_view(), name='update_education'),
+    path('profile/delete-experience//<int:pk>', views.DeleteExperience.as_view(), name='delete_experience'),
+    path('profile/update-experience/<int:pk>', views.UpdateExperience.as_view(), name='update_experience'),
 ]

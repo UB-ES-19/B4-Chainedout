@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.views.decorators.http import require_POST
-from django.views.generic import DeleteView
+from django.views.generic import DeleteView, UpdateView
 
 from .models import Follow, Profile, Education, Experience
 from .forms import RegisterForm, ModifyProfileForm, ModifyUserForm, ModifyBioForm, ModifySkillsForm, \
@@ -62,7 +62,7 @@ def save_profile(request):
                 education = Education(entity=entity, title=title, edu_started=edu_started, edu_finished=edu_finished)
                 education.save()
                 request.user.profile.educations.add(education)
-                education_form = ModifyEducationForm()
+                return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
             user_form = ModifyUserForm(instance=request.user)
             profile_form = ModifyProfileForm(instance=request.user.profile)
             bio_form = ModifyBioForm(instance=request.user.profile)
@@ -81,7 +81,7 @@ def save_profile(request):
                                         exp_started=exp_started, exp_finished=exp_finished)
                 experience.save()
                 request.user.profile.experiences.add(experience)
-                experience_form = ModifyExperienceForm()
+                return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
             user_form = ModifyUserForm(instance=request.user)
             profile_form = ModifyProfileForm(instance=request.user.profile)
             bio_form = ModifyBioForm(instance=request.user.profile)
@@ -158,6 +158,13 @@ def user_follow(request):
     return JsonResponse({'status': 'error'})
 
 
+class UpdateEducation(UpdateView):
+    model = Education
+    form_class = ModifyEducationForm
+    template_name = 'user/update_education.html'
+    success_url = '/profile'
+
+
 class DeleteEducation(SuccessMessageMixin, DeleteView):
     model = Education
     success_url = '/profile'
@@ -169,7 +176,15 @@ class DeleteEducation(SuccessMessageMixin, DeleteView):
         request.session['entity'] = entity
         message = request.session['entity'] + ' deleted successfully'
         messages.success(self.request, message)
-        return super(DeleteView, self).delete(request, *args, **kwargs)
+        return super(DeleteEducation, self).delete(request, *args, **kwargs)
+
+
+class UpdateExperience(UpdateView):
+    model = Experience
+    form_class = ModifyExperienceForm
+    template_name = 'user/update_experience.html'
+    success_url = '/profile'
+
 
 class DeleteExperience(SuccessMessageMixin, DeleteView):
     model = Experience
@@ -182,4 +197,4 @@ class DeleteExperience(SuccessMessageMixin, DeleteView):
         request.session['job'] = job
         message = request.session['job'] + ' deleted successfully'
         messages.success(self.request, message)
-        return super(DeleteView, self).delete(request, *args, **kwargs)
+        return super(DeleteEducation, self).delete(request, *args, **kwargs)
