@@ -915,6 +915,15 @@ input[type='checkbox']{
   margin-bottom: 0;
 }
 
+button.profile_btn_rem {
+  background-color: transparent;
+  color: #301700;
+  font-weight: bolder;
+  cursor: pointer;
+  border: 0;
+  font-size: 14px;
+}
+
 /* ----- MODAL PROFILE START ----- */
 /* The Modal (background) */
 .profile_modal, .about_modal, .education_modal, .education_modal, .experience_modal, .skills_modal, .achievements_modal {

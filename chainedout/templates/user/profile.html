@@ -155,10 +155,6 @@
             {% endfor %}
         </div>
         <hr style="margin-top: 10px; margin-bottom: 10px;">
-        <!-- Temporary hidden because not implemented yet-->
-        {% if False %}
-            <button class="profile_modal_btn_rem btnMargin" type="submit" value="remove">Remove</button>
-        {% endif %}
         <button class="profile_modal_btn btnMargin" type="submit" value="submit_bio" name="submit_bio">Confirm</button>
     </div>
   </form>
@@ -196,7 +192,7 @@
                 <div class="edit_edubox">
                     <form action="{% url 'delete_education' pk=education.pk %}" method="POST">
                         {% csrf_token %}
-                        <input type="submit" value="remove"/>
+                        <button class="profile_btn_rem" type="submit" value="remove"><i class="fas fa-trash-alt"></i> Remove</button>
                     </form>
                 </div>
                 <div style="clear: both"></div>
@@ -263,7 +259,7 @@
                 <div class="edit_edubox">
                     <form action="{% url 'delete_experience' pk=experience.pk %}" method="POST">
                         {% csrf_token %}
-                        <input type="submit" value="remove"/>
+                        <button class="profile_btn_rem" type="submit" value="remove"><i class="fas fa-trash-alt"></i> Remove</button>
                     </form>
                 </div>
                 <div style="clear: both"></div>
@@ -353,10 +349,6 @@
             {% endfor %}
         </div>
         <hr style="margin-top: 10px; margin-bottom: 10px;">
-        <!-- Temporary hidden because not implemented yet-->
-        {% if False %}
-            <button class="profile_modal_btn_rem btnMargin" type="submit" value="remove">Remove</button>
-        {% endif %}
         <button class="profile_modal_btn btnMargin" type="submit" value="submit_skill" name="submit_skill">Confirm</button>
     </div>
   </form>
@@ -407,10 +399,6 @@
             {% endfor %}
         </div>
         <hr style="margin-top: 10px; margin-bottom: 10px;">
-        <!-- Temporary hidden because not implemented yet-->
-        {% if False %}
-            <button class="profile_modal_btn_rem btnMargin" type="submit" value="remove">Remove</button>
-        {% endif %}
         <button class="profile_modal_btn btnMargin" type="submit" value="submit_achievements" name="submit_achievements">Confirm</button>
     </div>
   </form>
