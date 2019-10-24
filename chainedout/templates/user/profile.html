@@ -183,7 +183,7 @@
             <div class="element">
                 <div class="edubox">
                     {% if education.entity and education.title %}
-                        <p>{{ education.entity }} <i class="fas fabsep fa-circle"></i> {{ education.title }}</p>
+                        <p><i class="fas fa-university"></i> <b>{{ education.entity }}</b> <i class="fas fabsep fa-circle"></i> <b>{{ education.title }}</b></p>
                     {% endif %}
                     {% if education.edu_started and education.edu_finished %}
                         <p><small>{{ education.edu_started }} - {{ education.edu_finished }}</small></p>
@@ -249,7 +249,7 @@
             <div class="element">
                 <div class="edubox">
                     {% if experience.job and experience.company %}
-                        <p>{{ experience.job }} <i class="fas fabsep fa-circle"></i> {{ experience.company }}</p>
+                        <p><i class="fas fa-briefcase"></i> <b>{{ experience.job }}</b> <i>at</i> <b>{{ experience.company }}</b></p>
                     {% endif %}
                     {% if experience.work_experience and experience.exp_started and experience.exp_finished %}
                         <p><i><small>{{ experience.work_experience }}</small></i></p>
