@@ -24,7 +24,7 @@ User.add_to_class('following',
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    profession = models.TextField(max_length=500)
+    profession = models.TextField(max_length=50)
     bio = models.TextField(max_length=500)
     location = models.CharField(max_length=200)
     skills = models.TextField(max_length=400)
@@ -51,8 +51,8 @@ class Education(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     entity = models.TextField(max_length=15)
     title = models.TextField(max_length=15)
-    edu_started = models.IntegerField(null=True)
-    edu_finished = models.IntegerField(null=True)
+    edu_started = models.IntegerField(default=2019)
+    edu_finished = models.IntegerField(default=2020)
 
     @receiver(post_save, sender=User)
     def create_user_education(sender, instance, created, **kwargs):
@@ -66,10 +66,10 @@ class Education(models.Model):
 
 class Experience(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    work_experience = models.TextField(max_length=500)
-    company = models.TextField(max_length=500)
-    exp_started = models.IntegerField(null=True)
-    exp_finished = models.IntegerField(null=True)
+    work_experience = models.TextField(max_length=15)
+    company = models.TextField(max_length=15)
+    exp_started = models.IntegerField(default=2019)
+    exp_finished = models.IntegerField(default=2020)
     job = models.TextField(max_length=100)
 
     @receiver(post_save, sender=User)
