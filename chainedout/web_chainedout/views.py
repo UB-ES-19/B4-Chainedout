@@ -7,12 +7,13 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.views.decorators.http import require_POST
-from django.views.generic import DeleteView, UpdateView, ListView
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.views.generic import DeleteView, UpdateView, ListView, CreateView
+from django.template.defaultfilters import slugify
+from django.db.models import Q
 
 from .models import Follow, Profile, Education, Experience, Post
 from .forms import RegisterForm, ModifyProfileForm, ModifyUserForm, ModifyBioForm, ModifySkillsForm, \
-    ModifyAchievementForm, ModifyExperienceForm, ModifyEducationForm
+    ModifyAchievementForm, ModifyExperienceForm, ModifyEducationForm, PostCreateForm
 
 
 def index(request):
@@ -235,5 +236,14 @@ class PostListView(ListView):
 
     def get_queryset(self):
         following = self.request.user.following.all()
-        print(following)
-        return Post.objects.all().filter(status='posted', author__in=following)
+        return Post.objects.all().filter(Q(status='posted', author__in=following) | Q(status='posted', author=self.request.user))
+
+class PostCreateView(CreateView):
+    template_name = 'posts/post_create.html'
+    model = Post
+    form_class = PostCreateForm
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.instance.slug = slugify(form.instance.title)
+        return super(PostCreateView, self).form_valid(form)

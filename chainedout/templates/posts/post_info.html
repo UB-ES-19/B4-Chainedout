@@ -5,5 +5,8 @@
     <p class="date">
         Posted {{ post.published }}
     </p>
+    {% if post.image %}
+        <div class="current_avatar"><img src="{{ post.image.url }}" width="256" alt="Avatar" class="profile_avatar"></div>
+    {% endif %}
     {{ post.body }}
 {% endblock %}

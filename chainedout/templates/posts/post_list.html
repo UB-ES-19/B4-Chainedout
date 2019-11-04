@@ -12,7 +12,9 @@
         {{ post.author.followers.count }} follower{{ post.author.followers.count|pluralize }}
         <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
         <p class="date">Posted {{ post.published }}</p>
-        <div class="current_avatar"><img src="{{ post.image.url }}" width="256" alt="Avatar" class="profile_avatar"></div>
+        {% if post.image %}
+            <div class="current_avatar"><img src="{{ post.image.url }}" width="256" alt="Avatar" class="profile_avatar"></div>
+        {% endif %}
         {{ post.body }}
     {% endfor %}
     {% include "posts/pagination.html" with page=page_obj %}

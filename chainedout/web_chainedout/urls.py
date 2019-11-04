@@ -20,5 +20,6 @@ urlpatterns = [
     path('profile/update-experience/<int:pk>', views.UpdateExperience.as_view(), name='update_experience'),
     path('profile/update-profile/<int:pk>', views.UpdateProfile.as_view(), name='update_profile'),
     path('posts/', views.PostListView.as_view(), name='post_list'),
-    path('posts/<int:year>/<int:month>/<int:day>/<slug:slug>/', views.post_info, name='post_info')
+    path('posts/<int:year>/<int:month>/<int:day>/<slug:slug>/', views.post_info, name='post_info'),
+    path('posts/post-create/', views.PostCreateView.as_view(), name='post_create')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
