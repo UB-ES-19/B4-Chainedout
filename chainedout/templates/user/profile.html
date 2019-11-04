@@ -28,7 +28,7 @@
         {% endif %}
         <div class="data">
             {% if user.profile.website %}
-              <span class="info_data"><i class="fas fa-link"></i> <a href="{{ user.profile.website }}">{{ user.profile.website }}</a></span><i class="fas fabsep fa-circle"></i>
+              <span class="info_data"><i class="fas fa-link"></i> <a href="https://{{ user.profile.website }}">{{ user.profile.website }}</a></span><i class="fas fabsep fa-circle"></i>
             {% endif %}
             {% if user.email %}
               <span class="info_data"><i class="fas fa-paper-plane"></i> <a href="mailto:{{ user.email }}">{{ user.email }}</a></span><i class="fas fabsep fa-circle"></i>

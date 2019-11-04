@@ -39,7 +39,7 @@ class Experience(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    profession = models.TextField(max_length=50)
+    profession = models.TextField(max_length=500)
     bio = models.TextField(max_length=500)
     location = models.CharField(max_length=200)
     skills = models.TextField(max_length=500)
@@ -63,4 +63,3 @@ class Profile(models.Model):
     @receiver(post_save, sender=User)
     def save_user_profile(sender, instance, **kwargs):
         instance.profile.save()
-
