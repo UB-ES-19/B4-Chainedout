@@ -3,13 +3,11 @@
 {% block content %}
   <form method="post">
   {% csrf_token %}
-      <div class="profile_modal_container">
-          <div class="scrollable_modal_container">
+      <div class="profile_edit_container">
               {% for field in form %}
                   <label class="mylabel"><b>{{ field.label }}</b></label>
                   {{ field }}
               {% endfor %}
-          </div>
           <hr style="margin-top: 10px; margin-bottom: 10px;">
           <button class="profile_modal_btn btnMargin" type="submit" value="submit_education" name="submit_education">Confirm</button>
       </div>

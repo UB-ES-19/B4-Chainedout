@@ -21,23 +21,10 @@ def index(request):
 @login_required
 def save_profile(request):
     if request.method == 'POST':
-        if 'submit_user' in request.POST:
-            user_form = ModifyUserForm(request.POST, instance=request.user)
-            profile_form = ModifyProfileForm(request.POST, request.FILES, instance=request.user.profile)
-            if user_form.is_valid() and profile_form.is_valid():
-                user_form.save()
-                profile_form.save()
-            bio_form = ModifyBioForm(instance=request.user.profile)
-            skill_form = ModifySkillsForm(instance=request.user.profile)
-            education_form = ModifyEducationForm(request.GET or None)
-            experience_form = ModifyExperienceForm(request.GET or None)
-            achievements_form = ModifyAchievementForm(instance=request.user.profile)
-        elif 'submit_bio' in request.POST:
+        if 'submit_bio' in request.POST:
             bio_form = ModifyBioForm(request.POST, instance=request.user.profile)
             if bio_form.is_valid():
                 bio_form.save()
-            user_form = ModifyUserForm(instance=request.user)
-            profile_form = ModifyProfileForm(instance=request.user.profile)
             skill_form = ModifySkillsForm(instance=request.user.profile)
             education_form = ModifyEducationForm(request.GET or None)
             experience_form = ModifyExperienceForm(request.GET or None)
@@ -46,8 +33,6 @@ def save_profile(request):
             skill_form = ModifySkillsForm(request.POST, instance=request.user.profile)
             if skill_form.is_valid():
                 skill_form.save()
-            user_form = ModifyUserForm(instance=request.user)
-            profile_form = ModifyProfileForm(instance=request.user.profile)
             bio_form = ModifyBioForm(instance=request.user.profile)
             education_form = ModifyEducationForm(request.GET or None)
             experience_form = ModifyExperienceForm(request.GET or None)
@@ -63,8 +48,6 @@ def save_profile(request):
                 education.save()
                 request.user.profile.educations.add(education)
                 return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-            user_form = ModifyUserForm(instance=request.user)
-            profile_form = ModifyProfileForm(instance=request.user.profile)
             bio_form = ModifyBioForm(instance=request.user.profile)
             skill_form = ModifySkillsForm(instance=request.user.profile)
             experience_form = ModifyExperienceForm(request.GET or None)
@@ -82,8 +65,6 @@ def save_profile(request):
                 experience.save()
                 request.user.profile.experiences.add(experience)
                 return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-            user_form = ModifyUserForm(instance=request.user)
-            profile_form = ModifyProfileForm(instance=request.user.profile)
             bio_form = ModifyBioForm(instance=request.user.profile)
             skill_form = ModifySkillsForm(instance=request.user.profile)
             education_form = ModifyEducationForm(request.GET or None)
@@ -92,22 +73,18 @@ def save_profile(request):
             achievements_form = ModifyAchievementForm(request.POST, instance=request.user.profile)
             if achievements_form.is_valid():
                 achievements_form.save()
-            user_form = ModifyUserForm(instance=request.user)
-            profile_form = ModifyProfileForm(instance=request.user.profile)
             bio_form = ModifyBioForm(instance=request.user.profile)
             skill_form = ModifySkillsForm(instance=request.user.profile)
             education_form = ModifyEducationForm(request.GET or None)
             experience_form = ModifyExperienceForm(request.GET or None)
     else:
-        user_form = ModifyUserForm(instance=request.user)
-        profile_form = ModifyProfileForm(instance=request.user.profile)
         bio_form = ModifyBioForm(instance=request.user.profile)
         skill_form = ModifySkillsForm(instance=request.user.profile)
         education_form = ModifyEducationForm(request.GET or None)
         experience_form = ModifyExperienceForm(request.GET or None)
         achievements_form = ModifyAchievementForm(instance=request.user.profile)
-    context = {'user_form': user_form, 'profile_form': profile_form, 'bio_form': bio_form, 'skill_form': skill_form,
-               'education_form': education_form, 'experience_form': experience_form, 'achievements_form': achievements_form}
+    context = {'bio_form': bio_form, 'skill_form': skill_form, 'education_form': education_form,
+               'experience_form': experience_form, 'achievements_form': achievements_form}
     return render(request, "user/profile.html", context)
 
 
@@ -164,6 +141,14 @@ class UpdateEducation(UpdateView):
     template_name = 'user/update_education.html'
     success_url = '/profile'
 
+    def get_context_data(self, **kwargs):
+        context = super(UpdateEducation, self).get_context_data(**kwargs)
+        context['form'] = ModifyEducationForm(instance=Education.objects.get(profile=self.request.user.profile))
+        return context
+
+    def get_object(self):
+        return get_object_or_404(Education, profile=self.request.user.profile)
+
 
 class DeleteEducation(SuccessMessageMixin, DeleteView):
     model = Education
@@ -185,6 +170,14 @@ class UpdateExperience(UpdateView):
     template_name = 'user/update_experience.html'
     success_url = '/profile'
 
+    def get_context_data(self, **kwargs):
+        context = super(UpdateExperience, self).get_context_data(**kwargs)
+        context['form'] = ModifyExperienceForm(instance=Experience.objects.get(profile=self.request.user.profile))
+        return context
+
+    def get_object(self):
+        return get_object_or_404(Experience, profile=self.request.user.profile)
+
 
 class DeleteExperience(SuccessMessageMixin, DeleteView):
     model = Experience
@@ -198,3 +191,31 @@ class DeleteExperience(SuccessMessageMixin, DeleteView):
         message = request.session['job'] + ' deleted successfully'
         messages.success(self.request, message)
         return super(DeleteEducation, self).delete(request, *args, **kwargs)
+
+
+class UpdateProfile(UpdateView):
+    model = Profile
+    form_class = ModifyUserForm
+    second_form_class = ModifyProfileForm
+    template_name = 'user/update_profile.html'
+    success_url = '/profile'
+
+    def get_context_data(self, **kwargs):
+        context = super(UpdateProfile, self).get_context_data(**kwargs)
+        context['form'] = ModifyUserForm(instance=self.request.user)
+        context['form2'] = ModifyProfileForm(instance=Profile.objects.get(user=self.request.user))
+        return context
+
+    def get_object(self):
+        return get_object_or_404(Profile, user=self.request.user)
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = ModifyUserForm(request.POST, instance=self.object.user)
+        form2 = ModifyProfileForm(request.POST, instance=Profile.objects.get(user=self.object.user))
+        if form.is_valid() and form2.is_valid():
+            form.save()
+            form2.save()
+            return HttpResponseRedirect(self.get_success_url())
+        else:
+            return self.render_to_response(self.get_context_data())

@@ -18,4 +18,5 @@ urlpatterns = [
     path('profile/update-education/<int:pk>', views.UpdateEducation.as_view(), name='update_education'),
     path('profile/delete-experience//<int:pk>', views.DeleteExperience.as_view(), name='delete_experience'),
     path('profile/update-experience/<int:pk>', views.UpdateExperience.as_view(), name='update_experience'),
+    path('profile/update-profile/<int:pk>', views.UpdateProfile.as_view(), name='update_profile')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1033,6 +1033,12 @@ button:hover.profile_modal_btn{
   padding: 16px 16px 80px;
 }
 
+.profile_edit_container {
+  margin: 0 auto;
+  padding: 16px 16px 80px;
+  width: 50%;
+}
+
 .profile_avatar_change {
   margin-bottom: 10px;
 }
