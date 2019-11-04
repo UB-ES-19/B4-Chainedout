@@ -22,17 +22,35 @@ User.add_to_class('following',
                   models.ManyToManyField('self', through=Follow, related_name='followers', symmetrical=False))
 
 
+class Education(models.Model):
+    entity = models.CharField(max_length=50)
+    title = models.CharField(max_length=50)
+    edu_started = models.IntegerField(default=2019)
+    edu_finished = models.IntegerField(default=2020)
+
+
+class Experience(models.Model):
+    work_experience = models.TextField(max_length=50)
+    company = models.CharField(max_length=50)
+    exp_started = models.IntegerField(default=2019)
+    exp_finished = models.IntegerField(default=2020)
+    job = models.CharField(max_length=50)
+
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     profession = models.TextField(max_length=500)
     bio = models.TextField(max_length=500)
     location = models.CharField(max_length=200)
-    skills = models.TextField(max_length=400)
+    skills = models.TextField(max_length=500)
     birth_date = models.DateField(null=True)
     jobIds = models.IntegerField(default=0)
     achievements = models.TextField(max_length=500)
     phone = models.IntegerField(default=0)
     website = models.CharField(max_length=50, null=True)
+    image = models.ImageField(null=True, blank=True, upload_to='images')
+    educations = models.ManyToManyField(Education)
+    experiences = models.ManyToManyField(Experience)
 
     def __str__(self):
         return self.user.username
@@ -45,38 +63,3 @@ class Profile(models.Model):
     @receiver(post_save, sender=User)
     def save_user_profile(sender, instance, **kwargs):
         instance.profile.save()
-
-
-class Education(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    entity = models.TextField(max_length=15)
-    title = models.TextField(max_length=15)
-    edu_started = models.IntegerField(null=True)
-    edu_finished = models.IntegerField(null=True)
-
-    @receiver(post_save, sender=User)
-    def create_user_education(sender, instance, created, **kwargs):
-        if created:
-            Education.objects.create(user=instance)
-
-    @receiver(post_save, sender=User)
-    def save_user_education(sender, instance, **kwargs):
-        instance.education.save()
-
-
-class Experience(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    work_experience = models.TextField(max_length=500)
-    company = models.TextField(max_length=500)
-    exp_started = models.IntegerField(null=True)
-    exp_finished = models.IntegerField(null=True)
-    job = models.TextField(max_length=100)
-
-    @receiver(post_save, sender=User)
-    def create_user_experience(sender, instance, created, **kwargs):
-        if created:
-            Experience.objects.create(user=instance)
-
-    @receiver(post_save, sender=User)
-    def save_user_experience(sender, instance, **kwargs):
-        instance.experience.save()

@@ -881,6 +881,10 @@ input[type='checkbox']{
   border-radius: 10px;
 }
 
+.scrollable_modal_container textarea {
+  resize: none;
+}
+
 #profile .edubox {
   float: left;
 }
@@ -913,6 +917,15 @@ input[type='checkbox']{
 
 #profile .edubox p:last-child {
   margin-bottom: 0;
+}
+
+button.profile_btn_rem {
+  background-color: transparent;
+  color: #301700;
+  font-weight: bolder;
+  cursor: pointer;
+  border: 0;
+  font-size: 14px;
 }
 
 /* ----- MODAL PROFILE START ----- */
@@ -1020,11 +1033,10 @@ button:hover.profile_modal_btn{
   padding: 16px 16px 80px;
 }
 
-#textarea_style {
-  width: 100%;
-  resize: none;
-  font-size: 12px;
-    padding: 5px;
+.profile_edit_container {
+  margin: 0 auto;
+  padding: 16px 16px 80px;
+  width: 50%;
 }
 
 .profile_avatar_change {
