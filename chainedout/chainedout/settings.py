@@ -127,6 +127,9 @@ STATICFILES_DIRS = (
     'var/www/static',
 )
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'web_chainedout/media')
+
 # Login URL
 LOGIN_REDIRECT_URL = 'index'
 

@@ -48,6 +48,7 @@ class Profile(models.Model):
     achievements = models.TextField(max_length=500)
     phone = models.IntegerField(default=0)
     website = models.CharField(max_length=50, null=True)
+    image = models.ImageField(null=True, blank=True, upload_to='images')
     educations = models.ManyToManyField(Education)
     experiences = models.ManyToManyField(Experience)
 

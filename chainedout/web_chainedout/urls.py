@@ -1,6 +1,7 @@
-from django.conf.urls import url
 from django.urls import path
 from django.contrib.auth import views as auth_views
+from django.conf import settings
+from django.conf.urls.static import static
 
 from . import views
 
@@ -17,4 +18,4 @@ urlpatterns = [
     path('profile/update-education/<int:pk>', views.UpdateEducation.as_view(), name='update_education'),
     path('profile/delete-experience//<int:pk>', views.DeleteExperience.as_view(), name='delete_experience'),
     path('profile/update-experience/<int:pk>', views.UpdateExperience.as_view(), name='update_experience'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

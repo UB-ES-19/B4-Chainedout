@@ -6,7 +6,11 @@
 <div id="profilebox">
     <div class="left_profile">
         <div class="current">
-            <div class="current_avatar"><img src="/static/images/img_avatar.png" alt="Avatar" class="profile_avatar"></div>
+            {% if user.profile.image %}
+                <div class="current_avatar"><img src="{{ user.profile.image.url }}" width="512" alt="Avatar" class="profile_avatar"></div>
+            {% else %}
+                <div class="current_avatar"><img src="/static/images/img_avatar.png" alt="Avatar" class="profile_avatar"></div>
+            {% endif %}
             <div class="current_work_education">
                 {% if user.profile.educations.first %}
                     <div class="current_education"><i class="fas fa-university"></i> {{ user.profile.educations.first.entity }}</div>
@@ -72,7 +76,7 @@
 <div id="profile_user_edit_modal" class="profile_modal">
 
   <!-- Modal Content -->
-  <form class="profile-modal-content animate" method="post">
+  <form class="profile-modal-content animate" method="post" enctype="multipart/form-data">
   {% csrf_token %}
 
     <div class="profile_modal_title">Edit Profile</div>
@@ -81,13 +85,6 @@
 
     <div class="profile_modal_container">
         <div class="scrollable_modal_container">
-
-            <div class="profile_avatar_change">
-                <label for="avatarUpload" class="avatar-upload">
-                    <i class="fa fa-cloud-upload"></i> Change avatar
-                </label>
-                <input type="file" name="avatar" id="avatarUpload"/>
-            </div>
 
             {% for field in user_form %}
                 <label class="mylabel"><b>{{ field.label }}</b></label>

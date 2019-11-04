@@ -18,8 +18,8 @@ class RegisterForm(UserCreationForm):
 class ModifyProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['phone', 'website', 'location', ]
-        labels = ['Telephone Number', 'Website', 'Location', ]
+        fields = ['phone', 'website', 'location', 'image', ]
+        labels = ['Telephone Number', 'Website', 'Location', 'Image', ]
 
 
 class ModifyUserForm(forms.ModelForm):

@@ -23,7 +23,7 @@ def save_profile(request):
     if request.method == 'POST':
         if 'submit_user' in request.POST:
             user_form = ModifyUserForm(request.POST, instance=request.user)
-            profile_form = ModifyProfileForm(request.POST, instance=request.user.profile)
+            profile_form = ModifyProfileForm(request.POST, request.FILES, instance=request.user.profile)
             if user_form.is_valid() and profile_form.is_valid():
                 user_form.save()
                 profile_form.save()
