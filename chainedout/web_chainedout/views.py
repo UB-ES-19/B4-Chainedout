@@ -212,7 +212,7 @@ class UpdateProfile(UpdateView):
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
         form = ModifyUserForm(request.POST, instance=self.object.user)
-        form2 = ModifyProfileForm(request.POST, instance=Profile.objects.get(user=self.object.user))
+        form2 = ModifyProfileForm(request.POST, request.FILES, instance=Profile.objects.get(user=self.object.user))
         if form.is_valid() and form2.is_valid():
             form.save()
             form2.save()
