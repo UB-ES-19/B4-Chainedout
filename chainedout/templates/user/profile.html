@@ -28,14 +28,16 @@
         {% endif %}
         <div class="data">
             {% if user.profile.website %}
-              <span class="info_data"><i class="fas fa-link"></i> <a href="https://{{ user.profile.website }}">{{ user.profile.website }}</a></span><i class="fas fabsep fa-circle"></i>
+                <span class="info_data"><i class="fas fa-link"></i> <a href="https://{{ user.profile.website }}">{{ user.profile.website }}</a></span>
             {% endif %}
             {% if user.email %}
-              <span class="info_data"><i class="fas fa-paper-plane"></i> <a href="mailto:{{ user.email }}">{{ user.email }}</a></span><i class="fas fabsep fa-circle"></i>
+                <i class="fas fabsep fa-circle"></i>
+                <span class="info_data"><i class="fas fa-paper-plane"></i> <a href="mailto:{{ user.email }}">{{ user.email }}</a></span>
             {% endif %}
-            {% ifnotequal user.profile.phone 0 %}
-              <span class="info_data"><i class="fas fa-phone-square"></i> {{ user.profile.phone }}</span>
-            {% endifnotequal %}
+            {% if user.profile.phone and user.profile.phone != 0 %}
+                <i class="fas fabsep fa-circle"></i>
+                <span class="info_data"><i class="fas fa-phone-square"></i> {{ user.profile.phone }}</span>
+            {% endif %}
         </div>
     <div class="friends">
             <a href="{{ user.get_absolute_url }}"><span class="flink">Show Contact Info</span></a> <i class="fas fabsep fa-circle"></i>
