@@ -7,9 +7,10 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.views.decorators.http import require_POST
-from django.views.generic import DeleteView, UpdateView
+from django.views.generic import DeleteView, UpdateView, ListView
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from .models import Follow, Profile, Education, Experience
+from .models import Follow, Profile, Education, Experience, Post
 from .forms import RegisterForm, ModifyProfileForm, ModifyUserForm, ModifyBioForm, ModifySkillsForm, \
     ModifyAchievementForm, ModifyExperienceForm, ModifyEducationForm
 
@@ -135,6 +136,12 @@ def user_follow(request):
     return JsonResponse({'status': 'error'})
 
 
+def post_info(request, year, month, day, slug):
+    post = get_object_or_404(Post, slug=slug, status='posted',
+                             published__year=year, published__month=month, published__day=day)
+    return render(request, 'posts/post_info.html', {'post': post})
+
+
 class UpdateEducation(UpdateView):
     model = Education
     form_class = ModifyEducationForm
@@ -219,3 +226,14 @@ class UpdateProfile(UpdateView):
             return HttpResponseRedirect(self.get_success_url())
         else:
             return self.render_to_response(self.get_context_data())
+
+
+class PostListView(ListView):
+    context_object_name = 'posts'
+    paginate_by = 5
+    template_name = 'posts/post_list.html'
+
+    def get_queryset(self):
+        following = self.request.user.following.all()
+        print(following)
+        return Post.objects.all().filter(status='posted', author__in=following)

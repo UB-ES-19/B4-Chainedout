@@ -1,0 +1,9 @@
+{% extends "header.html" %}
+
+{% block content %}
+    <h1>{{ post.title }}</h1>
+    <p class="date">
+        Posted {{ post.published }}
+    </p>
+    {{ post.body }}
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "header.html" %}
+
+{% block content %}
+    <h1>Posts</h1>
+    {% for post in posts %}
+        {% if post.author.profile.image %}
+            <div class="current_avatar"><img src="{{ post.author.profile.image.url }}" width="128" alt="Avatar" class="profile_avatar"></div>
+        {% else %}
+            <div class="current_avatar"><img src="/static/images/img_avatar.png" width="128" alt="Avatar" class="profile_avatar"></div>
+        {% endif %}
+        {{ post.author.first_name }} {{ post.author.last_name }}
+        {{ post.author.followers.count }} follower{{ post.author.followers.count|pluralize }}
+        <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
+        <p class="date">Posted {{ post.published }}</p>
+        <div class="current_avatar"><img src="{{ post.image.url }}" width="256" alt="Avatar" class="profile_avatar"></div>
+        {{ post.body }}
+    {% endfor %}
+    {% include "posts/pagination.html" with page=page_obj %}
+{% endblock %}
