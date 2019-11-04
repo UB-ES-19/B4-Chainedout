@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-from .models import Profile, Education, Experience
+from .models import Profile, Education, Experience, Post
 
 
 class RegisterForm(UserCreationForm):
@@ -62,3 +62,9 @@ class ModifyExperienceForm(forms.ModelForm):
         model = Experience
         fields = ['work_experience', 'company', 'exp_started', 'exp_finished', 'job']
         labels = ['Work_experience', 'Company', 'Started', 'Finished', 'Job']
+
+class PostCreateForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['title', 'body', 'image', 'status']
+        labels = ['Title', 'Body', 'Image', 'Status']
