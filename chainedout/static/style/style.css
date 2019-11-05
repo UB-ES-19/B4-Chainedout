@@ -1091,7 +1091,10 @@ button:hover.profile_modal_btn{
     width: 50%;
     box-shadow: 2px 2px 5px #aaaaaa;
 }
-
+hr.line{
+  margin-left: 60px;
+  margin-right: 9px;
+}
 .posts-page img.post-profile_avatar {
   width: 50px;
   height: 50px;
@@ -1121,10 +1124,20 @@ button:hover.profile_modal_btn{
 
 .post-body{
   margin-top: 10px;
-  padding: 10px;
+  padding: 10px 10px 10px 60px;
   font-size: 13px;
 }
 
+.post-image-space{
+  width: 100%;
+  padding: 10px 10px 10px 60px;
+}
+
+.post-image{
+  position: relative;
+  width: 100%;
+  z-index: 0;
+}
 .post-buttons{
   margin-bottom: 0px;
   padding: 5px 5px 0px;
@@ -1135,9 +1148,11 @@ button:hover.profile_modal_btn{
   border: none;
   font-size: 15px;
   color: #555555;
+  text-decoration: none;
 
   text-align: center;
   position: relative;
+  padding-left: 60px;
   padding-right: 10px;
 }
 
@@ -1146,10 +1161,13 @@ button:hover.profile_modal_btn{
   border: none;
   font-size: 15px;
   color: #555555;
+  text-decoration: none;
 
   text-align: center;
   position: relative;
-  padding-right: 10px;
+  padding-right: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .post-buttons .post-share{
@@ -1157,10 +1175,10 @@ button:hover.profile_modal_btn{
   border: none;
   font-size: 15px;
   color: #555555;
+  text-decoration: none;
 
   text-align: center;
   position: relative;
-  padding-right: 10px;
 }
 
 .post-like:hover{
@@ -1173,10 +1191,22 @@ button:hover.profile_modal_btn{
   color: #00302f;
 }
 
-.pagination .current p{
-  position: relative;
-  vertical-align: bottom;
-  text-align: center;
+.pagination {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+  border-spacing: 10px;
+}
+.pagination-current p{
+  display: table-cell;
+}
+
+.pagination-prev p{
+  display: table-cell;
+}
+
+.pagination-next p{
+  display: table-cell;
 }
 
 /* ------------------------------------- POSTS PAGE END ----------------------------------------- */

@@ -19,7 +19,7 @@ class Command(BaseCommand):
         for i in range(total):
             title = get_random_string(length=10)
             post = Post.objects.create(title=title, author=self.random(), slug=slugify(title),
-                                       body=get_random_string(length=200), status='posted')
+                                       body=get_random_string(length=20), status='posted')
         self.stdout.write("Created %s posts" % total)
 
     def random(self):
