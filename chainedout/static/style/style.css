@@ -394,7 +394,6 @@ body, html {
 }
 
 .landing-parallax-scroll-indicator-arrow{
-
   font-size: 30px;
   color: white;
 
@@ -1080,3 +1079,104 @@ button:hover.profile_modal_btn{
 /* ------------------------------------- PROFILE END ----------------------------------------- */
 
 
+/* ------------------------------------- POSTS PAGE START ----------------------------------------- */
+.posts {
+    min-width: 200px;
+}
+.post-box {
+    border: 1px solid #BFBFBF;
+    background-color: #FFFFFF;
+    margin: 20px auto;
+    padding: 20px;
+    width: 50%;
+    box-shadow: 2px 2px 5px #aaaaaa;
+}
+
+.posts img.post-profile_avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  vertical-align: middle;
+  float: left;
+}
+
+.post-user-information{
+  vertical-align: middle;
+  padding-left: 60px;
+}
+.post-user-information .post-name p{
+  font-weight: bold;
+}
+
+.post-user-information .post-followers p{
+  color: #555555;
+  font-size: 12px;
+}
+
+.post-user-information .post-date p{
+  color: #555555;
+  font-size: 12px;
+}
+
+.post-body{
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 13px;
+}
+
+.post-buttons{
+  margin-bottom: 0px;
+  padding: 5px 5px 0px;
+}
+
+.post-buttons .post-like{
+  background-color: transparent;
+  border: none;
+  font-size: 15px;
+  color: #555555;
+
+  text-align: center;
+  position: relative;
+  padding-right: 10px;
+}
+
+.post-buttons .post-comment{
+  background-color: transparent;
+  border: none;
+  font-size: 15px;
+  color: #555555;
+
+  text-align: center;
+  position: relative;
+  padding-right: 10px;
+}
+
+.post-buttons .post-share{
+  background-color: transparent;
+  border: none;
+  font-size: 15px;
+  color: #555555;
+
+  text-align: center;
+  position: relative;
+  padding-right: 10px;
+}
+
+.post-like:hover{
+  color: #00302f;
+}
+.post-comment:hover{
+  color: #00302f;
+}
+.post-share:hover{
+  color: #00302f;
+}
+
+.pagination .current p{
+  position: relative;
+  vertical-align: bottom;
+  text-align: center;
+}
+
+/* ------------------------------------- POSTS PAGE END ----------------------------------------- */

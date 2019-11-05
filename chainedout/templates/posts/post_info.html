@@ -1,12 +1,19 @@
 {% extends "header.html" %}
 
 {% block content %}
-    <h1>{{ post.title }}</h1>
-    <p class="date">
-        Posted {{ post.published }}
-    </p>
-    {% if post.image %}
-        <div class="current_avatar"><img src="{{ post.image.url }}" width="256" alt="Avatar" class="profile_avatar"></div>
-    {% endif %}
-    {{ post.body }}
+    <div id="posts">
+        <div id="post-box">
+            <p class="date">
+                Posted {{ post.published }}
+            </p>
+
+            <!-- <h1>{{ post.title }}</h1> -->
+
+            {% if post.image %}
+                <div class="current_avatar"><img src="{{ post.image.url }}" width="256" alt="Avatar" class="profile_avatar"></div>
+            {% endif %}
+
+            {{ post.body }}
+        </div>
+    </div>
 {% endblock %}
