@@ -1240,3 +1240,48 @@ hr.line{
 
 
 /* ------------------------------------- POSTS PAGE END ----------------------------------------- */
+
+/* ------------------------------------- SINGLE POST START ----------------------------------------- */
+
+.single-post{
+    min-width: 200px;
+}
+
+.single-post-box{
+    border: 1px solid #BFBFBF;
+    background-color: #FFFFFF;
+    margin: 20px auto;
+    padding: 20px 20px 44px;
+    width: 50%;
+    box-shadow: 2px 2px 5px #aaaaaa;
+}
+
+button#share-a-post {
+
+    background-color: #00302f;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    float: right;
+}
+
+img.post-profile_avatar{
+    //float: right;
+}
+
+.single-post img.post-profile_avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    vertical-align: middle;
+    float: left;
+}
+
+.post-info-user {
+    vertical-align: middle;
+    padding-left: 60px;
+    padding-bottom: -40px;
+}
