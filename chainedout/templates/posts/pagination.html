@@ -2,7 +2,9 @@
     <span class="step-links">
         <div class="pagination-prev">
             {% if page.has_previous %}
-                <a href="?page={{ page.previous_page_number }}">Previous</a>
+                <button class="pagination-prev"><a href="?page={{ page.previous_page_number }}" class="pagination-prev">Previous</a></button>
+            {% else %}
+                <button class="pagination-prev" disabled>Previous</button>
             {% endif %}
         </div>
 
@@ -12,7 +14,9 @@
 
         <div class="pagination-next">
             {% if page.has_next %}
-                <p><a href="?page={{ page.next_page_number }}">Next</a></p>
+                <button class="pagination-next"><a href="?page={{ page.next_page_number }}" class="pagination-next" >Next</a></button>
+            {% else %}
+                <button class="pagination-next" disabled>Next</button>
             {% endif %}
         </div>
 

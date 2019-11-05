@@ -1196,17 +1196,47 @@ hr.line{
   width: 100%;
   table-layout: fixed;
   border-spacing: 10px;
+  vertical-align: middle;
+  padding: 20px;
+  margin-left: 320px;
 }
 .pagination-current p{
+  width: 20%;
   display: table-cell;
+  float: left;
+  font-size: 15px;
+  text-align: center;
 }
 
-.pagination-prev p{
+.pagination-prev {
+  width: 4%;
   display: table-cell;
+  float: left;
+  color: #00302f;
+  font-size: 15px;
+  text-decoration: none;
+  background-color: transparent;
+  border: none;
 }
 
-.pagination-next p{
-  display: table-cell;
+.pagination-prev:disabled{
+  color: #777777;
 }
+
+.pagination-next {
+  width: 4%;
+  display: table-cell;
+  float: left;
+  color: #00302f;
+  font-size: 15px;
+  text-decoration: none;
+  background-color: transparent;
+  border: none;
+}
+
+.pagination-next:disabled{
+  color: #777777;
+}
+
 
 /* ------------------------------------- POSTS PAGE END ----------------------------------------- */
