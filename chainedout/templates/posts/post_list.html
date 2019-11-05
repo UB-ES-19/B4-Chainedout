@@ -2,18 +2,30 @@
 
 {% block content %}
     <div class="single-post">
-        <div class="single-post-box">
-            <img src="/static/images/img_avatar.png" width="128" alt="Avatar" class="post-profile_avatar">
-            <div class = "post-info-user">
-                <textarea placeholder="Share and article, photo or update"></textarea>
+        <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+            <div class="single-post-box">
+                <div class="current-avatar">
+                    {% if user.profile.image %}
+                        <img src="{{ user.profile.image.url }}" width="128" alt="Avatar" class="post-profile_avatar">
+                    {% else %}
+                        <img src="/static/images/img_avatar.png" width="128" alt="Avatar" class="post-profile_avatar">
+                    {% endif %}
+                </div>
+                <div class = "post-info-user">
+                      <div class="profile_edit_container">
+                          {% for field in form %}
+                              <label class="mylabel"><b>{{ field.label }}</b></label>
+                              {{ field }}
+                          {% endfor %}
+                      </div>
+                </div>
+                <hr style="margin-top: 0px; margin-bottom: 5px;">
+                <button id="share-a-post" type="submit"> Share </button>
             </div>
-
-
-            <hr style="margin-top: 0px; margin-bottom: 5px;">
-            <button id="share-a-post"> SHARE </button>
-
-        </div>
+        </form>
     </div>
+
     {% for post in posts %}
         <div class="posts-page">
             <div class="post-box">
@@ -51,7 +63,7 @@
         </div>
     {% endfor %}
         <div class="pagination">
-            {% include "posts/pagination.html" with page=page_obj %}
+            {% include "posts/pagination.html" with page=posts %}
         </div>
 
 {% endblock %}
