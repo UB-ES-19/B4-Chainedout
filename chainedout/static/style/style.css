@@ -1284,3 +1284,46 @@ img.post-profile_avatar{
     padding-left: 60px;
     padding-bottom: -40px;
 }
+
+.single-post-show{
+    min-width: 200px;
+}
+
+.single-post-box-show{
+    border: 1px solid #BFBFBF;
+    background-color: #FFFFFF;
+    margin: 19px auto 0px;
+    padding: 20px 20px 20px;
+    width: 80%;
+    box-shadow: 2px 2px 5px #aaaaaa;
+    text-align: justify
+}
+
+.single-post-box-show p.date {
+    text-align:center;
+}
+
+.single-post-box-show .post-image-space{
+    width: 100%;
+    padding: 10px 10px 10px 10px;
+    text-align:justify;
+}
+
+.single-post-box-coment{
+    border: 1px solid #BFBFBF;
+    background-color: #FFFFFF;
+    margin: auto;
+    padding: 20px 20px 20px;
+    width: 80%;
+    box-shadow: 2px 2px 5px #aaaaaa;
+    text-align: justify;
+    font-size: 10px;
+}
+
+textarea#comments{
+    margin: 5px 0 5px 0;
+    border-radius:5px;
+    width: 100%;
+    height: 30px;
+    padding: 5px;
+}
