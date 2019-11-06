@@ -4,7 +4,11 @@
     <div id="posts-page" class="single-post-show">
         <div id="post-box" class="single-post-box-show">
             <p class="date">
-                Posted {{ post.published }}
+                {% if post.status == 'posted' %}
+                    Posted {{ post.published }}
+                {% else %}
+                    Drafted {{ post.published }}
+                {% endif %}
             </p>
 
             {% if post.image %}

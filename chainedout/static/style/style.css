@@ -1106,6 +1106,11 @@ hr.line{
   font-size: 12px;
 }
 
+.post-user-information .post-status p{
+  color: #555555;
+  font-size: 12px;
+}
+
 .post-body{
   margin-top: 10px;
   padding: 10px 10px 10px 60px;

@@ -38,7 +38,12 @@
                     <div class="post-user-information">
                         <div class="post-name"><p>{{ post.author.first_name }} {{ post.author.last_name }}</p></div>
                         <div class="post-followers"><p>{{ post.author.followers.count }} follower{{ post.author.followers.count|pluralize }}</p></div>
-                        <div class="post-date"><p>Posted {{ post.published }}</p></div>
+                        {% if post.status == 'posted' %}
+                            <div class="post-date"><p>Posted {{ post.published }}</p></div>
+                        {% endif %}
+                        {% if post.status == 'draft' %}
+                            <div class="post-status"><p>(Draft)</p></div>
+                        {% endif %}
                     </div>
                 </div>
 

@@ -138,8 +138,8 @@ def user_follow(request):
     return JsonResponse({'status': 'error'})
 
 
-def post_info(request, year, month, day, slug):
-    post = get_object_or_404(Post, slug=slug, published__year=year, published__month=month, published__day=day)
+def post_info(request, year, month, day, slug, pk):
+    post = get_object_or_404(Post, slug=slug, published__year=year, published__month=month, published__day=day, pk=pk)
     return render(request, 'posts/post_info.html', {'post': post})
 
 
@@ -241,7 +241,7 @@ class PostCreateView(CreateView):
 
     def get_context_data(self, **kwargs):
         following = self.request.user.following.all()
-        objects = Post.objects.all().filter(Q(status='posted', author__in=following) | Q(status='posted', author=self.request.user))
+        objects = Post.objects.all().filter(Q(status='posted', author__in=following) | Q(author=self.request.user))
         paginator = Paginator(objects, 5)
         page = self.request.GET.get('page')
         try:
