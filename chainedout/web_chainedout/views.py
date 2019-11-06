@@ -139,8 +139,7 @@ def user_follow(request):
 
 
 def post_info(request, year, month, day, slug):
-    post = get_object_or_404(Post, slug=slug, status='posted',
-                             published__year=year, published__month=month, published__day=day)
+    post = get_object_or_404(Post, slug=slug, published__year=year, published__month=month, published__day=day)
     return render(request, 'posts/post_info.html', {'post': post})
 
 
@@ -152,11 +151,11 @@ class UpdateEducation(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super(UpdateEducation, self).get_context_data(**kwargs)
-        context['form'] = ModifyEducationForm(instance=Education.objects.get(profile=self.request.user.profile))
+        context['form'] = ModifyEducationForm(instance=Education.objects.filter(profile=self.request.user.profile, pk=self.kwargs['pk']).first())
         return context
 
     def get_object(self):
-        return get_object_or_404(Education, profile=self.request.user.profile)
+        return Education.objects.filter(profile=self.request.user.profile, pk=self.kwargs['pk']).first()
 
 
 class DeleteEducation(SuccessMessageMixin, DeleteView):
@@ -181,11 +180,11 @@ class UpdateExperience(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super(UpdateExperience, self).get_context_data(**kwargs)
-        context['form'] = ModifyExperienceForm(instance=Experience.objects.get(profile=self.request.user.profile))
+        context['form'] = ModifyExperienceForm(instance=Experience.objects.filter(profile=self.request.user.profile, pk=self.kwargs['pk']).first())
         return context
 
     def get_object(self):
-        return get_object_or_404(Experience, profile=self.request.user.profile)
+        return Experience.objects.filter(profile=self.request.user.profile, pk=self.kwargs['pk']).first()
 
 
 class DeleteExperience(SuccessMessageMixin, DeleteView):
@@ -199,7 +198,7 @@ class DeleteExperience(SuccessMessageMixin, DeleteView):
         request.session['job'] = job
         message = request.session['job'] + ' deleted successfully'
         messages.success(self.request, message)
-        return super(DeleteEducation, self).delete(request, *args, **kwargs)
+        return super(DeleteExperience, self).delete(request, *args, **kwargs)
 
 
 class UpdateProfile(UpdateView):
