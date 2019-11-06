@@ -54,7 +54,7 @@
             <div class="edit_edubox">
                 <form action="{% url 'update_profile' pk=user.profile.pk %}" method="POST">
                     {% csrf_token %}
-                    <button class="profile_btn_rem" type="submit" value="edit"><i class="fas fa-edit"></i> Edit</button>
+                    <button class="profile_btn_edit" type="submit" value="edit"><i class="fas fa-edit"></i> Edit</button>
                 </form>
             </div>
         {% endifequal %}

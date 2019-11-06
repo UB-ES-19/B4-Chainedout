@@ -280,7 +280,6 @@ input[type=text]:focus, input[type=password]:focus{
 }
 
 input[type='checkbox']{
-  -webkit-appearance: none;
   width: 20px;
   height: 20px;
   background: white;
@@ -931,6 +930,15 @@ button.profile_btn_rem {
   font-size: 14px;
 }
 
+button.profile_btn_edit {
+  background-color: transparent;
+  color: #00302f;
+  font-weight: bolder;
+  cursor: pointer;
+  border: 0;
+  font-size: 14px;
+}
+
 /* ----- MODAL PROFILE START ----- */
 /* The Modal (background) */
 .profile_modal, .about_modal, .education_modal, .education_modal, .experience_modal, .skills_modal, .achievements_modal {
@@ -1040,30 +1048,6 @@ button:hover.profile_modal_btn{
   margin: 0 auto;
   padding: 16px;
   width: 100%;
-}
-
-.profile_avatar_change {
-  margin-bottom: 10px;
-}
-
-#profile input[type="file"] {
-    display: none;
-}
-
-#profile .avatar-upload {
-    border: 1px solid #ccc;
-    display: inline-block;
-    padding: 6px 12px;
-    cursor: pointer;
-}
-
-#profile .startedDate {
-  float: left;
-  margin-right: 20px;
-}
-
-#profile .finishedDate {
-  margin-bottom: 10px;
 }
 
 #profile .btnMargin {
