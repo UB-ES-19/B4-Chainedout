@@ -6,13 +6,17 @@
 <div id="profilebox">
     <div class="left_profile">
         <div class="current">
-            <div class="current_avatar"><img src="/static/images/img_avatar.png" alt="Avatar" class="profile_avatar"></div>
+            {% if user.profile.image %}
+                <div class="current_avatar"><img src="{{ user.profile.image.url }}" width="512" alt="Avatar" class="profile_avatar"></div>
+            {% else %}
+                <div class="current_avatar"><img src="/static/images/img_avatar.png" alt="Avatar" class="profile_avatar"></div>
+            {% endif %}
             <div class="current_work_education">
-                {% if user.education.entity %}
-                    <div class="current_education"><i class="fas fa-university"></i> {{ user.education.entity }}</div>
+                {% if user.profile.educations.first %}
+                    <div class="current_education"><i class="fas fa-university"></i> {{ user.profile.educations.first.entity }}</div>
                 {% endif %}
-                {% if user.experience.company %}
-                    <div class="current_work"><i class="fas fa-briefcase"></i> {{ user.experience.company }}</div>
+                {% if user.profile.experiences.first %}
+                    <div class="current_work"><i class="fas fa-briefcase"></i> {{ user.profile.experiences.first.company }}</div>
                 {% endif %}
             </div>
         </div>
@@ -24,14 +28,16 @@
         {% endif %}
         <div class="data">
             {% if user.profile.website %}
-              <span class="info_data"><i class="fas fa-link"></i> <a href="{{ user.profile.website }}">{{ user.profile.website }}</a></span><i class="fas fabsep fa-circle"></i>
+                <span class="info_data"><i class="fas fa-link"></i> <a href="http://{{ user.profile.website }}">{{ user.profile.website }}</a></span>
             {% endif %}
             {% if user.email %}
-              <span class="info_data"><i class="fas fa-paper-plane"></i> <a href="mailto:{{ user.email }}">{{ user.email }}</a></span><i class="fas fabsep fa-circle"></i>
+                <i class="fas fabsep fa-circle"></i>
+                <span class="info_data"><i class="fas fa-paper-plane"></i> <a href="mailto:{{ user.email }}">{{ user.email }}</a></span>
             {% endif %}
-            {% ifnotequal user.profile.phone 0 %}
-              <span class="info_data"><i class="fas fa-phone-square"></i> {{ user.profile.phone }}</span>
-            {% endifnotequal %}
+            {% if user.profile.phone and user.profile.phone != 0 %}
+                <i class="fas fabsep fa-circle"></i>
+                <span class="info_data"><i class="fas fa-phone-square"></i> {{ user.profile.phone }}</span>
+            {% endif %}
         </div>
     <div class="friends">
             <a href="{{ user.get_absolute_url }}"><span class="flink">Show Contact Info</span></a> <i class="fas fabsep fa-circle"></i>
@@ -45,7 +51,12 @@
     </div>
     <div class="right_profile">
         {% ifequal request.user user %}
-            <div class="elemprofile"><a onclick="modal('profile_user_edit_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
+            <div class="edit_edubox">
+                <form action="{% url 'update_profile' pk=user.profile.pk %}" method="POST">
+                    {% csrf_token %}
+                    <button class="profile_btn_edit" type="submit" value="edit"><i class="fas fa-edit"></i> Edit</button>
+                </form>
+            </div>
         {% endifequal %}
 
         {% ifnotequal request.user user %}
@@ -67,51 +78,6 @@
     <div style="clear: both"></div>
 </div>
 
-<!----- MODAL EDIT PROFILE START ----->
-<!-- The Modal -->
-<div id="profile_user_edit_modal" class="profile_modal">
-
-  <!-- Modal Content -->
-  <form class="profile-modal-content animate" method="post">
-  {% csrf_token %}
-
-    <div class="profile_modal_title">Edit Profile</div>
-    <div onclick="modal('profile_user_edit_modal', 'none')" class="mclose" title="Close Modal">&times;</div>
-    <div style="clear: both"></div>
-
-    <div class="profile_modal_container">
-        <div class="scrollable_modal_container">
-
-            <div class="profile_avatar_change">
-                <label for="avatarUpload" class="avatar-upload">
-                    <i class="fa fa-cloud-upload"></i> Change avatar
-                </label>
-                <input type="file" name="avatar" id="avatarUpload"/>
-            </div>
-
-            {% for field in user_form %}
-                <label class="mylabel"><b>{{ field.label }}</b></label>
-                {% if field.errors %}
-                    <span class="error">{{ field.errors.as_text }}</span>
-                {% endif %}
-                {{ field }}
-            {% endfor %}
-
-            {% for field in profile_form %}
-                <label class="mylabel"><b>{{ field.label }}</b></label>
-                {% if field.errors %}
-                    <span class="error">{{ field.errors.as_text }}</span>
-                {% endif %}
-                {{ field }}
-            {% endfor %}
-
-        </div>
-        <hr style="margin-top: 10px; margin-bottom: 10px;">
-        <button class="profile_modal_btn" type="submit" value="submit_user" name="submit_user">Confirm</button>
-    </div>
-  </form>
-</div>
-<!----- MODAL EDIT PROFILE END ----->
 <!------------------------------ PROFILE BOX END ---------------------------------->
 
 
@@ -155,10 +121,6 @@
             {% endfor %}
         </div>
         <hr style="margin-top: 10px; margin-bottom: 10px;">
-        <!-- Temporary hidden because not implemented yet-->
-        {% if False %}
-            <button class="profile_modal_btn_rem btnMargin" type="submit" value="remove">Remove</button>
-        {% endif %}
         <button class="profile_modal_btn btnMargin" type="submit" value="submit_bio" name="submit_bio">Confirm</button>
     </div>
   </form>
@@ -177,27 +139,36 @@
 
     {% ifequal request.user user %}
         <div class="right_box">
-            <div class="elemprofile"><a onclick="modal('profile_edu_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
+            <div class="elemprofile"><a onclick="modal('profile_edu_modal', 'block')"><i class="fas fa-plus"></i> Add</a></div>
         </div>
     {% endifequal %}
 
     <hr class="title_sep" />
     <div id="info">
-
-        <div class="element">
-            <div class="edubox">
-                {% if user.education.entity and user.education.title %}
-                    <p>{{ user.education.entity }} <i class="fas fabsep fa-circle"></i> {{ user.education.title }}</p>
-                {% endif %}
-                {% if user.education.edu_started and user.education.edu_finished %}
-                    <p><small>{{ user.education.edu_started }} - {{ user.education.edu_finished }}</small></p>
-                {% endif %}
+        {% for education in user.profile.educations.all %}
+            <div class="element">
+                <div class="edubox">
+                    {% if education.entity and education.title %}
+                        <p><i class="fas fa-university"></i> <b>{{ education.entity }}</b> <i class="fas fabsep fa-circle"></i> <b>{{ education.title }}</b></p>
+                    {% endif %}
+                    {% if education.edu_started and education.edu_finished %}
+                        <p><small>{{ education.edu_started }} - {{ education.edu_finished }}</small></p>
+                    {% endif %}
+                </div>
+                <div class="edit_edubox">
+                    <form action="{% url 'update_education' pk=education.pk %}" method="POST">
+                        {% csrf_token %}
+                        <button class="profile_btn_rem" type="submit" value="edit"><i class="fas fa-edit"></i> Edit</button>
+                    </form>
+                    <form action="{% url 'delete_education' pk=education.pk %}" method="POST">
+                        {% csrf_token %}
+                        <button class="profile_btn_rem" type="submit" value="remove"><i class="fas fa-trash-alt"></i> Remove</button>
+                    </form>
+                </div>
+                <div style="clear: both"></div>
             </div>
-
-            <div style="clear: both"></div>
-        </div>
-
-        <hr class="sepelement"/>
+            <hr class="sepelement"/>
+        {% endfor %}
 
     </div>
 
@@ -223,10 +194,6 @@
             {% endfor %}
         </div>
         <hr style="margin-top: 10px; margin-bottom: 10px;">
-        <!-- Temporary hidden because not implemented yet-->
-        {% if False %}
-            <button class="profile_modal_btn_rem btnMargin" type="submit" value="remove">Remove</button>
-        {% endif %}
         <button class="profile_modal_btn btnMargin" type="submit" value="submit_education" name="submit_education">Confirm</button>
     </div>
   </form>
@@ -241,28 +208,38 @@
 
     {% ifequal request.user user %}
         <div class="right_box">
-            <div class="elemprofile"><a onclick="modal('profile_xp_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
+            <div class="elemprofile"><a onclick="modal('profile_xp_modal', 'block')"><i class="fas fa-plus"></i> Add</a></div>
         </div>
     {% endifequal %}
 
     <hr class="title_sep" />
     <div id="info">
 
-        <div class="element">
-            <div class="edubox">
-                {% if user.experience.job and user.experience.company %}
-                    <p>{{ user.experience.job }} <i class="fas fabsep fa-circle"></i> {{ user.experience.company }}</p>
-                {% endif %}
-                {% if user.experience.work_experience and user.experience.exp_started and user.experience.exp_finished %}
-                    <p><i><small>{{ user.experience.work_experience }}</small></i></p>
-                    <p><small>{{ user.experience.exp_started }} - {{ user.experience.exp_finished }}</small></p>
-                {% endif %}
+        {% for experience in user.profile.experiences.all %}
+            <div class="element">
+                <div class="edubox">
+                    {% if experience.job and experience.company %}
+                        <p><i class="fas fa-briefcase"></i> <b>{{ experience.job }}</b> <i>at</i> <b>{{ experience.company }}</b></p>
+                    {% endif %}
+                    {% if experience.work_experience and experience.exp_started and experience.exp_finished %}
+                        <p><i><small>{{ experience.work_experience }}</small></i></p>
+                        <p><small>{{ experience.exp_started }} - {{ experience.exp_finished }}</small></p>
+                    {% endif %}
+                </div>
+                <div class="edit_edubox">
+                    <form action="{% url 'update_experience' pk=experience.pk %}" method="POST">
+                        {% csrf_token %}
+                        <button class="profile_btn_rem" type="submit" value="edit"><i class="fas fa-edit"></i> Edit</button>
+                    </form>
+                    <form action="{% url 'delete_experience' pk=experience.pk %}" method="POST">
+                        {% csrf_token %}
+                        <button class="profile_btn_rem" type="submit" value="remove"><i class="fas fa-trash-alt"></i> Remove</button>
+                    </form>
+                </div>
+                <div style="clear: both"></div>
             </div>
-
-            <div style="clear: both"></div>
-        </div>
-
-        <hr class="sepelement"/>
+            <hr class="sepelement"/>
+        {% endfor %}
 
     </div>
 </div>
@@ -288,10 +265,6 @@
             {% endfor %}
         </div>
         <hr style="margin-top: 10px; margin-bottom: 10px;">
-        <!-- Temporary hidden because not implemented yet-->
-        {% if False %}
-            <button class="profile_modal_btn_rem btnMargin" type="submit" value="remove">Remove</button>
-        {% endif %}
         <button class="profile_modal_btn btnMargin" type="submit" value="submit_experience" name="submit_experience">Confirm</button>
     </div>
   </form>
@@ -350,10 +323,6 @@
             {% endfor %}
         </div>
         <hr style="margin-top: 10px; margin-bottom: 10px;">
-        <!-- Temporary hidden because not implemented yet-->
-        {% if False %}
-            <button class="profile_modal_btn_rem btnMargin" type="submit" value="remove">Remove</button>
-        {% endif %}
         <button class="profile_modal_btn btnMargin" type="submit" value="submit_skill" name="submit_skill">Confirm</button>
     </div>
   </form>
@@ -404,10 +373,6 @@
             {% endfor %}
         </div>
         <hr style="margin-top: 10px; margin-bottom: 10px;">
-        <!-- Temporary hidden because not implemented yet-->
-        {% if False %}
-            <button class="profile_modal_btn_rem btnMargin" type="submit" value="remove">Remove</button>
-        {% endif %}
         <button class="profile_modal_btn btnMargin" type="submit" value="submit_achievements" name="submit_achievements">Confirm</button>
     </div>
   </form>

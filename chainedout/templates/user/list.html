@@ -7,13 +7,17 @@
             <div id="profilebox">
                 <div class="left_profile">
                     <div class="current">
-                        <div class="current_avatar"><img src="/static/images/img_avatar.png" alt="Avatar" class="profile_avatar"></div>
+                        {% if user.profile.image %}
+                            <div class="current_avatar"><img src="{{ user.profile.image.url }}" width="512" alt="Avatar" class="profile_avatar"></div>
+                        {% else %}
+                            <div class="current_avatar"><img src="/static/images/img_avatar.png" alt="Avatar" class="profile_avatar"></div>
+                        {% endif %}
                         <div class="current_work_education">
-                            {% if user.education.entity %}
-                                <div class="current_education"><i class="fas fa-university"></i> {{ user.education.entity }} </div>
+                            {% if user.profile.educations.first %}
+                                <div class="current_education"><i class="fas fa-university"></i> {{ user.profile.educations.first.entity }} </div>
                             {% endif %}
-                            {% if user.experience.company %}
-                                <div class="current_work"><i class="fas fa-briefcase"></i> {{ user.experience.company }} </div>
+                            {% if user.profile.experiences.first %}
+                                <div class="current_work"><i class="fas fa-briefcase"></i> {{ user.profile.experiences.first.company }} </div>
                             {% endif %}
                         </div>
                     </div>

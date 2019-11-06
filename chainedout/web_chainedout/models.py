@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.urls import reverse
+from django.utils import timezone
 
 
 # Create your models here.
@@ -22,17 +24,35 @@ User.add_to_class('following',
                   models.ManyToManyField('self', through=Follow, related_name='followers', symmetrical=False))
 
 
+class Education(models.Model):
+    entity = models.CharField(max_length=50)
+    title = models.CharField(max_length=50)
+    edu_started = models.IntegerField(default=2019)
+    edu_finished = models.IntegerField(default=2020)
+
+
+class Experience(models.Model):
+    work_experience = models.TextField(max_length=50)
+    company = models.CharField(max_length=50)
+    exp_started = models.IntegerField(default=2019)
+    exp_finished = models.IntegerField(default=2020)
+    job = models.CharField(max_length=50)
+
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    profession = models.TextField(max_length=50)
+    profession = models.TextField(max_length=500)
     bio = models.TextField(max_length=500)
     location = models.CharField(max_length=200)
-    skills = models.TextField(max_length=400)
+    skills = models.TextField(max_length=500)
     birth_date = models.DateField(null=True)
     jobIds = models.IntegerField(default=0)
     achievements = models.TextField(max_length=500)
     phone = models.IntegerField(default=0)
     website = models.CharField(max_length=50, null=True)
+    image = models.ImageField(null=True, blank=True, upload_to='images')
+    educations = models.ManyToManyField(Education)
+    experiences = models.ManyToManyField(Experience)
 
     def __str__(self):
         return self.user.username
@@ -47,36 +67,24 @@ class Profile(models.Model):
         instance.profile.save()
 
 
-class Education(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    entity = models.TextField(max_length=15)
-    title = models.TextField(max_length=15)
-    edu_started = models.IntegerField(default=2019)
-    edu_finished = models.IntegerField(default=2020)
+class Post(models.Model):
+    STATUS = (('draft', 'Draft'), ('posted', 'Posted'))
+    title = models.CharField(max_length=500)
+    slug = models.SlugField(max_length=500, unique_for_date='published')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
+    body = models.TextField()
+    image = models.ImageField(null=True, blank=True, upload_to='posts/images')
+    published = models.DateTimeField(default=timezone.now)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    status = models.CharField(max_length=20, choices=STATUS, default='draft')
 
-    @receiver(post_save, sender=User)
-    def create_user_education(sender, instance, created, **kwargs):
-        if created:
-            Education.objects.create(user=instance)
+    class Meta:
+        ordering = ('-published',)
 
-    @receiver(post_save, sender=User)
-    def save_user_education(sender, instance, **kwargs):
-        instance.education.save()
+    def __str__(self):
+        return self.title
 
+    def get_absolute_url(self):
+        return reverse('post_info', args=[self.published.year, self.published.month, self.published.day, self.slug, self.pk])
 
-class Experience(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    work_experience = models.TextField(max_length=15)
-    company = models.TextField(max_length=15)
-    exp_started = models.IntegerField(default=2019)
-    exp_finished = models.IntegerField(default=2020)
-    job = models.TextField(max_length=100)
-
-    @receiver(post_save, sender=User)
-    def create_user_experience(sender, instance, created, **kwargs):
-        if created:
-            Experience.objects.create(user=instance)
-
-    @receiver(post_save, sender=User)
-    def save_user_experience(sender, instance, **kwargs):
-        instance.experience.save()

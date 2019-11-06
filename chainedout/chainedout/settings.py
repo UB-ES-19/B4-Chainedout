@@ -78,8 +78,12 @@ WSGI_APPLICATION = 'chainedout.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'dbchainedout',
+        'USER': 'postgres',
+        'PASSWORD': 'carloshui95',
+        'HOST': '',
+        'PORT': '5432',
     }
 }
 
@@ -126,6 +130,9 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
     'var/www/static',
 )
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'web_chainedout/media')
 
 # Login URL
 LOGIN_REDIRECT_URL = 'index'
