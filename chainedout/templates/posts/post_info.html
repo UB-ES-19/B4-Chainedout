@@ -1,12 +1,39 @@
 {% extends "header.html" %}
 
 {% block content %}
-    <h1>{{ post.title }}</h1>
-    <p class="date">
-        Posted {{ post.published }}
-    </p>
-    {% if post.image %}
-        <div class="current_avatar"><img src="{{ post.image.url }}" width="256" alt="Avatar" class="profile_avatar"></div>
-    {% endif %}
-    {{ post.body }}
+    <div id="posts-page" class="single-post-show">
+        <div id="post-box" class="single-post-box-show">
+            <p class="date">
+                Posted {{ post.published }}
+            </p>
+
+            {% if post.image %}
+                <div class="post-image-space"><img src="{{ post.image.url }}" width="256" alt="Avatar" class="post-image"></div>
+            {% endif %}
+
+            {{ post.body }}
+        </div>
+
+        <div id="post-box-coment" class="single-post-box-coment">
+            <div class="coments_exemple">
+                <textarea id="comments" placeholder="Add a comment..."></textarea>
+            </div>
+        </div>
+
+        <div id="post-box-coment" class="single-post-box-coment">
+            <div class="coments_exemple">
+                Me ha sido de mucha ayuda
+            </div>
+        </div>
+
+        <div id="post-box-coment" class="single-post-box-coment">
+            <div class="coments_exemple">
+                Lorem ipsum dolor sit amet consectetur adipiscing, elit aliquet fames bibendum ultrices arcu,
+                elementum quisque praesent sem vehicula. Quam metus massa nulla natoque rutrum fringilla nostra
+                elementum, blandit platea quisque eu cubilia vivamus duis, quis leo nisi ut nibh sodales nec. Cursus
+                sed imperdiet cum a, rhoncus tristique arcu augue nam, lacinia primis phasellus. Curabitur cubilia tristique
+                phasellus auctor condimentum nullam nunc
+            </div>
+        </div>
+    </div>
 {% endblock %}

@@ -3,6 +3,7 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
@@ -229,17 +230,8 @@ class UpdateProfile(UpdateView):
             return self.render_to_response(self.get_context_data())
 
 
-class PostListView(ListView):
-    context_object_name = 'posts'
-    paginate_by = 5
-    template_name = 'posts/post_list.html'
-
-    def get_queryset(self):
-        following = self.request.user.following.all()
-        return Post.objects.all().filter(Q(status='posted', author__in=following) | Q(status='posted', author=self.request.user))
-
 class PostCreateView(CreateView):
-    template_name = 'posts/post_create.html'
+    template_name = 'posts/post_list.html'
     model = Post
     form_class = PostCreateForm
 
@@ -247,3 +239,19 @@ class PostCreateView(CreateView):
         form.instance.author = self.request.user
         form.instance.slug = slugify(form.instance.title)
         return super(PostCreateView, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        following = self.request.user.following.all()
+        objects = Post.objects.all().filter(Q(status='posted', author__in=following) | Q(status='posted', author=self.request.user))
+        paginator = Paginator(objects, 5)
+        page = self.request.GET.get('page')
+        try:
+            posts = paginator.page(page)
+        except PageNotAnInteger:
+            posts = paginator.page(1)
+        except EmptyPage:
+            posts = paginator.page(paginator.num_pages)
+        context = super(PostCreateView, self).get_context_data(**kwargs)
+        context['page'] = page
+        context['posts'] = posts
+        return context

@@ -314,17 +314,20 @@ input[type='checkbox']{
 /* ----------------------------------- REGISTER END --------------------------------------- */
 
 /* ---------------------------------- LANDING PAGE ---------------------------------------- */ 
+body, html {
+  height: 100%;
+  margin: 0;
+}
 
 .landing-parallax{
   background-image: url("./images/business2.jpg");
 
-  height: 820px;
-  max-height: 820px;
-  min-height: 820px;
+  height: 100%;
+  min-height: 100%;
 
-  min-width: 800px;
-
+  /* Paralax effect */
   background-attachment: fixed;
+  /* Center and scale the image nicely */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -341,7 +344,6 @@ input[type='checkbox']{
   font-weight: 600;
   text-align: center;
   letter-spacing: 0;
-  line-height: 1em;
   text-transform: none;
   display: block;
 
@@ -368,9 +370,8 @@ input[type='checkbox']{
   letter-spacing: 4px;
 
   position: absolute;
-  left: 42%;
-  top: 75%;
-
+  left: calc(84%/2);
+  top: 65%;
 }
 
 .landing-parallaxbtn:hover{
@@ -387,20 +388,24 @@ input[type='checkbox']{
   line-height: 1em;
 
   position: absolute;
-  left: 48%;
-  top: 92%;
+  width: 4%;
+  left: calc(96%/2);
+  top: 94%;
 }
 
 .landing-parallax-scroll-indicator-arrow{
-  position: absolute;
-  left: 49%;
-  top: 94%;
   font-size: 30px;
   color: white;
+
+  position: absolute;
+  width: 2%;
+  left: calc(98%/2);
+  top: 96%;
 }
 
 .landing-parallax-scroll-indicator-arrow:hover{
   top: 95%;
+  color:white;
 }
 
 .landing-presentation{
@@ -409,34 +414,32 @@ input[type='checkbox']{
   text-align: center;
   text-rendering: optimizeLegibility;
   font-style: normal;
-  line-height: 1em;
   letter-spacing: 0em;
   text-transform: none;
+
+  height: 550px;
 }
 
 .landing-presentation .landing-presentation-title h1{
-
-  margin-top: 140px;
+  padding-top: 140px;
   font-size: 60px;
   font-weight: 600;
-
 }
 
 .landing-presentation .landing-presentation-subtitle h2{
-  margin-top: 50px;
+  padding-top: 50px;
   font-size: 35px;
   font-weight: 500;
   line-height: 1.6em;
 }
 
 .landing-presentation .landing-presentation-body p{
-  margin-top: 30px;
+  padding-top: 30px;
   font-size: 21px;
   font-weight: 200;
   line-height: 1.5em;
 
   color: grey;
-
   margin-left: 20%;
   margin-right: 20%;
 }
@@ -509,17 +512,17 @@ input[type='checkbox']{
   border-color: #b24020;
   border-width: 2px;
   transition: 0.1s background-color linear, 0.1s color linear;
-  width: 8%;
+  width: 10%;
   height: 6%;
 
   font-size: 20px;
   color: #b24020;
   text-align: center;
+  padding: 12px;
 
   position: absolute;
   margin-left: 600px;
   margin-top: 150px;
-  
 }
 
 .landing-post-job-button:hover{
@@ -1035,8 +1038,8 @@ button:hover.profile_modal_btn{
 
 .profile_edit_container {
   margin: 0 auto;
-  padding: 16px 16px 80px;
-  width: 50%;
+  padding: 16px;
+  width: 100%;
 }
 
 .profile_avatar_change {
@@ -1076,3 +1079,251 @@ button:hover.profile_modal_btn{
 /* ------------------------------------- PROFILE END ----------------------------------------- */
 
 
+/* ------------------------------------- POSTS PAGE START ----------------------------------------- */
+.posts-page {
+    min-width: 200px;
+}
+.post-box {
+    border: 1px solid #BFBFBF;
+    background-color: #FFFFFF;
+    margin: 20px auto;
+    padding: 20px 20px 10px;
+    width: 50%;
+    box-shadow: 2px 2px 5px #aaaaaa;
+}
+hr.line{
+  margin-left: 60px;
+  margin-right: 9px;
+}
+.posts-page img.post-profile_avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  vertical-align: middle;
+  float: left;
+}
+
+.post-user-information{
+  vertical-align: middle;
+  padding-left: 60px;
+}
+.post-user-information .post-name p{
+  font-weight: bold;
+}
+
+.post-user-information .post-followers p{
+  color: #555555;
+  font-size: 12px;
+}
+
+.post-user-information .post-date p{
+  color: #555555;
+  font-size: 12px;
+}
+
+.post-body{
+  margin-top: 10px;
+  padding: 10px 10px 10px 60px;
+  font-size: 13px;
+}
+
+.post-image-space{
+  width: 100%;
+  padding: 10px 10px 10px 60px;
+}
+
+.post-image{
+  position: relative;
+  width: 100%;
+  z-index: 0;
+}
+.post-buttons{
+  margin-bottom: 0px;
+  padding: 5px 5px 0px;
+}
+
+.post-buttons .post-like{
+  background-color: transparent;
+  border: none;
+  font-size: 15px;
+  color: #555555;
+  text-decoration: none;
+
+  text-align: center;
+  position: relative;
+  padding-left: 60px;
+  padding-right: 10px;
+}
+
+.post-buttons .post-comment{
+  background-color: transparent;
+  border: none;
+  font-size: 15px;
+  color: #555555;
+  text-decoration: none;
+
+  text-align: center;
+  position: relative;
+  padding-right: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.post-buttons .post-share{
+  background-color: transparent;
+  border: none;
+  font-size: 15px;
+  color: #555555;
+  text-decoration: none;
+
+  text-align: center;
+  position: relative;
+}
+
+.post-like:hover{
+  color: #00302f;
+}
+.post-comment:hover{
+  color: #00302f;
+}
+.post-share:hover{
+  color: #00302f;
+}
+
+.pagination {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+  border-spacing: 10px;
+  vertical-align: middle;
+  padding: 20px 20px 20px 24%;
+}
+.pagination-current p{
+  width: 20%;
+  display: table-cell;
+  float: left;
+  font-size: 15px;
+  text-align: center;
+}
+
+.pagination-prev {
+  width: 4%;
+  display: table-cell;
+  float: left;
+  color: #00302f;
+  font-size: 15px;
+  text-decoration: none;
+  background-color: transparent;
+  border: none;
+}
+
+.pagination-prev:disabled{
+  color: #777777;
+}
+
+.pagination-next {
+  width: 4%;
+  display: table-cell;
+  float: left;
+  color: #00302f;
+  font-size: 15px;
+  text-decoration: none;
+  background-color: transparent;
+  border: none;
+}
+
+.pagination-next:disabled{
+  color: #777777;
+}
+
+
+/* ------------------------------------- POSTS PAGE END ----------------------------------------- */
+
+/* ------------------------------------- SINGLE POST START ----------------------------------------- */
+
+.single-post{
+    min-width: 200px;
+}
+
+.single-post-box{
+    border: 1px solid #BFBFBF;
+    background-color: #FFFFFF;
+    margin: 20px auto;
+    padding: 20px 20px 44px;
+    width: 50%;
+    box-shadow: 2px 2px 5px #aaaaaa;
+}
+
+button#share-a-post {
+
+    background-color: #00302f;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    float: right;
+}
+
+img.post-profile_avatar{
+    //float: right;
+}
+
+.single-post img.post-profile_avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    vertical-align: middle;
+    float: left;
+}
+
+.post-info-user {
+    vertical-align: middle;
+    padding-left: 60px;
+    padding-bottom: -40px;
+}
+
+.single-post-show{
+    min-width: 200px;
+}
+
+.single-post-box-show{
+    border: 1px solid #BFBFBF;
+    background-color: #FFFFFF;
+    margin: 19px auto 0px;
+    padding: 20px 20px 20px;
+    width: 80%;
+    box-shadow: 2px 2px 5px #aaaaaa;
+    text-align: justify
+}
+
+.single-post-box-show p.date {
+    text-align:center;
+}
+
+.single-post-box-show .post-image-space{
+    width: 100%;
+    padding: 10px 10px 10px 10px;
+    text-align:justify;
+}
+
+.single-post-box-coment{
+    border: 1px solid #BFBFBF;
+    background-color: #FFFFFF;
+    margin: auto;
+    padding: 20px 20px 20px;
+    width: 80%;
+    box-shadow: 2px 2px 5px #aaaaaa;
+    text-align: justify;
+    font-size: 10px;
+}
+
+textarea#comments{
+    margin: 5px 0 5px 0;
+    border-radius:5px;
+    width: 100%;
+    height: 30px;
+    padding: 5px;
+}
