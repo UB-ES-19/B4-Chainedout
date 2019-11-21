@@ -1170,6 +1170,17 @@ hr.line{
   position: relative;
 }
 
+.post-buttons .post-delete{
+  background-color: transparent;
+  border: none;
+  font-size: 15px;
+  color: #555555;
+  text-decoration: none;
+
+  text-align: center;
+  position: relative;
+}
+
 .post-like:hover{
   color: #00302f;
 }

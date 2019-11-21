@@ -254,3 +254,17 @@ class PostCreateView(CreateView):
         context['page'] = page
         context['posts'] = posts
         return context
+
+
+class DeletePost(SuccessMessageMixin, DeleteView):
+    model = Post
+    success_url = '/posts'
+    success_message = "Removed Post"
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        title = self.object.title
+        request.session['title'] = title
+        message = request.session['title'] + ' deleted successfully'
+        messages.success(self.request, message)
+        return super(DeletePost, self).delete(request, *args, **kwargs)

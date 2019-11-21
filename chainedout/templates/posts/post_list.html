@@ -62,8 +62,13 @@
                     <button class="post-like"><i class="fas fa-thumbs-up"></i> Like</button>
                     <button class="post-comment"><a href="{{ post.get_absolute_url }}" class="post-comment"><i class="fas fa-comments"></i> Comment</a></button>
                     <button class="post-share"><i class="fas fa-share-alt"></i> Share</button>
+                    {% if post.author == user %}
+                        <form action="{% url 'delete_post' pk=post.pk %}" method="POST">
+                            {% csrf_token %}
+                            <button class="post-delete" type="submit" value="remove"><i class="fas fa-trash-alt"></i> Delete</button>
+                        </form>
+                    {% endif %}
                 </div>
-
             </div>
         </div>
     {% endfor %}
