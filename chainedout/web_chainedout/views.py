@@ -8,7 +8,7 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.views.decorators.http import require_POST
-from django.views.generic import DeleteView, UpdateView, ListView, CreateView
+from django.views.generic import DeleteView, UpdateView, ListView, CreateView, RedirectView
 from django.template.defaultfilters import slugify
 from django.db.models import Q
 
@@ -269,6 +269,7 @@ class DeletePost(SuccessMessageMixin, DeleteView):
         messages.success(self.request, message)
         return super(DeletePost, self).delete(request, *args, **kwargs)
 
+
 class UpdatePost(UpdateView):
     model = Post
     form_class = ModifyPostForm
@@ -283,3 +284,15 @@ class UpdatePost(UpdateView):
 
     def get_object(self):
         return Post.objects.filter(author=self.request.user, pk=self.kwargs['pk']).first()
+
+
+class PostLike(RedirectView):
+    def get_redirect_url(self, *args, **kwargs):
+        post = get_object_or_404(Post, slug=self.kwargs.get("slug"), pk=self.kwargs.get("pk"))
+        user = self.request.user
+        if user.is_authenticated and user != post.author:
+            if user in post.likes.all():
+                post.likes.remove(user)
+            else:
+                post.likes.add(user)
+        return '/posts'

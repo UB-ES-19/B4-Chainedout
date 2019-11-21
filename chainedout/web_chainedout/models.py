@@ -78,6 +78,7 @@ class Post(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=20, choices=STATUS, default='draft')
+    likes = models.ManyToManyField(User, blank=True, related_name='post_likes')
 
     class Meta:
         ordering = ('-published',)
