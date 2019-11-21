@@ -68,3 +68,9 @@ class PostCreateForm(forms.ModelForm):
         model = Post
         fields = ['title', 'body', 'image', 'status']
         labels = ['Title', 'Body', 'Image', 'Status']
+
+class CommentPost(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['comment',]
+        labels = ['Comment',]
