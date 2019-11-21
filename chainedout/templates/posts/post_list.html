@@ -76,7 +76,6 @@
                     {% else %}
                         <button class="post-like">
                             <a href="{% url 'like_post' year=post.created.year month=post.created.month day=post.created.day slug=post.slug pk=post.pk %}" class="post-comment">
-
                                 {% if post in user.post_likes.all %}
                                     <i class="fas fa-thumbs-down"></i> Unlike
                                 {% else %}
@@ -86,7 +85,21 @@
                         </button>
                     {% endif %}
                     <button class="post-comment"><a href="{{ post.get_absolute_url }}" class="post-comment"><i class="fas fa-comments"></i> Comment</a></button>
-                    <button class="post-share"><i class="fas fa-share-alt"></i> Share</button>
+                    <button class="post-share">
+                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}{{ post.get_absolute_url }}" class="post-share">
+                            <i class="fas fa-share-alt"></i> Facebook
+                        </a>
+                    </button>
+                    <button class="post-share">
+                        <a href="https://twitter.com/home?status={{ post.body|urlencode }}{{ request.build_absolute_uri }}{{ post.get_absolute_url }}" class="post-share">
+                            <i class="fas fa-share-alt"></i> Twitter
+                        </a>
+                    </button>
+                    <button class="post-share">
+                        <a href="http://www.reddit.com/submit?url={{ request.build_absolute_uri }}{{ post.get_absolute_url }}&title={{ post.body|urlencode }}" class="post-share">
+                            <i class="fas fa-share-alt"></i> Reddit
+                        </a>
+                    </button>
                 </div>
             </div>
         </div>
