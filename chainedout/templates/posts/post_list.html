@@ -39,7 +39,11 @@
                         <div class="post-name"><p>{{ post.author.first_name }} {{ post.author.last_name }}</p></div>
                         <div class="post-followers"><p>{{ post.author.followers.count }} follower{{ post.author.followers.count|pluralize }}</p></div>
                         {% if post.status == 'posted' %}
-                            <div class="post-date"><p>Posted {{ post.published }}</p></div>
+                            {% if post.updated != post.created %}
+                                <div class="post-date"><p>Updated {{ post.updated }}</p></div>
+                            {% else %}
+                                <div class="post-date"><p>Posted {{ post.created }}</p></div>
+                            {% endif %}
                         {% endif %}
                         {% if post.status == 'draft' %}
                             <div class="post-status"><p>(Draft)</p></div>
@@ -63,6 +67,10 @@
                     <button class="post-comment"><a href="{{ post.get_absolute_url }}" class="post-comment"><i class="fas fa-comments"></i> Comment</a></button>
                     <button class="post-share"><i class="fas fa-share-alt"></i> Share</button>
                     {% if post.author == user %}
+                        <form action="{% url 'update_post' year=post.created.year month=post.created.month day=post.created.day slug=post.slug pk=post.pk %}" method="POST">
+                            {% csrf_token %}
+                            <button class="post-edit" type="submit" value="edit"><i class="fas fa-edit"></i> Edit</button>
+                        </form>
                         <form action="{% url 'delete_post' pk=post.pk %}" method="POST">
                             {% csrf_token %}
                             <button class="post-delete" type="submit" value="remove"><i class="fas fa-trash-alt"></i> Delete</button>

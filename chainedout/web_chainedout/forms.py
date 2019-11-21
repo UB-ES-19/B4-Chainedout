@@ -68,3 +68,9 @@ class PostCreateForm(forms.ModelForm):
         model = Post
         fields = ['title', 'body', 'image', 'status']
         labels = ['Title', 'Body', 'Image', 'Status']
+
+class ModifyPostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['title', 'body', 'image', 'status']
+        labels = ['Title', 'Body', 'Image', 'Status']

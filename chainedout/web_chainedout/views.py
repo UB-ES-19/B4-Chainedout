@@ -14,7 +14,7 @@ from django.db.models import Q
 
 from .models import Follow, Profile, Education, Experience, Post
 from .forms import RegisterForm, ModifyProfileForm, ModifyUserForm, ModifyBioForm, ModifySkillsForm, \
-    ModifyAchievementForm, ModifyExperienceForm, ModifyEducationForm, PostCreateForm
+    ModifyAchievementForm, ModifyExperienceForm, ModifyEducationForm, PostCreateForm, ModifyPostForm
 
 
 def index(request):
@@ -268,3 +268,18 @@ class DeletePost(SuccessMessageMixin, DeleteView):
         message = request.session['title'] + ' deleted successfully'
         messages.success(self.request, message)
         return super(DeletePost, self).delete(request, *args, **kwargs)
+
+class UpdatePost(UpdateView):
+    model = Post
+    form_class = ModifyPostForm
+    template_name = 'posts/update_post.html'
+    success_url = '/posts'
+
+    def get_context_data(self, **kwargs):
+        context = super(UpdatePost, self).get_context_data(**kwargs)
+        context['form'] = ModifyPostForm(
+            instance=Post.objects.filter(author=self.request.user, pk=self.kwargs['pk']).first())
+        return context
+
+    def get_object(self):
+        return Post.objects.filter(author=self.request.user, pk=self.kwargs['pk']).first()
