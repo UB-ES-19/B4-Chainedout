@@ -1,4 +1,4 @@
-{% include "header.html" %}
+{% extends "header.html" %}
 
 {% block content %}
 
@@ -44,8 +44,4 @@
     <a id = "create-post" class="landing-post-job-button" href="{% url 'post_list' %}">Create a post</a>
 </div>
 
-
-
 {% endblock %}
-
-{% include "footer.html" %}

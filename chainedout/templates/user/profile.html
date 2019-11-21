@@ -380,6 +380,46 @@
 <!----- MODAL ADD ACHIVEMENT END ----->
 
 <!------------------------------ ACHIEVEMENTS BOX END ---------------------------------->
+
+<!------------------------------ HISTORY START ---------------------------------->
+
+
+<div id="profilebox">
+    <div class="left_box">
+        <h1 class="title">Post History</h1>
+    </div>
+
+    <div class="right_box">
+        <a onclick="post_histo(document.getElementById('posthisto'), this.parentNode.parentNode.getElementsByClassName('elemprofile')[0])"><div class="elemprofile"><i class="fas fa-search-plus"></i> Show</div></a>
+    </div>
+
+    <hr class="title_sep" />
+
+    <div id="info">
+    <div id="posthisto" style="display: none;">
+        {% for post in user.posts.all %}
+            <div class="element">
+                <p><i class="fa fa-envelope"></i> <b>{{ post.title }}</b>
+                    {% if post.status == 'posted' %}
+                        [<i><small>Posted {{ post.published }}</small></i>]
+                    {% endif %}
+                    {% if post.status == 'draft' %}
+                        [<i><small>Draft</small></i>]
+                    {% endif %}
+                </p>
+
+                <p class="msghist">{{ post.body }}</p>
+            </div>
+            <hr class="sepelement"/>
+        {% endfor %}
+    </div>
+    </div>
+
+</div>
+
+
+<!------------------------------ HISTORY END ---------------------------------->
+
 </div>
 
 {% endblock %}
@@ -400,5 +440,3 @@
         );
     });
 {% endblock %}
-
-{% include "../footer.html" %}

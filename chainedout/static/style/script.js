@@ -23,3 +23,14 @@ function modal(id, type) {
 	var modal = document.getElementById(id);
 	modal.style.display = type;
 }
+
+// show post history
+function post_histo(id, btn) {
+	if (id.style.display !== 'none') {
+		id.style.display = 'none';
+		btn.innerHTML = "<i class=\"fas fa-search-plus\"></i> Show</div>";
+	} else {
+		id.style.display = 'block';
+		btn.innerHTML = "<i class=\"fas fa-search-minus\"></i> Hide</div>";
+	}
+}
