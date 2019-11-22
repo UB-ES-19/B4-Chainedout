@@ -108,8 +108,23 @@ def register(request):
 
 @login_required
 def user_list(request):
-    users = User.objects.filter(is_active=True)
-    return render(request, 'user/list.html', {'section': 'people', 'users': users})
+    if 'q' in request.GET:
+        if request.GET.get('q') == '':
+            return HttpResponseRedirect(reverse("index"))
+        print("test")
+        # ToDo: add attribute to profile that merges both first & last names
+        query = request.GET.get('q')
+        profiles_result = Profile.objects.filter(user__first_name__contains=query) | Profile\
+            .objects.filter(user__last_name__contains=query)
+        usernames_result = [profile.user.username for profile in profiles_result]
+        context = {
+            'search': query,
+            'users': User.objects.filter(username__in=usernames_result)
+        }
+        return render(request, 'user/search_list.html', context)
+    else:
+        users = User.objects.filter(is_active=True)
+        return render(request, 'user/list.html', {'section': 'people', 'users': users})
 
 
 @login_required
