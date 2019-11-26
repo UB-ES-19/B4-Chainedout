@@ -12,9 +12,9 @@ from django.views.generic import DeleteView, UpdateView, ListView, CreateView
 from django.template.defaultfilters import slugify
 from django.db.models import Q
 
-from .models import Follow, Profile, Education, Experience, Post
+from .models import Follow, Profile, Education, Experience, Post, Comment
 from .forms import RegisterForm, ModifyProfileForm, ModifyUserForm, ModifyBioForm, ModifySkillsForm, \
-    ModifyAchievementForm, ModifyExperienceForm, ModifyEducationForm, PostCreateForm
+    ModifyAchievementForm, ModifyExperienceForm, ModifyEducationForm, PostCreateForm, CommentCreateForm
 
 
 def index(request):
@@ -151,7 +151,8 @@ class UpdateEducation(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super(UpdateEducation, self).get_context_data(**kwargs)
-        context['form'] = ModifyEducationForm(instance=Education.objects.filter(profile=self.request.user.profile, pk=self.kwargs['pk']).first())
+        context['form'] = ModifyEducationForm(
+            instance=Education.objects.filter(profile=self.request.user.profile, pk=self.kwargs['pk']).first())
         return context
 
     def get_object(self):
@@ -180,7 +181,8 @@ class UpdateExperience(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super(UpdateExperience, self).get_context_data(**kwargs)
-        context['form'] = ModifyExperienceForm(instance=Experience.objects.filter(profile=self.request.user.profile, pk=self.kwargs['pk']).first())
+        context['form'] = ModifyExperienceForm(
+            instance=Experience.objects.filter(profile=self.request.user.profile, pk=self.kwargs['pk']).first())
         return context
 
     def get_object(self):
@@ -253,4 +255,31 @@ class PostCreateView(CreateView):
         context = super(PostCreateView, self).get_context_data(**kwargs)
         context['page'] = page
         context['posts'] = posts
+        return context
+
+
+class CommentCreateView(CreateView):
+    template_name = 'posts/comment_list.html'
+    model = Comment
+    form_class = CommentCreateForm
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.instance.slug = slugify(form.instance.title)
+        return super(CommentCreateView, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        following = self.request.user.following.all()
+        objects = Post.objects.all().filter(Q(status='posted', author__in=following) | Q(author=self.request.user))
+        paginator = Paginator(objects, 5)
+        page = self.request.GET.get('page')
+        try:
+            comments = paginator.page(page)
+        except PageNotAnInteger:
+            comments = paginator.page(1)
+        except EmptyPage:
+            comments = paginator.page(paginator.num_pages)
+        context = super(CommentCreateView, self).get_context_data(**kwargs)
+        context['page'] = page
+        context['comments'] = comments
         return context

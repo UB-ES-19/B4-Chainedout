@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-from .models import Profile, Education, Experience, Post
+from .models import Profile, Education, Experience, Post, Comment
 
 
 class RegisterForm(UserCreationForm):
@@ -69,8 +69,8 @@ class PostCreateForm(forms.ModelForm):
         fields = ['title', 'body', 'image', 'status']
         labels = ['Title', 'Body', 'Image', 'Status']
 
-class CommentPost(forms.ModelForm):
+class CommentCreateForm(forms.ModelForm):
     class Meta:
-        model = Post
-        fields = ['comment',]
-        labels = ['Comment',]
+        model = Comment
+        fields = ['body', 'image',]
+        labels = ['Body', 'Image',]
