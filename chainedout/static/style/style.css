@@ -1201,6 +1201,14 @@ hr.line{
   position: relative;
 }
 
+.bhoverlink {
+  margin-bottom: 5px;
+}
+
+.bhoverlink:hover {
+  cursor: pointer;
+}
+
 .post-like:hover{
   color: #00302f;
 }
@@ -1346,6 +1354,73 @@ textarea#comments{
     width: 100%;
     height: 30px;
     padding: 5px;
+}
+
+.fleft {
+  float: left;
+}
+
+.fright {
+  float: right;
+}
+
+/* DROPDOWN */
+
+#dropdownList {
+  display: inline-block;
+  font-size: 15px;
+  vertical-align: middle;
+  margin-bottom: 2px;
+}
+
+#dropdownList ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: transparent;
+}
+
+#dropdownList li {
+  float: left;
+}
+
+#dropdownList li a, #dropdownList .dropbtn {
+  display: inline-block;
+  color: black;
+  text-align: center;
+  text-decoration: none;
+}
+
+#dropdownList .dropdown:hover .dropbtn {
+  font-weight: bold;
+}
+
+#dropdownList li.dropdown {
+  display: inline-block;
+}
+
+#dropdownList .dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+#dropdownList .dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+#dropdownList .dropdown-content a:hover {background-color: #f1f1f1;}
+
+#dropdownList .dropdown:hover .dropdown-content {
+  display: block;
 }
 
 /* ------------------------------------- SINGLE POST END ----------------------------------------- */
