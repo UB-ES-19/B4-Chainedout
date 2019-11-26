@@ -8,13 +8,13 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.views.decorators.http import require_POST
-from django.views.generic import DeleteView, UpdateView, ListView, CreateView
+from django.views.generic import DeleteView, UpdateView, ListView, CreateView, RedirectView
 from django.template.defaultfilters import slugify
 from django.db.models import Q
 
 from .models import Follow, Profile, Education, Experience, Post
 from .forms import RegisterForm, ModifyProfileForm, ModifyUserForm, ModifyBioForm, ModifySkillsForm, \
-    ModifyAchievementForm, ModifyExperienceForm, ModifyEducationForm, PostCreateForm
+    ModifyAchievementForm, ModifyExperienceForm, ModifyEducationForm, PostCreateForm, ModifyPostForm
 
 
 def index(request):
@@ -254,3 +254,45 @@ class PostCreateView(CreateView):
         context['page'] = page
         context['posts'] = posts
         return context
+
+
+class DeletePost(SuccessMessageMixin, DeleteView):
+    model = Post
+    success_url = '/posts'
+    success_message = "Removed Post"
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        title = self.object.title
+        request.session['title'] = title
+        message = request.session['title'] + ' deleted successfully'
+        messages.success(self.request, message)
+        return super(DeletePost, self).delete(request, *args, **kwargs)
+
+
+class UpdatePost(UpdateView):
+    model = Post
+    form_class = ModifyPostForm
+    template_name = 'posts/update_post.html'
+    success_url = '/posts'
+
+    def get_context_data(self, **kwargs):
+        context = super(UpdatePost, self).get_context_data(**kwargs)
+        context['form'] = ModifyPostForm(
+            instance=Post.objects.filter(author=self.request.user, pk=self.kwargs['pk']).first())
+        return context
+
+    def get_object(self):
+        return Post.objects.filter(author=self.request.user, pk=self.kwargs['pk']).first()
+
+
+class PostLike(RedirectView):
+    def get_redirect_url(self, *args, **kwargs):
+        post = get_object_or_404(Post, slug=self.kwargs.get("slug"), pk=self.kwargs.get("pk"))
+        user = self.request.user
+        if user.is_authenticated and user != post.author:
+            if user in post.likes.all():
+                post.likes.remove(user)
+            else:
+                post.likes.add(user)
+        return '/posts'
