@@ -121,7 +121,7 @@ def user_list(request):
             'search': query,
             'users': User.objects.filter(username__in=usernames_result)
         }
-        return render(request, 'user/search_list.html', context)
+        return render(request, 'user/list.html', context)
     else:
         users = User.objects.filter(is_active=True)
         return render(request, 'user/list.html', {'section': 'people', 'users': users})
