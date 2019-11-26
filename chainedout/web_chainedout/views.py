@@ -142,7 +142,6 @@ def post_info(request, year, month, day, slug, pk):
     post = get_object_or_404(Post, slug=slug, published__year=year, published__month=month, published__day=day, pk=pk)
     return render(request, 'posts/post_info.html', {'post': post})
 
-
 class UpdateEducation(UpdateView):
     model = Education
     form_class = ModifyEducationForm
@@ -231,6 +230,10 @@ class UpdateProfile(UpdateView):
             return self.render_to_response(self.get_context_data())
 
 
+def AddComment(request):
+    return "hola"
+
+
 class PostCreateView(CreateView):
     template_name = 'posts/post_list.html'
     model = Post
@@ -257,29 +260,3 @@ class PostCreateView(CreateView):
         context['posts'] = posts
         return context
 
-
-class CommentCreateView(CreateView):
-    template_name = 'posts/comment_list.html'
-    model = Comment
-    form_class = CommentCreateForm
-
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        form.instance.slug = slugify(form.instance.title)
-        return super(CommentCreateView, self).form_valid(form)
-
-    def get_context_data(self, **kwargs):
-        following = self.request.user.following.all()
-        objects = Post.objects.all().filter(Q(status='posted', author__in=following) | Q(author=self.request.user))
-        paginator = Paginator(objects, 5)
-        page = self.request.GET.get('page')
-        try:
-            comments = paginator.page(page)
-        except PageNotAnInteger:
-            comments = paginator.page(1)
-        except EmptyPage:
-            comments = paginator.page(paginator.num_pages)
-        context = super(CommentCreateView, self).get_context_data(**kwargs)
-        context['page'] = page
-        context['comments'] = comments
-        return context

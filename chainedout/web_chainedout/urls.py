@@ -21,4 +21,5 @@ urlpatterns = [
     path('profile/update-profile/<int:pk>', views.UpdateProfile.as_view(), name='update_profile'),
     path('posts/', views.PostCreateView.as_view(), name='post_list'),
     path('posts/<int:year>/<int:month>/<int:day>/<slug:slug>/<int:pk>/', views.post_info, name='post_info'),
+    path('posts/add-comment/<int:pk>', views.AddComment.as_view(), name='add_comment'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

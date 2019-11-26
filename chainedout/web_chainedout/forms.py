@@ -63,14 +63,16 @@ class ModifyExperienceForm(forms.ModelForm):
         fields = ['work_experience', 'company', 'exp_started', 'exp_finished', 'job']
         labels = ['Work_experience', 'Company', 'Started', 'Finished', 'Job']
 
+
 class PostCreateForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['title', 'body', 'image', 'status']
         labels = ['Title', 'Body', 'Image', 'Status']
 
+
 class CommentCreateForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ['body', 'image',]
-        labels = ['Body', 'Image',]
+        fields = ['text',]
+        labels = ['Text',]
