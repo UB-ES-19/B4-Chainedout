@@ -921,6 +921,11 @@ body, html {
   margin-bottom: 0;
 }
 
+#profile .msghist {
+  font-size: small;
+  margin: 5px;
+}
+
 button.profile_btn_rem {
   background-color: transparent;
   color: #301700;
