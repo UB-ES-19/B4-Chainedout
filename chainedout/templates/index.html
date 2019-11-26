@@ -9,8 +9,7 @@
     {% if not request.user.is_authenticated %}
         <a href="{% url 'register' %} ">
             <div class="landing-parallax-button">
-                <button class="landing-parallaxbtn">Join us</button>
-
+                <button class="landing-parallax-button">Join us</button>
             </div>
         </a>
     {% endif %}
@@ -34,8 +33,10 @@
 	</div>
 
 	<div class="landing-presentation-search-bar">
-		<input type="text" placeholder="Search job titles or companies" name="main-search">
-      	<button type="submit">Search Jobs</button>
+        <form method="GET" action="{%  url 'user_list' %}">
+            <input name="q" type="text" value="{{ request.GET.q }}" placeholder="Search job titles or companies"/>
+            <button type="submit">Search</button>
+        </form>
 	</div>
 </div>
 

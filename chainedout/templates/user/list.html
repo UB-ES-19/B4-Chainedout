@@ -1,6 +1,17 @@
 {% extends "header.html" %}
 
 {% block content %}
+    <div class="search-result-title">
+        <h1>Search results</h1>
+    </div>
+
+    <div class="search-result-search-bar">
+		<form method="GET" action="{%  url 'user_list' %}">
+            <input name="q" type="text" value="{{ request.GET.q }}" placeholder="Search..."/>
+            <button type="submit">Search</button>
+        </form>
+
+	</div>
 
     {% for user in users %}
         <div id="profile">

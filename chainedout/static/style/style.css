@@ -55,6 +55,10 @@ body {
   cursor: pointer;
 }
 
+.inner_main_menu input[type=text]{
+  height: 30px;
+}
+
 #main_menu{
     width:100%;
     min-width: 800px;
@@ -353,7 +357,7 @@ body, html {
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
-.landing-parallaxbtn{
+.landing-parallax-button{
   background-color: transparent;
   border-style: solid;
   border-color: white;
@@ -1343,3 +1347,54 @@ textarea#comments{
     height: 30px;
     padding: 5px;
 }
+
+/* ------------------------------------- SINGLE POST END ----------------------------------------- */
+
+
+/* ------------------------------------- SEARCH RESULTS START -------------------------------------------- */
+
+.search-result-title h1{
+  font-size: 40px;
+  padding-top: 100px;
+  padding-left: 100px;
+}
+
+.search-result-search-bar {
+  width: 40%;
+  margin-left: 100px;
+  margin-top: 40px;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.search-result-search-bar input[type=text] {
+  padding: 6px;
+  font-size: 17px;
+}
+
+.search-result-search-bar button {
+  cursor: pointer;
+  padding-left: 20px;
+  padding-right: 20px;
+  background: #fff;
+  border-width: 2px;
+  border-style: solid;
+  border-color: black;
+  border-radius: 10px;
+  font-size: 17px;
+  height: 40px;
+  margin-left: 20px;
+
+  white-space: nowrap;
+  display: inline;
+  vertical-align: baseline;
+  text-align: center;
+}
+
+.search-result-search-bar button:hover {
+  background: black;
+  color: white;
+}
+
+
+/* ------------------------------------- SEARCH RESULTS END ---------------------------------------- */
