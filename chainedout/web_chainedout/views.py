@@ -140,7 +140,17 @@ def user_follow(request):
 
 def post_info(request, year, month, day, slug, pk):
     post = get_object_or_404(Post, slug=slug, published__year=year, published__month=month, published__day=day, pk=pk)
-    return render(request, 'posts/post_info.html', {'post': post})
+    if request.method == 'POST':
+        form = CommentCreateForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.user = request.user
+            comment.save()
+    else:
+        form = CommentCreateForm()
+    comments = Comment.objects.all().filter(Q(user=request.user) & Q(post=post))
+    return render(request, 'posts/post_info.html', {'post': post, 'comments': comments, 'form': form})
 
 
 class UpdateEducation(UpdateView):
@@ -229,22 +239,6 @@ class UpdateProfile(UpdateView):
             return HttpResponseRedirect(self.get_success_url())
         else:
             return self.render_to_response(self.get_context_data())
-
-
-@login_required
-def AddComment(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    if request.method == 'POST':
-        form = CommentCreateForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.post = post
-            comment.user = request.user
-            comment.save()
-            return redirect('post_info', slug=post.slug)
-    else:
-        form = CommentCreateForm()
-    return render(request, 'posts/post_info.html', {'form': form})
 
 
 class PostCreateView(CreateView):
