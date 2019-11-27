@@ -24,7 +24,7 @@
                     {% csrf_token %}
                             <input id="texto" type="text" name="texto" value="{{ comment.texto }}">
                         <div class="comment_button">
-                            <button id="coment-a-post" type="submit">Post</button>
+                            <button id="coment-a-post" type="submit">Comment</button>
                          </div>
                 </form>
             </div>
@@ -32,9 +32,26 @@
 
         <div id="post-coment" class="single-post-box-show">
             {% for comment in comments %}
-                <div class="post-body">
-                    {{ comment.user.name }}
-                    {{ comment.texto }}
+                <div class="posts-page">
+                    <div class="post-box">
+                        <div class="current-avatar">
+                            {% if comment.user.profile.image %}
+                                <img src="{{ comment.user.profile.image.url }}" width="128" alt="Avatar" class="post-profile_avatar">
+                            {% else %}
+                                <img src="/static/images/img_avatar.png" width="128" alt="Avatar" class="post-profile_avatar">
+                            {% endif %}
+                            <div class="post-user-information">
+                                <div class="post-name" style="font-size: 13px;"><p><b>{{ comment.user.username }}</b></p></div>
+                            </div>
+                        </div>
+                        <div class="post-body">
+                            <h style="font-size: 15px">{{ comment.texto }} </h>
+                        </div>
+                        <hr class="line">
+                        <div class="post-buttons">
+                            <h style="margin-top: 7px; margin-left: 55px; font-size: 10px ">{{ comment.created_date }}</h>
+                        </div>
+                    </div>
                 </div>
             {% endfor %}
         </div>

@@ -149,7 +149,7 @@ def post_info(request, year, month, day, slug, pk):
             comment.save()
     else:
         form = CommentCreateForm()
-    comments = Comment.objects.all().filter(Q(user=request.user) & Q(post=post))
+    comments = request.user.posts.get(pk=pk).comments.all()
     return render(request, 'posts/post_info.html', {'post': post, 'comments': comments, 'form': form})
 
 

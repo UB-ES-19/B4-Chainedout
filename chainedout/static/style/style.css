@@ -1075,6 +1075,15 @@ button:hover.profile_modal_btn{
     width: 50%;
     box-shadow: 2px 2px 5px #aaaaaa;
 }
+
+.comment-box {
+    border: 1px solid #BFBFBF;
+    background-color: #FFFFFF;
+    margin: 20px auto;
+    padding: 20px 20px 10px;
+    width: 50%;
+    box-shadow: 2px 2px 5px #aaaaaa;
+}
 hr.line{
   margin-left: 60px;
   margin-right: 9px;
