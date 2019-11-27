@@ -8,13 +8,14 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.views.decorators.http import require_POST
-from django.views.generic import DeleteView, UpdateView, ListView, CreateView
+from django.views.generic import DeleteView, UpdateView, ListView, CreateView, RedirectView
 from django.template.defaultfilters import slugify
 from django.db.models import Q
 
 from .models import Follow, Profile, Education, Experience, Post, Comment
 from .forms import RegisterForm, ModifyProfileForm, ModifyUserForm, ModifyBioForm, ModifySkillsForm, \
-    ModifyAchievementForm, ModifyExperienceForm, ModifyEducationForm, PostCreateForm, CommentCreateForm
+    ModifyAchievementForm, ModifyExperienceForm, ModifyEducationForm, PostCreateForm, CommentCreateForm, ModifyPostForm
+
 
 
 def index(request):
@@ -108,8 +109,23 @@ def register(request):
 
 @login_required
 def user_list(request):
-    users = User.objects.filter(is_active=True)
-    return render(request, 'user/list.html', {'section': 'people', 'users': users})
+    if 'q' in request.GET:
+        if request.GET.get('q') == '':
+            return HttpResponseRedirect(reverse("index"))
+        print("test")
+        # ToDo: add attribute to profile that merges both first & last names
+        query = request.GET.get('q')
+        profiles_result = Profile.objects.filter(user__first_name__contains=query) | Profile\
+            .objects.filter(user__last_name__contains=query)
+        usernames_result = [profile.user.username for profile in profiles_result]
+        context = {
+            'search': query,
+            'users': User.objects.filter(username__in=usernames_result)
+        }
+        return render(request, 'user/list.html', context)
+    else:
+        users = User.objects.filter(is_active=True)
+        return render(request, 'user/list.html', {'section': 'people', 'users': users})
 
 
 @login_required
@@ -266,3 +282,44 @@ class PostCreateView(CreateView):
         context['page'] = page
         context['posts'] = posts
         return context
+
+class DeletePost(SuccessMessageMixin, DeleteView):
+    model = Post
+    success_url = '/posts'
+    success_message = "Removed Post"
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        title = self.object.title
+        request.session['title'] = title
+        message = request.session['title'] + ' deleted successfully'
+        messages.success(self.request, message)
+        return super(DeletePost, self).delete(request, *args, **kwargs)
+
+
+class UpdatePost(UpdateView):
+    model = Post
+    form_class = ModifyPostForm
+    template_name = 'posts/update_post.html'
+    success_url = '/posts'
+
+    def get_context_data(self, **kwargs):
+        context = super(UpdatePost, self).get_context_data(**kwargs)
+        context['form'] = ModifyPostForm(
+            instance=Post.objects.filter(author=self.request.user, pk=self.kwargs['pk']).first())
+        return context
+
+    def get_object(self):
+        return Post.objects.filter(author=self.request.user, pk=self.kwargs['pk']).first()
+
+
+class PostLike(RedirectView):
+    def get_redirect_url(self, *args, **kwargs):
+        post = get_object_or_404(Post, slug=self.kwargs.get("slug"), pk=self.kwargs.get("pk"))
+        user = self.request.user
+        if user.is_authenticated and user != post.author:
+            if user in post.likes.all():
+                post.likes.remove(user)
+            else:
+                post.likes.add(user)
+        return '/posts'

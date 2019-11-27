@@ -55,6 +55,10 @@ body {
   cursor: pointer;
 }
 
+.inner_main_menu input[type=text]{
+  height: 30px;
+}
+
 #main_menu{
     width:100%;
     min-width: 800px;
@@ -353,7 +357,7 @@ body, html {
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
-.landing-parallaxbtn{
+.landing-parallax-button{
   background-color: transparent;
   border-style: solid;
   border-color: white;
@@ -921,6 +925,11 @@ body, html {
   margin-bottom: 0;
 }
 
+#profile .msghist {
+  font-size: small;
+  margin: 5px;
+}
+
 button.profile_btn_rem {
   background-color: transparent;
   color: #301700;
@@ -1179,6 +1188,36 @@ hr.line{
   position: relative;
 }
 
+.post-buttons .post-delete{
+  background-color: transparent;
+  border: none;
+  font-size: 15px;
+  color: #555555;
+  text-decoration: none;
+
+  text-align: center;
+  position: relative;
+}
+
+.post-buttons .post-edit{
+  background-color: transparent;
+  border: none;
+  font-size: 15px;
+  color: #555555;
+  text-decoration: none;
+
+  text-align: center;
+  position: relative;
+}
+
+.bhoverlink {
+  margin-bottom: 5px;
+}
+
+.bhoverlink:hover {
+  cursor: pointer;
+}
+
 .post-like:hover{
   color: #00302f;
 }
@@ -1338,7 +1377,6 @@ img.post-profile_avatar{
     width: 100%;
     height: 30px;
     padding: 5px;
-
     display: block;
     box-sizing: padding-box;
     overflow: hidden;
@@ -1362,3 +1400,121 @@ button#coment-a-post{
     float: right;
 
 }
+
+.fleft {
+  float: left;
+}
+
+.fright {
+  float: right;
+}
+
+/* DROPDOWN */
+
+#dropdownList {
+  display: inline-block;
+  font-size: 15px;
+  vertical-align: middle;
+  margin-bottom: 2px;
+}
+
+#dropdownList ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: transparent;
+}
+
+#dropdownList li {
+  float: left;
+}
+
+#dropdownList li a, #dropdownList .dropbtn {
+  display: inline-block;
+  color: black;
+  text-align: center;
+  text-decoration: none;
+}
+
+#dropdownList .dropdown:hover .dropbtn {
+  font-weight: bold;
+}
+
+#dropdownList li.dropdown {
+  display: inline-block;
+}
+
+#dropdownList .dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+#dropdownList .dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+#dropdownList .dropdown-content a:hover {background-color: #f1f1f1;}
+
+#dropdownList .dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* ------------------------------------- SINGLE POST END ----------------------------------------- */
+
+
+/* ------------------------------------- SEARCH RESULTS START -------------------------------------------- */
+
+.search-result-title h1{
+  font-size: 40px;
+  padding-top: 100px;
+  padding-left: 100px;
+}
+
+.search-result-search-bar {
+  width: 40%;
+  margin-left: 100px;
+  margin-top: 40px;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.search-result-search-bar input[type=text] {
+  padding: 6px;
+  font-size: 17px;
+}
+
+.search-result-search-bar button {
+  cursor: pointer;
+  padding-left: 20px;
+  padding-right: 20px;
+  background: #fff;
+  border-width: 2px;
+  border-style: solid;
+  border-color: black;
+  border-radius: 10px;
+  font-size: 17px;
+  height: 40px;
+  margin-left: 20px;
+
+  white-space: nowrap;
+  display: inline;
+  vertical-align: baseline;
+  text-align: center;
+}
+
+.search-result-search-bar button:hover {
+  background: black;
+  color: white;
+}
+
+
+/* ------------------------------------- SEARCH RESULTS END ---------------------------------------- */

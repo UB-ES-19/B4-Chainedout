@@ -70,9 +70,14 @@ class PostCreateForm(forms.ModelForm):
         fields = ['title', 'body', 'image', 'status']
         labels = ['Title', 'Body', 'Image', 'Status']
 
-
 class CommentCreateForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['texto',]
         labels = ['Texto',]
+
+class ModifyPostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['title', 'body', 'image', 'status']
+        labels = ['Title', 'Body', 'Image', 'Status']

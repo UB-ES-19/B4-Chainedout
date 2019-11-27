@@ -29,7 +29,7 @@
     {% for post in posts %}
         <div class="posts-page">
             <div class="post-box">
-                <div class="current-avatar">
+                <div class="current-avatar fleft">
                     {% if post.author.profile.image %}
                         <img src="{{ post.author.profile.image.url }}" width="128" alt="Avatar" class="post-profile_avatar">
                     {% else %}
@@ -38,14 +38,42 @@
                     <div class="post-user-information">
                         <div class="post-name"><p>{{ post.author.first_name }} {{ post.author.last_name }}</p></div>
                         <div class="post-followers"><p>{{ post.author.followers.count }} follower{{ post.author.followers.count|pluralize }}</p></div>
+                        <div class="post-followers"><p>{{ post.likes.count }} like{{ post.likes.count|pluralize }}</p></div>
                         {% if post.status == 'posted' %}
-                            <div class="post-date"><p>Posted {{ post.published }}</p></div>
+                            {% if post.updated != post.created %}
+                                <div class="post-date"><p>Updated {{ post.updated }}</p></div>
+                            {% else %}
+                                <div class="post-date"><p>Posted {{ post.created }}</p></div>
+                            {% endif %}
                         {% endif %}
                         {% if post.status == 'draft' %}
                             <div class="post-status"><p>(Draft)</p></div>
                         {% endif %}
                     </div>
                 </div>
+            <div class="post-buttons fright">
+                    {% if post.author == user %}
+                        <form action="{% url 'update_post' year=post.created.year month=post.created.month day=post.created.day slug=post.slug pk=post.pk %}" method="POST">
+                            {% csrf_token %}
+                            <button class="post-edit bhoverlink" type="submit" value="edit"><i class="fas fa-edit"></i> Edit</button>
+                        </form>
+                        <form action="{% url 'delete_post' pk=post.pk %}" method="POST">
+                            {% csrf_token %}
+                            <button class="post-delete bhoverlink" type="submit" value="remove"><i class="fas fa-trash-alt"></i> Delete</button>
+                        </form>
+                    {% else %}
+                        <button class="post-like bhoverlink">
+                            <a href="{% url 'like_post' year=post.created.year month=post.created.month day=post.created.day slug=post.slug pk=post.pk %}" class="post-comment">
+                                {% if post in user.post_likes.all %}
+                                    <i class="fas fa-thumbs-down"></i> Unlike
+                                {% else %}
+                                    <i class="fas fa-thumbs-up"></i> Like
+                                {% endif %}
+                            </a>
+                        </button>
+                    {% endif %}
+            </div>
+            <div style="clear:both;">
 
                 <!-- <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2> -->
 
@@ -59,11 +87,25 @@
 
                 <hr class="line">
                 <div class="post-buttons">
-                    <button class="post-like"><i class="fas fa-thumbs-up"></i> Like</button>
                     <button class="post-comment"><a href="{{ post.get_absolute_url }}" class="post-comment"><i class="fas fa-comments"></i> Comment</a></button>
-                    <button class="post-share"><i class="fas fa-share-alt"></i> Share</button>
+                    <div id="dropdownList">
+                    <ul>
+                        <li class="dropdown"><a href="javascript:void(0)" class="dropbtn"><i class="fas fa-share-alt"></i> Share</a>
+                            <div class="dropdown-content">
+                                <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}{{ post.get_absolute_url }}" class="post-share">
+                                    Facebook
+                                </a>
+                                <a href="https://twitter.com/home?status={{ post.body|urlencode }}{{ request.build_absolute_uri }}{{ post.get_absolute_url }}" class="post-share">
+                                    Twitter
+                                </a>
+                                <a href="http://www.reddit.com/submit?url={{ request.build_absolute_uri }}{{ post.get_absolute_url }}&title={{ post.body|urlencode }}" class="post-share">
+                                    Reddit
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                    </div>
                 </div>
-
             </div>
         </div>
     {% endfor %}

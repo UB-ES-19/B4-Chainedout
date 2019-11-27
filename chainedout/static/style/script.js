@@ -24,7 +24,6 @@ function modal(id, type) {
 	modal.style.display = type;
 }
 
-
 $(document)
     .one('focus.autoExpand', 'textarea.autoExpand', function(){
         var savedValue = this.value;
@@ -38,3 +37,14 @@ $(document)
         rows = Math.ceil((this.scrollHeight - this.baseScrollHeight) / 16);
         this.rows = minRows + rows;
     });
+
+// show post history
+function post_histo(id, btn) {
+	if (id.style.display !== 'none') {
+		id.style.display = 'none';
+		btn.innerHTML = "<i class=\"fas fa-search-plus\"></i> Show</div>";
+	} else {
+		id.style.display = 'block';
+		btn.innerHTML = "<i class=\"fas fa-search-minus\"></i> Hide</div>";
+	}
+}
