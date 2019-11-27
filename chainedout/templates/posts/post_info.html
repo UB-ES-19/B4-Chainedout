@@ -30,6 +30,7 @@
             </div>
         </div>
 
+    {% if comments %}
         <div id="post-coment" class="single-post-box-show">
             {% for comment in comments %}
                 <div class="posts-page">
@@ -55,5 +56,6 @@
                 </div>
             {% endfor %}
         </div>
+    {% endif %}
     </div>
 {% endblock %}

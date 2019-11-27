@@ -165,7 +165,7 @@ def post_info(request, year, month, day, slug, pk):
             comment.save()
     else:
         form = CommentCreateForm()
-    comments = request.user.posts.get(pk=pk).comments.all()
+    comments = get_object_or_404(Post, pk=pk).comments.all()
     return render(request, 'posts/post_info.html', {'post': post, 'comments': comments, 'form': form})
 
 

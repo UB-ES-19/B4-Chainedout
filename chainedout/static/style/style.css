@@ -1329,8 +1329,7 @@ img.post-profile_avatar{
 .single-post-box-show{
     border: 1px solid #BFBFBF;
     background-color: #dbeced42;
-    margin: 19px auto 5px;
-    margin: 19px auto 0px;
+    margin: 19px auto 50px;
     padding: 20px 20px 20px;
     width: 60%;
     box-shadow: 2px 2px 5px #aaaaaa;
@@ -1353,7 +1352,7 @@ img.post-profile_avatar{
     background-color: #dbeced42;
     border: 1px solid #BFBFBF;
     margin: auto;
-    margin-bottom: -5px;
+    margin-bottom: 50px;
     padding: 20px 20px 50px;
     width: 60%;
     box-shadow: 2px 2px 5px #aaaaaa;
