@@ -67,13 +67,6 @@ class Profile(models.Model):
         instance.profile.save()
 
 
-class Comment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    text = models.CharField(max_length=250)
-    created_date = models.DateTimeField(default=timezone.now)
-    updated_date = models.DateTimeField(auto_now=True)
-
-
 class Post(models.Model):
     STATUS = (('draft', 'Draft'), ('posted', 'Posted'))
     title = models.CharField(max_length=500)
@@ -85,7 +78,6 @@ class Post(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=20, choices=STATUS, default='draft')
-    comments = models.ManyToManyField(Comment)
 
     class Meta:
         ordering = ('-published',)
@@ -96,3 +88,10 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse('post_info',
                        args=[self.published.year, self.published.month, self.published.day, self.slug, self.pk])
+
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, default="", related_name='comments')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    texto = models.CharField(max_length=250)
+    created_date = models.DateTimeField(default=timezone.now)

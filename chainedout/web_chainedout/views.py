@@ -142,6 +142,7 @@ def post_info(request, year, month, day, slug, pk):
     post = get_object_or_404(Post, slug=slug, published__year=year, published__month=month, published__day=day, pk=pk)
     return render(request, 'posts/post_info.html', {'post': post})
 
+
 class UpdateEducation(UpdateView):
     model = Education
     form_class = ModifyEducationForm
@@ -230,8 +231,20 @@ class UpdateProfile(UpdateView):
             return self.render_to_response(self.get_context_data())
 
 
+@login_required
 def AddComment(request):
-    return "hola"
+    post = get_object_or_404(Post)
+    if request.method == 'POST':
+        form = CommentCreateForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)   
+            comment.post = post
+            comment.user = request.user
+            comment.save()
+            return redirect('post_info', slug=post.slug)
+    else:
+        form = CommentCreateForm()
+    return render(request, 'posts/post_info.html', {'form': form})
 
 
 class PostCreateView(CreateView):
@@ -259,4 +272,3 @@ class PostCreateView(CreateView):
         context['page'] = page
         context['posts'] = posts
         return context
-

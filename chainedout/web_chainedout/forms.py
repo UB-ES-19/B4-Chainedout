@@ -74,5 +74,5 @@ class PostCreateForm(forms.ModelForm):
 class CommentCreateForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ['text',]
-        labels = ['Text',]
+        fields = ['texto',]
+        labels = ['Texto',]

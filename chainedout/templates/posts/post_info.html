@@ -20,29 +20,23 @@
 
        <div id="post-box-coment" class="single-post-box-coment1">
             <div class="coments_exemple">
-                <textarea class='autoExpand' id="comments" rows='1' data-min-rows='1' placeholder="Add a comment..."></textarea>
-            </div>
-            <div class="comment_button">
-                <button id="coment-a-post" type="submit">Post</button>
+                <form action="{% url 'AddComment' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                            <input id="texto" type="text" name="texto" value="{{ comment.texto }}">
+                        <div class="comment_button">
+                            <button id="coment-a-post" type="submit">Post</button>
+                         </div>
+                </form>
             </div>
         </div>
 
         <div id="post-coment" class="single-post-box-show">
-            <div id="post-box-coment" class="single-post-box-coment">
-                <div class="coments_exemple">
-                    Me ha sido de mucha ayuda
+            {% for comment in comments %}
+                <div class="post-body">
+                    {{ comment.user.name }}
+                    {{ comment.texto }}
                 </div>
-            </div>
-
-            <div id="post-box-coment" class="single-post-box-coment">
-                <div class="coments_exemple">
-                    Lorem ipsum dolor sit amet consectetur adipiscing, elit aliquet fames bibendum ultrices arcu,
-                    elementum quisque praesent sem vehicula. Quam metus massa nulla natoque rutrum fringilla nostra
-                    elementum, blandit platea quisque eu cubilia vivamus duis, quis leo nisi ut nibh sodales nec. Cursus
-                    sed imperdiet cum a, rhoncus tristique arcu augue nam, lacinia primis phasellus. Curabitur cubilia tristique
-                    phasellus auctor condimentum nullam nunc
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}
