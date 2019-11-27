@@ -232,12 +232,12 @@ class UpdateProfile(UpdateView):
 
 
 @login_required
-def AddComment(request):
-    post = get_object_or_404(Post)
+def AddComment(request, pk):
+    post = get_object_or_404(Post, pk=pk)
     if request.method == 'POST':
         form = CommentCreateForm(request.POST)
         if form.is_valid():
-            comment = form.save(commit=False)   
+            comment = form.save(commit=False)
             comment.post = post
             comment.user = request.user
             comment.save()
