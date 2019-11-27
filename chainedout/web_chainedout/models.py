@@ -78,6 +78,7 @@ class Post(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=20, choices=STATUS, default='draft')
+    likes = models.ManyToManyField(User, blank=True, related_name='post_likes')
 
     class Meta:
         ordering = ('-published',)
@@ -86,5 +87,12 @@ class Post(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('post_info', args=[self.published.year, self.published.month, self.published.day, self.slug, self.pk])
+        return reverse('post_info',
+                       args=[self.published.year, self.published.month, self.published.day, self.slug, self.pk])
 
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, default="", related_name='comments')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    texto = models.CharField(max_length=250)
+    created_date = models.DateTimeField(default=timezone.now)
