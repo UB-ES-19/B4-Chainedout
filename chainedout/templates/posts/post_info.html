@@ -18,26 +18,42 @@
             {{ post.body }}
         </div>
 
-        <div id="post-box-coment" class="single-post-box-coment">
+       <div id="post-box-coment" class="single-post-box-coment1">
             <div class="coments_exemple">
-                <textarea id="comments" placeholder="Add a comment..."></textarea>
+                <form action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                            <input id="texto" type="text" name="texto" value="{{ comment.texto }}">
+                        <div class="comment_button">
+                            <button id="coment-a-post" type="submit">Comment</button>
+                         </div>
+                </form>
             </div>
         </div>
 
-        <div id="post-box-coment" class="single-post-box-coment">
-            <div class="coments_exemple">
-                Me ha sido de mucha ayuda
-            </div>
-        </div>
-
-        <div id="post-box-coment" class="single-post-box-coment">
-            <div class="coments_exemple">
-                Lorem ipsum dolor sit amet consectetur adipiscing, elit aliquet fames bibendum ultrices arcu,
-                elementum quisque praesent sem vehicula. Quam metus massa nulla natoque rutrum fringilla nostra
-                elementum, blandit platea quisque eu cubilia vivamus duis, quis leo nisi ut nibh sodales nec. Cursus
-                sed imperdiet cum a, rhoncus tristique arcu augue nam, lacinia primis phasellus. Curabitur cubilia tristique
-                phasellus auctor condimentum nullam nunc
-            </div>
+        <div id="post-coment" class="single-post-box-show">
+            {% for comment in comments %}
+                <div class="posts-page">
+                    <div class="post-box">
+                        <div class="current-avatar">
+                            {% if comment.user.profile.image %}
+                                <img src="{{ comment.user.profile.image.url }}" width="128" alt="Avatar" class="post-profile_avatar">
+                            {% else %}
+                                <img src="/static/images/img_avatar.png" width="128" alt="Avatar" class="post-profile_avatar">
+                            {% endif %}
+                            <div class="post-user-information">
+                                <div class="post-name" style="font-size: 13px;"><p><b>{{ comment.user.username }}</b></p></div>
+                            </div>
+                        </div>
+                        <div class="post-body">
+                            <h style="font-size: 15px">{{ comment.texto }} </h>
+                        </div>
+                        <hr class="line">
+                        <div class="post-buttons">
+                            <h style="margin-top: 7px; margin-left: 55px; font-size: 10px ">{{ comment.created_date }}</h>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

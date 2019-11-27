@@ -880,7 +880,7 @@ body, html {
 .scrollable_modal_container input[type=text], input[type=number], textarea {
   width: 100%;
   padding:15px;
-  margin:5px 0 22px 0;
+  margin:5px 0 20px 0;
   display: inline-block;
   background: #f1f1f1;
   border:2px solid #555;
@@ -1077,6 +1077,15 @@ button:hover.profile_modal_btn{
     min-width: 200px;
 }
 .post-box {
+    border: 1px solid #BFBFBF;
+    background-color: #FFFFFF;
+    margin: 20px auto;
+    padding: 20px 20px 10px;
+    width: 50%;
+    box-shadow: 2px 2px 5px #aaaaaa;
+}
+
+.comment-box {
     border: 1px solid #BFBFBF;
     background-color: #FFFFFF;
     margin: 20px auto;
@@ -1319,10 +1328,11 @@ img.post-profile_avatar{
 
 .single-post-box-show{
     border: 1px solid #BFBFBF;
-    background-color: #FFFFFF;
+    background-color: #dbeced42;
+    margin: 19px auto 5px;
     margin: 19px auto 0px;
     padding: 20px 20px 20px;
-    width: 80%;
+    width: 60%;
     box-shadow: 2px 2px 5px #aaaaaa;
     text-align: justify
 }
@@ -1332,9 +1342,23 @@ img.post-profile_avatar{
 }
 
 .single-post-box-show .post-image-space{
-    width: 100%;
+    width: 60%;
     padding: 10px 10px 10px 10px;
     text-align:justify;
+    margin: auto;
+}
+
+.single-post-box-coment1{
+
+    background-color: #dbeced42;
+    border: 1px solid #BFBFBF;
+    margin: auto;
+    margin-bottom: -5px;
+    padding: 20px 20px 50px;
+    width: 60%;
+    box-shadow: 2px 2px 5px #aaaaaa;
+    text-align: justify;
+    font-size: 10px;
 }
 
 .single-post-box-coment{
@@ -1342,18 +1366,39 @@ img.post-profile_avatar{
     background-color: #FFFFFF;
     margin: auto;
     padding: 20px 20px 20px;
-    width: 80%;
+    width: auto%;
     box-shadow: 2px 2px 5px #aaaaaa;
     text-align: justify;
     font-size: 10px;
 }
 
-textarea#comments{
-    margin: 5px 0 5px 0;
+.textarea .autoExpand{
     border-radius:5px;
     width: 100%;
     height: 30px;
     padding: 5px;
+    display: block;
+    box-sizing: padding-box;
+    overflow: hidden;
+
+    font-size: 14px;
+    margin: 50px auto;
+    box-shadow: 2px 2px 8px rgba(black, .3);
+    border: 0;
+}
+
+
+
+button#coment-a-post{
+
+    background-color: #00302f;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    float: right;
+
 }
 
 .fleft {

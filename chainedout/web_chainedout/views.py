@@ -12,9 +12,10 @@ from django.views.generic import DeleteView, UpdateView, ListView, CreateView, R
 from django.template.defaultfilters import slugify
 from django.db.models import Q
 
-from .models import Follow, Profile, Education, Experience, Post
+from .models import Follow, Profile, Education, Experience, Post, Comment
 from .forms import RegisterForm, ModifyProfileForm, ModifyUserForm, ModifyBioForm, ModifySkillsForm, \
-    ModifyAchievementForm, ModifyExperienceForm, ModifyEducationForm, PostCreateForm, ModifyPostForm
+    ModifyAchievementForm, ModifyExperienceForm, ModifyEducationForm, PostCreateForm, CommentCreateForm, ModifyPostForm
+
 
 
 def index(request):
@@ -155,7 +156,17 @@ def user_follow(request):
 
 def post_info(request, year, month, day, slug, pk):
     post = get_object_or_404(Post, slug=slug, published__year=year, published__month=month, published__day=day, pk=pk)
-    return render(request, 'posts/post_info.html', {'post': post})
+    if request.method == 'POST':
+        form = CommentCreateForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.user = request.user
+            comment.save()
+    else:
+        form = CommentCreateForm()
+    comments = request.user.posts.get(pk=pk).comments.all()
+    return render(request, 'posts/post_info.html', {'post': post, 'comments': comments, 'form': form})
 
 
 class UpdateEducation(UpdateView):
@@ -166,7 +177,8 @@ class UpdateEducation(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super(UpdateEducation, self).get_context_data(**kwargs)
-        context['form'] = ModifyEducationForm(instance=Education.objects.filter(profile=self.request.user.profile, pk=self.kwargs['pk']).first())
+        context['form'] = ModifyEducationForm(
+            instance=Education.objects.filter(profile=self.request.user.profile, pk=self.kwargs['pk']).first())
         return context
 
     def get_object(self):
@@ -195,7 +207,8 @@ class UpdateExperience(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super(UpdateExperience, self).get_context_data(**kwargs)
-        context['form'] = ModifyExperienceForm(instance=Experience.objects.filter(profile=self.request.user.profile, pk=self.kwargs['pk']).first())
+        context['form'] = ModifyExperienceForm(
+            instance=Experience.objects.filter(profile=self.request.user.profile, pk=self.kwargs['pk']).first())
         return context
 
     def get_object(self):
@@ -269,7 +282,6 @@ class PostCreateView(CreateView):
         context['page'] = page
         context['posts'] = posts
         return context
-
 
 class DeletePost(SuccessMessageMixin, DeleteView):
     model = Post
