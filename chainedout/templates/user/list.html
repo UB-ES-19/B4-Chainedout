@@ -14,60 +14,107 @@
 	</div>
 
     {% for user in users %}
-        <div id="profile">
-            <div id="profilebox">
-                <div class="left_profile">
-                    <div class="current">
-                        {% if user.profile.image %}
-                            <div class="current_avatar"><img src="{{ user.profile.image.url }}" width="512" alt="Avatar" class="profile_avatar"></div>
-                        {% else %}
-                            <div class="current_avatar"><img src="/static/images/img_avatar.png" alt="Avatar" class="profile_avatar"></div>
-                        {% endif %}
-                        <div class="current_work_education">
-                            {% if user.profile.educations.first %}
-                                <div class="current_education"><i class="fas fa-university"></i> {{ user.profile.educations.first.entity }} </div>
+        {% if user.profile.organizations == 0 %}
+            <div id="profile">
+                <div id="profilebox">
+                    <div class="left_profile">
+                        <div class="current">
+                            {% if user.profile.image %}
+                                <div class="current_avatar"><img src="{{ user.profile.image.url }}" width="512" alt="Avatar" class="profile_avatar"></div>
+                            {% else %}
+                                <div class="current_avatar"><img src="/static/images/img_avatar.png" alt="Avatar" class="profile_avatar"></div>
                             {% endif %}
-                            {% if user.profile.experiences.first %}
-                                <div class="current_work"><i class="fas fa-briefcase"></i> {{ user.profile.experiences.first.company }} </div>
-                            {% endif %}
+                            <div class="current_work_education">
+                                {% if user.profile.educations.first %}
+                                    <div class="current_education"><i class="fas fa-university"></i> {{ user.profile.educations.first.entity }} </div>
+                                {% endif %}
+                                {% if user.profile.experiences.first %}
+                                    <div class="current_work"><i class="fas fa-briefcase"></i> {{ user.profile.experiences.first.company }} </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div style="clear: both;  margin-bottom: 10px;"></div>
+                        <a href="{{ user.get_absolute_url }}" class="title"><h1>{{ user.get_full_name }}</h1></a>
+                        <h2>{{ user.experience.job }}</h2>
+                        <h3>{{ user.profile.location }}</h3>
+                        <div class="friends">
+                            <a href="{{ user.get_absolute_url }}"><span class="flink">Show Contact Info</span></a> <i class="fas fabsep fa-circle"></i>
+                            <a href="{% url 'user_list' %}"><span class="flink">25 contacts</span></a> <i class="fas fabsep fa-circle"></i>
+                            <a href="{% url 'user_list' %}"><span class="flink">{{ user.followers.count }} follower{{ user.followers.count|pluralize }}</span></a>
                         </div>
                     </div>
+                    <div class="right_profile">
 
-                    <div style="clear: both;  margin-bottom: 10px;"></div>
-                    <a href="{{ user.get_absolute_url }}" class="title"><h1>{{ user.get_full_name }}</h1></a>
-                    <h2>{{ user.experience.job }}</h2>
-                    <h3>{{ user.profile.location }}</h3>
-                    <div class="friends">
-                        <a href="{{ user.get_absolute_url }}"><span class="flink">Show Contact Info</span></a> <i class="fas fabsep fa-circle"></i>
-                        <a href="{% url 'user_list' %}"><span class="flink">25 contacts</span></a> <i class="fas fabsep fa-circle"></i>
-                        <a href="{% url 'user_list' %}"><span class="flink">{{ user.followers.count }} follower{{ user.followers.count|pluralize }}</span></a>
-                    </div>
-                </div>
-                <div class="right_profile">
+                        {% ifequal request.user user %}
+                            <div class="elemprofile"><a href="{% url 'saveprofile' %}"><i class="fas fa-edit"></i> Edit</a></div>
+                        {% endifequal %}
 
-                    {% ifequal request.user user %}
-                        <div class="elemprofile"><a href="{% url 'saveprofile' %}"><i class="fas fa-edit"></i> Edit</a></div>
-                    {% endifequal %}
-
-                    {% ifnotequal request.user user %}
-                        {% if request.user not in user.followers.all %}
-                            <div class="elemprofile"><a href="#" data-id="{{ user.id }}" data-action="follow" class="follow button"><i class="fas fa-eye"></i> Follow</a></div>
-                        {% else %}
-                            <div class="elemprofile"><a href="#" data-id="{{ user.id }}" data-action="unfollow" class="follow button"><i class="fas fa-eye-slash"></i> Unfollow</a></div>
-                        {% endif %}
-                    {% endifnotequal %}
-
-                    <!-- Temporary hidden because not implemented yet-->
-                    {% if False %}
                         {% ifnotequal request.user user %}
-                            <div class="elemprofile"><a href="#"><i class="fas fa-user-plus"></i> Add contact</a></div>
-                            <div class="elemprofile"><a href="#"><i class="fas fa-user-minus"></i> Remove contact</a></div>
+                            {% if request.user not in user.followers.all %}
+                                <div class="elemprofile"><a href="#" data-id="{{ user.id }}" data-action="follow" class="follow button"><i class="fas fa-eye"></i> Follow</a></div>
+                            {% else %}
+                                <div class="elemprofile"><a href="#" data-id="{{ user.id }}" data-action="unfollow" class="follow button"><i class="fas fa-eye-slash"></i> Unfollow</a></div>
+                            {% endif %}
                         {% endifnotequal %}
-                    {% endif %}
+
+                        <!-- Temporary hidden because not implemented yet-->
+                        {% if False %}
+                            {% ifnotequal request.user user %}
+                                <div class="elemprofile"><a href="#"><i class="fas fa-user-plus"></i> Add contact</a></div>
+                                <div class="elemprofile"><a href="#"><i class="fas fa-user-minus"></i> Remove contact</a></div>
+                            {% endifnotequal %}
+                        {% endif %}
+                    </div>
+                    <div style="clear: both"></div>
                 </div>
-                <div style="clear: both"></div>
             </div>
-        </div>
+        {% else %}
+            <div id="profile">
+                <div id="profilebox">
+                    <div class="left_profile">
+                        <div class="current">
+                            {% if user.profile.image %}
+                                <div class="current_avatar"><img src="{{ user.profile.image.url }}" width="512" alt="Avatar" class="profile_avatar"></div>
+                            {% else %}
+                                <div class="current_avatar"><img src="/static/images/img_avatar.png" alt="Avatar" class="profile_avatar"></div>
+                            {% endif %}
+                        </div>
+
+                        <div style="clear: both;  margin-bottom: 10px;"></div>
+                        <a href="{{ user.get_absolute_url }}" class="title"><h1>{{ user.get_full_name }}</h1></a>
+                        <h3>{{ user.profile.location }}</h3>
+                        <div class="friends">
+                            <a href="{{ user.get_absolute_url }}"><span class="flink">Show Contact Info</span></a> <i class="fas fabsep fa-circle"></i>
+                            <a href="{% url 'user_list' %}"><span class="flink">{{ user.followers.count }} follower{{ user.followers.count|pluralize }}</span></a>
+                        </div>
+                    </div>
+                    <div class="right_profile">
+
+                        {% ifequal request.user user %}
+                            <div class="elemprofile"><a href="{% url 'saveprofile' %}"><i class="fas fa-edit"></i> Edit</a></div>
+                        {% endifequal %}
+
+                        {% ifnotequal request.user user %}
+                            {% if request.user not in user.followers.all %}
+                                <div class="elemprofile"><a href="#" data-id="{{ user.id }}" data-action="follow" class="follow button"><i class="fas fa-eye"></i> Follow</a></div>
+                            {% else %}
+                                <div class="elemprofile"><a href="#" data-id="{{ user.id }}" data-action="unfollow" class="follow button"><i class="fas fa-eye-slash"></i> Unfollow</a></div>
+                            {% endif %}
+                        {% endifnotequal %}
+
+                        <!-- Temporary hidden because not implemented yet-->
+                        {% if False %}
+                            {% ifnotequal request.user user %}
+                                <div class="elemprofile"><a href="#"><i class="fas fa-user-plus"></i> Add contact</a></div>
+                                <div class="elemprofile"><a href="#"><i class="fas fa-user-minus"></i> Remove contact</a></div>
+                            {% endifnotequal %}
+                        {% endif %}
+                    </div>
+                    <div style="clear: both"></div>
+                </div>
+            </div>
+        {% endif %}
     {% endfor %}
 
 {% endblock %}

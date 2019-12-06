@@ -128,6 +128,7 @@ def user_list(request):
         return render(request, 'user/list.html', {'section': 'people', 'users': users})
 
 
+
 @login_required
 def user_info(request, username):
     user = get_object_or_404(User, username=username, is_active=True)
