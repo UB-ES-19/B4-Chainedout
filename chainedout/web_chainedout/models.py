@@ -96,3 +96,10 @@ class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     texto = models.CharField(max_length=250)
     created_date = models.DateTimeField(default=timezone.now)
+    
+class Group(models.Model):
+    name = models.CharField(max_length=50)
+    location = models.CharField(max_length=50)
+    description = models.TextField()
+    image = models.ImageField(null=True, blank=True, upload_to='groups/images')
+    members = models.ManyToManyField(User, blank=True, related_name='user_groups')
