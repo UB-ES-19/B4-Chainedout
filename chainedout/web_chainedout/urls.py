@@ -23,10 +23,10 @@ urlpatterns = [
     path('posts/', views.PostCreateView.as_view(), name='post_list'),
     path('posts/<int:year>/<int:month>/<int:day>/<slug:slug>/<int:pk>/', views.post_info, name='post_info'),
     path('posts/<int:year>/<int:month>/<int:day>/<slug:slug>/<int:pk>/like/', views.PostLike.as_view(), name='like_post'),
-    path('posts/delete-post//<int:pk>', views.DeletePost.as_view(), name='delete_post'),
+    path('posts/delete-post/<int:pk>', views.DeletePost.as_view(), name='delete_post'),
     path('posts/update-post/<int:year>/<int:month>/<int:day>/<slug:slug>/<int:pk>/', views.UpdatePost.as_view(), name='update_post'),
     path('summernote/', include('django_summernote.urls')),
-    path('group-profile/', views.group_profile, name='group-profile'),
+    path('group-profile/<int:pk>', views.group_profile, name='group-profile'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:

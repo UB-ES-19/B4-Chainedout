@@ -1,7 +1,5 @@
 {% extends "header.html" %}
 
 {% block content %}
-    {{ user.user_groups.all.0.name }}
-    {{ user.user_groups.all.0.location }}
-    {{ user.user_groups.all.0.description }}
+    {{ group.name }}
 {% endblock %}
