@@ -42,8 +42,8 @@
     <div class="friends">
             <a href="{{ user.get_absolute_url }}"><span class="flink">Show Contact Info</span></a> <i class="fas fabsep fa-circle"></i>
             <a href="{% url 'user_list' %}"><span class="flink">25 contacts</span></a><i class="fas fabsep fa-circle"></i>
-            <a href="{% url 'user_list' %}"><span class="flink">{{ user.followers.count }} follower{{ user.followers.count|pluralize }}</span></a>
-
+            <a href="{% url 'user_list' %}"><span class="flink">{{ user.followers.count }} follower{{ user.followers.count|pluralize }}</span></a><i class="fas fabsep fa-circle"></i>
+            <a href="{%  url 'groups' %}"><span class="flink"> My groups</span></a>
             {% if not request.user.is_authenticated %}
                 <a href="{% url 'register' %}"><span class="flink">Register</span></a>
             {% endif %}

@@ -1,0 +1,34 @@
+{% extends "header.html" %}
+
+{% block content %}
+
+    {% for group in user.user_groups.all %}
+        <div id="profile">
+            <div id="profilebox">
+                <div class="left_profile">
+                    <div class="current">
+                        {% if group.image %}
+                            <div class="current_avatar"><img src="{{ group.image.url }}" width="512" alt="Avatar" class="profile_avatar"></div>
+                        {% else %}
+                            <div class="current_avatar"><img src="/static/images/img_avatar.png" alt="Avatar" class="profile_avatar"></div>
+                        {% endif %}
+                    </div>
+
+                    <div style="clear: both;  margin-bottom: 10px;"></div>
+                    <a href="{{ user.get_absolute_url }}" class="title"><h1>{{ group.name }}</h1></a>
+                    <h2>{{ group.location }}</h2>
+                    <h3>{{ group.description }}</h3>
+
+                    <div class="friends">
+                        <a href="{% url 'user_list' %}"><span class="flink">{{ group.members.count }} member{{ group.members.count|pluralize }}</span></a>
+                    </div>
+                </div>
+
+                <div style="clear: both"></div>
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock %}
+
+{% include "../footer.html" %}
