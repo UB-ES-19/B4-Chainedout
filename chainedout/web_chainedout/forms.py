@@ -1,8 +1,9 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django_summernote.widgets import SummernoteWidget
 
-from .models import Profile, Education, Experience, Post, Comment
+from .models import Profile, Education, Experience, Post, Comment, Group
 
 
 class RegisterForm(UserCreationForm):
@@ -69,6 +70,9 @@ class PostCreateForm(forms.ModelForm):
         model = Post
         fields = ['title', 'body', 'image', 'status']
         labels = ['Title', 'Body', 'Image', 'Status']
+        widgets = {
+            'body': SummernoteWidget(),
+        }
 
 class CommentCreateForm(forms.ModelForm):
     class Meta:
@@ -81,3 +85,12 @@ class ModifyPostForm(forms.ModelForm):
         model = Post
         fields = ['title', 'body', 'image', 'status']
         labels = ['Title', 'Body', 'Image', 'Status']
+
+class GroupCreateForm(forms.ModelForm):
+    class Meta:
+        model = Group
+        fields = ['name', 'location', 'description', 'image']
+        labels = ['Name', 'Location', 'Description', 'Image']
+        widgets = {
+            'description': SummernoteWidget(),
+        }
