@@ -14,8 +14,8 @@ from django.db.models import Q
 
 from .models import Follow, Profile, Education, Experience, Post, Comment
 from .forms import RegisterForm, ModifyProfileForm, ModifyUserForm, ModifyBioForm, ModifySkillsForm, \
-    ModifyAchievementForm, ModifyExperienceForm, ModifyEducationForm, PostCreateForm, CommentCreateForm, ModifyPostForm
-
+    ModifyAchievementForm, ModifyExperienceForm, ModifyEducationForm, PostCreateForm, CommentCreateForm, ModifyPostForm, \
+    GroupCreateForm
 
 
 def index(request):
@@ -105,6 +105,21 @@ def register(request):
     else:
         form = RegisterForm()
     return render(request, 'registration/register.html', {'form': form})
+
+
+def register_group(request):
+    if request.method == 'POST':
+        form = GroupCreateForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse("index"))
+    else:
+        form = GroupCreateForm()
+    return render(request, 'registration/register-group.html', {'form': form})
+
+
+def group_profile(request):
+    return render(request, 'groups/group_profile.html')
 
 
 @login_required
