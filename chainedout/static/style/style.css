@@ -358,7 +358,7 @@ body, html {
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
-.landing-parallax-button{
+.landing-parallax-button button{
   background-color: transparent;
   border-style: solid;
   border-color: white;
@@ -378,7 +378,7 @@ body, html {
   top: 65%;
 }
 
-.landing-parallaxbtn:hover{
+.landing-parallax-button button:hover{
   color: black;
   background-color: white;
 }
@@ -1388,7 +1388,6 @@ img.post-profile_avatar{
 
 
 button#coment-a-post{
-
     background-color: #00302f;
     color: white;
     padding: 10px 20px;
@@ -1396,7 +1395,6 @@ button#coment-a-post{
     border: 1px solid #ccc;
     border-radius: 5px;
     float: right;
-
 }
 
 .fleft {
