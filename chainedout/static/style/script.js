@@ -48,3 +48,6 @@ function post_histo(id, btn) {
 		btn.innerHTML = "<i class=\"fas fa-search-minus\"></i> Hide</div>";
 	}
 }
+
+// CAROUSEL
+
