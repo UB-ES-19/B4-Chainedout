@@ -14,7 +14,8 @@ from django.db.models import Q
 
 from .models import Follow, Profile, Education, Experience, Post, Comment
 from .forms import RegisterForm, ModifyProfileForm, ModifyUserForm, ModifyBioForm, ModifySkillsForm, \
-    ModifyAchievementForm, ModifyExperienceForm, ModifyEducationForm, PostCreateForm, CommentCreateForm, ModifyPostForm
+    ModifyAchievementForm, ModifyExperienceForm, ModifyEducationForm, PostCreateForm, CommentCreateForm, ModifyPostForm,\
+    RequestOrganization
 
 
 
@@ -92,6 +93,17 @@ def save_profile(request):
     return render(request, "user/profile.html", context)
 
 
+def request_organization(request):
+    if request.method == 'POST':
+        organization_form = RequestOrganization(request.POST, instance=request.user.profile)
+        if organization_form.is_valid():
+            organization_form.save()
+            return HttpResponseRedirect(reverse("index"))
+    else:
+        organization_form = RequestOrganization(instance=request.user.profile)
+    return render(request, "registration/request.html", {'organization_form' : organization_form})
+
+
 def register(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
@@ -101,7 +113,7 @@ def register(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            return HttpResponseRedirect(reverse("index"))
+            return HttpResponseRedirect(reverse("organization_info"))
     else:
         form = RegisterForm()
     return render(request, 'registration/register.html', {'form': form})

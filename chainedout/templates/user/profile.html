@@ -19,6 +19,8 @@
                 {% if user.profile.experiences.first %}
                     <div class="current_work"><i class="fas fa-briefcase"></i> {{ user.profile.experiences.first.company }}</div>
                 {% endif %}
+            {% else %}
+                <div class="current_education"><i class="fas fa-university"></i> {{ user.profile.organization }}</div>
             {% endif %}
             </div>
         </div>

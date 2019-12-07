@@ -1,0 +1,10 @@
+{% extends "header.html" %}
+
+{% block content %}
+    <form action="" method="post">
+        {% csrf_token %}
+        <label for="organization">You're an organization? (S/N):</label>
+        <input type="text" name="organization" value="" id="organization">
+        <input type="submit" value="Next" class="registerbtn" />
+    </form>
+{% endblock %}

@@ -9,14 +9,13 @@ class RegisterForm(UserCreationForm):
     first_name = forms.CharField(max_length=30, required=True, help_text='Required.')
     last_name = forms.CharField(max_length=30, required=True, help_text='Required.')
     email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
-    organization = forms.IntegerField(required=True, help_text='Required')
 
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2','organization')
+        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2',)
 
 
-class ModifyProfileForm(forms.ModelForm):
+class ModifyProfileForm(forms.ModelForm):   
     class Meta:
         model = Profile
         fields = ['phone', 'website', 'location', 'image', ]
@@ -71,11 +70,20 @@ class PostCreateForm(forms.ModelForm):
         fields = ['title', 'body', 'image', 'status']
         labels = ['Title', 'Body', 'Image', 'Status']
 
+
+class RequestOrganization(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['organization']
+        labels = ['Organization']
+
+
 class CommentCreateForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['texto',]
         labels = ['Texto',]
+
 
 class ModifyPostForm(forms.ModelForm):
     class Meta:
