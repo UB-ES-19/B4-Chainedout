@@ -1137,16 +1137,6 @@ hr.line{
   font-size: 13px;
 }
 
-.post-image-space{
-  width: 100%;
-  padding: 10px 10px 10px 60px;
-}
-
-.post-image{
-  position: relative;
-  width: 100%;
-  z-index: 0;
-}
 .post-buttons{
   margin-bottom: 0px;
   padding: 5px 5px 0px;
@@ -1343,7 +1333,7 @@ img.post-profile_avatar{
     text-align:center;
 }
 
-.single-post-box-show .post-image-space{
+.single-post-box-show {
     width: 60%;
     padding: 10px 10px 10px 10px;
     text-align:justify;
@@ -1516,3 +1506,121 @@ button#coment-a-post{
 
 
 /* ------------------------------------- SEARCH RESULTS END ---------------------------------------- */
+
+
+/* ------------------------------------- CAROUSEL START ---------------------------------------- */
+
+.mySlides_carousel {display: none}
+
+/* Slideshow container */
+.slideshow-container_carousel {
+  max-width: 600px;
+  position: relative;
+  margin: auto;
+}
+
+/* Next & previous buttons */
+.prev_carousel, .next_carousel {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next_carousel {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev_carousel:hover, .next_carousel:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+/* Caption text */
+.text_carousel {
+  color: #fff;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+text-shadow:
+    -1px -1px 0 #000,
+     0   -1px 0 #000,
+     1px -1px 0 #000,
+     1px  0   0 #000,
+     1px  1px 0 #000,
+     0    1px 0 #000,
+    -1px  1px 0 #000,
+    -1px  0   0 #000;
+}
+
+/* Number text (1/3 etc) */
+.numbertext_carousel {
+  color: #fff;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+text-shadow:
+    -1px -1px 0 #000,
+     0   -1px 0 #000,
+     1px -1px 0 #000,
+     1px  0   0 #000,
+     1px  1px 0 #000,
+     0    1px 0 #000,
+    -1px  1px 0 #000,
+    -1px  0   0 #000;
+}
+
+/* The dots/bullets/indicators */
+.dot_carousel {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active_carousel, .dot_carousel:hover {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+  .prev_carousel, .next_carousel,.text_carousel {font-size: 11px}
+}
+
+/* ------------------------------------- CAROUSEL END ---------------------------------------- */
