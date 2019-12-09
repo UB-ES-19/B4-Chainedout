@@ -12,7 +12,7 @@
                 <div class="current_avatar"><img src="/static/images/img_avatar.png" alt="Avatar" class="profile_avatar"></div>
             {% endif %}
             <div class="current_work_education">
-            {% if user.profile.organizations == 0 %}
+            {% if user.profile.organizations == "No" %}
                 {% if user.profile.educations.first %}
                     <div class="current_education"><i class="fas fa-university"></i> {{ user.profile.educations.first.entity }}</div>
                 {% endif %}

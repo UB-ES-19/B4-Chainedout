@@ -41,7 +41,7 @@ class Experience(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    organization = models.IntegerField(default=1)
+    organization = models.TextField(default="No",max_length=10)
     profession = models.TextField(max_length=500)
     bio = models.TextField(max_length=500)
     location = models.CharField(max_length=200)
