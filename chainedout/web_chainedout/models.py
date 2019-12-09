@@ -96,7 +96,8 @@ class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     texto = models.CharField(max_length=250)
     created_date = models.DateTimeField(default=timezone.now)
-    
+
+
 class Group(models.Model):
     name = models.CharField(max_length=50)
     location = models.CharField(max_length=50)

@@ -15,7 +15,7 @@ from django.db.models import Q
 from .models import Follow, Profile, Education, Experience, Post, Comment, Group
 from .forms import RegisterForm, ModifyProfileForm, ModifyUserForm, ModifyBioForm, ModifySkillsForm, \
     ModifyAchievementForm, ModifyExperienceForm, ModifyEducationForm, PostCreateForm, CommentCreateForm, ModifyPostForm, \
-    GroupCreateForm
+    GroupCreateForm, ModifyGroupForm
 
 
 def index(request):
@@ -150,6 +150,13 @@ def user_list(request):
     else:
         users = User.objects.filter(is_active=True)
         return render(request, 'user/list.html', {'section': 'people', 'users': users})
+
+
+@login_required
+def user_list(request, group):
+    group = get_object_or_404(Group, pk=group)
+    users = group.members.all()
+    return render(request, 'user/list.html', {'section': 'people', 'users': users})
 
 
 @login_required
@@ -347,3 +354,18 @@ class PostLike(RedirectView):
             else:
                 post.likes.add(user)
         return '/posts'
+
+
+class UpdateGroup(UpdateView):
+    model = Group
+    form_class = ModifyGroupForm
+    template_name = 'groups/update_group.html'
+    success_url = '/groups'
+
+    def get_context_data(self, **kwargs):
+        context = super(UpdateGroup, self).get_context_data(**kwargs)
+        context['form'] = ModifyGroupForm(instance=get_object_or_404(Group, pk=self.kwargs.get("pk")))
+        return context
+
+    def get_object(self):
+        return get_object_or_404(Group, pk=self.kwargs.get("pk"))

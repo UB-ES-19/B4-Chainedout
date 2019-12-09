@@ -14,6 +14,7 @@ urlpatterns = [
     path('profile/', views.save_profile, name='saveprofile'),
     path('users/follow/', views.user_follow, name='user_follow'),
     path('users/', views.user_list, name='user_list'),
+    path('users/<group>', views.user_list, name='user_list'),
     path('users/<username>/', views.user_info, name="user_info"),
     path('profile/delete-education/<int:pk>', views.DeleteEducation.as_view(), name='delete_education'),
     path('profile/update-education/<int:pk>', views.UpdateEducation.as_view(), name='update_education'),
@@ -28,6 +29,7 @@ urlpatterns = [
     path('summernote/', include('django_summernote.urls')),
     path('group-profile/<int:pk>', views.group_profile, name='group-profile'),
     path('groups/', views.groups, name='groups'),
+    path('groups/update-group/<int:pk>', views.UpdateGroup.as_view(), name='update_group'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
