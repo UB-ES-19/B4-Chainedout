@@ -31,7 +31,7 @@
         <div class="right_profile">
             {% ifequal request.user user %}
                 <div class="edit_edubox">
-                    <form action="{% url 'update_profile' pk=user.profile.pk %}" method="POST">
+                    <form action="{% url 'update_group' pk=group.pk %}" method="POST">
                         {% csrf_token %}
                         <button class="profile_btn_edit" type="submit" value="edit"><i class="fas fa-edit"></i> Edit</button>
                     </form>

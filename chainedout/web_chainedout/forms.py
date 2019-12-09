@@ -74,19 +74,38 @@ class PostCreateForm(forms.ModelForm):
             'body': SummernoteWidget(),
         }
 
+
 class CommentCreateForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['texto',]
         labels = ['Texto',]
+        widgets = {
+            'texto': SummernoteWidget(),
+        }
+
 
 class ModifyPostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['title', 'body', 'image', 'status']
         labels = ['Title', 'Body', 'Image', 'Status']
+        widgets = {
+            'body': SummernoteWidget(),
+        }
+
 
 class GroupCreateForm(forms.ModelForm):
+    class Meta:
+        model = Group
+        fields = ['name', 'location', 'description', 'image']
+        labels = ['Name', 'Location', 'Description', 'Image']
+        widgets = {
+            'description': SummernoteWidget(),
+        }
+
+
+class ModifyGroupForm(forms.ModelForm):
     class Meta:
         model = Group
         fields = ['name', 'location', 'description', 'image']
