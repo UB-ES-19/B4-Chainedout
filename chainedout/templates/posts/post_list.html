@@ -78,7 +78,7 @@
                 <!-- <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2> -->
 
                 <div class="post-body">
-                    {{ post.body }}
+                    {{ post.body|safe }}
                 </div>
 
                 {% if post.image %}

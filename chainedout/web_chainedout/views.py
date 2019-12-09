@@ -122,7 +122,7 @@ def group_profile(request):
     return render(request, 'groups/group_profile.html')
 
 def groups(request):
-    return render(request, 'groups/group_profile.html')
+    return render(request, 'groups/groups.html')
 
 @login_required
 def user_list(request):
