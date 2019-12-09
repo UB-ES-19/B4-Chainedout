@@ -27,6 +27,7 @@ urlpatterns = [
     path('posts/update-post/<int:year>/<int:month>/<int:day>/<slug:slug>/<int:pk>/', views.UpdatePost.as_view(), name='update_post'),
     path('summernote/', include('django_summernote.urls')),
     path('group-profile/<int:pk>', views.group_profile, name='group-profile'),
+    path('groups/', views.groups, name='groups'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:

@@ -128,6 +128,8 @@ def group_profile(request, pk):
     group = get_object_or_404(Group, pk=pk)
     return render(request, 'groups/group_profile.html', {'group': group})
 
+def groups(request):
+    return render(request, 'groups/groups.html')
 
 @login_required
 def user_list(request):

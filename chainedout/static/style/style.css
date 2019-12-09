@@ -1084,6 +1084,14 @@ button:hover.profile_modal_btn{
     width: 50%;
     box-shadow: 2px 2px 5px #aaaaaa;
 }
+.post-box-p{
+  border: 1px solid #BFBFBF;
+    background-color: #FFFFFF;
+    margin: 20px auto;
+    padding: 20px 20px 10px;
+    width: 95%;
+    box-shadow: 2px 2px 5px #aaaaaa;
+}
 
 .comment-box {
     border: 1px solid #BFBFBF;
@@ -1365,7 +1373,7 @@ img.post-profile_avatar{
     background-color: #FFFFFF;
     margin: auto;
     padding: 20px 20px 20px;
-    width: auto%;
+    width: auto;
     box-shadow: 2px 2px 5px #aaaaaa;
     text-align: justify;
     font-size: 10px;
@@ -1377,12 +1385,10 @@ img.post-profile_avatar{
     height: 30px;
     padding: 5px;
     display: block;
-    box-sizing: padding-box;
     overflow: hidden;
 
     font-size: 14px;
     margin: 50px auto;
-    box-shadow: 2px 2px 8px rgba(black, .3);
     border: 0;
 }
 
