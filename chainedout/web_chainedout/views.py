@@ -12,7 +12,7 @@ from django.views.generic import DeleteView, UpdateView, ListView, CreateView, R
 from django.template.defaultfilters import slugify
 from django.db.models import Q
 
-from .models import Follow, Profile, Education, Experience, Post, Comment
+from .models import Follow, Profile, Education, Experience, Post, Comment, Group
 from .forms import RegisterForm, ModifyProfileForm, ModifyUserForm, ModifyBioForm, ModifySkillsForm, \
     ModifyAchievementForm, ModifyExperienceForm, ModifyEducationForm, PostCreateForm, CommentCreateForm, ModifyPostForm, \
     GroupCreateForm
@@ -111,15 +111,22 @@ def register_group(request):
     if request.method == 'POST':
         form = GroupCreateForm(request.POST)
         if form.is_valid():
-            form.save()
+            group = Group.objects.create(
+                name=form.cleaned_data['name'],
+                location=form.cleaned_data['location'],
+                description=form.cleaned_data['description'],
+                image=form.cleaned_data['image']
+            )
+            group.members.add(request.user)
             return HttpResponseRedirect(reverse("index"))
     else:
         form = GroupCreateForm()
     return render(request, 'registration/register-group.html', {'form': form})
 
 
-def group_profile(request):
-    return render(request, 'groups/group_profile.html')
+def group_profile(request, pk):
+    group = get_object_or_404(Group, pk=pk)
+    return render(request, 'groups/group_profile.html', {'group': group})
 
 def groups(request):
     return render(request, 'groups/groups.html')
