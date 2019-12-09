@@ -525,7 +525,7 @@ body, html {
 
   position: absolute;
   margin-left: 600px;
-  margin-top: 150px;
+  margin-top: 130px;
 }
 
 .landing-post-job-button:hover{
@@ -533,6 +533,53 @@ body, html {
   color: #f1ece5;
 }
 
+.landing-create-group{
+  height: 300px;
+  background-color: #f1ece5;
+  min-width: 800px;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.landing-create-group h1{
+  color: #b24020;
+  font-weight: 200;
+  margin-left: 1200px;
+  margin-top: 130px;
+
+  letter-spacing: 0;
+  line-height: 1em;
+  text-transform: none;
+  display: block;
+
+  position: absolute;
+}
+
+.landing-create-group-button{
+  background-color: transparent;
+  border-style: solid;
+  border-color: #b24020;
+  border-width: 2px;
+  transition: 0.1s background-color linear, 0.1s color linear;
+  width: 12%;
+  height: 6%;
+
+  font-size: 20px;
+  color: #b24020;
+  text-align: center;
+  padding: 12px;
+
+  position: absolute;
+  margin-left: 800px;
+  margin-top: 130px;
+}
+
+.landing-create-group-button:hover{
+  background-color: #b24020;
+  color: #f1ece5;
+}
 
 /* --------------------------------- LANDING PAGE END ------------------------------------- */
 
@@ -1476,6 +1523,12 @@ button#coment-a-post{
 /* ------------------------------------- SEARCH RESULTS START -------------------------------------------- */
 
 .search-result-title h1{
+  font-size: 40px;
+  padding-top: 100px;
+  padding-left: 100px;
+}
+
+.my-groups h1{
   font-size: 40px;
   padding-top: 100px;
   padding-left: 100px;
