@@ -15,9 +15,9 @@
                     </div>
 
                     <div style="clear: both;  margin-bottom: 10px;"></div>
-                    <a href="{{ user.get_absolute_url }}" class="title"><h1>{{ group.name }}</h1></a>
+                    <a href="{{ group.get_absolute_url }}" class="title"><h1>{{ group.name }}</h1></a>
                     <h2>{{ group.location }}</h2>
-                    <h3>{{ group.description }}</h3>
+                    <h3>{{ group.description|safe }}</h3>
 
                     <div class="friends">
                         <a href="{% url 'user_list' %}"><span class="flink">{{ group.members.count }} member{{ group.members.count|pluralize }}</span></a>

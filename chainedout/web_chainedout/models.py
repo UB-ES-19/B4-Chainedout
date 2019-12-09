@@ -103,3 +103,7 @@ class Group(models.Model):
     description = models.TextField()
     image = models.ImageField(null=True, blank=True, upload_to='groups/images')
     members = models.ManyToManyField(User, blank=True, related_name='user_groups')
+
+    def get_absolute_url(self):
+        return reverse('group-profile',
+                       args=[self.pk])
