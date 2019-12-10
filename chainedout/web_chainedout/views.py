@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.forms import modelformset_factory
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
@@ -12,11 +13,11 @@ from django.views.generic import DeleteView, UpdateView, ListView, CreateView, R
 from django.template.defaultfilters import slugify
 from django.db.models import Q
 
-from .models import Follow, Profile, Education, Experience, Post, Comment, Group, GroupPost, GroupInvite
+from .models import Follow, Profile, Education, Experience, Post, Comment, Group, GroupPost, GroupInvite, PostImage
 from .forms import RegisterForm, ModifyProfileForm, ModifyUserForm, ModifyBioForm, ModifySkillsForm, \
     ModifyAchievementForm, ModifyExperienceForm, ModifyEducationForm, PostCreateForm, CommentCreateForm, ModifyPostForm, \
     GroupCreateForm, ModifyGroupForm, GroupPostCreateForm, ModifyGroupPostForm, GroupCommentCreateForm, \
-    GroupInviteCreateForm
+    GroupInviteCreateForm, ImageForm, ImageFormSet
 
 
 def index(request):
@@ -348,10 +349,20 @@ class PostCreateView(CreateView):
     model = Post
     form_class = PostCreateForm
 
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        form.instance.slug = slugify(form.instance.title)
-        return super(PostCreateView, self).form_valid(form)
+    def post(self, request, *args, **kwargs):
+        formset = ImageFormSet(request.POST, request.FILES, queryset=PostImage.objects.none())
+        post_form = PostCreateForm(request.POST)
+        if post_form.is_valid() and formset.is_valid():
+            post_form = post_form.save(commit=False)
+            post_form.author = self.request.user
+            post_form.slug = slugify(post_form.title)
+            post_form.save()
+            for form in formset.cleaned_data:
+                if form:
+                    image = form['image']
+                    post_image = PostImage(post=post_form, image=image)
+                    post_image.save()
+        return redirect('post_list')
 
     def get_context_data(self, **kwargs):
         following = self.request.user.following.all()
@@ -367,6 +378,7 @@ class PostCreateView(CreateView):
         context = super(PostCreateView, self).get_context_data(**kwargs)
         context['page'] = page
         context['posts'] = posts
+        context['formset'] = ImageFormSet(queryset=PostImage.objects.none())
         return context
 
 
