@@ -13,7 +13,7 @@
                 <div class="post-image-space"><img src="{{ group_post.image.url }}" width="256" alt="Avatar" class="post-image"></div>
             {% endif %}
 
-            {{ group_post.body }}
+            {{ group_post.body|safe }}
         </div>
 
        <div id="post-box-coment" class="single-post-box-coment1">
@@ -47,7 +47,7 @@
                             </div>
                         </div>
                         <div class="post-body">
-                            <h style="font-size: 15px">{{ comment.body }} </h>
+                            <h style="font-size: 15px">{{ comment.body|safe }} </h>
                         </div>
                         <hr class="line">
                         <div class="post-buttons">

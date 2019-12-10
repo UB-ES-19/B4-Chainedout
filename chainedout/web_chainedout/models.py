@@ -122,7 +122,7 @@ class GroupPost(models.Model):
         ordering = ('-published',)
 
     def get_absolute_url(self):
-        return reverse('post_info', args=[self.pk])
+        return reverse('group_post_info', args=[self.group.pk, self.pk])
 
 
 class GroupComment(models.Model):

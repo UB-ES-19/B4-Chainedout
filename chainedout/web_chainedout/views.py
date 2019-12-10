@@ -130,7 +130,7 @@ def group_profile(request, pk):
     group = get_object_or_404(Group, pk=pk)
 
     if request.method == 'POST':
-        group_post_form = GroupPostCreateForm(request.POST, prefix='post')
+        group_post_form = GroupPostCreateForm(request.POST)
         if group_post_form.is_valid():
             group_post = GroupPost.objects.create(
                 author=request.user,
@@ -139,18 +139,9 @@ def group_profile(request, pk):
                 image=group_post_form.cleaned_data['image']
             )
     else:
-        group_post_form = GroupPostCreateForm(prefix='post')
+        group_post_form = GroupPostCreateForm()
 
-    if request.method == 'POST' and not group_post_form.is_valid():
-        comment_form = GroupCommentCreateForm(request.POST, prefix='comment')
-        group_post_form = GroupPostCreateForm(prefix='post')
-        if comment_form.is_valid():
-            comment_form.save()
-
-    else:
-        comment_form = GroupCommentCreateForm(prefix='comment')
-    return render(request, 'groups/group_profile.html', {'group': group, 'group_post_form': group_post_form,
-                                                         'comment_form': comment_form})
+    return render(request, 'groups/group_profile.html', {'group': group, 'group_post_form': group_post_form})
 
 
 @login_required
@@ -234,7 +225,10 @@ def group_post_info(request, group_pk, post_pk):
     if request.method == 'POST' :
         form = GroupCommentCreateForm(request.POST)
         if form.is_valid():
-            form.save()
+            comment = form.save(commit=False)
+            comment.post = group_post
+            comment.author = request.user
+            comment.save()
     else:
         form = GroupCommentCreateForm()
     comments = get_object_or_404(GroupPost, pk=post_pk).comments.all()
