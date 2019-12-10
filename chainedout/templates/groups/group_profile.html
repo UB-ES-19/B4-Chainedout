@@ -37,13 +37,12 @@
                         </form>
                     </div>
                 {% endifequal %}
-								
-								<div class="invite">
-									<form action="{% url 'group_invite' group_pk=group.pk %}" method="POST">
-											{% csrf_token %}
-											<button class="profile_btn_edit" type="submit" value="edit"><i class="fas fa-edit"></i> Invite</button>
-									</form>
-								</div>
+                <div class="invite">
+                    <form action="{% url 'group_invite' group_pk=group.pk %}" method="POST">
+                        {% csrf_token %}
+                        <button class="profile_btn_edit" type="submit" value="edit"><i class="fas fa-edit"></i> Invite</button>
+                    </form>
+                </div>
             </div>
 
             <div style="clear: both"></div>
@@ -58,14 +57,13 @@
                 <h1>Members</h1>
                 {%  for member in group.members.all %}
                     <div class="current-avatar">
-                        {% if member.profile.image %}
-                            <img src="{{ member.profile.image.url }}" width="128" alt="Avatar" class="post-profile_avatar">
-                        {% else %}
-                            <img src="/static/images/img_avatar.png" width="128" alt="Avatar" class="post-profile_avatar">
-                        {% endif %}
-                    </div>
-                    <div class="post-user-information">
-                        <div class="post-name"><p>{{ member.first_name }} {{ member.last_name}}</p></div>
+                        <a href="{{member.get_absolute_url}}" target="_blank">
+                            {% if member.profile.image %}
+                                <img src="{{ member.profile.image.url }}" width="128" alt="Avatar" class="post-profile_avatar">
+                            {% else %}
+                                <img src="/static/images/img_avatar.png" width="128" alt="Avatar" class="post-profile_avatar">
+                            {% endif %}
+                        </a>
                     </div>
                 {%  endfor %}
             </div>

@@ -73,7 +73,7 @@ class PostCreateForm(forms.ModelForm):
         fields = ['title', 'body', 'image', 'status']
         labels = ['Title', 'Body', 'Image', 'Status']
         widgets = {
-            'body': SummernoteWidget(attrs={'summernote': {'height': '200px', 'width': '810px'}}),
+            'body': SummernoteWidget(attrs={'summernote': {'height': '200px', 'width': '100%'}}),
         }
 
 
@@ -83,7 +83,7 @@ class CommentCreateForm(forms.ModelForm):
         fields = ['texto',]
         labels = ['Texto',]
         widgets = {
-            'texto': SummernoteWidget(attrs={'summernote': {'height': '200px', 'width': '900px'}}),
+            'texto': SummernoteWidget(attrs={'summernote': {'height': '200px', 'width': '100%'}}),
         }
 
 
@@ -93,7 +93,7 @@ class ModifyPostForm(forms.ModelForm):
         fields = ['title', 'body', 'image', 'status']
         labels = ['Title', 'Body', 'Image', 'Status']
         widgets = {
-            'body': SummernoteWidget(attrs={'summernote': {'height': '200px', 'width': '810px'}}),
+            'body': SummernoteWidget(attrs={'summernote': {'height': '200px', 'width': '100%'}}),
         }
 
 
@@ -103,7 +103,7 @@ class GroupCreateForm(forms.ModelForm):
         fields = ['name', 'location', 'description', 'image']
         labels = ['Name', 'Location', 'Description', 'Image']
         widgets = {
-            'body': SummernoteWidget(attrs={'summernote': {'height': '200px', 'width': '810px'}}),
+            'body': SummernoteWidget(attrs={'summernote': {'height': '200px', 'width': '100%'}}),
         }
 
 
@@ -113,7 +113,7 @@ class ModifyGroupForm(forms.ModelForm):
         fields = ['name', 'location', 'description', 'image']
         labels = ['Name', 'Location', 'Description', 'Image']
         widgets = {
-            'body': SummernoteWidget(attrs={'summernote': {'height': '200px', 'width': '810px'}}),
+            'body': SummernoteWidget(attrs={'summernote': {'height': '200px', 'width': '100%'}}),
         }
 
 
@@ -126,7 +126,7 @@ class GroupPostCreateForm(forms.ModelForm):
             "image": "Attach an image"
         }
         widgets = {
-            'body': SummernoteWidget(attrs={'summernote': {'height': '200px', 'width': '810px'}}),
+            'body': SummernoteWidget(attrs={'summernote': {'height': '200px', 'width': '100%'}}),
         }
 
 
@@ -136,7 +136,7 @@ class ModifyGroupPostForm(forms.ModelForm):
         fields = ['body', 'image']
         labels = ['Body', 'Image']
         widgets = {
-            'body': SummernoteWidget(attrs={'summernote': {'height': '200px', 'width': '810px'}}),
+            'body': SummernoteWidget(attrs={'summernote': {'height': '200px', 'width': '100%'}}),
         }
 
 
@@ -145,7 +145,7 @@ class GroupCommentCreateForm(forms.ModelForm):
         model = GroupComment
         fields = ['body']
         widgets = {
-            'body': SummernoteWidget(attrs={'summernote': {'height': '200px', 'width': '900px'}}),
+            'body': SummernoteWidget(attrs={'summernote': {'height': '200px', 'width': '100%'}}),
         }
 
 
