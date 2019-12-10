@@ -20,7 +20,7 @@
                     <h3>{{ group.description|safe }}</h3>
 
                     <div class="friends">
-                        <a href="{% url 'user_list' group=group.pk %}"><span class="flink">{{ group.members.count }} member{{ group.members.count|pluralize }}</span></a>
+                        <a href="{% url 'group_user_list' group=group.pk %}"><span class="flink">{{ group.members.count }} member{{ group.members.count|pluralize }}</span></a>
                     </div>
                 </div>
 

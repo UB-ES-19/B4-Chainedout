@@ -14,7 +14,7 @@ urlpatterns = [
     path('profile/', views.save_profile, name='saveprofile'),
     path('users/follow/', views.user_follow, name='user_follow'),
     path('users/', views.user_list, name='user_list'),
-    path('users/<group>', views.user_list, name='user_list'),
+    path('users/<group>', views.group_user_list, name='group_user_list'),
     path('users/<username>/', views.user_info, name="user_info"),
     path('profile/delete-education/<int:pk>', views.DeleteEducation.as_view(), name='delete_education'),
     path('profile/update-education/<int:pk>', views.UpdateEducation.as_view(), name='update_education'),
@@ -28,8 +28,13 @@ urlpatterns = [
     path('posts/update-post/<int:year>/<int:month>/<int:day>/<slug:slug>/<int:pk>/', views.UpdatePost.as_view(), name='update_post'),
     path('summernote/', include('django_summernote.urls')),
     path('group-profile/<int:pk>', views.group_profile, name='group-profile'),
+    path('group-profile/<int:group_pk>/<int:post_pk>/', views.group_post_info, name='group_post_info'),
+    path('group-profile/<int:group_pk>/<int:post_pk>/like/', views.GroupPostLike.as_view(), name='group_post_like'),
+    path('group-profile/<int:group_pk>/update-post/<int:post_pk>', views.UpdateGroupPost.as_view(), name='update_group_post'),
+    path('group-profile/<int:group_pk>/delete-post/<int:pk>', views.DeleteGroupPost.as_view(), name='delete_group_post'),
     path('groups/', views.groups, name='groups'),
     path('groups/update-group/<int:pk>', views.UpdateGroup.as_view(), name='update_group'),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:

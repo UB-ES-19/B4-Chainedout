@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django_summernote.widgets import SummernoteWidget
 
-from .models import Profile, Education, Experience, Post, Comment, Group
+from .models import Profile, Education, Experience, Post, Comment, Group, GroupPost, GroupComment
 
 
 class RegisterForm(UserCreationForm):
@@ -112,4 +112,33 @@ class ModifyGroupForm(forms.ModelForm):
         labels = ['Name', 'Location', 'Description', 'Image']
         widgets = {
             'description': SummernoteWidget(),
+        }
+
+
+class GroupPostCreateForm(forms.ModelForm):
+    class Meta:
+        model = GroupPost
+        fields = ['body', 'image']
+        labels = ['Body', 'Image']
+        widgets = {
+            'body': SummernoteWidget(),
+        }
+
+
+class ModifyGroupPostForm(forms.ModelForm):
+    class Meta:
+        model = GroupPost
+        fields = ['body', 'image']
+        labels = ['Body', 'Image']
+        widgets = {
+            'body': SummernoteWidget(),
+        }
+
+
+class GroupCommentCreateForm(forms.ModelForm):
+    class Meta:
+        model = GroupComment
+        fields = ['body']
+        widgets = {
+            'body': SummernoteWidget(attrs={'summernote': {'height': '200px'}}),
         }
