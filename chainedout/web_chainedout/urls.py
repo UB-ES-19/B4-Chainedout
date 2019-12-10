@@ -35,6 +35,9 @@ urlpatterns = [
     path('groups/', views.groups, name='groups'),
     path('groups/update-group/<int:pk>', views.UpdateGroup.as_view(), name='update_group'),
     path('group-invite/<int:group_pk>', views.GroupInviteCreateView.as_view(success_url="/groups/"), name='group_invite'),
+    path('group-invite/<int:group_pk>/<int:invite_pk>/accept-invite/', views.accept_invite, name='accept_invite'),
+    path('group-invite/<int:group_pk>/<int:invite_pk>/decline-invite/', views.decline_invite, name='decline_invite'),
+    path('inbox/', views.inbox, name='inbox'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:

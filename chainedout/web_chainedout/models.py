@@ -138,6 +138,6 @@ class GroupComment(models.Model):
 class GroupInvite(models.Model):
     text = models.TextField()
     group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='invites')
-    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sender')
-    receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='receiver')
+    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='invites_sent')
+    receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='invites_received')
     created = models.DateTimeField(default=timezone.now)

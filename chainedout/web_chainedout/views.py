@@ -238,6 +238,23 @@ def group_post_info(request, group_pk, post_pk):
                                                            'comments': comments, 'form': form})
 
 
+def inbox(request):
+    invites = request.user.invites_received.all()
+    return render(request, 'user/inbox.html', {'invites': invites})
+
+
+def accept_invite(request, group_pk, invite_pk):
+    group = get_object_or_404(Group, pk=group_pk)
+    group.members.add(request.user)
+    GroupInvite.objects.get(pk=invite_pk).delete()
+    return redirect('inbox')
+
+
+def decline_invite(request, group_pk, invite_pk):
+    GroupInvite.objects.get(pk=invite_pk).delete()
+    return redirect('inbox')
+
+
 class UpdateEducation(UpdateView):
     model = Education
     form_class = ModifyEducationForm
@@ -464,6 +481,7 @@ class GroupInviteCreateView(CreateView):
 
     def form_valid(self, form):
         form.instance.sender = self.request.user
+        form.instance.group = get_object_or_404(Group, pk=self.kwargs.get("group_pk"))
         return super(GroupInviteCreateView, self).form_valid(form)
 
     def get_form_kwargs(self, **kwargs):
