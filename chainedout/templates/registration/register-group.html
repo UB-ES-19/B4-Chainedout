@@ -1,16 +1,15 @@
 {% extends "header.html" %}
 
   {% block content %}
-      <img src="../static/style/images/pig.jpg" style="float: right; width: 740px; height: 625px;">
   <div class="register-main-text">
     <h1 style="margin-left: 200px;margin-top: 250px;"> Become An Affilate </h1>
     <h2 style="margin-left: 200px;"> Make the most of your professional life</h2>
     <p style="margin-left: 200px;"> We want to create an economic opportunity for every member of the global workforce.
       <br>The mission of ChainedOut is simple: connect the world's professionals to make them more productive and successful </p>
   </div>
+      <img src="../static/style/images/pig.jpg" style="float: right; width: 740px; height: 625px; ">
 
   <div class="register-box">
-
     <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {% for field in form %}

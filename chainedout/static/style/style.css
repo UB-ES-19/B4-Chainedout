@@ -251,6 +251,7 @@ body .register{
   font-size: 22px;
   font-weight: 300;
 }
+
 /* ----- TEXT END ------ */
 /* ----- Register box ----*/
 /* register box space */
@@ -360,7 +361,7 @@ body, html {
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
-.landing-parallax-button{
+.landing-parallax-button button{
   background-color: transparent;
   border-style: solid;
   border-color: white;
@@ -380,7 +381,7 @@ body, html {
   top: 65%;
 }
 
-.landing-parallaxbtn:hover{
+.landing-parallax-button button:hover{
   color: black;
   background-color: white;
 }
@@ -1130,7 +1131,8 @@ button:hover.profile_modal_btn{
     background-color: #FFFFFF;
     margin: 20px auto;
     padding: 20px 20px 10px;
-    width: 50%;
+    width: 80%;
+    min-width: 850px;
     box-shadow: 2px 2px 5px #aaaaaa;
 }
 
@@ -1194,16 +1196,6 @@ hr.line{
   font-size: 13px;
 }
 
-.post-image-space{
-  width: 100%;
-  padding: 10px 10px 10px 60px;
-}
-
-.post-image{
-  position: relative;
-  width: 100%;
-  z-index: 0;
-}
 .post-buttons{
   margin-bottom: 0px;
   padding: 5px 5px 0px;
@@ -1347,7 +1339,8 @@ hr.line{
     background-color: #FFFFFF;
     margin: 20px auto;
     padding: 20px 20px 44px;
-    width: 50%;
+    width: 80%;
+    min-width: 850px;
     box-shadow: 2px 2px 5px #aaaaaa;
 }
 
@@ -1399,7 +1392,7 @@ img.post-profile_avatar{
     text-align:center;
 }
 
-.single-post-box-show .post-image-space{
+.single-post-box-show {
     width: 60%;
     padding: 10px 10px 10px 10px;
     text-align:justify;
@@ -1417,7 +1410,6 @@ img.post-profile_avatar{
   margin: 20px;
 }
 
-
 button#coment-a-post{
     background-color: #00302f;
     color: white;
@@ -1425,6 +1417,7 @@ button#coment-a-post{
     cursor: pointer;
     border: 1px solid #ccc;
     border-radius: 5px;
+
     display: block;
     margin-top: 20px;
     margin-left: auto;
@@ -1556,6 +1549,7 @@ button#coment-a-post{
 }
 
 /* ------------------------------------- SEARCH RESULTS END ---------------------------------------- */
+
 /* groups */
 img.group_avatar {
   width: 100%;

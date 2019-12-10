@@ -151,6 +151,8 @@ def groups(request):
     groups = Group.objects.all()
     return render(request, 'groups/groups.html', {'groups': groups})
 
+def groups(request):
+    return render(request, 'groups/groups.html')
 
 @login_required
 def user_list(request):

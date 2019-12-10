@@ -51,9 +51,39 @@
                 {{ post.body|safe }}
             </div>
 
-            {% if post.image %}
-                <div class="post-image-space"><img src="{{ post.image.url }}" width="256" alt="Avatar" class="post-image"></div>
-            {% endif %}
+                {% if post.image %}
+                    <div class="slideshow-container_carousel">
+
+                    <div class="mySlides_carousel fade">
+                        <div class="numbertext_carousel">1</div>
+                        <img src="{{ post.image.url }}" style="width:100%">
+                        <div class="text_carousel">Image 1</div>
+                    </div>
+
+                    <div class="mySlides_carousel fade">
+                        <div class="numbertext_carousel">2</div>
+                        <img src="{{ post.image.url }}" style="width:100%">
+                        <div class="text_carousel">Image 2</div>
+                    </div>
+
+                    <a class="prev_carousel" onclick="plusSlides(-1)">&#10094;</a>
+                    <a class="next_carousel" onclick="plusSlides(1)">&#10095;</a>
+
+                    </div>
+
+                    <div style="text-align:center;margin-bottom:10px;">
+                        <span class="dot_carousel" onclick="currentSlide(1)"></span>
+                        <span class="dot_carousel" onclick="currentSlide(2)"></span>
+                    </div>
+
+                    <script>
+                        var slideIndex = 1;
+                        showSlides(slideIndex);
+                    </script>
+
+                {% endif %}
+
+
 
             </div>
         </div>
