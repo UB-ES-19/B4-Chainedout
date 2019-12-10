@@ -14,13 +14,11 @@
                 </div>
                 <div class = "post-info-user">
                       <div class="profile_edit_container">
-                      <label class="mylabel"><b>{{ form.title.label }}</b></label>
-                          {{ form.title }}
+                          {% for field in form %}
+                              <label class="mylabel"><b>{{ field.label }}</b></label>
+                              {{ field }}
+                          {% endfor %}
                       </div>
-                    <div style="clear: both"></div>
-                <label class="mylabel"><b>{{ form.body.label }}</b></label>
-                {{ form.body }}
-                </div>
                 <hr style="margin-top: 0px; margin-bottom: 5px;">
                 <button id="share-a-post" type="submit"> Share </button>
             </div>
