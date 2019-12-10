@@ -1,9 +1,10 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404
 from django_summernote.widgets import SummernoteWidget
 
-from .models import Profile, Education, Experience, Post, Comment, Group, GroupPost, GroupComment
+from .models import Profile, Education, Experience, Post, Comment, Group, GroupPost, GroupComment, GroupInvite
 
 
 class RegisterForm(UserCreationForm):
@@ -119,7 +120,10 @@ class GroupPostCreateForm(forms.ModelForm):
     class Meta:
         model = GroupPost
         fields = ['body', 'image']
-        labels = ['Body', 'Image']
+        labels = {
+            "body": "Create a new post",
+            "image": "Attach an image"
+        }
         widgets = {
             'body': SummernoteWidget(),
         }
@@ -142,3 +146,28 @@ class GroupCommentCreateForm(forms.ModelForm):
         widgets = {
             'body': SummernoteWidget(attrs={'summernote': {'height': '200px'}}),
         }
+
+
+class GroupInviteCreateForm(forms.ModelForm):
+    class Meta:
+        model = GroupInvite
+        fields = ['text', 'receiver', 'group']
+        labels = {
+            "text": "Message",
+        }
+
+    receiver = forms.ModelChoiceField(queryset=User.objects.all(), initial=0)
+    group = forms.ModelChoiceField(queryset=Group.objects.all(), initial=0)
+
+    def __init__(self, *args, **kwargs):
+        sender = kwargs.pop('user', None)
+        group_pk = kwargs.pop('group_pk', None)
+        group = get_object_or_404(Group, pk=group_pk)
+        super(GroupInviteCreateForm, self).__init__(*args, **kwargs)
+
+        if sender:
+            self.fields['receiver'].queryset = sender.following.all()
+            self.fields['receiver'].initial = 0
+            self.fields['receiver'].label = 'User'
+            self.fields['group'].queryset = sender.user_groups
+            self.fields['group'].initial = group

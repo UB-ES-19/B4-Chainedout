@@ -54,6 +54,13 @@
         </div>
     </div>
 
+    <div class="invite">
+        <form action="{% url 'group_invite' group_pk=group.pk %}" method="POST">
+            {% csrf_token %}
+            <button class="profile_btn_edit" type="submit" value="edit"><i class="fas fa-edit"></i> Invite</button>
+        </form>
+    </div>
+
 <div class="single-post">
     <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
@@ -137,13 +144,13 @@
                 <ul>
                     <li class="dropdown"><a href="javascript:void(0)" class="dropbtn"><i class="fas fa-share-alt"></i> Share</a>
                         <div class="dropdown-content">
-                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" class="post-share">
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}{{ group_post.get_absolute_url }}" class="post-share">
                                 Facebook
                             </a>
-                            <a href="https://twitter.com/home?status={{ post.body|urlencode }}{{ request.build_absolute_uri }}" class="post-share">
+                            <a href="https://twitter.com/home?status={{ post.body|urlencode }}{{ request.build_absolute_uri }}{{ group_post.get_absolute_url }}" class="post-share">
                                 Twitter
                             </a>
-                            <a href="http://www.reddit.com/submit?url={{ request.build_absolute_uri }}&title={{ post.body|urlencode }}" class="post-share">
+                            <a href="http://www.reddit.com/submit?url={{ request.build_absolute_uri }}{{ group_post.get_absolute_url }}&title={{ post.body|urlencode }}" class="post-share">
                                 Reddit
                             </a>
                         </div>

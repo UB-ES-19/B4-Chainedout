@@ -2,26 +2,78 @@
 
 {% block content %}
     <div id="posts-page" class="single-post-show">
-        <div id="post-box" class="single-post-box-show">
-            <p class="date">
-                {% if group_post.published %}
-                    Published {{ group_post.published }}
+        <div class="post-box">
+            <div class="current-avatar fleft">
+                {% if group_post.author.profile.image %}
+                    <img src="{{ group_post.author.profile.image.url }}" width="128" alt="Avatar" class="post-profile_avatar">
+                {% else %}
+                    <img src="/static/images/img_avatar.png" width="128" alt="Avatar" class="post-profile_avatar">
                 {% endif %}
-            </p>
+                <div class="post-user-information">
+                    <div class="post-name"><p>{{ group_post.author.first_name }} {{ group_post.author.last_name }}</p></div>
+                    <div class="post-followers"><p>{{ group_post.author.followers.count }} follower{{ group_post.author.followers.count|pluralize }}</p></div>
+                    <div class="post-followers"><p>{{ group_post.likes.count }} like{{ group_post.likes.count|pluralize }}</p></div>
+                </div>
+            </div>
+            <div class="post-buttons fright">
+                {% if group_post.author == user %}
+                    <form action="{% url 'update_group_post' group_pk=group.pk post_pk=group_post.pk %}" method="POST">
+                        {% csrf_token %}
+                        <button class="post-edit bhoverlink" type="submit" value="edit"><i class="fas fa-edit"></i> Edit</button>
+                    </form>
+                    <form action="{% url 'delete_group_post' group_pk=group.pk pk=group_post.pk %}" method="POST">
+                        {% csrf_token %}
+                        <button class="post-delete bhoverlink" type="submit" value="remove"><i class="fas fa-trash-alt"></i> Delete</button>
+                    </form>
+                    <button class="post-like bhoverlink">
+                        <a href="{% url 'group_post_like' group_pk=group.pk post_pk=group_post.pk %}" class="post-comment">
+                            {% if group_post in user.group_post_likes.all %}
+                                <i class="fas fa-thumbs-down"></i> Unlike
+                            {% else %}
+                                <i class="fas fa-thumbs-up"></i> Like
+                            {% endif %}
+                        </a>
+                    </button>
+                {% endif %}
+            </div>
+        <div style="clear:both;">
+
+            <div class="post-body">
+                {{ group_post.body|safe }}
+            </div>
 
             {% if group_post.image %}
                 <div class="post-image-space"><img src="{{ group_post.image.url }}" width="256" alt="Avatar" class="post-image"></div>
             {% endif %}
 
-            {{ group_post.body|safe }}
+            <hr class="line">
+            <div class="post-buttons">
+                <div id="dropdownList">
+                <ul>
+                    <li class="dropdown"><a href="javascript:void(0)" class="dropbtn"><i class="fas fa-share-alt"></i> Share</a>
+                        <div class="dropdown-content">
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}{{ group_post.get_absolute_url }}" class="post-share">
+                                Facebook
+                            </a>
+                            <a href="https://twitter.com/home?status={{ post.body|urlencode }}{{ request.build_absolute_uri }}{{ group_post.get_absolute_url }}" class="post-share">
+                                Twitter
+                            </a>
+                            <a href="http://www.reddit.com/submit?url={{ request.build_absolute_uri }}{{ group_post.get_absolute_url }}&title={{ post.body|urlencode }}" class="post-share">
+                                Reddit
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+                </div>
+            </div>
         </div>
+    </div>
 
        <div id="post-box-coment" class="single-post-box-coment1">
             <div class="coments_exemple">
                 <form method="POST">
                     {% csrf_token %}
                      {% for field in form %}
-                        <label class="mylabel"><b>{{ field.label }}</b></label>
                         {{ field }}
                     {% endfor %}
                     <div class="comment_button">

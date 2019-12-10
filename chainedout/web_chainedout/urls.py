@@ -34,7 +34,7 @@ urlpatterns = [
     path('group-profile/<int:group_pk>/delete-post/<int:pk>', views.DeleteGroupPost.as_view(), name='delete_group_post'),
     path('groups/', views.groups, name='groups'),
     path('groups/update-group/<int:pk>', views.UpdateGroup.as_view(), name='update_group'),
-
+    path('group-invite/<int:group_pk>', views.GroupInviteCreateView.as_view(success_url="/groups/"), name='group_invite'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:

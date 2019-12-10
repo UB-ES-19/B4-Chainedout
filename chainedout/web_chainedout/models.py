@@ -109,6 +109,9 @@ class Group(models.Model):
         return reverse('group-profile',
                        args=[self.pk])
 
+    def __str__(self):
+        return self.name
+
 
 class GroupPost(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='group_posts')
@@ -130,3 +133,11 @@ class GroupComment(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='group_comments')
     body = models.CharField(max_length=250)
     published = models.DateTimeField(default=timezone.now)
+
+
+class GroupInvite(models.Model):
+    text = models.TextField()
+    group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='invites')
+    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sender')
+    receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='receiver')
+    created = models.DateTimeField(default=timezone.now)

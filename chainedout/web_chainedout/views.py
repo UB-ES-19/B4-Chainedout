@@ -12,10 +12,11 @@ from django.views.generic import DeleteView, UpdateView, ListView, CreateView, R
 from django.template.defaultfilters import slugify
 from django.db.models import Q
 
-from .models import Follow, Profile, Education, Experience, Post, Comment, Group, GroupPost
+from .models import Follow, Profile, Education, Experience, Post, Comment, Group, GroupPost, GroupInvite
 from .forms import RegisterForm, ModifyProfileForm, ModifyUserForm, ModifyBioForm, ModifySkillsForm, \
     ModifyAchievementForm, ModifyExperienceForm, ModifyEducationForm, PostCreateForm, CommentCreateForm, ModifyPostForm, \
-    GroupCreateForm, ModifyGroupForm, GroupPostCreateForm, ModifyGroupPostForm, GroupCommentCreateForm
+    GroupCreateForm, ModifyGroupForm, GroupPostCreateForm, ModifyGroupPostForm, GroupCommentCreateForm, \
+    GroupInviteCreateForm
 
 
 def index(request):
@@ -141,7 +142,8 @@ def group_profile(request, pk):
     else:
         group_post_form = GroupPostCreateForm()
 
-    return render(request, 'groups/group_profile.html', {'group': group, 'group_post_form': group_post_form})
+    return render(request, 'groups/group_profile.html', {'user': request.user, 'group': group,
+                                                         'group_post_form': group_post_form})
 
 
 @login_required
@@ -454,3 +456,18 @@ class GroupPostLike(RedirectView):
                 group_post.likes.add(user)
         return reverse('group-profile', kwargs={'pk': self.kwargs.get("group_pk")})
 
+
+class GroupInviteCreateView(CreateView):
+    template_name = 'groups/group_invite.html'
+    model = GroupInvite
+    form_class = GroupInviteCreateForm
+
+    def form_valid(self, form):
+        form.instance.sender = self.request.user
+        return super(GroupInviteCreateView, self).form_valid(form)
+
+    def get_form_kwargs(self, **kwargs):
+        form_kwargs = super(GroupInviteCreateView, self).get_form_kwargs(**kwargs)
+        form_kwargs["user"] = self.request.user
+        form_kwargs["group_pk"] = self.kwargs.get("group_pk")
+        return form_kwargs
