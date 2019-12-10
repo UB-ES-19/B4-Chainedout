@@ -255,7 +255,7 @@ body .register{
 /* ----- Register box ----*/
 /* register box space */
 .register-box{
-  width: 500px;
+  width: 700px;
   margin: 20px auto;
   padding: 50px;
   border-width: 10px;
@@ -266,6 +266,10 @@ body .register{
 
 .signin {
   text-align: center;
+}
+.signin p{
+  margin-left: 100px;
+  margin-top: 20px;
 }
 
 input[type=text], input[type=password], input[type=email]{
@@ -306,8 +310,7 @@ input[type='checkbox']{
   width: 35%;
   opacity: 0.9;
   border-radius: 20px;
-  margin: 30px 0 8px;
-  float: right;
+  margin: 30px 0 8px 40%;
 }
 
 .registerbtn:hover{
@@ -525,7 +528,7 @@ body, html {
 
   position: absolute;
   margin-left: 600px;
-  margin-top: 150px;
+  margin-top: 130px;
 }
 
 .landing-post-job-button:hover{
@@ -533,6 +536,53 @@ body, html {
   color: #f1ece5;
 }
 
+.landing-create-group{
+  height: 300px;
+  background-color: #f1ece5;
+  min-width: 800px;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.landing-create-group h1{
+  color: #b24020;
+  font-weight: 200;
+  margin-left: 1200px;
+  margin-top: 130px;
+
+  letter-spacing: 0;
+  line-height: 1em;
+  text-transform: none;
+  display: block;
+
+  position: absolute;
+}
+
+.landing-create-group-button{
+  background-color: transparent;
+  border-style: solid;
+  border-color: #b24020;
+  border-width: 2px;
+  transition: 0.1s background-color linear, 0.1s color linear;
+  width: 12%;
+  height: 6%;
+
+  font-size: 20px;
+  color: #b24020;
+  text-align: center;
+  padding: 12px;
+
+  position: absolute;
+  margin-left: 800px;
+  margin-top: 130px;
+}
+
+.landing-create-group-button:hover{
+  background-color: #b24020;
+  color: #f1ece5;
+}
 
 /* --------------------------------- LANDING PAGE END ------------------------------------- */
 
@@ -1481,6 +1531,12 @@ button#coment-a-post{
   padding-left: 100px;
 }
 
+.my-groups h1{
+  font-size: 40px;
+  padding-top: 100px;
+  padding-left: 100px;
+}
+
 .search-result-search-bar {
   width: 40%;
   margin-left: 100px;
@@ -1518,5 +1574,26 @@ button#coment-a-post{
   color: white;
 }
 
-
 /* ------------------------------------- SEARCH RESULTS END ---------------------------------------- */
+/* groups */
+img.group_avatar {
+  width: 100%;
+  height: 250px;
+  margin-bottom: 10px;
+}
+/* groups end */
+
+/* ------------------------------------- MEMBER BOX START ----------------------------------------- */
+.member {
+    min-width: 400px;
+}
+.member-box {
+    border: 1px solid #BFBFBF;
+    background-color: #FFFFFF;
+    margin: 20px 0 0 95.148px;
+    padding: 20px;
+    width: 25%;
+    box-shadow: 2px 2px 5px #aaaaaa;
+}
+
+/* ------------------------------------- MEMBER BOX END ----------------------------------------- */
