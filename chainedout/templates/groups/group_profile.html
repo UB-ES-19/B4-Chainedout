@@ -37,24 +37,29 @@
                         </form>
                     </div>
                 {% endifequal %}
-                <div class="invite">
-                    <form action="{% url 'group_invite' group_pk=group.pk %}" method="POST">
-                        {% csrf_token %}
-                        <button class="profile_btn_edit" type="submit" value="edit"><i class="fas fa-edit"></i> Invite</button>
-                    </form>
-                </div>
             </div>
 
             <div style="clear: both"></div>
         </div>
-    </div>
 
     <!------------------------------ PROFILE BOX END ---------------------------------->
     <!------------------------------ MEMBER BOX ------------------------------------>
     <div class="group-share-box">
+
         <div class="member">
             <div class="member-box">
+            <div class="membersgp">
                 <h1>Members</h1>
+            </div>
+                <div class="invitegp">
+                    <form action="{% url 'group_invite' group_pk=group.pk %}" method="POST">
+                        {% csrf_token %}
+                        <button class="invitebtn" type="submit" value="edit">Invite</button>
+                    </form>
+                </div>
+            <div style="clear: both"></div>
+
+
                 {%  for member in group.members.all %}
                     <div class="current-avatar">
                         <a href="{{member.get_absolute_url}}" target="_blank">
@@ -67,11 +72,9 @@
                     </div>
                 {%  endfor %}
             </div>
-        </div>
 
 <!------------------------------- MEMBER BOX END ----------------------------->
 
-        <div class="group-single-post">
             <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
                 <div class="group-single-post-box">
@@ -93,8 +96,9 @@
                     </div>
                     <button id="share-a-post" type="submit"> Share </button>
                 </div>
+            <div style="clear: both"></div>
             </form>
-        </div>
+
             <!--  POST -->
         {% for post in group.posts.all %}
             <div class="group-posts-page">
@@ -172,10 +176,12 @@
             </div>
         {% endfor %}
     </div>
+    </div>
 
 
 <div class="pagination">
     {% include "posts/pagination.html" with page=posts %}
 </div>
+    </div>
 
 {% endblock %}

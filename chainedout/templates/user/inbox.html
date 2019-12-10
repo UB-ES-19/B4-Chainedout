@@ -1,7 +1,8 @@
 {% extends "header.html" %}
 
 {% block content %}
-
+    <div class="pendinginv">
+    {% if invites.exists %}
     <h3>Pending invites</h3>
     {% for invite in invites %}
         <div class="posts-page">
@@ -23,7 +24,10 @@
                 <div class="post-body">
                     {{ invite.text }}
                     {{ invite.group.name }}
+                    {% if invite.group.image %}
                     <img src="{{ invite.group.image.url }}" width="256">
+                    {% endif %}
+
                 </div>
 
                 <hr class="line">
@@ -33,7 +37,12 @@
                 </div>
             </div>
         </div>
+     </div>
     {% endfor %}
+    {% else %}
+        <h3>No Pending invites</h3>
+    {% endif %}
+    </div>
 
     <h3>Private messages</h3>
 

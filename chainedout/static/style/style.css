@@ -1370,7 +1370,6 @@ img.post-profile_avatar{
 .post-info-user {
     vertical-align: middle;
     padding-left: 60px;
-    padding-bottom: -40px;
 }
 
 .single-post-show{
@@ -1558,13 +1557,31 @@ img.group_avatar {
 /* groups end */
 
 /* ------------------------------------- MEMBER BOX START ----------------------------------------- */
+.invitegp {
+  float: right;
+}
+
+.membersgp {
+  float: left;
+}
+
+.invitebtn {
+    background-color: #00302f;
+    color: white;
+    padding: 5px 10px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
 .member {
-    min-width: 400px;
+  width: 80%;
+  margin: 0 auto;
+  min-width: 800px;
 }
 .member-box {
     border: 1px solid #BFBFBF;
     background-color: #FFFFFF;
-    margin: 0 0 0 190.297px;
     padding: 20px;
     width: 28%;
     float: left;
@@ -1573,25 +1590,23 @@ img.group_avatar {
 
 /* ------------------------------------- MEMBER BOX END ----------------------------------------- */
 
-.group-single-post{
-    min-width: 200px;
-}
-
 .group-single-post-box{
     border: 1px solid #BFBFBF;
     background-color: #FFFFFF;
-    margin: 20px auto 20px 760px;
+    float: right;
     padding: 20px 20px 44px;
-    width: 50%;
+    width: 70%;
     box-shadow: 2px 2px 5px #aaaaaa;
 }
 .group-post-box {
     border: 1px solid #BFBFBF;
     background-color: #FFFFFF;
-  margin: 20px auto 20px 760px;
     padding: 20px 20px 10px;
-    width: 50%;
+    width: 70%;
+    float: right;
+    clear: right;
     box-shadow: 2px 2px 5px #aaaaaa;
+    margin-top: 20px;
 }
 
 img.post-profile_avatar {
@@ -1667,3 +1682,11 @@ img.post-profile_avatar {
 .group-r-avatar{
 
 }
+
+/* ------------------------------------- INBOX START ----------------------------------------- */
+
+.pendinginv h3 {
+    margin-top: 20px;
+}
+
+/* ------------------------------------- INBOX END ----------------------------------------- */
