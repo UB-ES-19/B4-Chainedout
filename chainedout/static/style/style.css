@@ -1413,6 +1413,11 @@ img.post-profile_avatar{
     margin-bottom: 30px;
 }
 
+.post-box-comments{
+  margin: 20px;
+}
+
+
 button#coment-a-post{
     background-color: #00302f;
     color: white;
@@ -1421,8 +1426,9 @@ button#coment-a-post{
     border: 1px solid #ccc;
     border-radius: 5px;
     margin-top: 20px;
-    margin-left: 600px;
+    margin-left: 800px;
 }
+
 .rich-text{
 }
 

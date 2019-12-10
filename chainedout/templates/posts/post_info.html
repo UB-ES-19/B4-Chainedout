@@ -57,12 +57,12 @@
 
             </div>
         </div>
+
         <div class="single-post-box-show">
             <div class="single-post-box-coment1">
                 <form method="POST">
                     {% csrf_token %}
-
-                     {% for field in form %}
+                    {% for field in form %}
                         <div class="rich-text">
                             {{ field }}
                         </div>
@@ -71,7 +71,6 @@
                     <div class="comment_button">
                         <button id="coment-a-post" type="submit">Comment</button>
                     </div>
-
                 </form>
             </div>
 
@@ -86,13 +85,13 @@
                             <div class="post-user-information">
                                 <div class="post-name" style="font-size: 13px;"><p><b>{{ comment.user.first_name }} {{ comment.user.last_name }}</b></p></div>
                             </div>
-                            <div class="post-buttons">
-                                <h style="margin-top: 7px; margin-left: 55px; font-size: 10px ">{{ comment.published }}</h>
+                            <div class="post-creation-date">
+                                <h style="margin-top: 7px; margin-left: 10px; font-size: 10px ">{{ comment.created_date }}</h>
                             </div>
                         </div>
 
                         <div class="post-body">
-                            <h style="font-size: 15px">{{ comment.body|safe }} </h>
+                            <h style="font-size: 15px">{{ comment.texto|safe }} </h>
                         </div>
                     </div>
                     <hr class="line">

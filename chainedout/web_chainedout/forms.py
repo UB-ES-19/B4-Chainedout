@@ -81,7 +81,7 @@ class CommentCreateForm(forms.ModelForm):
         fields = ['texto',]
         labels = ['Texto',]
         widgets = {
-            'body': SummernoteWidget(attrs={'summernote': {'height': '200px', 'width': '900px'}}),
+            'texto': SummernoteWidget(attrs={'summernote': {'height': '200px', 'width': '900px'}}),
         }
 
 
