@@ -1653,9 +1653,8 @@ img.post-profile_avatar {
 }
 
 .group-r-box{
-  width: 20%;
   margin: 20px;
-
+  display: inline-block;
 }
 
 .group-r-img{
@@ -1663,7 +1662,7 @@ img.post-profile_avatar {
 }
 
 .group-r-name{
-
+text-align: center;
 }
 
 .group-r-avatar{
