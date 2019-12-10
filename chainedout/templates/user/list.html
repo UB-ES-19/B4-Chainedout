@@ -39,7 +39,7 @@
                         <h2>{{ user.experience.job }}</h2>
                         <h3>{{ user.profile.location }}</h3>
                         <div class="friends">
-                            <a href="{{ user.get_absolute_url }}"><span class="flink">Show Contact Info</span></a> <i class="fas fabsep fa-circle"></i>
+                            <a href="{{ user.get_absolute_url }}"><span class="flink">Show Info</span></a> <i class="fas fabsep fa-circle"></i>
                             <a href="{% url 'user_list' %}"><span class="flink">25 contacts</span></a> <i class="fas fabsep fa-circle"></i>
                             <a href="{% url 'user_list' %}"><span class="flink">{{ user.followers.count }} follower{{ user.followers.count|pluralize }}</span></a>
                         </div>
@@ -85,7 +85,7 @@
                         <a href="{{ user.get_absolute_url }}" class="title"><h1>{{ user.get_full_name }}</h1></a>
                         <h3>{{ user.profile.location }}</h3>
                         <div class="friends">
-                            <a href="{{ user.get_absolute_url }}"><span class="flink">Show Contact Info</span></a> <i class="fas fabsep fa-circle"></i>
+                            <a href="{{ user.get_absolute_url }}"><span class="flink">Show Info</span></a> <i class="fas fabsep fa-circle"></i>
                             <a href="{% url 'user_list' %}"><span class="flink">{{ user.followers.count }} follower{{ user.followers.count|pluralize }}</span></a>
                         </div>
                     </div>

@@ -3,8 +3,20 @@
 {% block content %}
     <form action="" method="post">
         {% csrf_token %}
-        <label for="organization">You're an organization? (S/N):</label>
-        <input type="text" name="organization" value="" id="organization">
-        <input type="submit" value="Next" class="registerbtn" />
+
+        <div class="check-box-cont">
+            <label for="organization" >You're an organization? (S/N):</label><br>
+            <div class="check-box-distance">
+                <input type="checkbox" name="org" value="organization" onclick="onlyOne(this)"> Yes <br>
+            </div>
+            <div class="check-box-distance">
+                <input type="checkbox" name="org" value="organization" onclick="onlyOne(this)" > No <br>
+            </div>
+            <input type="submit" value="Next" class="nextbtn" />
+        </div>
+
+
+        <!--<input type="text" name="organization" value="" id="organization">-->
+
     </form>
 {% endblock %}

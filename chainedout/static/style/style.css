@@ -1081,7 +1081,6 @@ button:hover.profile_modal_btn{
     background-color: #FFFFFF;
     margin: 20px auto;
     padding: 20px 20px 10px;
-    width: 50%;
     box-shadow: 2px 2px 5px #aaaaaa;
 }
 
@@ -1517,3 +1516,27 @@ button#coment-a-post{
 
 
 /* ------------------------------------- SEARCH RESULTS END ---------------------------------------- */
+
+
+
+.check-box-cont {
+    margin: 5%;
+    text-align: left;
+}
+
+.check-box-distance{
+    margin: 5px 0px 5px 0px;
+}
+
+.nextbtn {
+    background-color: #0F292F;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    cursor: pointer;
+    width: 8%;
+    opacity: 0.9;
+    border-radius: 20px;
+    margin: 30px 0 8px;
+    float: right;
+}

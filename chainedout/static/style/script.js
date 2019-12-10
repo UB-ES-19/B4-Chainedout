@@ -48,3 +48,10 @@ function post_histo(id, btn) {
 		btn.innerHTML = "<i class=\"fas fa-search-minus\"></i> Hide</div>";
 	}
 }
+
+function onlyOne(checkbox) {
+    var checkboxes = document.getElementsByName('org')
+    checkboxes.forEach((item) => {
+        if (item !== checkbox) item.checked = false
+    })
+}
