@@ -1,7 +1,181 @@
 {% extends "header.html" %}
 
 {% block content %}
-    {{ user.user_groups.all.0.name }}
-    {{ user.user_groups.all.0.location }}
-    {{ user.user_groups.all.0.description }}
+    <div class="group-profile">
+        <div class="group-profilebox">
+            <div class="current">
+                {% if group.image %}
+                    <div class="current_group_avatar"><img src="{{ group.image.url }}" width="512" alt="Avatar" class="group_avatar"></div>
+                {% else %}
+                    <div class="current_group_avatar"><img src="/static/images/img_avatar.png" alt="Avatar" class="group_avatar"></div>
+                {% endif %}
+            </div>
+
+            <div class="group-left-profile">
+                <div style="clear:both; margin-bottom: 10px;"></div>
+
+                <h1>{{ group.name }}</h1>
+
+                {% if group.location %}
+                  <h3>{{ group.location}}</h3>
+                {% endif %}
+								
+                {%  if group.description %}
+                    <h3>{{ group.description|safe }}</h3>
+                {%  endif %}
+                <div class="friends">
+                        <a href="{% url 'group_user_list' group=group.pk %}"><span class="flink">{{ group.members.count }} member{{ group.members.count|pluralize }}</span></a>
+                </div>
+            </div>
+
+            <div class="group-right-profile">
+                {% ifequal request.user user %}
+                    <div class="edit_edubox">
+                        <form action="{% url 'update_group' pk=group.pk %}" method="POST">
+                            {% csrf_token %}
+                            <button class="profile_btn_edit" type="submit" value="edit"><i class="fas fa-edit"></i> Edit</button>
+                        </form>
+                    </div>
+                {% endifequal %}
+                <div class="invite">
+                    <form action="{% url 'group_invite' group_pk=group.pk %}" method="POST">
+                        {% csrf_token %}
+                        <button class="profile_btn_edit" type="submit" value="edit"><i class="fas fa-edit"></i> Invite</button>
+                    </form>
+                </div>
+            </div>
+
+            <div style="clear: both"></div>
+        </div>
+    </div>
+
+    <!------------------------------ PROFILE BOX END ---------------------------------->
+    <!------------------------------ MEMBER BOX ------------------------------------>
+    <div class="group-share-box">
+        <div class="member">
+            <div class="member-box">
+                <h1>Members</h1>
+                {%  for member in group.members.all %}
+                    <div class="current-avatar">
+                        <a href="{{member.get_absolute_url}}" target="_blank">
+                            {% if member.profile.image %}
+                                <img src="{{ member.profile.image.url }}" width="128" alt="Avatar" class="post-profile_avatar">
+                            {% else %}
+                                <img src="/static/images/img_avatar.png" width="128" alt="Avatar" class="post-profile_avatar">
+                            {% endif %}
+                        </a>
+                    </div>
+                {%  endfor %}
+            </div>
+        </div>
+
+<!------------------------------- MEMBER BOX END ----------------------------->
+
+        <div class="group-single-post">
+            <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+                <div class="group-single-post-box">
+                    <div class="current-avatar">
+                        {% if user.profile.image %}
+                            <img src="{{ user.profile.image.url }}" width="128" alt="Avatar" class="post-profile_avatar">
+                        {% else %}
+                            <img src="/static/images/img_avatar.png" width="128" alt="Avatar" class="post-profile_avatar">
+                        {% endif %}
+                    </div>
+                    <div class = "post-info-user">
+                          <div class="profile_edit_container">
+                              {% for field in group_post_form %}
+                                  <div class="rich-text">
+                                        {{ field }}
+                                  </div>
+                              {% endfor %}
+                          </div>
+                    </div>
+                    <button id="share-a-post" type="submit"> Share </button>
+                </div>
+            </form>
+        </div>
+            <!--  POST -->
+        {% for post in group.posts.all %}
+            <div class="group-posts-page">
+                <div class="group-post-box">
+                    <div class="current-avatar fleft">
+                        {% if post.author.profile.image %}
+                            <img src="{{ post.author.profile.image.url }}" width="128" alt="Avatar" class="post-profile_avatar">
+                        {% else %}
+                            <img src="/static/images/img_avatar.png" width="128" alt="Avatar" class="post-profile_avatar">
+                        {% endif %}
+                        <div class="post-user-information">
+                            <div class="post-name"><p>{{ post.author.first_name }} {{ post.author.last_name }}</p></div>
+                            <div class="post-followers"><p>{{ post.author.followers.count }} follower{{ post.author.followers.count|pluralize }}</p></div>
+                            <div class="post-followers"><p>{{ post.likes.count }} like{{ post.likes.count|pluralize }}</p></div>
+                            {% if post.status == 'posted' %}
+                                <div class="post-date"><p>Posted {{ post.created }}</p></div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="post-buttons fright">
+                        {% if post.author == user %}
+                            <form action="{% url 'update_group_post' group_pk=group.pk post_pk=post.pk %}" method="POST">
+                                {% csrf_token %}
+                                <button class="post-edit bhoverlink" type="submit" value="edit"><i class="fas fa-edit"></i> Edit</button>
+                            </form>
+                            <form action="{% url 'delete_group_post' group_pk=group.pk pk=post.pk %}" method="POST">
+                                {% csrf_token %}
+                                <button class="post-delete bhoverlink" type="submit" value="remove"><i class="fas fa-trash-alt"></i> Delete</button>
+                            </form>
+
+                        {% endif %}
+                    </div>
+                    <div style="clear:both;">
+
+                        <div class="post-body">
+                            {{ post.body|safe }}
+                        </div>
+
+                        {% if post.image %}
+                            <div class="post-image-space"><img src="{{ post.image.url }}" width="256" alt="Avatar" class="post-image"></div>
+                        {% endif %}
+
+                        <hr class="line">
+                        <div class="post-buttons">
+                            <button class="post-like bhoverlink">
+                                <a href="{% url 'group_post_like' group_pk=group.pk post_pk=post.pk %}" class="post-comment">
+                                    {% if post in user.group_post_likes.all %}
+                                        <i class="fas fa-thumbs-down"></i> Unlike
+                                    {% else %}
+                                        <i class="fas fa-thumbs-up"></i> Like
+                                    {% endif %}
+                                </a>
+                            </button>
+                            <button class="post-comment"><a href="{{ post.get_absolute_url }}" class="post-comment"><i class="fas fa-comments"></i> Comment</a></button>
+                            <div id="dropdownList">
+                            <ul>
+                                <li class="dropdown"><a href="javascript:void(0)" class="dropbtn"><i class="fas fa-share-alt"></i> Share</a>
+                                    <div class="dropdown-content">
+                                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" class="post-share">
+                                            Facebook
+                                        </a>
+                                        <a href="https://twitter.com/home?status={{ post.body|urlencode }}{{ request.build_absolute_uri }}" class="post-share">
+                                            Twitter
+                                        </a>
+                                        <a href="http://www.reddit.com/submit?url={{ request.build_absolute_uri }}&title={{ post.body|urlencode }}" class="post-share">
+                                            Reddit
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+
+<div class="pagination">
+    {% include "posts/pagination.html" with page=posts %}
+</div>
+
 {% endblock %}

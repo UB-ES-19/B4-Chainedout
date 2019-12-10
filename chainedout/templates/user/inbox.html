@@ -1,0 +1,40 @@
+{% extends "header.html" %}
+
+{% block content %}
+
+    <h3>Pending invites</h3>
+    {% for invite in invites %}
+        <div class="posts-page">
+            <div class="post-box">
+                <div class="current-avatar fleft">
+                    {% if invite.sender.profile.image %}
+                        <img src="{{ invite.sender.profile.image.url }}" width="128" alt="Avatar" class="post-profile_avatar">
+                    {% else %}
+                        <img src="/static/images/img_avatar.png" width="128" alt="Avatar" class="post-profile_avatar">
+                    {% endif %}
+                    <div class="post-user-information">
+                        <div class="post-name"><p>{{  invite.sender.first_name }} {{  invite.sender.last_name }}</p></div>
+                        {% if invite.created %}
+                            <div class="post-date"><p>Received {{ invite.created }}</p></div>
+                        {% endif %}
+                    </div>
+                </div>
+            <div style="clear:both;">
+                <div class="post-body">
+                    {{ invite.text }}
+                    {{ invite.group.name }}
+                    <img src="{{ invite.group.image.url }}" width="256">
+                </div>
+
+                <hr class="line">
+                <div class="post-buttons">
+                    <button class="post-comment"><a href="{% url 'accept_invite' group_pk=invite.group.pk invite_pk=invite.pk %}" class="post-comment"><i class="fas fa-comments"></i> Accept</a></button>
+                    <button class="post-comment"><a href="{% url 'decline_invite' group_pk=invite.group.pk invite_pk=invite.pk %}" class="post-comment"><i class="fas fa-comments"></i> Decline</a></button>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    <h3>Private messages</h3>
+
+{% endblock %}

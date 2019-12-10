@@ -96,10 +96,48 @@ class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     texto = models.CharField(max_length=250)
     created_date = models.DateTimeField(default=timezone.now)
-    
+
+
 class Group(models.Model):
     name = models.CharField(max_length=50)
     location = models.CharField(max_length=50)
     description = models.TextField()
     image = models.ImageField(null=True, blank=True, upload_to='groups/images')
     members = models.ManyToManyField(User, blank=True, related_name='user_groups')
+
+    def get_absolute_url(self):
+        return reverse('group-profile',
+                       args=[self.pk])
+
+    def __str__(self):
+        return self.name
+
+
+class GroupPost(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='group_posts')
+    group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='posts')
+    body = models.TextField()
+    image = models.ImageField(null=True, blank=True, upload_to='group_posts/images')
+    published = models.DateTimeField(default=timezone.now)
+    likes = models.ManyToManyField(User, blank=True, related_name='group_post_likes')
+
+    class Meta:
+        ordering = ('-published',)
+
+    def get_absolute_url(self):
+        return reverse('group_post_info', args=[self.group.pk, self.pk])
+
+
+class GroupComment(models.Model):
+    post = models.ForeignKey(GroupPost, on_delete=models.CASCADE, related_name='comments')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='group_comments')
+    body = models.CharField(max_length=250)
+    published = models.DateTimeField(default=timezone.now)
+
+
+class GroupInvite(models.Model):
+    text = models.TextField()
+    group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='invites')
+    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='invites_sent')
+    receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='invites_received')
+    created = models.DateTimeField(default=timezone.now)

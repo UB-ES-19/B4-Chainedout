@@ -9,7 +9,11 @@
         </div>
 
         <div class="pagination-current">
-            <p>Page {{ page.number }} of {{ page.paginator.num_pages }}</p>
+            {% if page.has_next %}
+                <p>Page {{ page.number }} of {{ page.paginator.num_pages }}</p>
+            {% else %}
+                <p>Page 1 of 1</p>
+            {% endif %}
         </div>
 
         <div class="pagination-next">

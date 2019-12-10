@@ -12,10 +12,11 @@ from django.views.generic import DeleteView, UpdateView, ListView, CreateView, R
 from django.template.defaultfilters import slugify
 from django.db.models import Q
 
-from .models import Follow, Profile, Education, Experience, Post, Comment
+from .models import Follow, Profile, Education, Experience, Post, Comment, Group, GroupPost, GroupInvite
 from .forms import RegisterForm, ModifyProfileForm, ModifyUserForm, ModifyBioForm, ModifySkillsForm, \
     ModifyAchievementForm, ModifyExperienceForm, ModifyEducationForm, PostCreateForm, CommentCreateForm, ModifyPostForm, \
-    GroupCreateForm
+    GroupCreateForm, ModifyGroupForm, GroupPostCreateForm, ModifyGroupPostForm, GroupCommentCreateForm, \
+    GroupInviteCreateForm
 
 
 def index(request):
@@ -107,19 +108,48 @@ def register(request):
     return render(request, 'registration/register.html', {'form': form})
 
 
+@login_required
 def register_group(request):
     if request.method == 'POST':
         form = GroupCreateForm(request.POST)
         if form.is_valid():
-            form.save()
+            group = Group.objects.create(
+                name=form.cleaned_data['name'],
+                location=form.cleaned_data['location'],
+                description=form.cleaned_data['description'],
+                image=form.cleaned_data['image']
+            )
+            group.members.add(request.user)
             return HttpResponseRedirect(reverse("index"))
     else:
         form = GroupCreateForm()
     return render(request, 'registration/register-group.html', {'form': form})
 
 
-def group_profile(request):
-    return render(request, 'groups/group_profile.html')
+@login_required
+def group_profile(request, pk):
+    group = get_object_or_404(Group, pk=pk)
+
+    if request.method == 'POST':
+        group_post_form = GroupPostCreateForm(request.POST)
+        if group_post_form.is_valid():
+            group_post = GroupPost.objects.create(
+                author=request.user,
+                group=group,
+                body=group_post_form.cleaned_data['body'],
+                image=group_post_form.cleaned_data['image']
+            )
+    else:
+        group_post_form = GroupPostCreateForm()
+
+    return render(request, 'groups/group_profile.html', {'user': request.user, 'group': group,
+                                                         'group_post_form': group_post_form})
+
+
+@login_required
+def groups(request):
+    groups = Group.objects.all()
+    return render(request, 'groups/groups.html', {'groups': groups})
 
 def groups(request):
     return render(request, 'groups/groups.html')
@@ -143,6 +173,13 @@ def user_list(request):
     else:
         users = User.objects.filter(is_active=True)
         return render(request, 'user/list.html', {'section': 'people', 'users': users})
+
+
+@login_required
+def group_user_list(request, group):
+    group = get_object_or_404(Group, pk=group)
+    users = group.members.all()
+    return render(request, 'user/list.html', {'section': 'people', 'users': users})
 
 
 @login_required
@@ -186,6 +223,40 @@ def post_info(request, year, month, day, slug, pk):
     return render(request, 'posts/post_info.html', {'post': post, 'comments': comments, 'form': form})
 
 
+def group_post_info(request, group_pk, post_pk):
+    group = get_object_or_404(Group, pk=group_pk)
+    group_post = get_object_or_404(GroupPost, group=group, author=request.user, pk=post_pk)
+    if request.method == 'POST' :
+        form = GroupCommentCreateForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = group_post
+            comment.author = request.user
+            comment.save()
+    else:
+        form = GroupCommentCreateForm()
+    comments = get_object_or_404(GroupPost, pk=post_pk).comments.all()
+    return render(request, 'groups/group_post_info.html', {'group': group, 'group_post': group_post,
+                                                           'comments': comments, 'form': form})
+
+
+def inbox(request):
+    invites = request.user.invites_received.all()
+    return render(request, 'user/inbox.html', {'invites': invites})
+
+
+def accept_invite(request, group_pk, invite_pk):
+    group = get_object_or_404(Group, pk=group_pk)
+    group.members.add(request.user)
+    GroupInvite.objects.get(pk=invite_pk).delete()
+    return redirect('inbox')
+
+
+def decline_invite(request, group_pk, invite_pk):
+    GroupInvite.objects.get(pk=invite_pk).delete()
+    return redirect('inbox')
+
+
 class UpdateEducation(UpdateView):
     model = Education
     form_class = ModifyEducationForm
@@ -195,11 +266,11 @@ class UpdateEducation(UpdateView):
     def get_context_data(self, **kwargs):
         context = super(UpdateEducation, self).get_context_data(**kwargs)
         context['form'] = ModifyEducationForm(
-            instance=Education.objects.filter(profile=self.request.user.profile, pk=self.kwargs['pk']).first())
+            instance=get_object_or_404(Education, profile=self.request.user.profile, pk=self.kwargs.get("pk")))
         return context
 
     def get_object(self):
-        return Education.objects.filter(profile=self.request.user.profile, pk=self.kwargs['pk']).first()
+        return get_object_or_404(Education, profile=self.request.user.profile, pk=self.kwargs.get("pk"))
 
 
 class DeleteEducation(SuccessMessageMixin, DeleteView):
@@ -225,11 +296,11 @@ class UpdateExperience(UpdateView):
     def get_context_data(self, **kwargs):
         context = super(UpdateExperience, self).get_context_data(**kwargs)
         context['form'] = ModifyExperienceForm(
-            instance=Experience.objects.filter(profile=self.request.user.profile, pk=self.kwargs['pk']).first())
+            instance=get_object_or_404(Experience, profile=self.request.user.profile, pk=self.kwargs.get("pk")))
         return context
 
     def get_object(self):
-        return Experience.objects.filter(profile=self.request.user.profile, pk=self.kwargs['pk']).first()
+        return get_object_or_404(Experience, profile=self.request.user.profile, pk=self.kwargs.get("pk"))
 
 
 class DeleteExperience(SuccessMessageMixin, DeleteView):
@@ -300,6 +371,7 @@ class PostCreateView(CreateView):
         context['posts'] = posts
         return context
 
+
 class DeletePost(SuccessMessageMixin, DeleteView):
     model = Post
     success_url = '/posts'
@@ -323,11 +395,11 @@ class UpdatePost(UpdateView):
     def get_context_data(self, **kwargs):
         context = super(UpdatePost, self).get_context_data(**kwargs)
         context['form'] = ModifyPostForm(
-            instance=Post.objects.filter(author=self.request.user, pk=self.kwargs['pk']).first())
+            instance=get_object_or_404(Post, author=self.request.user, pk=self.kwargs.get("pk")))
         return context
 
     def get_object(self):
-        return Post.objects.filter(author=self.request.user, pk=self.kwargs['pk']).first()
+        return get_object_or_404(Post, author=self.request.user, pk=self.kwargs.get("pk"))
 
 
 class PostLike(RedirectView):
@@ -340,3 +412,82 @@ class PostLike(RedirectView):
             else:
                 post.likes.add(user)
         return '/posts'
+
+
+class UpdateGroup(UpdateView):
+    model = Group
+    form_class = ModifyGroupForm
+    template_name = 'groups/update_group.html'
+    success_url = '/groups'
+
+    def get_context_data(self, **kwargs):
+        context = super(UpdateGroup, self).get_context_data(**kwargs)
+        context['form'] = ModifyGroupForm(instance=get_object_or_404(Group, pk=self.kwargs.get("pk")))
+        return context
+
+    def get_object(self):
+        return get_object_or_404(Group, pk=self.kwargs.get("pk"))
+
+
+class DeleteGroupPost(SuccessMessageMixin, DeleteView):
+    model = GroupPost
+    success_message = "Removed Group Post"
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        return super(DeleteGroupPost, self).delete(request, *args, **kwargs)
+
+    def get_success_url(self):
+        return reverse('group-profile', kwargs={'pk': self.kwargs.get("group_pk")})
+
+
+class UpdateGroupPost(UpdateView):
+    model = GroupPost
+    form_class = ModifyGroupPostForm
+    template_name = 'groups/update_group_post.html'
+
+    def get_context_data(self, **kwargs):
+        group = get_object_or_404(Group, pk=self.kwargs.get("group_pk"))
+        context = super(UpdateGroupPost, self).get_context_data(**kwargs)
+        context['form'] = ModifyGroupPostForm(
+            instance=get_object_or_404(GroupPost, group=group,
+                                       author=self.request.user, pk=self.kwargs.get("post_pk")))
+        return context
+
+    def get_object(self):
+        group = get_object_or_404(Group, pk=self.kwargs.get("group_pk"))
+        return get_object_or_404(GroupPost, group=group,
+                                 author=self.request.user, pk=self.kwargs.get("post_pk"))
+
+    def get_success_url(self):
+        return reverse('group-profile', kwargs={'pk': self.kwargs.get("group_pk")})
+
+
+class GroupPostLike(RedirectView):
+    def get_redirect_url(self, *args, **kwargs):
+        group = get_object_or_404(Group, pk=self.kwargs.get("group_pk"))
+        group_post = get_object_or_404(GroupPost, group=group, pk=self.kwargs.get("post_pk"))
+        user = self.request.user
+        if user.is_authenticated:
+            if user in group_post.likes.all():
+                group_post.likes.remove(user)
+            else:
+                group_post.likes.add(user)
+        return reverse('group-profile', kwargs={'pk': self.kwargs.get("group_pk")})
+
+
+class GroupInviteCreateView(CreateView):
+    template_name = 'groups/group_invite.html'
+    model = GroupInvite
+    form_class = GroupInviteCreateForm
+
+    def form_valid(self, form):
+        form.instance.sender = self.request.user
+        form.instance.group = get_object_or_404(Group, pk=self.kwargs.get("group_pk"))
+        return super(GroupInviteCreateView, self).form_valid(form)
+
+    def get_form_kwargs(self, **kwargs):
+        form_kwargs = super(GroupInviteCreateView, self).get_form_kwargs(**kwargs)
+        form_kwargs["user"] = self.request.user
+        form_kwargs["group_pk"] = self.kwargs.get("group_pk")
+        return form_kwargs
