@@ -81,7 +81,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'dbchainedout',
         'USER': 'postgres',
-        'PASSWORD': 'omicron',
+        'PASSWORD': 'carloshui95',
         'HOST': '',
         'PORT': '5432',
     }
