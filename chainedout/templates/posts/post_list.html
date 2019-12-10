@@ -18,6 +18,10 @@
                               <label class="mylabel"><b>{{ field.label }}</b></label>
                               {{ field }}
                           {% endfor %}
+                          <br><br>{{ formset.management_form }}
+                          {% for form in formset %}
+                            {{ form }}<br><br>
+                          {% endfor %}
                       </div>
                 <button id="share-a-post" type="submit"> Share </button>
             </div>
@@ -78,6 +82,10 @@
                 <div class="post-body">
                     {{ post.body|safe }}
                 </div>
+
+                {% for post_image in post.images.all %}
+                    <img src="{{ post_image.image.url }}" width="100%">
+                {% endfor %}
 
                 {% if post.image %}
                     <div class="slideshow-container_carousel">

@@ -2,10 +2,12 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.db.models import Q
+from django.forms import modelformset_factory
 from django.shortcuts import get_object_or_404
 from django_summernote.widgets import SummernoteWidget
 
-from .models import Profile, Education, Experience, Post, Comment, Group, GroupPost, GroupComment, GroupInvite
+from .models import Profile, Education, Experience, Post, Comment, Group, GroupPost, GroupComment, GroupInvite, \
+    PostImage
 
 
 class RegisterForm(UserCreationForm):
@@ -70,11 +72,22 @@ class ModifyExperienceForm(forms.ModelForm):
 class PostCreateForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'body', 'image', 'status']
-        labels = ['Title', 'Body', 'Image', 'Status']
+        fields = ['title', 'body', 'status']
+        labels = ['Title', 'Body', 'Status']
         widgets = {
             'body': SummernoteWidget(attrs={'summernote': {'height': '200px', 'width': '100%'}}),
         }
+
+
+class ImageForm(forms.ModelForm):
+    image = forms.ImageField(label='Image')
+
+    class Meta:
+        model = PostImage
+        fields = ['image']
+
+
+ImageFormSet = modelformset_factory(PostImage, form=ImageForm, extra=3)
 
 
 class CommentCreateForm(forms.ModelForm):
