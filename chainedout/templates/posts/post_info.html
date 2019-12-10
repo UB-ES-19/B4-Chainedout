@@ -2,102 +2,102 @@
 
 {% block content %}
     <div class="posts-page">
-            <div class="post-box">
-                <div class="current-avatar fleft">
-                    {% if post.author.profile.image %}
-                        <img src="{{ post.author.profile.image.url }}" width="128" alt="Avatar" class="post-profile_avatar">
-                    {% else %}
-                        <img src="/static/images/img_avatar.png" width="128" alt="Avatar" class="post-profile_avatar">
+        <div class="post-box">
+            <div class="current-avatar fleft">
+                {% if post.author.profile.image %}
+                    <img src="{{ post.author.profile.image.url }}" width="128" alt="Avatar" class="post-profile_avatar">
+                {% else %}
+                    <img src="/static/images/img_avatar.png" width="128" alt="Avatar" class="post-profile_avatar">
+                {% endif %}
+                <div class="post-user-information">
+                    <div class="post-name"><p>{{ post.author.first_name }} {{ post.author.last_name }}</p></div>
+                    {% if post.status == 'posted' %}
+                        {% if post.updated != post.created %}
+                            <div class="post-date"><p>Updated {{ post.updated }}</p></div>
+                        {% else %}
+                            <div class="post-date"><p>Posted {{ post.created }}</p></div>
+                        {% endif %}
                     {% endif %}
-                    <div class="post-user-information">
-                        <div class="post-name"><p>{{ post.author.first_name }} {{ post.author.last_name }}</p></div>
-                        {% if post.status == 'posted' %}
-                            {% if post.updated != post.created %}
-                                <div class="post-date"><p>Updated {{ post.updated }}</p></div>
-                            {% else %}
-                                <div class="post-date"><p>Posted {{ post.created }}</p></div>
-                            {% endif %}
-                        {% endif %}
-                        {% if post.status == 'draft' %}
-                            <div class="post-status"><p>(Draft)</p></div>
-                        {% endif %}
-                    </div>
+                    {% if post.status == 'draft' %}
+                        <div class="post-status"><p>(Draft)</p></div>
+                    {% endif %}
                 </div>
+            </div>
             <div class="post-buttons fright">
-                    {% if post.author == user %}
-                        <form action="{% url 'update_post' year=post.created.year month=post.created.month day=post.created.day slug=post.slug pk=post.pk %}" method="POST">
-                            {% csrf_token %}
-                            <button class="post-edit bhoverlink" type="submit" value="edit"><i class="fas fa-edit"></i> Edit</button>
-                        </form>
-                        <form action="{% url 'delete_post' pk=post.pk %}" method="POST">
-                            {% csrf_token %}
-                            <button class="post-delete bhoverlink" type="submit" value="remove"><i class="fas fa-trash-alt"></i> Delete</button>
-                        </form>
-                    {% else %}
-                        <button class="post-like bhoverlink">
-                            <a href="{% url 'like_post' year=post.created.year month=post.created.month day=post.created.day slug=post.slug pk=post.pk %}" class="post-comment">
-                                {% if post in user.post_likes.all %}
-                                    <i class="fas fa-thumbs-down"></i> Unlike
-                                {% else %}
-                                    <i class="fas fa-thumbs-up"></i> Like
-                                {% endif %}
-                            </a>
-                        </button>
-                    {% endif %}
+                {% if post.author == user %}
+                    <form action="{% url 'update_post' year=post.created.year month=post.created.month day=post.created.day slug=post.slug pk=post.pk %}" method="POST">
+                        {% csrf_token %}
+                        <button class="post-edit bhoverlink" type="submit" value="edit"><i class="fas fa-edit"></i> Edit</button>
+                    </form>
+                    <form action="{% url 'delete_post' pk=post.pk %}" method="POST">
+                        {% csrf_token %}
+                        <button class="post-delete bhoverlink" type="submit" value="remove"><i class="fas fa-trash-alt"></i> Delete</button>
+                    </form>
+                {% else %}
+                    <button class="post-like bhoverlink">
+                        <a href="{% url 'like_post' year=post.created.year month=post.created.month day=post.created.day slug=post.slug pk=post.pk %}" class="post-comment">
+                            {% if post in user.post_likes.all %}
+                                <i class="fas fa-thumbs-down"></i> Unlike
+                            {% else %}
+                                <i class="fas fa-thumbs-up"></i> Like
+                            {% endif %}
+                        </a>
+                    </button>
+                {% endif %}
             </div>
             <div style="clear:both;">
 
-                <!-- <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2> -->
+            <!-- <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2> -->
 
-                <div class="post-body">
-                    {{ post.body|safe }}
-                </div>
+            <div class="post-body">
+                {{ post.body|safe }}
+            </div>
 
-                {% if post.image %}
-                    <div class="post-image-space"><img src="{{ post.image.url }}" width="256" alt="Avatar" class="post-image"></div>
-                {% endif %}
+            {% if post.image %}
+                <div class="post-image-space"><img src="{{ post.image.url }}" width="256" alt="Avatar" class="post-image"></div>
+            {% endif %}
 
             </div>
         </div>
-
-       <div id="post-box-coment" class="single-post-box-coment1">
-            <div class="coments_exemple">
-                <form action="" method="POST">
+        <div class="single-post-box-show">
+            <div class="single-post-box-coment1">
+                <form method="POST">
                     {% csrf_token %}
-                            <input id="texto" type="text" name="texto" value="{{ comment.texto }}">
-                        <div class="comment_button">
-                            <button id="coment-a-post" type="submit">Comment</button>
-                         </div>
+
+                     {% for field in form %}
+                        <div class="rich-text">
+                            {{ field }}
+                        </div>
+                    {% endfor %}
+
+                    <div class="comment_button">
+                        <button id="coment-a-post" type="submit">Comment</button>
+                    </div>
+
                 </form>
             </div>
-        </div>
-
-    {% if comments %}
-        <div id="post-coment" class="single-post-box-show">
             {% for comment in comments %}
-                <div class="posts-page">
-                    <div class="post-box">
+                    <div class="post-box-comments">
                         <div class="current-avatar">
-                            {% if comment.user.profile.image %}
+                            {% if comment.author.profile.image %}
                                 <img src="{{ comment.user.profile.image.url }}" width="128" alt="Avatar" class="post-profile_avatar">
                             {% else %}
                                 <img src="/static/images/img_avatar.png" width="128" alt="Avatar" class="post-profile_avatar">
                             {% endif %}
                             <div class="post-user-information">
-                                <div class="post-name" style="font-size: 13px;"><p><b>{{ comment.user.username }}</b></p></div>
+                                <div class="post-name" style="font-size: 13px;"><p><b>{{ comment.author.first_name }}</b></p></div>
+                            </div>
+                            <div class="post-buttons">
+                                <h style="margin-top: 7px; margin-left: 55px; font-size: 10px ">{{ comment.published }}</h>
                             </div>
                         </div>
+
                         <div class="post-body">
-                            <h style="font-size: 15px">{{ comment.texto|safe }} </h>
-                        </div>
-                        <hr class="line">
-                        <div class="post-buttons">
-                            <h style="margin-top: 7px; margin-left: 55px; font-size: 10px ">{{ comment.created_date }}</h>
+                            <h style="font-size: 15px">{{ comment.body|safe }} </h>
                         </div>
                     </div>
-                </div>
+                    <hr class="line">
             {% endfor %}
         </div>
-    {% endif %}
     </div>
 {% endblock %}

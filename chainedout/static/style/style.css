@@ -1134,6 +1134,8 @@ button:hover.profile_modal_btn{
     width: 50%;
     box-shadow: 2px 2px 5px #aaaaaa;
 }
+
+
 .post-box-p{
   border: 1px solid #BFBFBF;
     background-color: #FFFFFF;
@@ -1389,7 +1391,7 @@ img.post-profile_avatar{
     background-color: #dbeced42;
     margin: 19px auto 50px;
     padding: 20px 20px 20px;
-    width: 60%;
+    width: 50%;
     box-shadow: 2px 2px 5px #aaaaaa;
     text-align: justify
 }
@@ -1406,40 +1408,10 @@ img.post-profile_avatar{
 }
 
 .single-post-box-coment1{
-
-    background-color: #dbeced42;
-    border: 1px solid #BFBFBF;
-    margin: auto;
-    margin-bottom: 50px;
-    padding: 20px 20px 50px;
-    width: 60%;
-    box-shadow: 2px 2px 5px #aaaaaa;
+    border: none;
     text-align: justify;
     font-size: 10px;
-}
-
-.single-post-box-coment{
-    border: 1px solid #BFBFBF;
-    background-color: #FFFFFF;
-    margin: auto;
-    padding: 20px 20px 20px;
-    width: auto;
-    box-shadow: 2px 2px 5px #aaaaaa;
-    text-align: justify;
-    font-size: 10px;
-}
-
-.textarea .autoExpand{
-    border-radius:5px;
-    width: 100%;
-    height: 30px;
-    padding: 5px;
-    display: block;
-    overflow: hidden;
-
-    font-size: 14px;
-    margin: 50px auto;
-    border: 0;
+    margin-bottom: 30px;
 }
 
 button#coment-a-post{
@@ -1449,8 +1421,10 @@ button#coment-a-post{
     cursor: pointer;
     border: 1px solid #ccc;
     border-radius: 5px;
-    float: right;
-
+    margin-top: 20px;
+    margin-left: 600px;
+}
+.rich-text{
 }
 
 .fleft {
@@ -1590,10 +1564,89 @@ img.group_avatar {
 .member-box {
     border: 1px solid #BFBFBF;
     background-color: #FFFFFF;
-    margin: 20px 0 0 95.148px;
+    margin: 0 0 0 190.297px;
     padding: 20px;
-    width: 25%;
+    width: 28%;
+    float: left;
     box-shadow: 2px 2px 5px #aaaaaa;
 }
 
 /* ------------------------------------- MEMBER BOX END ----------------------------------------- */
+
+.group-single-post{
+    min-width: 200px;
+}
+
+.group-single-post-box{
+    border: 1px solid #BFBFBF;
+    background-color: #FFFFFF;
+    margin: 20px auto 20px 760px;
+    padding: 20px 20px 44px;
+    width: 50%;
+    box-shadow: 2px 2px 5px #aaaaaa;
+}
+.group-post-box {
+    border: 1px solid #BFBFBF;
+    background-color: #FFFFFF;
+  margin: 20px auto 20px 760px;
+    padding: 20px 20px 10px;
+    width: 50%;
+    box-shadow: 2px 2px 5px #aaaaaa;
+}
+
+img.post-profile_avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  vertical-align: middle;
+  float: left;
+}
+
+.group-profile {
+    min-width: 800px;
+}
+.group-profilebox {
+    border: 1px solid #BFBFBF;
+    background-color: #FFFFFF;
+    margin: 20px auto;
+    padding: 20px;
+    width: 80%;
+    box-shadow: 2px 2px 5px #aaaaaa;
+}
+
+.group-left-profile {
+    float: left;
+}
+
+.group-right-profile {
+    float: right;
+}
+
+.group-right-profile a {
+    color: #0F292F;
+}
+
+.group-profile h1 {
+    font-size: 22px;
+    text-transform: none;
+    margin-bottom: 5px;
+}
+
+.group-profile h2 {
+    font-size: 17px;
+    font-weight: 200;
+    margin-bottom: 5px;
+}
+
+.group-profile h3 {
+    font-size: 15px;
+    font-weight: 200;
+    margin-bottom: 5px;
+}
+
+.group-profile a .flink, #profile a:link .flink {
+    font-size: 14px;
+    font-weight: bold;
+    color: #0b4d5d;
+}

@@ -16,26 +16,25 @@
             {{ group_post.body|safe }}
         </div>
 
-       <div id="post-box-coment" class="single-post-box-coment1">
-            <div class="coments_exemple">
+        <div class="single-post-box-show">
+            <div class="single-post-box-coment1">
                 <form method="POST">
                     {% csrf_token %}
+
                      {% for field in form %}
-                        <label class="mylabel"><b>{{ field.label }}</b></label>
-                        {{ field }}
+                        <div class="rich-text">
+                            {{ field }}
+                        </div>
                     {% endfor %}
+
                     <div class="comment_button">
                         <button id="coment-a-post" type="submit">Comment</button>
-                     </div>
+                    </div>
+
                 </form>
             </div>
-        </div>
-
-    {% if comments %}
-        <div id="post-coment" class="single-post-box-show">
             {% for comment in comments %}
-                <div class="posts-page">
-                    <div class="post-box">
+                    <div class="post-box-comments">
                         <div class="current-avatar">
                             {% if comment.author.profile.image %}
                                 <img src="{{ comment.user.profile.image.url }}" width="128" alt="Avatar" class="post-profile_avatar">
@@ -43,20 +42,19 @@
                                 <img src="/static/images/img_avatar.png" width="128" alt="Avatar" class="post-profile_avatar">
                             {% endif %}
                             <div class="post-user-information">
-                                <div class="post-name" style="font-size: 13px;"><p><b>{{ comment.author.username }}</b></p></div>
+                                <div class="post-name" style="font-size: 13px;"><p><b>{{ comment.author.first_name }}</b></p></div>
+                            </div>
+                            <div class="post-buttons">
+                                <h style="margin-top: 7px; margin-left: 55px; font-size: 10px ">{{ comment.published }}</h>
                             </div>
                         </div>
+
                         <div class="post-body">
                             <h style="font-size: 15px">{{ comment.body|safe }} </h>
                         </div>
-                        <hr class="line">
-                        <div class="post-buttons">
-                            <h style="margin-top: 7px; margin-left: 55px; font-size: 10px ">{{ comment.published }}</h>
-                        </div>
                     </div>
-                </div>
+                    <hr class="line">
             {% endfor %}
         </div>
-    {% endif %}
     </div>
 {% endblock %}
