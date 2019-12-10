@@ -2,9 +2,9 @@
 
 {% block content %}
     <div class="my-groups">
-        <h1>My groups</h1>
+        <h1>All groups</h1>
     </div>
-    {% for group in user.user_groups.all %}
+    {% for group in groups %}
         <div id="profile">
             <div id="profilebox">
                 <div class="left_profile">

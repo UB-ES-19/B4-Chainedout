@@ -37,13 +37,14 @@
                     <div class="post-box-comments">
                         <div class="current-avatar">
                             {% if comment.author.profile.image %}
-                                <img src="{{ comment.user.profile.image.url }}" width="128" alt="Avatar" class="post-profile_avatar">
+                                <img src="{{ comment.author.profile.image.url }}" width="128" alt="Avatar" class="post-profile_avatar">
                             {% else %}
                                 <img src="/static/images/img_avatar.png" width="128" alt="Avatar" class="post-profile_avatar">
                             {% endif %}
                             <div class="post-user-information">
-                                <div class="post-name" style="font-size: 13px;"><p><b>{{ comment.author.first_name }}</b></p></div>
+                                <div class="post-name" style="font-size: 13px;"><p><b>{{ comment.author.first_name }} {{ comment.author.last_name }}</b></p></div>
                             </div>
+
                             <div class="post-buttons">
                                 <h style="margin-top: 7px; margin-left: 55px; font-size: 10px ">{{ comment.published }}</h>
                             </div>

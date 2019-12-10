@@ -800,7 +800,6 @@ body, html {
 #profile h1 {
     font-size: 22px;
     text-transform: none;
-    letter-spacing: 2px;
     margin-bottom: 5px;
 }
 
@@ -1649,4 +1648,22 @@ img.post-profile_avatar {
     font-size: 14px;
     font-weight: bold;
     color: #0b4d5d;
+}
+
+.group-r-box{
+  width: 20%;
+  margin: 20px;
+
+}
+
+.group-r-img{
+  width: 20%;
+}
+
+.group-r-name{
+
+}
+
+.group-r-avatar{
+
 }

@@ -47,8 +47,6 @@
             </div>
             <div style="clear:both;">
 
-            <!-- <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2> -->
-
             <div class="post-body">
                 {{ post.body|safe }}
             </div>
@@ -76,16 +74,17 @@
 
                 </form>
             </div>
+
             {% for comment in comments %}
                     <div class="post-box-comments">
                         <div class="current-avatar">
-                            {% if comment.author.profile.image %}
+                            {% if comment.user.profile.image %}
                                 <img src="{{ comment.user.profile.image.url }}" width="128" alt="Avatar" class="post-profile_avatar">
                             {% else %}
                                 <img src="/static/images/img_avatar.png" width="128" alt="Avatar" class="post-profile_avatar">
                             {% endif %}
                             <div class="post-user-information">
-                                <div class="post-name" style="font-size: 13px;"><p><b>{{ comment.author.first_name }}</b></p></div>
+                                <div class="post-name" style="font-size: 13px;"><p><b>{{ comment.user.first_name }} {{ comment.user.last_name }}</b></p></div>
                             </div>
                             <div class="post-buttons">
                                 <h style="margin-top: 7px; margin-left: 55px; font-size: 10px ">{{ comment.published }}</h>
