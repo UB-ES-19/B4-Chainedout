@@ -52,7 +52,7 @@
                 <li><a id = "users" class="users" href="{% url 'user_list' %}"><i class="fa fa-fw fa-users"></i> Users</a></li>
                 <li>
                     <form method="GET" action="{%  url 'user_list' %}">
-                        <input name="q" type="text" value="{{ request.GET.q }}" placeholder="Search..."/>
+                        <input name="q" type="text" value="{{ request.GET.q }}" placeholder="Search User/Organization"/>
                     </form>
                 </li>
             {% else %}

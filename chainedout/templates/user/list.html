@@ -7,14 +7,14 @@
 
     <div class="search-result-search-bar">
 		<form method="GET" action="{%  url 'user_list' %}">
-            <input name="q" type="text" value="{{ request.GET.q }}" placeholder="Search..."/>
+            <input name="q" type="text" value="{{ request.GET.q }}" placeholder="Search User/Organization"/>
             <button type="submit">Search</button>
         </form>
 
 	</div>
 
     {% for user in users %}
-        {% if not user.profile.organizations %}
+        {% if not user.profile.organization %}
             <div id="profile">
                 <div id="profilebox">
                     <h>USER</h>
