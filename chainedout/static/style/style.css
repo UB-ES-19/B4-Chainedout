@@ -251,11 +251,12 @@ body .register{
   font-size: 22px;
   font-weight: 300;
 }
+
 /* ----- TEXT END ------ */
 /* ----- Register box ----*/
 /* register box space */
 .register-box{
-  width: 500px;
+  width: 700px;
   margin: 20px auto;
   padding: 50px;
   border-width: 10px;
@@ -266,6 +267,10 @@ body .register{
 
 .signin {
   text-align: center;
+}
+.signin p{
+  margin-left: 100px;
+  margin-top: 20px;
 }
 
 input[type=text], input[type=password], input[type=email]{
@@ -306,8 +311,7 @@ input[type='checkbox']{
   width: 35%;
   opacity: 0.9;
   border-radius: 20px;
-  margin: 30px 0 8px;
-  float: right;
+  margin: 30px 0 8px 40%;
 }
 
 .registerbtn:hover{
@@ -357,7 +361,7 @@ body, html {
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
-.landing-parallax-button{
+.landing-parallax-button button{
   background-color: transparent;
   border-style: solid;
   border-color: white;
@@ -377,7 +381,7 @@ body, html {
   top: 65%;
 }
 
-.landing-parallaxbtn:hover{
+.landing-parallax-button button:hover{
   color: black;
   background-color: white;
 }
@@ -525,7 +529,7 @@ body, html {
 
   position: absolute;
   margin-left: 600px;
-  margin-top: 150px;
+  margin-top: 130px;
 }
 
 .landing-post-job-button:hover{
@@ -533,6 +537,53 @@ body, html {
   color: #f1ece5;
 }
 
+.landing-create-group{
+  height: 300px;
+  background-color: #f1ece5;
+  min-width: 800px;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.landing-create-group h1{
+  color: #b24020;
+  font-weight: 200;
+  margin-left: 1200px;
+  margin-top: 130px;
+
+  letter-spacing: 0;
+  line-height: 1em;
+  text-transform: none;
+  display: block;
+
+  position: absolute;
+}
+
+.landing-create-group-button{
+  background-color: transparent;
+  border-style: solid;
+  border-color: #b24020;
+  border-width: 2px;
+  transition: 0.1s background-color linear, 0.1s color linear;
+  width: 12%;
+  height: 6%;
+
+  font-size: 20px;
+  color: #b24020;
+  text-align: center;
+  padding: 12px;
+
+  position: absolute;
+  margin-left: 800px;
+  margin-top: 130px;
+}
+
+.landing-create-group-button:hover{
+  background-color: #b24020;
+  color: #f1ece5;
+}
 
 /* --------------------------------- LANDING PAGE END ------------------------------------- */
 
@@ -740,6 +791,13 @@ body, html {
   margin-bottom: 10px;
 }
 
+img.profile_avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
 #profile .fabsep {
     font-size: 5px;
     vertical-align: middle;
@@ -750,7 +808,6 @@ body, html {
 #profile h1 {
     font-size: 22px;
     text-transform: none;
-    letter-spacing: 2px;
     margin-bottom: 5px;
 }
 
@@ -1081,6 +1138,18 @@ button:hover.profile_modal_btn{
     background-color: #FFFFFF;
     margin: 20px auto;
     padding: 20px 20px 10px;
+    width: 80%;
+    min-width: 850px;
+    box-shadow: 2px 2px 5px #aaaaaa;
+}
+
+
+.post-box-p{
+  border: 1px solid #BFBFBF;
+    background-color: #FFFFFF;
+    margin: 20px auto;
+    padding: 20px 20px 10px;
+    width: 95%;
     box-shadow: 2px 2px 5px #aaaaaa;
 }
 
@@ -1134,16 +1203,6 @@ hr.line{
   font-size: 13px;
 }
 
-.post-image-space{
-  width: 100%;
-  padding: 10px 10px 10px 60px;
-}
-
-.post-image{
-  position: relative;
-  width: 100%;
-  z-index: 0;
-}
 .post-buttons{
   margin-bottom: 0px;
   padding: 5px 5px 0px;
@@ -1287,12 +1346,12 @@ hr.line{
     background-color: #FFFFFF;
     margin: 20px auto;
     padding: 20px 20px 44px;
-    width: 50%;
+    width: 80%;
+    min-width: 850px;
     box-shadow: 2px 2px 5px #aaaaaa;
 }
 
 button#share-a-post {
-
     background-color: #00302f;
     color: white;
     padding: 10px 20px;
@@ -1318,7 +1377,6 @@ img.post-profile_avatar{
 .post-info-user {
     vertical-align: middle;
     padding-left: 60px;
-    padding-bottom: -40px;
 }
 
 .single-post-show{
@@ -1330,7 +1388,7 @@ img.post-profile_avatar{
     background-color: #dbeced42;
     margin: 19px auto 50px;
     padding: 20px 20px 20px;
-    width: 60%;
+    width: 50%;
     box-shadow: 2px 2px 5px #aaaaaa;
     text-align: justify
 }
@@ -1339,64 +1397,39 @@ img.post-profile_avatar{
     text-align:center;
 }
 
-.single-post-box-show .post-image-space{
+.single-post-box-show {
     width: 60%;
     padding: 10px 10px 10px 10px;
     text-align:justify;
-    margin: auto;
+    margin: 20px auto;
 }
 
 .single-post-box-coment1{
-
-    background-color: #dbeced42;
-    border: 1px solid #BFBFBF;
-    margin: auto;
-    margin-bottom: 50px;
-    padding: 20px 20px 50px;
-    width: 60%;
-    box-shadow: 2px 2px 5px #aaaaaa;
+    border: none;
     text-align: justify;
     font-size: 10px;
+    margin-bottom: 30px;
 }
 
-.single-post-box-coment{
-    border: 1px solid #BFBFBF;
-    background-color: #FFFFFF;
-    margin: auto;
-    padding: 20px 20px 20px;
-    width: auto%;
-    box-shadow: 2px 2px 5px #aaaaaa;
-    text-align: justify;
-    font-size: 10px;
+.post-box-comments{
+  margin: 20px;
 }
-
-.textarea .autoExpand{
-    border-radius:5px;
-    width: 100%;
-    height: 30px;
-    padding: 5px;
-    display: block;
-    box-sizing: padding-box;
-    overflow: hidden;
-
-    font-size: 14px;
-    margin: 50px auto;
-    box-shadow: 2px 2px 8px rgba(black, .3);
-    border: 0;
-}
-
-
 
 button#coment-a-post{
-
     background-color: #00302f;
     color: white;
     padding: 10px 20px;
     cursor: pointer;
     border: 1px solid #ccc;
     border-radius: 5px;
-    float: right;
 
+    display: block;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.rich-text{
 }
 
 .fleft {
@@ -1477,6 +1510,12 @@ button#coment-a-post{
   padding-left: 100px;
 }
 
+.my-groups h1{
+  font-size: 40px;
+  padding-top: 100px;
+  padding-left: 100px;
+}
+
 .search-result-search-bar {
   width: 40%;
   margin-left: 100px;
@@ -1514,10 +1553,7 @@ button#coment-a-post{
   color: white;
 }
 
-
 /* ------------------------------------- SEARCH RESULTS END ---------------------------------------- */
-
-
 
 .check-box-cont {
     margin: 5%;
@@ -1540,3 +1576,320 @@ button#coment-a-post{
     margin: 30px 0 8px;
     float: right;
 }
+
+/* groups */
+img.group_avatar {
+  width: 100%;
+  height: 250px;
+  margin-bottom: 10px;
+}
+/* groups end */
+
+/* ------------------------------------- MEMBER BOX START ----------------------------------------- */
+.invitegp {
+  float: right;
+}
+
+.membersgp {
+  float: left;
+}
+
+.invitebtn {
+    background-color: #00302f;
+    color: white;
+    padding: 5px 10px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.member {
+  width: 80%;
+  margin: 0 auto;
+  min-width: 800px;
+}
+.member-box {
+    border: 1px solid #BFBFBF;
+    background-color: #FFFFFF;
+    padding: 20px;
+    width: 28%;
+    float: left;
+    box-shadow: 2px 2px 5px #aaaaaa;
+}
+
+/* ------------------------------------- MEMBER BOX END ----------------------------------------- */
+
+.group-single-post-box{
+    border: 1px solid #BFBFBF;
+    background-color: #FFFFFF;
+    float: right;
+    padding: 20px 20px 44px;
+    width: 70%;
+    box-shadow: 2px 2px 5px #aaaaaa;
+}
+.group-post-box {
+    border: 1px solid #BFBFBF;
+    background-color: #FFFFFF;
+    padding: 20px 20px 10px;
+    width: 70%;
+    float: right;
+    clear: right;
+    box-shadow: 2px 2px 5px #aaaaaa;
+    margin-top: 20px;
+}
+
+img.post-profile_avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  vertical-align: middle;
+  float: left;
+}
+
+.group-profile {
+    min-width: 800px;
+}
+.group-profilebox {
+    border: 1px solid #BFBFBF;
+    background-color: #FFFFFF;
+    margin: 20px auto;
+    padding: 20px;
+    width: 80%;
+    box-shadow: 2px 2px 5px #aaaaaa;
+}
+
+.group-left-profile {
+    float: left;
+}
+
+.group-right-profile {
+    float: right;
+}
+
+.group-right-profile a {
+    color: #0F292F;
+}
+
+.group-profile h1 {
+    font-size: 22px;
+    text-transform: none;
+    margin-bottom: 5px;
+}
+
+.group-profile h2 {
+    font-size: 17px;
+    font-weight: 200;
+    margin-bottom: 5px;
+}
+
+.group-profile h3 {
+    font-size: 15px;
+    font-weight: 200;
+    margin-bottom: 5px;
+}
+
+.group-profile a .flink, #profile a:link .flink {
+    font-size: 14px;
+    font-weight: bold;
+    color: #0b4d5d;
+}
+
+.group-r-box{
+  margin: 20px;
+  display: inline-block;
+}
+
+.group-r-img{
+  width: 20%;
+}
+
+.group-r-name{
+  text-align: center;
+}
+
+.group-r-avatar{
+
+}
+
+/* ------------------------------------- INBOX START ----------------------------------------- */
+
+.pending-invites{
+    margin-top: 20px;
+}
+
+.pending-invites-box {
+  background-color: #FFFFFF;
+  margin: 20px auto;
+  padding: 20px 20px 10px;
+  width: 80%;
+  min-width: 850px
+}
+
+.pending-invites-single-box{
+  border: 1px solid #BFBFBF;
+  background-color: #FFFFFF;
+  margin: 20px auto;
+  padding: 20px 20px 10px;
+  width: 95%;
+  box-shadow: 2px 2px 5px #aaaaaa;
+}
+
+.pending-invites-button {
+  background-color: #00302f;
+  color: white;
+  padding: 5px 10px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100px;
+  height: 100px;
+  font-size: 20px;
+}
+
+.pending-invites-button-text{
+  color: white;
+}
+
+.acceptdecline-buttons{
+  float: right;
+  margin: auto;
+}
+
+.invite-group-box{
+  border: 1px solid #BFBFBF;
+  background-color: #FFFFFF;
+  margin: 10px;
+  padding: 10px;
+  box-shadow: 2px 2px 5px #aaaaaa;
+}
+.invite-group-img{
+  float: left;
+  margin-right: 20px;
+}
+
+.invite-group-name{
+  float: right;
+  margin-top: 40px;
+}
+.title{
+  color:black;
+}
+/* ------------------------------------- INBOX END ----------------------------------------- */
+
+/* ------------------------------------- CAROUSEL START ---------------------------------------- */
+
+/*.mySlides_carousel {display: none}*/
+
+/* Slideshow container */
+.slideshow-container_carousel {
+  max-width: 600px;
+  position: relative;
+  margin: auto;
+}
+
+/* Next & previous buttons */
+.prev_carousel, .next_carousel {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next_carousel {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev_carousel:hover, .next_carousel:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+/* Caption text */
+.text_carousel {
+  color: #fff;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+text-shadow:
+    -1px -1px 0 #000,
+     0   -1px 0 #000,
+     1px -1px 0 #000,
+     1px  0   0 #000,
+     1px  1px 0 #000,
+     0    1px 0 #000,
+    -1px  1px 0 #000,
+    -1px  0   0 #000;
+}
+
+/* Number text (1/3 etc) */
+.numbertext_carousel {
+  color: #fff;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+text-shadow:
+    -1px -1px 0 #000,
+     0   -1px 0 #000,
+     1px -1px 0 #000,
+     1px  0   0 #000,
+     1px  1px 0 #000,
+     0    1px 0 #000,
+    -1px  1px 0 #000,
+    -1px  0   0 #000;
+}
+
+/* The dots/bullets/indicators */
+.dot_carousel {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active_carousel, .dot_carousel:hover {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+  .prev_carousel, .next_carousel,.text_carousel {font-size: 11px}
+}
+
+/* ------------------------------------- CAROUSEL END ---------------------------------------- */
