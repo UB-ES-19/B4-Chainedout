@@ -12,17 +12,24 @@
                 <div class="current_avatar"><img src="/static/images/img_avatar.png" alt="Avatar" class="profile_avatar"></div>
             {% endif %}
             <div class="current_work_education">
+            {% if not user.profile.organization %}
                 {% if user.profile.educations.first %}
                     <div class="current_education"><i class="fas fa-university"></i> {{ user.profile.educations.first.entity }}</div>
                 {% endif %}
                 {% if user.profile.experiences.first %}
                     <div class="current_work"><i class="fas fa-briefcase"></i> {{ user.profile.experiences.first.company }}</div>
                 {% endif %}
+            {% else %}
+                <div class="current_education"><i class="fas fa-university"></i>  Organization</div>
+            {% endif %}
             </div>
         </div>
         <div style="clear:both; margin-bottom: 10px;"></div>
+        {% if not user.profile.organization %}
         <h1>{{ user.first_name }} {{ user.last_name }}</h1>
-
+        {% else %}
+        <h1>{{ user.profile.name_organization }}</h1>
+        {% endif %}
         {% if user.profile.location %}
           <h3>{{ user.profile.location }}</h3>
         {% endif %}
@@ -40,7 +47,7 @@
             {% endif %}
         </div>
     <div class="friends">
-            <a href="{{ user.get_absolute_url }}"><span class="flink">Show Contact Info</span></a> <i class="fas fabsep fa-circle"></i>
+            <a href="{{ user.get_absolute_url }}"><span class="flink">Show Info</span></a> <i class="fas fabsep fa-circle"></i>
             <a href="{% url 'user_list' %}"><span class="flink">25 contacts</span></a><i class="fas fabsep fa-circle"></i>
             <a href="{% url 'user_list' %}"><span class="flink">{{ user.followers.count }} follower{{ user.followers.count|pluralize }}</span></a>
             {% if not request.user.is_authenticated %}
@@ -82,9 +89,12 @@
 <!------------------------------ ABOUT BOX START ---------------------------------->
 <div id="profilebox">
     <div class="left_box">
+        {% if not user.profile.organization%}
         <h1 class="title">About</h1>
+        {% else %}
+        <h1 class="title">Organization Definition</h1>
+        {% endif %}
     </div>
-
     {% ifequal request.user user %}
         <div class="right_box">
             <div class="elemprofile"><a onclick="modal('profile_about_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
@@ -103,7 +113,11 @@
   <form class="profile-modal-content animate" method="post">
   {% csrf_token %}
 
+    {% if not user.profile.organization %}
     <div class="profile_modal_title">About</div>
+    {% else %}
+    <div class="profile_modal_title">Organization Definition</div>
+    {% endif %}
     <div onclick="modal('profile_about_modal', 'none')" class="mclose" title="Close Modal">&times;</div>
     <div style="clear: both"></div>
 
@@ -129,6 +143,7 @@
 
 
 <!------------------------------ EDUCATION BOX START ---------------------------------->
+{% if not user.profile.organization %}
 <div id="profilebox">
     <div class="left_box">
         <h1 class="title">Education</h1>
@@ -266,6 +281,7 @@
     </div>
   </form>
 </div>
+{% endif %}
 <!----- MODAL EXPERIENCE END ----->
 
 <!------------------------------ EDUCATION BOX END ---------------------------------->
@@ -275,7 +291,11 @@
 <!------------------------------ SKILLS BOX START ---------------------------------->
 <div id="profilebox">
     <div class="left_box">
+        {% if not user.profile.organization %}
         <h1 class="title">Skills</h1>
+        {% else %}
+        <h1 class="title">Especialities</h1>
+        {% endif %}
     </div>
 
     {% ifequal request.user user %}
@@ -305,7 +325,11 @@
   <form class="profile-modal-content animate" method="post">
   {% csrf_token %}
 
+    {% if not user.profile.organization %}
     <div class="profile_modal_title">Skills</div>
+    {% else %}
+    <div class="profile_modal_title">Especialities</div>
+    {% endif %}
     <div onclick="modal('profile_skills_modal', 'none')" class="mclose" title="Close Modal">&times;</div>
     <div style="clear: both"></div>
 
@@ -327,8 +351,6 @@
 <!----- MODAL SKILLS END ----->
 
 <!------------------------------ SKILLS BOX END ---------------------------------->
-
-
 
 <!------------------------------ GROUPS START ---------------------------------->
 <div id="profilebox">
@@ -387,6 +409,77 @@
 </div>
 
 <!------------------------------ DEVICE LOG END ---------------------------------->
+
+<!------------------------------ JOBS BOX START ---------------------------------->
+{% if user.profile.organization %}
+<div id="profilebox">
+    <div class="left_box">
+        <h1 class="title">Available Jobs</h1>
+    </div>
+
+    {% ifequal request.user user %}
+        <div class="right_box">
+            <div class="elemprofile"><a onclick="modal('profile_jobs_modal', 'block')"><i class="fas fa-plus"></i> Add</a></div>
+        </div>
+    {% endifequal %}
+
+    <hr class="title_sep" />
+    <div id="info">
+        {% for job in user.profile.job.all %}
+            <div class="element">
+                <div class="edubox">
+                    {% if job.job_type and job.compan%}
+                        <p><i class="fas fa-university"></i> <b>{{ job.job_type }}</b> <i class="fas fabsep fa-circle"></i> <b>{{ job.compan }}</b></p>
+                    {% endif %}
+                    {% if job.until and job.location %}
+                        <p><small>{{ job.location }}   {{ job.until }}</small></p>
+                    {% endif %}
+                </div>
+                <div class="edit_edubox">
+                    <form action="{% url 'update_job' pk=job.pk %}" method="POST">
+                        {% csrf_token %}
+                        <button class="profile_btn_rem" type="submit" value="edit"><i class="fas fa-edit"></i> Edit</button>
+                    </form>
+                    <form action="{% url 'delete_job' pk=job.pk %}" method="POST">
+                        {% csrf_token %}
+                        <button class="profile_btn_rem" type="submit" value="remove"><i class="fas fa-trash-alt"></i> Remove</button>
+                    </form>
+                </div>
+                <div style="clear: both"></div>
+            </div>
+            <hr class="sepelement"/>
+        {% endfor %}
+    </div>
+</div>
+<!----- MODAL JOB START ----->
+<div id="profile_jobs_modal" class="job_modal">
+
+  <!-- Modal Content -->
+  <form class="profile-modal-content animate" method="post">
+  {% csrf_token %}
+
+    <div class="profile_modal_title">Available Jobs</div>
+    <div onclick="modal('profile_jobs_modal', 'none')" class="mclose" title="Close Modal">&times;</div>
+    <div style="clear: both"></div>
+
+    <div class="profile_modal_container">
+        <div class="scrollable_modal_container">
+            {% for field in job_form %}
+                <label class="mylabel"><b>{{ field.label }}</b></label>
+                {% if field.errors %}
+                    <span class="error">{{ field.errors.as_text }}</span>
+                {% endif %}
+                {{ field }}
+            {% endfor %}
+        </div>
+        <hr style="margin-top: 10px; margin-bottom: 10px;">
+        <button class="profile_modal_btn btnMargin" type="submit" value="submit_jobs" name="submit_jobs">Confirm</button>
+    </div>
+  </form>
+</div>
+{% endif %}
+
+<!------------------------------ JOBS BOX END ---------------------------------->
 
 <!------------------------------ HISTORY START ---------------------------------->
 

@@ -7,8 +7,7 @@ from django.shortcuts import get_object_or_404
 from django_summernote.widgets import SummernoteWidget
 
 from .models import Profile, Education, Experience, Post, Comment, Group, GroupPost, GroupComment, GroupInvite, \
-    PostImage, PrivateMessage, GroupInviteRequest
-
+    PostImage, PrivateMessage, GroupInviteRequest, Job
 
 class RegisterForm(UserCreationForm):
     first_name = forms.CharField(max_length=30, required=True, help_text='Required.')
@@ -23,8 +22,8 @@ class RegisterForm(UserCreationForm):
 class ModifyProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['phone', 'website', 'location', 'image', ]
-        labels = ['Telephone Number', 'Website', 'Location', 'Image', ]
+        fields = ['phone', 'website', 'location', 'name_organization', 'image',]
+        labels = ['Telephone Number', 'Website', 'Location', 'Name_Organization', 'Image',]
 
 
 class ModifyUserForm(forms.ModelForm):
@@ -69,6 +68,13 @@ class ModifyExperienceForm(forms.ModelForm):
         labels = ['Work_experience', 'Company', 'Started', 'Finished', 'Job']
 
 
+class ModifyJobsForm(forms.ModelForm):
+    class Meta:
+        model = Job
+        fields = ['job_type', 'compan', 'location', 'until']
+        labels = ['Job_type', 'Compan', 'Location', 'Until']
+
+
 class PostCreateForm(forms.ModelForm):
     class Meta:
         model = Post
@@ -88,6 +94,16 @@ class ImageForm(forms.ModelForm):
 
 
 ImageFormSet = modelformset_factory(PostImage, form=ImageForm, extra=3)
+
+
+
+class RequestOrganization(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['organization']
+        labels = {
+            "organization": "Are you an organization?"
+        }
 
 
 class CommentCreateForm(forms.ModelForm):

@@ -8,7 +8,8 @@ window.addEventListener("click", function(event) {
 	document.getElementById('profile_edu_modal'),
 	document.getElementById('profile_xp_modal'),
 	document.getElementById('profile_skills_modal'),
-	document.getElementById('profile_achievement_modal')
+	document.getElementById('profile_achievement_modal'),
+	document.getElementById('profile_jobs_modal')
 	];
 	
 	for (i = 0; i < modals.length; i++) {
@@ -47,6 +48,13 @@ function post_histo(id, btn) {
 		id.style.display = 'block';
 		btn.innerHTML = "<i class=\"fas fa-search-minus\"></i> Hide</div>";
 	}
+}
+
+function onlyOne(checkbox) {
+    var checkboxes = document.getElementsByName('org')
+    checkboxes.forEach((item) => {
+        if (item !== checkbox) item.checked = false
+    })
 }
 
 // CAROUSEL

@@ -39,7 +39,11 @@
                         <img src="/static/images/img_avatar.png" width="128" alt="Avatar" class="post-profile_avatar">
                     {% endif %}
                     <div class="post-user-information">
+                        {% if post.author.profile.organization %}
+                        <div class="post-name"><p>{{ post.author.profile.name_organization }}</p></div>
+                        {% else %}
                         <div class="post-name"><p>{{ post.author.first_name }} {{ post.author.last_name }}</p></div>
+                        {% endif %}
                         <div class="post-followers"><p>{{ post.author.followers.count }} follower{{ post.author.followers.count|pluralize }}</p></div>
                         <div class="post-followers"><p>{{ post.likes.count }} like{{ post.likes.count|pluralize }}</p></div>
                         {% if post.status == 'posted' %}

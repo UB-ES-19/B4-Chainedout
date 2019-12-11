@@ -104,7 +104,12 @@
                                 <img src="/static/images/img_avatar.png" width="128" alt="Avatar" class="post-profile_avatar">
                             {% endif %}
                             <div class="post-user-information">
-                                <div class="post-name" style="font-size: 13px;"><p><b>{{ comment.user.first_name }} {{ comment.user.last_name }}</b></p></div>
+                                {% if not comment.user.profile.organization %}
+                                <div class="post-name" style="font-size: 13px;"><p><b>{{ comment.user.username }}</b></p></div>
+                                {% else %}
+                                <div class="post-name" style="font-size: 13px;"><p><b>{{ comment.user.profile.name_organization }}</b></p></div>
+                                {% endif %}
+                               
                             </div>
                             <div class="post-creation-date">
                                 <h style="margin-top: 7px; margin-left: 10px; font-size: 10px ">{{ comment.created_date }}</h>

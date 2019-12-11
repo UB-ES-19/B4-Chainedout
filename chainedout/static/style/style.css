@@ -1007,7 +1007,7 @@ button.profile_btn_edit {
 
 /* ----- MODAL PROFILE START ----- */
 /* The Modal (background) */
-.profile_modal, .about_modal, .education_modal, .education_modal, .experience_modal, .skills_modal, .achievements_modal {
+.profile_modal, .about_modal, .education_modal, .education_modal, .experience_modal, .skills_modal, .achievements_modal, .job_modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
@@ -1554,6 +1554,28 @@ button#coment-a-post{
 }
 
 /* ------------------------------------- SEARCH RESULTS END ---------------------------------------- */
+
+.check-box-cont {
+    margin: 5%;
+    text-align: left;
+}
+
+.check-box-distance{
+    margin: 5px 0px 5px 0px;
+}
+
+.nextbtn {
+    background-color: #0F292F;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    cursor: pointer;
+    width: 8%;
+    opacity: 0.9;
+    border-radius: 20px;
+    margin: 30px 0 8px;
+    float: right;
+}
 
 /* groups */
 img.group_avatar {
