@@ -37,8 +37,12 @@ urlpatterns = [
     path('group-invite/<int:group_pk>', views.GroupInviteCreateView.as_view(success_url="/groups/"), name='group_invite'),
     path('group-invite/<int:group_pk>/<int:invite_pk>/accept-invite/', views.accept_invite, name='accept_invite'),
     path('group-invite/<int:group_pk>/<int:invite_pk>/decline-invite/', views.decline_invite, name='decline_invite'),
+    path('group-invite-request/<int:group_pk>', views.GroupInviteRequestCreateView.as_view(success_url="/groups/"), name='group_invite_request'),
+    path('group-invite-request/<int:group_pk>/<int:invite_pk>/accept-invite-request/', views.accept_invite_request, name='accept_invite_request'),
+    path('group-invite-request/<int:group_pk>/<int:invite_pk>/decline-invite-request/', views.decline_invite_request, name='decline_invite_request'),
     path('inbox/', views.inbox, name='inbox'),
     path('message/<int:pk>', views.PrivateMessageCreateView.as_view(), name='message'),
+    path('group-profile/<int:pk>/quit/', views.quit_group, name='quit_group'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:

@@ -24,19 +24,23 @@
                     <h3>{{ group.description|safe }}</h3>
                 {%  endif %}
                 <div class="friends">
-                        <a href="{% url 'group_user_list' group=group.pk %}"><span class="flink">{{ group.members.count }} member{{ group.members.count|pluralize }}</span></a>
+                    <a href="{% url 'group_user_list' group=group.pk %}"><span class="flink">{{ group.members.count }} member{{ group.members.count|pluralize }}</span></a>
                 </div>
             </div>
 
             <div class="group-right-profile">
-                {% ifequal request.user user %}
+                {% if request.user in group.members.all %}
                     <div class="edit_edubox">
                         <form action="{% url 'update_group' pk=group.pk %}" method="POST">
                             {% csrf_token %}
                             <button class="profile_btn_edit" type="submit" value="edit"><i class="fas fa-edit"></i> Edit</button>
                         </form>
+                        <form action="{% url 'quit_group' pk=group.pk %}" method="POST">
+                            {% csrf_token %}
+                            <button class="profile_btn_edit" type="submit" value="edit"><i class="fas fa-edit"></i> Quit group</button>
+                        </form>
                     </div>
-                {% endifequal %}
+                {% endif %}
             </div>
 
             <div style="clear: both"></div>
@@ -51,12 +55,21 @@
             <div class="membersgp">
                 <h1>Members</h1>
             </div>
-                <div class="invitegp">
-                    <form action="{% url 'group_invite' group_pk=group.pk %}" method="POST">
-                        {% csrf_token %}
-                        <button class="invitebtn" type="submit" value="edit">Invite</button>
-                    </form>
-                </div>
+                {% if request.user in group.members.all %}
+                    <div class="invitegp">
+                        <form action="{% url 'group_invite' group_pk=group.pk %}" method="POST">
+                            {% csrf_token %}
+                            <button class="invitebtn" type="submit" value="edit">Invite</button>
+                        </form>
+                    </div>
+                {% else %}
+                    <div class="invitegp">
+                        <form action="{% url 'group_invite_request' group_pk=group.pk %}" method="POST">
+                            {% csrf_token %}
+                            <button class="invitebtn" type="submit" value="edit">Request invite</button>
+                        </form>
+                    </div>
+                {% endif %}
             <div style="clear: both"></div>
 
 
@@ -75,6 +88,7 @@
 
 <!------------------------------- MEMBER BOX END ----------------------------->
 
+        {% if request.user in group.members.all %}
             <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
                 <div class="group-single-post-box">
@@ -98,6 +112,7 @@
                 </div>
             <div style="clear: both"></div>
             </form>
+        {% endif %}
 
             <!--  POST -->
         {% for post in group.posts.all %}
