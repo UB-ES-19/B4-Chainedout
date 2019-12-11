@@ -791,6 +791,13 @@ body, html {
   margin-bottom: 10px;
 }
 
+img.profile_avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
 #profile .fabsep {
     font-size: 5px;
     vertical-align: middle;
@@ -1690,13 +1697,11 @@ img.post-profile_avatar {
 }
 
 .pending-invites-box {
-  border: 1px solid #BFBFBF;
   background-color: #FFFFFF;
   margin: 20px auto;
   padding: 20px 20px 10px;
   width: 80%;
-  min-width: 850px;
-  box-shadow: 2px 2px 5px #aaaaaa;
+  min-width: 850px
 }
 
 .pending-invites-single-box{
@@ -1726,9 +1731,28 @@ img.post-profile_avatar {
 
 .acceptdecline-buttons{
   float: right;
-  margin: 10px;
+  margin: auto;
 }
 
+.invite-group-box{
+  border: 1px solid #BFBFBF;
+  background-color: #FFFFFF;
+  margin: 10px;
+  padding: 10px;
+  box-shadow: 2px 2px 5px #aaaaaa;
+}
+.invite-group-img{
+  float: left;
+  margin-right: 20px;
+}
+
+.invite-group-name{
+  float: right;
+  margin-top: 40px;
+}
+.title{
+  color:black;
+}
 /* ------------------------------------- INBOX END ----------------------------------------- */
 
 /* ------------------------------------- CAROUSEL START ---------------------------------------- */
