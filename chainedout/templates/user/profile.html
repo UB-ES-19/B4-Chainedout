@@ -330,7 +330,7 @@
 
 
 
-<!------------------------------ ACHIEVEMENTS BOX START ---------------------------------->
+<!------------------------------ GROUPS START ---------------------------------->
 <div id="profilebox">
     <div class="left_box">
         <h1 class="title">My groups</h1>
@@ -356,7 +356,31 @@
 </div>
 
 
-<!------------------------------ ACHIEVEMENTS BOX END ---------------------------------->
+<!------------------------------ GROUPS END ---------------------------------->
+
+<!------------------------------ DEVICE LOG START ---------------------------------->
+<div id="profilebox">
+    <div class="left_box">
+        <h1 class="title">Device Log</h1>
+    </div>
+
+    <hr class="title_sep" />
+    <div id="info">
+        {% for device in user.device_log.all %}
+            <div class="element">
+                <div class="edubox">
+                    <p>{{ device.time }}</p>
+                    <p>{{ device.browser }}</p>
+                    <p>{{ device.os }}</p>
+                    <p>{{ device.device }}</p>
+                </div>
+                <hr class="title_sep" />
+            </div>
+        {%  endfor %}
+    </div>
+</div>
+
+<!------------------------------ DEVICE LOG END ---------------------------------->
 
 <!------------------------------ HISTORY START ---------------------------------->
 
@@ -466,7 +490,6 @@
 
 <!------------------------------ HISTORY END ---------------------------------->
 
-</div>
 </div>
 
 {% endblock %}
