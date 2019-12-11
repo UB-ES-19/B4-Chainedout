@@ -50,23 +50,26 @@ function post_histo(id, btn) {
 }
 
 // CAROUSEL
-    function plusSlides(n) {
-        showSlides(slideIndex += n);
+
+var indexesPosts = []
+
+    function plusSlides(n, id) {
+        showSlides(indexesPosts[id]+=n, id);
     }
 
-    function currentSlide(n) {
-        showSlides(slideIndex = n);
+    function currentSlide(n, id) {
+        showSlides(indexesPosts[id]=n, id);
     }
 
-    function showSlides(n) {
+    function showSlides(n, id) {
         var i;
-        var slides = document.getElementsByClassName("mySlides_carousel");
+        var slides = document.getElementsByClassName("mySlides_carousel"+id);
         var dots = document.getElementsByClassName("dot_carousel");
         if (n > slides.length) {
-            slideIndex = 1
+            indexesPosts[id] = 1
         }
         if (n < 1) {
-            slideIndex = slides.length
+            indexesPosts[id] = slides.length
         }
         for (i = 0; i < slides.length; i++) {
             slides[i].style.display = "none";
@@ -74,6 +77,6 @@ function post_histo(id, btn) {
         for (i = 0; i < dots.length; i++) {
             dots[i].className = dots[i].className.replace(" active", "");
         }
-        slides[slideIndex - 1].style.display = "block";
-        dots[slideIndex - 1].className += " active";
+        slides[indexesPosts[id] - 1].style.display = "block";
+        dots[indexesPosts[id] - 1].className += " active";
     }
