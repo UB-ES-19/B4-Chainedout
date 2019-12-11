@@ -143,7 +143,12 @@ def group_profile(request, pk):
     else:
         group_post_form = GroupPostCreateForm()
 
-    return render(request, 'groups/group_profile.html', {'user': request.user, 'group': group,
+    objects = GroupPost.objects.filter(group=group)
+    paginator = Paginator(objects, 5)
+    page = request.GET.get('page')
+    posts = paginator.get_page(page)
+
+    return render(request, 'groups/group_profile.html', {'user': request.user, 'group': group, 'posts': posts,
                                                          'group_post_form': group_post_form})
 
 
