@@ -103,8 +103,8 @@ class CommentCreateForm(forms.ModelForm):
 class ModifyPostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'body', 'image', 'status']
-        labels = ['Title', 'Body', 'Image', 'Status']
+        fields = ['title', 'body', 'status']
+        labels = ['Title', 'Body', 'Status']
         widgets = {
             'body': SummernoteWidget(attrs={'summernote': {'height': '200px', 'width': '100%'}}),
         }

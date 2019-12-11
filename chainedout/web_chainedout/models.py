@@ -160,16 +160,20 @@ class PrivateMessage(models.Model):
 class DeviceLog(models.Model):
     user = models.ManyToManyField(User, blank=True, related_name='device_log')
     time = models.DateTimeField(default=timezone.now)
-    browser = models.TextField()
-    os = models.TextField()
-    device = models.TextField()
+    browser_family = models.CharField(max_length=50, null=True, blank=True)
+    browser_version = models.CharField(max_length=20, null=True, blank=True)
+    os_family = models.CharField(max_length=50, null=True, blank=True)
+    os_version = models.CharField(max_length=20, null=True, blank=True)
+    device_family = models.CharField(max_length=50, null=True, blank=True)
 
 
 def write_log(sender, user, request, **kwargs):
     log = DeviceLog.objects.create(
-        browser=request.user_agent.browser,
-        os=request.user_agent.os,
-        device=request.user_agent.device
+        browser_family=request.user_agent.browser.family,
+        browser_version=request.user_agent.browser.version,
+        os_family=request.user_agent.os.family,
+        os_version=request.user_agent.os.version,
+        device_family=request.user_agent.device.family
     )
     log.user.set([request.user])
     return
