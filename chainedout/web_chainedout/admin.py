@@ -3,7 +3,7 @@ from django.contrib import admin
 
 from django.contrib import admin
 from .models import Profile, Follow, Education, Experience, Post, Comment, Group, DeviceLog, PostImage, GroupPost, \
-    GroupComment, GroupInvite, PrivateMessage
+    GroupComment, GroupInvite, PrivateMessage, GroupInviteRequest
 
 admin.site.register(Profile)
 admin.site.register(Follow)
@@ -16,5 +16,6 @@ admin.site.register(Group)
 admin.site.register(GroupPost)
 admin.site.register(GroupComment)
 admin.site.register(GroupInvite)
+admin.site.register(GroupInviteRequest)
 admin.site.register(PrivateMessage)
 admin.site.register(DeviceLog)

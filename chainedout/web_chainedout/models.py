@@ -149,6 +149,14 @@ class GroupInvite(models.Model):
     created = models.DateTimeField(default=timezone.now)
 
 
+class GroupInviteRequest(models.Model):
+    text = models.TextField()
+    group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='invite_requests')
+    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='invite_requests_sent')
+    receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='invite_requests_received')
+    created = models.DateTimeField(default=timezone.now)
+
+
 class PrivateMessage(models.Model):
     text = models.TextField()
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='messages_sent')

@@ -1,0 +1,21 @@
+{% extends "header.html" %}
+
+{% block content %}
+  <form method="post">
+  {% csrf_token %}
+      <div class="single-post">
+          <div class="single-post-box">
+              <div class = "post-info-user">
+                  <div class="profile_edit_container">
+                      {% for field in form %}
+                          <label class="mylabel"><b>{{ field.label }}</b></label>
+                          {{ field }}
+                      {% endfor %}
+                  </div>
+              </div>
+              <hr style="margin-top: 0px; margin-bottom: 5px;">
+              <button id="share-a-post" type="submit"> Request invite</button>
+          </div>
+      </div>
+  </form>
+{% endblock %}

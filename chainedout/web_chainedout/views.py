@@ -4,7 +4,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.forms import modelformset_factory
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
@@ -14,11 +13,11 @@ from django.template.defaultfilters import slugify
 from django.db.models import Q
 
 from .models import Follow, Profile, Education, Experience, Post, Comment, Group, GroupPost, GroupInvite, PostImage, \
-    PrivateMessage
+    PrivateMessage, GroupInviteRequest
 from .forms import RegisterForm, ModifyProfileForm, ModifyUserForm, ModifyBioForm, ModifySkillsForm, \
     ModifyAchievementForm, ModifyExperienceForm, ModifyEducationForm, PostCreateForm, CommentCreateForm, ModifyPostForm, \
     GroupCreateForm, ModifyGroupForm, GroupPostCreateForm, ModifyGroupPostForm, GroupCommentCreateForm, \
-    GroupInviteCreateForm, ImageForm, ImageFormSet, PrivateMessageCreateForm
+    GroupInviteCreateForm, ImageForm, ImageFormSet, PrivateMessageCreateForm, GroupInviteRequestCreateForm
 
 
 def index(request):
@@ -155,6 +154,13 @@ def groups(request):
 
 
 @login_required
+def quit_group(request, pk):
+    group = get_object_or_404(Group, pk=pk)
+    group.members.remove(request.user)
+    return redirect('groups')
+
+
+@login_required
 def user_list(request):
     if 'q' in request.GET:
         if request.GET.get('q') == '':
@@ -242,8 +248,10 @@ def group_post_info(request, group_pk, post_pk):
 
 def inbox(request):
     invites = request.user.invites_received.all()
+    invite_requests = request.user.invite_requests_received.all()
     messages = request.user.messages_received.all()
-    return render(request, 'user/inbox.html', {'invites': invites, 'messages': messages})
+    return render(request, 'user/inbox.html', {'invites': invites,
+                                               'invite_requests': invite_requests, 'messages': messages})
 
 
 def accept_invite(request, group_pk, invite_pk):
@@ -255,6 +263,19 @@ def accept_invite(request, group_pk, invite_pk):
 
 def decline_invite(request, group_pk, invite_pk):
     GroupInvite.objects.get(pk=invite_pk).delete()
+    return redirect('inbox')
+
+
+def accept_invite_request(request, group_pk, invite_pk):
+    group = get_object_or_404(Group, pk=group_pk)
+    invite = get_object_or_404(GroupInviteRequest, pk=invite_pk)
+    group.members.add(invite.sender)
+    GroupInviteRequest.objects.get(pk=invite_pk).delete()
+    return redirect('inbox')
+
+
+def decline_invite_request(request, group_pk, invite_pk):
+    GroupInviteRequest.objects.get(pk=invite_pk).delete()
     return redirect('inbox')
 
 
@@ -494,12 +515,31 @@ class GroupInviteCreateView(CreateView):
     form_class = GroupInviteCreateForm
 
     def form_valid(self, form):
+        print('invite')
         form.instance.sender = self.request.user
         form.instance.group = get_object_or_404(Group, pk=self.kwargs.get("group_pk"))
         return super(GroupInviteCreateView, self).form_valid(form)
 
     def get_form_kwargs(self, **kwargs):
         form_kwargs = super(GroupInviteCreateView, self).get_form_kwargs(**kwargs)
+        form_kwargs["user"] = self.request.user
+        form_kwargs["group_pk"] = self.kwargs.get("group_pk")
+        return form_kwargs
+
+
+class GroupInviteRequestCreateView(CreateView):
+    template_name = 'groups/group_invite_request.html'
+    model = GroupInviteRequest
+    form_class = GroupInviteRequestCreateForm
+
+    def form_valid(self, form):
+        print('invite_request')
+        form.instance.sender = self.request.user
+        form.instance.group = get_object_or_404(Group, pk=self.kwargs.get("group_pk"))
+        return super(GroupInviteRequestCreateView, self).form_valid(form)
+
+    def get_form_kwargs(self, **kwargs):
+        form_kwargs = super(GroupInviteRequestCreateView, self).get_form_kwargs(**kwargs)
         form_kwargs["user"] = self.request.user
         form_kwargs["group_pk"] = self.kwargs.get("group_pk")
         return form_kwargs
