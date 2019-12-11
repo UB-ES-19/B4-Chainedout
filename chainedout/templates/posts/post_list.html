@@ -18,11 +18,14 @@
                               <label class="mylabel"><b>{{ field.label }}</b></label>
                               {{ field }}
                           {% endfor %}
+                          <br><br>{{ formset.management_form }}
+                          {% for form in formset %}
+                            {{ form }}<br><br>
+                          {% endfor %}
                       </div>
-                </div>
-                <hr style="margin-top: 0px; margin-bottom: 5px;">
                 <button id="share-a-post" type="submit"> Share </button>
             </div>
+                </div>
         </form> 
     </div>
 
@@ -36,7 +39,11 @@
                         <img src="/static/images/img_avatar.png" width="128" alt="Avatar" class="post-profile_avatar">
                     {% endif %}
                     <div class="post-user-information">
+                        {% if post.author.profile.organization %}
+                        <div class="post-name"><p>{{ post.author.profile.name_organization }}</p></div>
+                        {% else %}
                         <div class="post-name"><p>{{ post.author.first_name }} {{ post.author.last_name }}</p></div>
+                        {% endif %}
                         <div class="post-followers"><p>{{ post.author.followers.count }} follower{{ post.author.followers.count|pluralize }}</p></div>
                         <div class="post-followers"><p>{{ post.likes.count }} like{{ post.likes.count|pluralize }}</p></div>
                         {% if post.status == 'posted' %}
@@ -78,12 +85,31 @@
                 <!-- <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2> -->
 
                 <div class="post-body">
-                    {{ post.body }}
+                    {{ post.body|safe }}
                 </div>
 
-                {% if post.image %}
-                    <div class="post-image-space"><img src="{{ post.image.url }}" width="256" alt="Avatar" class="post-image"></div>
-                {% endif %}
+            {% if post.images %}
+            <div class="slideshow-container_carousel">
+                {% for post_image in post.images.all %}
+                    <div class="mySlides_carousel{{ post.id }} fade">
+                        <div class="numbertext_carousel">{{ forloop.counter }}</div>
+                        <img src="{{ post_image.image.url }}" style="width:100%">
+                        <div class="text_carousel">Image {{ forloop.counter }}</div>
+                    </div>
+                {% endfor %}
+                <a class="prev_carousel" onclick="plusSlides(-1, {{ post.id }})">&#10094;</a>
+                <a class="next_carousel" onclick="plusSlides(1, {{ post.id }})">&#10095;</a>
+            </div>
+                <div style="text-align:center;margin-bottom:10px;">
+            {% for post_image in post.images.all %}
+                <span class="dot_carousel" onclick="currentSlide({{ forloop.counter }}, {{ post.id }})"></span>
+            {% endfor %}
+            </div>
+            <script>
+            indexesPosts[{{ post.id }}] = 1;
+            showSlides(1, {{ post.id }});
+            </script>
+            {% endif %}
 
                 <hr class="line">
                 <div class="post-buttons">

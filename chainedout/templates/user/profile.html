@@ -12,17 +12,24 @@
                 <div class="current_avatar"><img src="/static/images/img_avatar.png" alt="Avatar" class="profile_avatar"></div>
             {% endif %}
             <div class="current_work_education">
+            {% if not user.profile.organization %}
                 {% if user.profile.educations.first %}
                     <div class="current_education"><i class="fas fa-university"></i> {{ user.profile.educations.first.entity }}</div>
                 {% endif %}
                 {% if user.profile.experiences.first %}
                     <div class="current_work"><i class="fas fa-briefcase"></i> {{ user.profile.experiences.first.company }}</div>
                 {% endif %}
+            {% else %}
+                <div class="current_education"><i class="fas fa-university"></i>  Organization</div>
+            {% endif %}
             </div>
         </div>
         <div style="clear:both; margin-bottom: 10px;"></div>
+        {% if not user.profile.organization %}
         <h1>{{ user.first_name }} {{ user.last_name }}</h1>
-
+        {% else %}
+        <h1>{{ user.profile.name_organization }}</h1>
+        {% endif %}
         {% if user.profile.location %}
           <h3>{{ user.profile.location }}</h3>
         {% endif %}
@@ -40,10 +47,9 @@
             {% endif %}
         </div>
     <div class="friends">
-            <a href="{{ user.get_absolute_url }}"><span class="flink">Show Contact Info</span></a> <i class="fas fabsep fa-circle"></i>
+            <a href="{{ user.get_absolute_url }}"><span class="flink">Show Info</span></a> <i class="fas fabsep fa-circle"></i>
             <a href="{% url 'user_list' %}"><span class="flink">25 contacts</span></a><i class="fas fabsep fa-circle"></i>
             <a href="{% url 'user_list' %}"><span class="flink">{{ user.followers.count }} follower{{ user.followers.count|pluralize }}</span></a>
-
             {% if not request.user.is_authenticated %}
                 <a href="{% url 'register' %}"><span class="flink">Register</span></a>
             {% endif %}
@@ -57,23 +63,21 @@
                     <button class="profile_btn_edit" type="submit" value="edit"><i class="fas fa-edit"></i> Edit</button>
                 </form>
             </div>
-        {% endifequal %}
-
-        {% ifnotequal request.user user %}
+        {% else %}
             {% if request.user not in user.followers.all %}
                 <div class="elemprofile"><a href="#" data-id="{{ user.id }}" data-action="follow" class="follow button"><i class="fas fa-eye"></i> Follow</a></div>
             {% else %}
                 <div class="elemprofile"><a href="#" data-id="{{ user.id }}" data-action="unfollow" class="follow button"><i class="fas fa-eye-slash"></i> Unfollow</a></div>
             {% endif %}
-        {% endifnotequal %}
 
-        {% ifnotequal request.user user %}
             <div class="elemprofile"><a href="#"><i class="fas fa-user-plus"></i> Add contact</a></div>
             <!-- Temporary hidden because not implemented yet-->
             {% if False %}
                 <div class="elemprofile"><a href="#"><i class="fas fa-user-minus"></i> Remove contact</a></div>
             {% endif %}
-        {% endifnotequal %}
+
+            <div class="elemprofile"><a href="{% url 'message' pk=user.pk %}"><i class="fas fa-user-plus"></i> Send message</a></div>
+        {% endifequal %}
     </div>
     <div style="clear: both"></div>
 </div>
@@ -85,9 +89,12 @@
 <!------------------------------ ABOUT BOX START ---------------------------------->
 <div id="profilebox">
     <div class="left_box">
+        {% if not user.profile.organization%}
         <h1 class="title">About</h1>
+        {% else %}
+        <h1 class="title">Organization Definition</h1>
+        {% endif %}
     </div>
-
     {% ifequal request.user user %}
         <div class="right_box">
             <div class="elemprofile"><a onclick="modal('profile_about_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
@@ -106,7 +113,11 @@
   <form class="profile-modal-content animate" method="post">
   {% csrf_token %}
 
+    {% if not user.profile.organization %}
     <div class="profile_modal_title">About</div>
+    {% else %}
+    <div class="profile_modal_title">Organization Definition</div>
+    {% endif %}
     <div onclick="modal('profile_about_modal', 'none')" class="mclose" title="Close Modal">&times;</div>
     <div style="clear: both"></div>
 
@@ -132,6 +143,7 @@
 
 
 <!------------------------------ EDUCATION BOX START ---------------------------------->
+{% if not user.profile.organization %}
 <div id="profilebox">
     <div class="left_box">
         <h1 class="title">Education</h1>
@@ -269,6 +281,7 @@
     </div>
   </form>
 </div>
+{% endif %}
 <!----- MODAL EXPERIENCE END ----->
 
 <!------------------------------ EDUCATION BOX END ---------------------------------->
@@ -278,7 +291,11 @@
 <!------------------------------ SKILLS BOX START ---------------------------------->
 <div id="profilebox">
     <div class="left_box">
+        {% if not user.profile.organization %}
         <h1 class="title">Skills</h1>
+        {% else %}
+        <h1 class="title">Especialities</h1>
+        {% endif %}
     </div>
 
     {% ifequal request.user user %}
@@ -308,7 +325,11 @@
   <form class="profile-modal-content animate" method="post">
   {% csrf_token %}
 
+    {% if not user.profile.organization %}
     <div class="profile_modal_title">Skills</div>
+    {% else %}
+    <div class="profile_modal_title">Especialities</div>
+    {% endif %}
     <div onclick="modal('profile_skills_modal', 'none')" class="mclose" title="Close Modal">&times;</div>
     <div style="clear: both"></div>
 
@@ -331,40 +352,119 @@
 
 <!------------------------------ SKILLS BOX END ---------------------------------->
 
-
-
-<!------------------------------ ACHIEVEMENTS BOX START ---------------------------------->
+<!------------------------------ GROUPS START ---------------------------------->
 <div id="profilebox">
     <div class="left_box">
-        <h1 class="title">Achievements</h1>
+        <h1 class="title">My groups</h1>
+    </div>
+
+    <hr class="title_sep" />
+    <div id="info">
+        {%  for group in user.user_groups.all  %}
+            <div class="group-r-box">
+                <div class="group-r-img">
+                    {% if group.image %}
+                        <div class="group-r-avatar"><img src="{{ group.image.url }}" width="512" alt="Avatar" class="profile_avatar"></div>
+                    {% else %}
+                        <div class="group-r-avatar"><img src="/static/images/img_avatar.png" alt="Avatar" class="profile_avatar"></div>
+                    {% endif %}
+                </div>
+                <div class="group-r-name">
+                    <a href="{{ group.get_absolute_url }}" class="title"><h1>{{ group.name }}</h1></a>
+                </div>
+            </div>
+        {%  endfor %}
+    </div>
+</div>
+
+
+<!------------------------------ GROUPS END ---------------------------------->
+
+<!------------------------------ DEVICE LOG START ---------------------------------->
+<div id="profilebox">
+    <div class="left_box">
+        <h1 class="title">Device Log</h1>
+    </div>
+
+    <div class="right_box">
+        <a onclick="post_histo(document.getElementById('devicelog'), this.parentNode.parentNode.getElementsByClassName('elemprofile')[0])"><div class="elemprofile"><i class="fas fa-search-plus"></i> Show</div></a>
+    </div>
+
+    <hr class="title_sep" />
+    <div id="devicelog" style="display: none;">
+        {% for device in user.device_log.all %}
+            <div class="element">
+                <div class="edubox">
+                    <p>Time: {{ device.time }}</p>
+                    <p>Browser: {{ device.browser_family }}</p>
+                    <p>Browser version: {{ device.browser_version }}</p>
+                    <p>Operating system: {{ device.os_family }}</p>
+                    <p>Operating system version: {{ device.os_version }}</p>
+                    <p>Device: {{ device.device_family }}</p>
+                </div>
+                <hr class="title_sep" />
+            </div>
+        {%  endfor %}
+    </div>
+</div>
+
+<!------------------------------ DEVICE LOG END ---------------------------------->
+
+<!------------------------------ JOBS BOX START ---------------------------------->
+{% if user.profile.organization %}
+<div id="profilebox">
+    <div class="left_box">
+        <h1 class="title">Available Jobs</h1>
     </div>
 
     {% ifequal request.user user %}
         <div class="right_box">
-            <div class="elemprofile"><a onclick="modal('profile_achievement_modal', 'block')"><i class="fas fa-edit"></i> Edit</a></div>
+            <div class="elemprofile"><a onclick="modal('profile_jobs_modal', 'block')"><i class="fas fa-plus"></i> Add</a></div>
         </div>
     {% endifequal %}
 
     <hr class="title_sep" />
     <div id="info">
-        {{ user.profile.achievements }}
+        {% for job in user.profile.job.all %}
+            <div class="element">
+                <div class="edubox">
+                    {% if job.job_type and job.compan%}
+                        <p><i class="fas fa-university"></i> <b>{{ job.job_type }}</b> <i class="fas fabsep fa-circle"></i> <b>{{ job.compan }}</b></p>
+                    {% endif %}
+                    {% if job.until and job.location %}
+                        <p><small>{{ job.location }}   {{ job.until }}</small></p>
+                    {% endif %}
+                </div>
+                <div class="edit_edubox">
+                    <form action="{% url 'update_job' pk=job.pk %}" method="POST">
+                        {% csrf_token %}
+                        <button class="profile_btn_rem" type="submit" value="edit"><i class="fas fa-edit"></i> Edit</button>
+                    </form>
+                    <form action="{% url 'delete_job' pk=job.pk %}" method="POST">
+                        {% csrf_token %}
+                        <button class="profile_btn_rem" type="submit" value="remove"><i class="fas fa-trash-alt"></i> Remove</button>
+                    </form>
+                </div>
+                <div style="clear: both"></div>
+            </div>
+            <hr class="sepelement"/>
+        {% endfor %}
     </div>
 </div>
-
-<!----- MODAL ADD ACHIVEMENT START ----->
-<div id="profile_achievement_modal" class="achievements_modal">
+<!----- MODAL JOB START ----->
+<div id="profile_jobs_modal" class="job_modal">
 
   <!-- Modal Content -->
   <form class="profile-modal-content animate" method="post">
   {% csrf_token %}
 
-    <div class="profile_modal_title">Achievements</div>
-    <div onclick="modal('profile_achievement_modal', 'none')" class="mclose" title="Close Modal">&times;</div>
+    <div class="profile_modal_title">Available Jobs</div>
+    <div onclick="modal('profile_jobs_modal', 'none')" class="mclose" title="Close Modal">&times;</div>
     <div style="clear: both"></div>
 
     <div class="profile_modal_container">
         <div class="scrollable_modal_container">
-            {% for field in achievements_form %}
+            {% for field in job_form %}
                 <label class="mylabel"><b>{{ field.label }}</b></label>
                 {% if field.errors %}
                     <span class="error">{{ field.errors.as_text }}</span>
@@ -373,13 +473,13 @@
             {% endfor %}
         </div>
         <hr style="margin-top: 10px; margin-bottom: 10px;">
-        <button class="profile_modal_btn btnMargin" type="submit" value="submit_achievements" name="submit_achievements">Confirm</button>
+        <button class="profile_modal_btn btnMargin" type="submit" value="submit_jobs" name="submit_jobs">Confirm</button>
     </div>
   </form>
 </div>
-<!----- MODAL ADD ACHIVEMENT END ----->
+{% endif %}
 
-<!------------------------------ ACHIEVEMENTS BOX END ---------------------------------->
+<!------------------------------ JOBS BOX END ---------------------------------->
 
 <!------------------------------ HISTORY START ---------------------------------->
 
@@ -396,23 +496,92 @@
     <hr class="title_sep" />
 
     <div id="info">
-    <div id="posthisto" style="display: none;">
-        {% for post in user.posts.all %}
-            <div class="element">
-                <p><i class="fa fa-envelope"></i> <b>{{ post.title }}</b>
-                    {% if post.status == 'posted' %}
-                        [<i><small>Posted {{ post.published }}</small></i>]
-                    {% endif %}
-                    {% if post.status == 'draft' %}
-                        [<i><small>Draft</small></i>]
-                    {% endif %}
-                </p>
+            <div id="posthisto" style="display: none;">
+                {% for post in user.posts.all %}
+                    <div class="posts-page">
+                    <div class="post-box-p">
+                        <div class="current-avatar fleft">
+                            {% if post.author.profile.image %}
+                                <img src="{{ post.author.profile.image.url }}" width="128" alt="Avatar" class="post-profile_avatar">
+                            {% else %}
+                                <img src="/static/images/img_avatar.png" width="128" alt="Avatar" class="post-profile_avatar">
+                            {% endif %}
+                            <div class="post-user-information">
+                                <div class="post-name"><p>{{ post.author.first_name }} {{ post.author.last_name }}</p></div>
+                                <div class="post-followers"><p>{{ post.author.followers.count }} follower{{ post.author.followers.count|pluralize }}</p></div>
+                                <div class="post-followers"><p>{{ post.likes.count }} like{{ post.likes.count|pluralize }}</p></div>
+                                {% if post.status == 'posted' %}
+                                    {% if post.updated != post.created %}
+                                        <div class="post-date"><p>Updated {{ post.updated }}</p></div>
+                                    {% else %}
+                                        <div class="post-date"><p>Posted {{ post.created }}</p></div>
+                                    {% endif %}
+                                {% endif %}
+                                {% if post.status == 'draft' %}
+                                    <div class="post-status"><p>(Draft)</p></div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    <div class="post-buttons fright">
+                            {% if post.author == user %}
+                                <form action="{% url 'update_post' year=post.created.year month=post.created.month day=post.created.day slug=post.slug pk=post.pk %}" method="POST">
+                                    {% csrf_token %}
+                                    <button class="post-edit bhoverlink" type="submit" value="edit"><i class="fas fa-edit"></i> Edit</button>
+                                </form>
+                                <form action="{% url 'delete_post' pk=post.pk %}" method="POST">
+                                    {% csrf_token %}
+                                    <button class="post-delete bhoverlink" type="submit" value="remove"><i class="fas fa-trash-alt"></i> Delete</button>
+                                </form>
+                            {% else %}
+                                <button class="post-like bhoverlink">
+                                    <a href="{% url 'like_post' year=post.created.year month=post.created.month day=post.created.day slug=post.slug pk=post.pk %}" class="post-comment">
+                                        {% if post in user.post_likes.all %}
+                                            <i class="fas fa-thumbs-down"></i> Unlike
+                                        {% else %}
+                                            <i class="fas fa-thumbs-up"></i> Like
+                                        {% endif %}
+                                    </a>
+                                </button>
+                            {% endif %}
+                    </div>
+                    <div style="clear:both;">
 
-                <p class="msghist">{{ post.body }}</p>
+                        <!-- <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2> -->
+
+                        <div class="post-body">
+                            {{ post.body|safe }}
+                        </div>
+
+                        {% if post.image %}
+                            <div class="post-image-space"><img src="{{ post.image.url }}" width="256" alt="Avatar" class="post-image"></div>
+                        {% endif %}
+
+                        <hr class="line">
+                        <div class="post-buttons">
+                            <button class="post-comment"><a href="{{ post.get_absolute_url }}" class="post-comment"><i class="fas fa-comments"></i> Comment</a></button>
+                            <div id="dropdownList">
+                            <ul>
+                                <li class="dropdown"><a href="javascript:void(0)" class="dropbtn"><i class="fas fa-share-alt"></i> Share</a>
+                                    <div class="dropdown-content">
+                                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}{{ post.get_absolute_url }}" class="post-share">
+                                            Facebook
+                                        </a>
+                                        <a href="https://twitter.com/home?status={{ post.body|urlencode }}{{ request.build_absolute_uri }}{{ post.get_absolute_url }}" class="post-share">
+                                            Twitter
+                                        </a>
+                                        <a href="http://www.reddit.com/submit?url={{ request.build_absolute_uri }}{{ post.get_absolute_url }}&title={{ post.body|urlencode }}" class="post-share">
+                                            Reddit
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
             </div>
-            <hr class="sepelement"/>
-        {% endfor %}
-    </div>
+        </div>
     </div>
 
 </div>

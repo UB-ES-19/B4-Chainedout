@@ -8,7 +8,8 @@ window.addEventListener("click", function(event) {
 	document.getElementById('profile_edu_modal'),
 	document.getElementById('profile_xp_modal'),
 	document.getElementById('profile_skills_modal'),
-	document.getElementById('profile_achievement_modal')
+	document.getElementById('profile_achievement_modal'),
+	document.getElementById('profile_jobs_modal')
 	];
 	
 	for (i = 0; i < modals.length; i++) {
@@ -48,3 +49,42 @@ function post_histo(id, btn) {
 		btn.innerHTML = "<i class=\"fas fa-search-minus\"></i> Hide</div>";
 	}
 }
+
+function onlyOne(checkbox) {
+    var checkboxes = document.getElementsByName('org')
+    checkboxes.forEach((item) => {
+        if (item !== checkbox) item.checked = false
+    })
+}
+
+// CAROUSEL
+
+var indexesPosts = []
+
+    function plusSlides(n, id) {
+        showSlides(indexesPosts[id]+=n, id);
+    }
+
+    function currentSlide(n, id) {
+        showSlides(indexesPosts[id]=n, id);
+    }
+
+    function showSlides(n, id) {
+        var i;
+        var slides = document.getElementsByClassName("mySlides_carousel"+id);
+        var dots = document.getElementsByClassName("dot_carousel");
+        if (n > slides.length) {
+            indexesPosts[id] = 1
+        }
+        if (n < 1) {
+            indexesPosts[id] = slides.length
+        }
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[indexesPosts[id] - 1].style.display = "block";
+        dots[indexesPosts[id] - 1].className += " active";
+    }

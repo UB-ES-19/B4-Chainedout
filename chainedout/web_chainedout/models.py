@@ -4,6 +4,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.urls import reverse
 from django.utils import timezone
+from django.contrib.auth.signals import user_logged_in
 
 
 # Create your models here.
@@ -39,8 +40,17 @@ class Experience(models.Model):
     job = models.CharField(max_length=50)
 
 
+class Job(models.Model):
+    job_type = models.CharField(max_length=50)
+    compan = models.CharField(max_length=50)
+    location = models.CharField(max_length=200)
+    until = models.IntegerField(default=2021)
+
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    organization = models.BooleanField(default=False)
+    name_organization = models.CharField(default="Name Organization", max_length=50)
     profession = models.TextField(max_length=500)
     bio = models.TextField(max_length=500)
     location = models.CharField(max_length=200)
@@ -53,6 +63,7 @@ class Profile(models.Model):
     image = models.ImageField(null=True, blank=True, upload_to='images')
     educations = models.ManyToManyField(Education)
     experiences = models.ManyToManyField(Experience)
+    job = models.ManyToManyField(Job)
 
     def __str__(self):
         return self.user.username
@@ -91,8 +102,99 @@ class Post(models.Model):
                        args=[self.published.year, self.published.month, self.published.day, self.slug, self.pk])
 
 
+class PostImage(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField(upload_to='posts/images', verbose_name="Image")
+
+
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, default="", related_name='comments')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     texto = models.CharField(max_length=250)
     created_date = models.DateTimeField(default=timezone.now)
+
+
+class Group(models.Model):
+    name = models.CharField(max_length=50)
+    location = models.CharField(max_length=50)
+    description = models.TextField()
+    image = models.ImageField(null=True, blank=True, upload_to='groups/images')
+    members = models.ManyToManyField(User, blank=True, related_name='user_groups')
+
+    def get_absolute_url(self):
+        return reverse('group-profile',
+                       args=[self.pk])
+
+    def __str__(self):
+        return self.name
+
+
+class GroupPost(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='group_posts')
+    group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='posts')
+    body = models.TextField()
+    image = models.ImageField(null=True, blank=True, upload_to='group_posts/images')
+    published = models.DateTimeField(default=timezone.now)
+    likes = models.ManyToManyField(User, blank=True, related_name='group_post_likes')
+
+    class Meta:
+        ordering = ('-published',)
+
+    def get_absolute_url(self):
+        return reverse('group_post_info', args=[self.group.pk, self.pk])
+
+
+class GroupComment(models.Model):
+    post = models.ForeignKey(GroupPost, on_delete=models.CASCADE, related_name='comments')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='group_comments')
+    body = models.CharField(max_length=250)
+    published = models.DateTimeField(default=timezone.now)
+
+
+class GroupInvite(models.Model):
+    text = models.TextField()
+    group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='invites')
+    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='invites_sent')
+    receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='invites_received')
+    created = models.DateTimeField(default=timezone.now)
+
+
+class GroupInviteRequest(models.Model):
+    text = models.TextField()
+    group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='invite_requests')
+    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='invite_requests_sent')
+    receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='invite_requests_received')
+    created = models.DateTimeField(default=timezone.now)
+
+
+class PrivateMessage(models.Model):
+    text = models.TextField()
+    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='messages_sent')
+    receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='messages_received')
+    created = models.DateTimeField(default=timezone.now)
+    image = models.ImageField(null=True, blank=True, upload_to='messages/images')
+
+
+class DeviceLog(models.Model):
+    user = models.ManyToManyField(User, blank=True, related_name='device_log')
+    time = models.DateTimeField(default=timezone.now)
+    browser_family = models.CharField(max_length=50, null=True, blank=True)
+    browser_version = models.CharField(max_length=20, null=True, blank=True)
+    os_family = models.CharField(max_length=50, null=True, blank=True)
+    os_version = models.CharField(max_length=20, null=True, blank=True)
+    device_family = models.CharField(max_length=50, null=True, blank=True)
+
+
+def write_log(sender, user, request, **kwargs):
+    log = DeviceLog.objects.create(
+        browser_family=request.user_agent.browser.family,
+        browser_version=request.user_agent.browser.version_string,
+        os_family=request.user_agent.os.family,
+        os_version=request.user_agent.os.version_string,
+        device_family=request.user_agent.device.family
+    )
+    log.user.set([request.user])
+    return
+
+
+user_logged_in.connect(write_log)

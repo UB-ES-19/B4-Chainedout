@@ -1,18 +1,16 @@
 {% extends "header.html" %}
 
   {% block content %}
-
   <div class="register-main-text">
     <h1 style="margin-left: 200px;margin-top: 250px;"> Become An Affilate </h1>
     <h2 style="margin-left: 200px;"> Make the most of your professional life</h2>
     <p style="margin-left: 200px;"> We want to create an economic opportunity for every member of the global workforce.
       <br>The mission of ChainedOut is simple: connect the world's professionals to make them more productive and successful </p>
   </div>
-      <img src="../static/style/images/pig.jpg" style="float: right; width: 740px; height: 625px;">
+      <img src="../static/style/images/pig.jpg" style="float: right; width: 740px; height: 625px; ">
 
   <div class="register-box">
-
-    <form action="" method="post">
+    <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {% for field in form %}
             <label class="mylabel"><b>{{ field.label }}</b></label>
@@ -22,16 +20,8 @@
             {{ field }}
         {% endfor %}
 
-        <a style="font-size: 0.8em;">
-            <br><br>By clicking Register, you agree to the <a href="#"style="font-size: 0.8em;">ChainedOut User Agreement</a>.<br>
-        </a>
-
-        <button type="submit" class="registerbtn">Register</button>
+        <button type="submit" class="registerbtn">Create group</button>
     </form>
-
-    <div class="signin">
-      <p>Already have an account? <a href="{% url 'login' %}">Sign in</a>.</p>
-    </div>
   </div>
 
     {% endblock %}
