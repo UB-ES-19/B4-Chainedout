@@ -133,7 +133,7 @@ def group_profile(request, pk):
     group = get_object_or_404(Group, pk=pk)
 
     if request.method == 'POST':
-        group_post_form = GroupPostCreateForm(request.POST)
+        group_post_form = GroupPostCreateForm(request.POST, request.FILES)
         if group_post_form.is_valid():
             group_post = GroupPost.objects.create(
                 author=request.user,
