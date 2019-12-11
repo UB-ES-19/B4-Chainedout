@@ -39,9 +39,17 @@ class Experience(models.Model):
     job = models.CharField(max_length=50)
 
 
+class Job(models.Model):
+    job_type = models.CharField(max_length=50)
+    compan = models.CharField(max_length=50)
+    location = models.CharField(max_length=200)
+    until = models.IntegerField(default=2021)
+
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    organization = models.TextField(default="No",max_length=10)
+    organization = models.BooleanField(default=False)
+    name_organization = models.CharField(default="Name Organization", max_length=50)
     profession = models.TextField(max_length=500)
     bio = models.TextField(max_length=500)
     location = models.CharField(max_length=200)
@@ -54,6 +62,7 @@ class Profile(models.Model):
     image = models.ImageField(null=True, blank=True, upload_to='images')
     educations = models.ManyToManyField(Education)
     experiences = models.ManyToManyField(Experience)
+    job = models.ManyToManyField(Job)
 
     def __str__(self):
         return self.user.username

@@ -14,9 +14,10 @@
 	</div>
 
     {% for user in users %}
-        {% if user.profile.organizations == "No" %}
+        {% if not user.profile.organizations %}
             <div id="profile">
                 <div id="profilebox">
+                    <h>USER</h>
                     <div class="left_profile">
                         <div class="current">
                             {% if user.profile.image %}
@@ -72,6 +73,7 @@
         {% else %}
             <div id="profile">
                 <div id="profilebox">
+                    <h>ORGANIZATION</h>
                     <div class="left_profile">
                         <div class="current">
                             {% if user.profile.image %}
@@ -82,7 +84,7 @@
                         </div>
 
                         <div style="clear: both;  margin-bottom: 10px;"></div>
-                        <a href="{{ user.get_absolute_url }}" class="title"><h1>{{ user.get_full_name }}</h1></a>
+                        <a href="{{ user.get_absolute_url }}" class="title"><h1>{{ user.profile.name_organization }}</h1></a>
                         <h3>{{ user.profile.location }}</h3>
                         <div class="friends">
                             <a href="{{ user.get_absolute_url }}"><span class="flink">Show Info</span></a> <i class="fas fabsep fa-circle"></i>

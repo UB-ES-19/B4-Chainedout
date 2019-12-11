@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-from .models import Profile, Education, Experience, Post, Comment
+from .models import Profile, Education, Experience, Post, Comment, Job
 
 
 class RegisterForm(UserCreationForm):
@@ -15,11 +15,11 @@ class RegisterForm(UserCreationForm):
         fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2',)
 
 
-class ModifyProfileForm(forms.ModelForm):   
+class ModifyProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['phone', 'website', 'location', 'image', ]
-        labels = ['Telephone Number', 'Website', 'Location', 'Image', ]
+        fields = ['phone', 'website', 'location', 'name_organization', 'image',]
+        labels = ['Telephone Number', 'Website', 'Location', 'Name_Organization', 'Image',]
 
 
 class ModifyUserForm(forms.ModelForm):
@@ -64,6 +64,13 @@ class ModifyExperienceForm(forms.ModelForm):
         labels = ['Work_experience', 'Company', 'Started', 'Finished', 'Job']
 
 
+class ModifyJobsForm(forms.ModelForm):
+    class Meta:
+        model = Job
+        fields = ['job_type', 'compan', 'location', 'until']
+        labels = ['Job_type', 'Compan', 'Location', 'Until']
+
+
 class PostCreateForm(forms.ModelForm):
     class Meta:
         model = Post
@@ -81,8 +88,8 @@ class RequestOrganization(forms.ModelForm):
 class CommentCreateForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ['texto',]
-        labels = ['Texto',]
+        fields = ['texto', ]
+        labels = ['Texto', ]
 
 
 class ModifyPostForm(forms.ModelForm):

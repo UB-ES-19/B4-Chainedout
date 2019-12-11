@@ -950,7 +950,7 @@ button.profile_btn_edit {
 
 /* ----- MODAL PROFILE START ----- */
 /* The Modal (background) */
-.profile_modal, .about_modal, .education_modal, .education_modal, .experience_modal, .skills_modal, .achievements_modal {
+.profile_modal, .about_modal, .education_modal, .education_modal, .experience_modal, .skills_modal, .achievements_modal, .job_modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */

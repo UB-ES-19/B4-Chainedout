@@ -8,7 +8,8 @@ window.addEventListener("click", function(event) {
 	document.getElementById('profile_edu_modal'),
 	document.getElementById('profile_xp_modal'),
 	document.getElementById('profile_skills_modal'),
-	document.getElementById('profile_achievement_modal')
+	document.getElementById('profile_achievement_modal'),
+	document.getElementById('profile_jobs_modal')
 	];
 	
 	for (i = 0; i < modals.length; i++) {

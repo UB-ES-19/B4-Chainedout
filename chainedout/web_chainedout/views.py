@@ -12,11 +12,10 @@ from django.views.generic import DeleteView, UpdateView, ListView, CreateView, R
 from django.template.defaultfilters import slugify
 from django.db.models import Q
 
-from .models import Follow, Profile, Education, Experience, Post, Comment
+from .models import Follow, Profile, Education, Experience, Post, Comment, Job
 from .forms import RegisterForm, ModifyProfileForm, ModifyUserForm, ModifyBioForm, ModifySkillsForm, \
-    ModifyAchievementForm, ModifyExperienceForm, ModifyEducationForm, PostCreateForm, CommentCreateForm, ModifyPostForm,\
-    RequestOrganization
-
+    ModifyAchievementForm, ModifyExperienceForm, ModifyEducationForm, PostCreateForm, CommentCreateForm, ModifyPostForm, \
+    RequestOrganization, ModifyJobsForm
 
 
 def index(request):
@@ -33,6 +32,7 @@ def save_profile(request):
             skill_form = ModifySkillsForm(instance=request.user.profile)
             education_form = ModifyEducationForm(request.GET or None)
             experience_form = ModifyExperienceForm(request.GET or None)
+            job_form = ModifyEducationForm(request.GET or None)
             achievements_form = ModifyAchievementForm(instance=request.user.profile)
         elif 'submit_skill' in request.POST:
             skill_form = ModifySkillsForm(request.POST, instance=request.user.profile)
@@ -41,6 +41,7 @@ def save_profile(request):
             bio_form = ModifyBioForm(instance=request.user.profile)
             education_form = ModifyEducationForm(request.GET or None)
             experience_form = ModifyExperienceForm(request.GET or None)
+            job_form = ModifyEducationForm(request.GET or None)
             achievements_form = ModifyAchievementForm(instance=request.user.profile)
         elif 'submit_education' in request.POST:
             education_form = ModifyEducationForm(request.POST)
@@ -56,6 +57,23 @@ def save_profile(request):
             bio_form = ModifyBioForm(instance=request.user.profile)
             skill_form = ModifySkillsForm(instance=request.user.profile)
             experience_form = ModifyExperienceForm(request.GET or None)
+            job_form = ModifyEducationForm(request.GET or None)
+            achievements_form = ModifyAchievementForm(instance=request.user.profile)
+        elif 'submit_jobs' in request.POST:
+            job_form = ModifyJobsForm(request.POST)
+            if job_form.is_valid():
+                job_type = job_form.cleaned_data.get('job_type')
+                compan = job_form.cleaned_data.get('compan')
+                location = job_form.cleaned_data.get('location')
+                until = job_form.cleaned_data.get('until')
+                jobs = Job(job_type=job_type, compan=compan, location=location, until=until)
+                jobs.save()
+                request.user.profile.job.add(jobs)
+                return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+            bio_form = ModifyBioForm(instance=request.user.profile)
+            skill_form = ModifySkillsForm(instance=request.user.profile)
+            experience_form = ModifyExperienceForm(request.GET or None)
+            education_form = ModifyEducationForm(request.GET or None)
             achievements_form = ModifyAchievementForm(instance=request.user.profile)
         elif 'submit_experience' in request.POST:
             experience_form = ModifyExperienceForm(request.POST)
@@ -73,6 +91,7 @@ def save_profile(request):
             bio_form = ModifyBioForm(instance=request.user.profile)
             skill_form = ModifySkillsForm(instance=request.user.profile)
             education_form = ModifyEducationForm(request.GET or None)
+            job_form = ModifyEducationForm(request.GET or None)
             achievements_form = ModifyAchievementForm(instance=request.user.profile)
         elif 'submit_achievements' in request.POST:
             achievements_form = ModifyAchievementForm(request.POST, instance=request.user.profile)
@@ -81,15 +100,17 @@ def save_profile(request):
             bio_form = ModifyBioForm(instance=request.user.profile)
             skill_form = ModifySkillsForm(instance=request.user.profile)
             education_form = ModifyEducationForm(request.GET or None)
+            job_form = ModifyEducationForm(request.GET or None)
             experience_form = ModifyExperienceForm(request.GET or None)
     else:
         bio_form = ModifyBioForm(instance=request.user.profile)
         skill_form = ModifySkillsForm(instance=request.user.profile)
+        job_form = ModifyEducationForm(request.GET or None)
         education_form = ModifyEducationForm(request.GET or None)
         experience_form = ModifyExperienceForm(request.GET or None)
         achievements_form = ModifyAchievementForm(instance=request.user.profile)
     context = {'bio_form': bio_form, 'skill_form': skill_form, 'education_form': education_form,
-               'experience_form': experience_form, 'achievements_form': achievements_form}
+               'experience_form': experience_form, 'achievements_form': achievements_form, 'job_form': job_form}
     return render(request, "user/profile.html", context)
 
 
@@ -101,7 +122,7 @@ def request_organization(request):
             return HttpResponseRedirect(reverse("index"))
     else:
         organization_form = RequestOrganization(instance=request.user.profile)
-    return render(request, "registration/request.html", {'organization_form' : organization_form})
+    return render(request, "registration/request.html", {'organization_form': organization_form})
 
 
 def register(request):
@@ -127,7 +148,7 @@ def user_list(request):
         print("test")
         # ToDo: add attribute to profile that merges both first & last names
         query = request.GET.get('q')
-        profiles_result = Profile.objects.filter(user__first_name__contains=query) | Profile\
+        profiles_result = Profile.objects.filter(user__first_name__contains=query) | Profile \
             .objects.filter(user__last_name__contains=query)
         usernames_result = [profile.user.username for profile in profiles_result]
         context = {
@@ -138,7 +159,6 @@ def user_list(request):
     else:
         users = User.objects.filter(is_active=True)
         return render(request, 'user/list.html', {'section': 'people', 'users': users})
-
 
 
 @login_required
@@ -180,6 +200,36 @@ def post_info(request, year, month, day, slug, pk):
         form = CommentCreateForm()
     comments = get_object_or_404(Post, pk=pk).comments.all()
     return render(request, 'posts/post_info.html', {'post': post, 'comments': comments, 'form': form})
+
+
+class UpdateJobs(UpdateView):
+    model = Job
+    form_class = ModifyJobsForm
+    template_name = 'user/update_jobs.html'
+    success_url = '/profile'
+
+    def get_context_data(self, **kwargs):
+        context = super(UpdateJobs, self).get_context_data(**kwargs)
+        context['form'] = ModifyJobsForm(
+            instance=Job.objects.filter(profile=self.request.user.profile, pk=self.kwargs['pk']).first())
+        return context
+
+    def get_object(self):
+        return Job.objects.filter(profile=self.request.user.profile, pk=self.kwargs['pk']).first()
+
+
+class DeleteJobs(SuccessMessageMixin, DeleteView):
+    model = Job
+    success_url = '/profile'
+    success_message = "Removed Job"
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        job_type = self.object.job_type
+        request.session['job_type'] = job_type
+        message = request.session['job_type'] + ' deleted successfully'
+        messages.success(self.request, message)
+        return super(DeleteJobs, self).delete(request, *args, **kwargs)
 
 
 class UpdateEducation(UpdateView):
@@ -295,6 +345,7 @@ class PostCreateView(CreateView):
         context['page'] = page
         context['posts'] = posts
         return context
+
 
 class DeletePost(SuccessMessageMixin, DeleteView):
     model = Post
