@@ -32,8 +32,8 @@
                                     </div>
 
                                     <div class="invite-group-name">
-                                        <b>{{ invite.group.name }}</b>
-                                        {{ invite.group.description|safe }}
+                                        <p><b>{{ invite.group.name }}</b></p>
+                                        <p>{{ invite.group.description|safe }}</p>
                                     </div>
                                     <div style="clear:both;"></div>
                                 </a></div>
@@ -49,7 +49,7 @@
                 {% endfor %}
             {% else %}
                 <div class="pending-invites-single-box">
-                    <div class="no-pending">
+                    <div class="noinvite-group-box-pending">
                         <h4>No pending invites...</h4>
                     </div>
                 </div>
