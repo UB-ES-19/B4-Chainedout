@@ -25,7 +25,7 @@
                                 <div class="invite-group-box"><a href="{{ invite.group.get_absolute_url }}" class="title">
                                     <div class="invite-group-img">
                                         {% if invite.group.image %}
-                                            <div class="group-r-avatar"><img src="{{ group.image.url }}" width="512" alt="Avatar" class="profile_avatar"></div>
+                                            <div class="group-r-avatar"><img src="{{ invite.group.image.url }}" width="512" alt="Avatar" class="profile_avatar"></div>
                                         {% else %}
                                             <div class="group-r-avatar"><img src="/static/images/img_avatar.png" alt="Avatar" class="profile_avatar"></div>
                                         {% endif %}
