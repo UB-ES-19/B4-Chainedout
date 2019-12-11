@@ -1685,8 +1685,48 @@ img.post-profile_avatar {
 
 /* ------------------------------------- INBOX START ----------------------------------------- */
 
-.pendinginv h3 {
+.pending-invites{
     margin-top: 20px;
+}
+
+.pending-invites-box {
+  border: 1px solid #BFBFBF;
+  background-color: #FFFFFF;
+  margin: 20px auto;
+  padding: 20px 20px 10px;
+  width: 80%;
+  min-width: 850px;
+  box-shadow: 2px 2px 5px #aaaaaa;
+}
+
+.pending-invites-single-box{
+  border: 1px solid #BFBFBF;
+  background-color: #FFFFFF;
+  margin: 20px auto;
+  padding: 20px 20px 10px;
+  width: 95%;
+  box-shadow: 2px 2px 5px #aaaaaa;
+}
+
+.pending-invites-button {
+  background-color: #00302f;
+  color: white;
+  padding: 5px 10px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100px;
+  height: 100px;
+  font-size: 20px;
+}
+
+.pending-invites-button-text{
+  color: white;
+}
+
+.acceptdecline-buttons{
+  float: right;
+  margin: 10px;
 }
 
 /* ------------------------------------- INBOX END ----------------------------------------- */
