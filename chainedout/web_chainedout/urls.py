@@ -38,6 +38,7 @@ urlpatterns = [
     path('group-invite/<int:group_pk>/<int:invite_pk>/accept-invite/', views.accept_invite, name='accept_invite'),
     path('group-invite/<int:group_pk>/<int:invite_pk>/decline-invite/', views.decline_invite, name='decline_invite'),
     path('inbox/', views.inbox, name='inbox'),
+    path('message/<int:pk>', views.PrivateMessageCreateView.as_view(), name='message'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:

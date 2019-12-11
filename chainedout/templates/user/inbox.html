@@ -45,5 +45,31 @@
     </div>
 
     <h3>Private messages</h3>
+    {% for message in messages %}
+        <div class="posts-page">
+            <div class="post-box">
+                <div class="current-avatar fleft">
+                    {% if message.sender.profile.image %}
+                        <img src="{{ message.sender.profile.image.url }}" width="128" alt="Avatar" class="post-profile_avatar">
+                    {% else %}
+                        <img src="/static/images/img_avatar.png" width="128" alt="Avatar" class="post-profile_avatar">
+                    {% endif %}
+                    <div class="post-user-information">
+                        <div class="post-name"><p>{{  message.sender.first_name }} {{  message.sender.last_name }}</p></div>
+                        {% if message.created %}
+                            <div class="post-date"><p>Received {{ message.created }}</p></div>
+                        {% endif %}
+                    </div>
+                </div>
+            <div style="clear:both;">
+                <div class="post-body">
+                    {{ message.text }}
+                    {% if message.image %}
+                        <img src="{{ message.image.url }}" width="100%">
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
 
 {% endblock %}

@@ -4,6 +4,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.urls import reverse
 from django.utils import timezone
+from django.contrib.auth.signals import user_logged_in
 
 
 # Create your models here.
@@ -146,3 +147,32 @@ class GroupInvite(models.Model):
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='invites_sent')
     receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='invites_received')
     created = models.DateTimeField(default=timezone.now)
+
+
+class PrivateMessage(models.Model):
+    text = models.TextField()
+    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='messages_sent')
+    receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='messages_received')
+    created = models.DateTimeField(default=timezone.now)
+    image = models.ImageField(null=True, blank=True, upload_to='messages/images')
+
+
+class DeviceLog(models.Model):
+    user = models.ManyToManyField(User, blank=True, related_name='device_log')
+    time = models.DateTimeField(default=timezone.now)
+    browser = models.TextField()
+    os = models.TextField()
+    device = models.TextField()
+
+
+def write_log(sender, user, request, **kwargs):
+    log = DeviceLog.objects.create(
+        browser=request.user_agent.browser,
+        os=request.user_agent.os,
+        device=request.user_agent.device
+    )
+    log.user.set([request.user])
+    return
+
+
+user_logged_in.connect(write_log)

@@ -7,17 +7,18 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.forms import modelformset_factory
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.views.decorators.http import require_POST
 from django.views.generic import DeleteView, UpdateView, ListView, CreateView, RedirectView
 from django.template.defaultfilters import slugify
 from django.db.models import Q
 
-from .models import Follow, Profile, Education, Experience, Post, Comment, Group, GroupPost, GroupInvite, PostImage
+from .models import Follow, Profile, Education, Experience, Post, Comment, Group, GroupPost, GroupInvite, PostImage, \
+    PrivateMessage
 from .forms import RegisterForm, ModifyProfileForm, ModifyUserForm, ModifyBioForm, ModifySkillsForm, \
     ModifyAchievementForm, ModifyExperienceForm, ModifyEducationForm, PostCreateForm, CommentCreateForm, ModifyPostForm, \
     GroupCreateForm, ModifyGroupForm, GroupPostCreateForm, ModifyGroupPostForm, GroupCommentCreateForm, \
-    GroupInviteCreateForm, ImageForm, ImageFormSet
+    GroupInviteCreateForm, ImageForm, ImageFormSet, PrivateMessageCreateForm
 
 
 def index(request):
@@ -241,7 +242,8 @@ def group_post_info(request, group_pk, post_pk):
 
 def inbox(request):
     invites = request.user.invites_received.all()
-    return render(request, 'user/inbox.html', {'invites': invites})
+    messages = request.user.messages_received.all()
+    return render(request, 'user/inbox.html', {'invites': invites, 'messages': messages})
 
 
 def accept_invite(request, group_pk, invite_pk):
@@ -501,3 +503,18 @@ class GroupInviteCreateView(CreateView):
         form_kwargs["user"] = self.request.user
         form_kwargs["group_pk"] = self.kwargs.get("group_pk")
         return form_kwargs
+
+
+class PrivateMessageCreateView(CreateView):
+    template_name = 'user/message.html'
+    model = PrivateMessage
+    form_class = PrivateMessageCreateForm
+
+    def form_valid(self, form):
+        form.instance.sender = self.request.user
+        form.instance.receiver = get_object_or_404(User, pk=self.kwargs.get("pk"))
+        return super(PrivateMessageCreateView, self).form_valid(form)
+
+    def get_success_url(self):
+        user = get_object_or_404(User, pk=self.kwargs.get("pk"))
+        return reverse_lazy('user_info', args=[user.username])

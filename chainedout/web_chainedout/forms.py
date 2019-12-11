@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404
 from django_summernote.widgets import SummernoteWidget
 
 from .models import Profile, Education, Experience, Post, Comment, Group, GroupPost, GroupComment, GroupInvite, \
-    PostImage
+    PostImage, PrivateMessage
 
 
 class RegisterForm(UserCreationForm):
@@ -182,3 +182,14 @@ class GroupInviteCreateForm(forms.ModelForm):
             self.fields['receiver'].queryset = sender.following.filter(~Q(user_groups__in=[group]))
             self.fields['receiver'].initial = 0
             self.fields['receiver'].label = 'User'
+
+
+class PrivateMessageCreateForm(forms.ModelForm):
+    class Meta:
+        model = PrivateMessage
+        fields = ['text', 'image']
+        labels = {
+            "text": "Message",
+            "image": "Image"
+        }
+
