@@ -170,9 +170,9 @@ class DeviceLog(models.Model):
 def write_log(sender, user, request, **kwargs):
     log = DeviceLog.objects.create(
         browser_family=request.user_agent.browser.family,
-        browser_version=request.user_agent.browser.version,
+        browser_version=request.user_agent.browser.version_string,
         os_family=request.user_agent.os.family,
-        os_version=request.user_agent.os.version,
+        os_version=request.user_agent.os.version_string,
         device_family=request.user_agent.device.family
     )
     log.user.set([request.user])

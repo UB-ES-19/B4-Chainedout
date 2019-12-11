@@ -369,10 +369,12 @@
         {% for device in user.device_log.all %}
             <div class="element">
                 <div class="edubox">
-                    <p>{{ device.time }}</p>
-                    <p>{{ device.browser_family }}</p>
-                    <p>{{ device.os_family }}</p>
-                    <p>{{ device.device_family }}</p>
+                    <p>Time: {{ device.time }}</p>
+                    <p>Browser: {{ device.browser_family }}</p>
+                    <p>Browser version: {{ device.browser_version }}</p>
+                    <p>Operating system: {{ device.os_family }}</p>
+                    <p>Operating system version: {{ device.os_version }}</p>
+                    <p>Device: {{ device.device_family }}</p>
                 </div>
                 <hr class="title_sep" />
             </div>
