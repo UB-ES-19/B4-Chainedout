@@ -148,8 +148,9 @@ def user_list(request):
         print("test")
         # ToDo: add attribute to profile that merges both first & last names
         query = request.GET.get('q')
-        profiles_result = Profile.objects.filter(user__first_name__contains=query) | Profile \
-            .objects.filter(user__last_name__contains=query) | Profile.objects.filter(name_organization__contains=query)
+        profiles_result = Profile.objects.filter((Q(user__first_name__contains=query) & Q(organization=False)) |
+                                                 (Q(user__last_name__contains=query) & Q(organization=False)) |
+                                                 Q(name_organization__contains=query) & Q(organization=True))
         usernames_result = [profile.user.username for profile in profiles_result]
         context = {
             'search': query,
