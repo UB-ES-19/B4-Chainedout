@@ -146,3 +146,11 @@ class GroupInvite(models.Model):
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='invites_sent')
     receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='invites_received')
     created = models.DateTimeField(default=timezone.now)
+
+
+class PrivateMessage(models.Model):
+    text = models.TextField()
+    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='messages_sent')
+    receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='messages_received')
+    created = models.DateTimeField(default=timezone.now)
+    image = models.ImageField(null=True, blank=True, upload_to='messages/images')
