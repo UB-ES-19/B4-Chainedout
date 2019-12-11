@@ -364,8 +364,12 @@
         <h1 class="title">Device Log</h1>
     </div>
 
+    <div class="right_box">
+        <a onclick="post_histo(document.getElementById('devicelog'), this.parentNode.parentNode.getElementsByClassName('elemprofile')[0])"><div class="elemprofile"><i class="fas fa-search-plus"></i> Show</div></a>
+    </div>
+
     <hr class="title_sep" />
-    <div id="info">
+    <div id="devicelog" style="display: none;">
         {% for device in user.device_log.all %}
             <div class="element">
                 <div class="edubox">
