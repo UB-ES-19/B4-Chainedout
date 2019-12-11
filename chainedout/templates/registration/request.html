@@ -1,18 +1,16 @@
 {% extends "header.html" %}
 
 {% block content %}
-    <form action="" method="post">
+    <form method="post">
         {% csrf_token %}
 
         <div class="check-box-cont">
-            <label for="organization" >You're an organization? (S/N):</label><br>
-            <div class="check-box-distance">
-                <input type="checkbox" name="org" value="organization" onclick="onlyOne(this)"> Yes <br>
-            </div>
-            <div class="check-box-distance">
-                <input type="checkbox" name="org" value="no" onclick="onlyOne(this)" > No <br>
-            </div>
-            <input type="submit" value="Next" class="nextbtn" />
+            {% for field in organization_form %}
+              <label class="mylabel"><b>{{ field.label }}</b></label>
+              {{ field }}
+            {% endfor %}
+            <button id="share-a-post" type="submit"> Submit </button>
         </div>
+
     </form>
 {% endblock %}

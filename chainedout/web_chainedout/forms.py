@@ -82,7 +82,9 @@ class RequestOrganization(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['organization']
-        labels = ['Organization']
+        labels = {
+            "organization": "Are you an organization?"
+        }
 
 
 class CommentCreateForm(forms.ModelForm):
