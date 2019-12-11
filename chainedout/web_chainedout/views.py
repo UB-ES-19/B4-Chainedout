@@ -32,7 +32,7 @@ def save_profile(request):
             skill_form = ModifySkillsForm(instance=request.user.profile)
             education_form = ModifyEducationForm(request.GET or None)
             experience_form = ModifyExperienceForm(request.GET or None)
-            job_form = ModifyEducationForm(request.GET or None)
+            job_form = ModifyJobsForm(request.GET or None)
             achievements_form = ModifyAchievementForm(instance=request.user.profile)
         elif 'submit_skill' in request.POST:
             skill_form = ModifySkillsForm(request.POST, instance=request.user.profile)
@@ -41,7 +41,7 @@ def save_profile(request):
             bio_form = ModifyBioForm(instance=request.user.profile)
             education_form = ModifyEducationForm(request.GET or None)
             experience_form = ModifyExperienceForm(request.GET or None)
-            job_form = ModifyEducationForm(request.GET or None)
+            job_form = ModifyJobsForm(request.GET or None)
             achievements_form = ModifyAchievementForm(instance=request.user.profile)
         elif 'submit_education' in request.POST:
             education_form = ModifyEducationForm(request.POST)
@@ -57,7 +57,7 @@ def save_profile(request):
             bio_form = ModifyBioForm(instance=request.user.profile)
             skill_form = ModifySkillsForm(instance=request.user.profile)
             experience_form = ModifyExperienceForm(request.GET or None)
-            job_form = ModifyEducationForm(request.GET or None)
+            job_form = ModifyJobsForm(request.GET or None)
             achievements_form = ModifyAchievementForm(instance=request.user.profile)
         elif 'submit_jobs' in request.POST:
             job_form = ModifyJobsForm(request.POST)
@@ -91,7 +91,7 @@ def save_profile(request):
             bio_form = ModifyBioForm(instance=request.user.profile)
             skill_form = ModifySkillsForm(instance=request.user.profile)
             education_form = ModifyEducationForm(request.GET or None)
-            job_form = ModifyEducationForm(request.GET or None)
+            job_form = ModifyJobsForm(request.GET or None)
             achievements_form = ModifyAchievementForm(instance=request.user.profile)
         elif 'submit_achievements' in request.POST:
             achievements_form = ModifyAchievementForm(request.POST, instance=request.user.profile)
@@ -100,12 +100,12 @@ def save_profile(request):
             bio_form = ModifyBioForm(instance=request.user.profile)
             skill_form = ModifySkillsForm(instance=request.user.profile)
             education_form = ModifyEducationForm(request.GET or None)
-            job_form = ModifyEducationForm(request.GET or None)
+            job_form = ModifyJobsForm(request.GET or None)
             experience_form = ModifyExperienceForm(request.GET or None)
     else:
         bio_form = ModifyBioForm(instance=request.user.profile)
         skill_form = ModifySkillsForm(instance=request.user.profile)
-        job_form = ModifyEducationForm(request.GET or None)
+        job_form = ModifyJobsForm(request.GET or None)
         education_form = ModifyEducationForm(request.GET or None)
         experience_form = ModifyExperienceForm(request.GET or None)
         achievements_form = ModifyAchievementForm(instance=request.user.profile)
