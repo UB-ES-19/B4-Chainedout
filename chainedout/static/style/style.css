@@ -423,8 +423,6 @@ body, html {
   font-style: normal;
   letter-spacing: 0em;
   text-transform: none;
-
-  height: 550px;
 }
 
 .landing-presentation .landing-presentation-title h1{
@@ -491,26 +489,24 @@ body, html {
 .landing-post-job{
   height: 300px;
   background-color: #f1ece5;
-  margin-top: 100px;
+  margin-top: 40px;
   min-width: 800px;
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  padding: 50px;
 }
 
 .landing-post-job h1{
   color: #b24020;
   font-weight: 200;
-  margin-left: 150px;
-  margin-top: 130px;
 
   letter-spacing: 0;
   line-height: 1em;
   text-transform: none;
   display: block;
-
-  position: absolute;
+  float: left;
 }
 
 .landing-post-job-button{
@@ -519,17 +515,14 @@ body, html {
   border-color: #b24020;
   border-width: 2px;
   transition: 0.1s background-color linear, 0.1s color linear;
-  width: 10%;
-  height: 6%;
 
   font-size: 20px;
   color: #b24020;
   text-align: center;
   padding: 12px;
-
-  position: absolute;
-  margin-left: 600px;
-  margin-top: 130px;
+  float: right;
+  text-decoration: none;
+  margin-right: 100px;
 }
 
 .landing-post-job-button:hover{
@@ -545,20 +538,18 @@ body, html {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  padding: 50px;
 }
 
 .landing-create-group h1{
   color: #b24020;
   font-weight: 200;
-  margin-left: 1200px;
-  margin-top: 130px;
 
   letter-spacing: 0;
   line-height: 1em;
   text-transform: none;
   display: block;
-
-  position: absolute;
+  float: left;
 }
 
 .landing-create-group-button{
@@ -567,17 +558,14 @@ body, html {
   border-color: #b24020;
   border-width: 2px;
   transition: 0.1s background-color linear, 0.1s color linear;
-  width: 12%;
-  height: 6%;
 
   font-size: 20px;
   color: #b24020;
   text-align: center;
   padding: 12px;
-
-  position: absolute;
-  margin-left: 800px;
-  margin-top: 130px;
+  float: right;
+  text-decoration: none;
+  margin-right: 100px;
 }
 
 .landing-create-group-button:hover{

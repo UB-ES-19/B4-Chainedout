@@ -17,7 +17,7 @@
         {% if not user.profile.organization %}
             <div id="profile">
                 <div id="profilebox">
-                    <h>USER</h>
+                    <!--<h>USER</h>-->
                     <div class="left_profile">
                         <div class="current">
                             {% if user.profile.image %}
@@ -41,7 +41,6 @@
                         <h3>{{ user.profile.location }}</h3>
                         <div class="friends">
                             <a href="{{ user.get_absolute_url }}"><span class="flink">Show Info</span></a> <i class="fas fabsep fa-circle"></i>
-                            <a href="{% url 'user_list' %}"><span class="flink">25 contacts</span></a> <i class="fas fabsep fa-circle"></i>
                             <a href="{% url 'user_list' %}"><span class="flink">{{ user.followers.count }} follower{{ user.followers.count|pluralize }}</span></a>
                         </div>
                     </div>
@@ -73,7 +72,7 @@
         {% else %}
             <div id="profile">
                 <div id="profilebox">
-                    <h>ORGANIZATION</h>
+                    <!--<h>ORGANIZATION</h>-->
                     <div class="left_profile">
                         <div class="current">
                             {% if user.profile.image %}
