@@ -1,0 +1,1 @@
+web: gunicorn chainedout.wsgi --log-file -
