@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/2.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
+import django_heroku
 from django.urls import reverse_lazy
 
 import os
@@ -26,7 +27,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'fsbysrmyg(cr_r&eh2c#5c6rj74a7$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 
 
 # Application definition
@@ -82,12 +83,13 @@ WSGI_APPLICATION = 'chainedout.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'dbchainedout',
         'USER': 'postgres',
         'PASSWORD': 'carloshui95',
-        'HOST': '',
-        'PORT': '5433',
+        'HOST': 'localhost',
+        'PORT': '',
+        'CONN_MAX_AGE': 500
     }
 }
 
@@ -163,3 +165,5 @@ DATABASES['default'].update(db_from_env)
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+django_heroku.settings(locals())
