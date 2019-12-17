@@ -1,1 +1,1 @@
-web: gunicorn chainedout.wsgi --log-file -
+web: gunicorn web_chainedout.wsgi --log-file -
