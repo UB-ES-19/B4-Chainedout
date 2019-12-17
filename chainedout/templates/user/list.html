@@ -1,6 +1,7 @@
 {% extends "header.html" %}
 
 {% block content %}
+{% load static %}
     <div class="search-result-title">
         <h1>Search results</h1>
     </div>
@@ -23,7 +24,7 @@
                             {% if user.profile.image %}
                                 <div class="current_avatar"><img src="{{ user.profile.image.url }}" width="512" alt="Avatar" class="profile_avatar"></div>
                             {% else %}
-                                <div class="current_avatar"><img src="/static/images/img_avatar.png" alt="Avatar" class="profile_avatar"></div>
+                                <div class="current_avatar"><img src="{% static "images/img_avatar.png" %}" alt="Avatar" class="profile_avatar"></div>
                             {% endif %}
                             <div class="current_work_education">
                                 {% if user.profile.educations.first %}
@@ -79,7 +80,7 @@
                             {% if user.profile.image %}
                                 <div class="current_avatar"><img src="{{ user.profile.image.url }}" width="512" alt="Avatar" class="profile_avatar"></div>
                             {% else %}
-                                <div class="current_avatar"><img src="/static/images/img_avatar.png" alt="Avatar" class="profile_avatar"></div>
+                                <div class="current_avatar"><img src="{% static "images/img_avatar.png" %}" alt="Avatar" class="profile_avatar"></div>
                             {% endif %}
                         </div>
 

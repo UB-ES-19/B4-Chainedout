@@ -1,6 +1,7 @@
 {% extends "header.html" %}
 
 {% block content %}
+{% load static %}
 
     <div class="posts-page">
 
@@ -9,7 +10,7 @@
                 {% if group_post.author.profile.image %}
                     <img src="{{ group_post.author.profile.image.url }}" width="128" alt="Avatar" class="post-profile_avatar">
                 {% else %}
-                    <img src="/static/images/img_avatar.png" width="128" alt="Avatar" class="post-profile_avatar">
+                    <img src="{% static "images/img_avatar.png" %}" width="128" alt="Avatar" class="post-profile_avatar">
                 {% endif %}
                 <div class="post-user-information">
                     <div class="post-name"><p>{{ group_post.author.first_name }} {{ post.author.last_name }}</p></div>
@@ -79,7 +80,7 @@
                             {% if comment.author.profile.image %}
                                 <img src="{{ comment.author.profile.image.url }}" width="128" alt="Avatar" class="post-profile_avatar">
                             {% else %}
-                                <img src="/static/images/img_avatar.png" width="128" alt="Avatar" class="post-profile_avatar">
+                                <img src="{% static "images/img_avatar.png" %}" width="128" alt="Avatar" class="post-profile_avatar">
                             {% endif %}
                             <div class="post-user-information">
                                 <div class="post-name" style="font-size: 13px;"><p><b>{{ comment.author.first_name }} {{ comment.author.last_name }}</b></p></div>

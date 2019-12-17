@@ -1,13 +1,15 @@
 {% extends "header.html" %}
 
 {% block content %}
+{% load static %}
+
     <div class="group-profile">
         <div class="group-profilebox">
             <div class="current">
                 {% if group.image %}
                     <div class="current_group_avatar"><img src="{{ group.image.url }}" width="512" alt="Avatar" class="group_avatar"></div>
                 {% else %}
-                    <div class="current_group_avatar"><img src="/static/images/img_avatar.png" alt="Avatar" class="group_avatar"></div>
+                    <div class="current_group_avatar"><img src="{% static "images/img_avatar.png" %}" alt="Avatar" class="group_avatar"></div>
                 {% endif %}
             </div>
 
@@ -79,7 +81,7 @@
                             {% if member.profile.image %}
                                 <img src="{{ member.profile.image.url }}" width="128" alt="Avatar" class="post-profile_avatar">
                             {% else %}
-                                <img src="/static/images/img_avatar.png" width="128" alt="Avatar" class="post-profile_avatar">
+                                <img src="{% static "images/img_avatar.png" %}" width="128" alt="Avatar" class="post-profile_avatar">
                             {% endif %}
                         </a>
                     </div>
@@ -96,7 +98,7 @@
                         {% if user.profile.image %}
                             <img src="{{ user.profile.image.url }}" width="128" alt="Avatar" class="post-profile_avatar">
                         {% else %}
-                            <img src="/static/images/img_avatar.png" width="128" alt="Avatar" class="post-profile_avatar">
+                            <img src="{% static "images/img_avatar.png" %}" width="128" alt="Avatar" class="post-profile_avatar">
                         {% endif %}
                     </div>
                     <div class = "post-info-user">
@@ -122,7 +124,7 @@
                         {% if post.author.profile.image %}
                             <img src="{{ post.author.profile.image.url }}" width="128" alt="Avatar" class="post-profile_avatar">
                         {% else %}
-                            <img src="/static/images/img_avatar.png" width="128" alt="Avatar" class="post-profile_avatar">
+                            <img src="{% static "images/img_avatar.png" %}" width="128" alt="Avatar" class="post-profile_avatar">
                         {% endif %}
                         <div class="post-user-information">
                             <div class="post-name"><p>{{ post.author.first_name }} {{ post.author.last_name }}</p></div>
