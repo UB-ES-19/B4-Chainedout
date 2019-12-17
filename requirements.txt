@@ -7,6 +7,7 @@ django-summernote==0.8.11.4
 django-tinymce==2.8.0
 django-user-agents==0.4.0
 django-widget-tweaks==1.4.5
+django-heroku==0.3.1
 future==0.18.2
 gunicorn==20.0.4
 numpy==1.17.4
