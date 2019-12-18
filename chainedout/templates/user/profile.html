@@ -37,9 +37,9 @@
         <div class="data">
             {% if user.profile.website %}
                 <span class="info_data"><i class="fas fa-link"></i> <a href="http://{{ user.profile.website }}">{{ user.profile.website }}</a></span>
+            <i class="fas fabsep fa-circle"></i>
             {% endif %}
             {% if user.email %}
-                <i class="fas fabsep fa-circle"></i>
                 <span class="info_data"><i class="fas fa-paper-plane"></i> <a href="mailto:{{ user.email }}">{{ user.email }}</a></span>
             {% endif %}
             {% if user.profile.phone and user.profile.phone != 0 %}
@@ -49,7 +49,6 @@
         </div>
     <div class="friends">
             <a href="{{ user.get_absolute_url }}"><span class="flink">Show Info</span></a> <i class="fas fabsep fa-circle"></i>
-            <a href="{% url 'user_list' %}"><span class="flink">25 contacts</span></a><i class="fas fabsep fa-circle"></i>
             <a href="{% url 'user_list' %}"><span class="flink">{{ user.followers.count }} follower{{ user.followers.count|pluralize }}</span></a>
             {% if not request.user.is_authenticated %}
                 <a href="{% url 'register' %}"><span class="flink">Register</span></a>
